@@ -1,0 +1,32 @@
+package dao;
+
+import hbt.HibernateUtil;
+
+import java.util.List;
+
+import org.hibernate.Session;
+
+import entity.*;
+
+public class RodamientoDAO {
+
+	private static RodamientoDAO instancia;
+	
+	private RodamientoDAO(){};
+	
+	public static RodamientoDAO getInstancia(){
+		if(instancia==null)
+			instancia = new RodamientoDAO();
+		return instancia;
+	}
+	
+	public List<RodamientoEntity> obtenerRodamientos(){
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		
+		@SuppressWarnings("unchecked")
+		List<RodamientoEntity> rodamientos = s.createQuery("from RodamientoEntity").list();
+		
+		return rodamientos;
+	}
+	
+}
