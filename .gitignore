@@ -8,6 +8,8 @@
 *.war
 *.ear
 
+.project
+.classpath
 bin/
 java.policy
 build/
