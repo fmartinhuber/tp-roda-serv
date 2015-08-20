@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import entity.*;
+import bean.RodamientoBean;
 
 public class RodamientoDAO {
 
@@ -20,11 +20,11 @@ public class RodamientoDAO {
 		return instancia;
 	}
 	
-	public List<RodamientoEntity> obtenerRodamientos(){
+	public List<RodamientoBean> obtenerRodamientos(){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<RodamientoEntity> rodamientos = s.createQuery("from RodamientoEntity").list();
+		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoEntity").list();
 		
 		return rodamientos;
 	}

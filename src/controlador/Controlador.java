@@ -1,17 +1,17 @@
 package controlador;
 
-import interfaces.ManejoDatos;
+import interfaces.IAdministracionOV;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.RodamientoBean;
+import bean.RodamientoBean;
 import dao.RodamientoDAO;
-import entity.RodamientoEntity;
+import dto.RodamientoDto;
 
-public class Controlador extends UnicastRemoteObject implements ManejoDatos {
+public class Controlador extends UnicastRemoteObject implements IAdministracionOV {
 
 	/**
 	 * 
@@ -23,21 +23,21 @@ public class Controlador extends UnicastRemoteObject implements ManejoDatos {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<RodamientoBean> obtenerRodamientos() throws RemoteException {
+	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
 		
-		List<RodamientoBean> rodamientosDto = new ArrayList<RodamientoBean>();
-		List<RodamientoEntity> rodamientosEntity = new ArrayList<RodamientoEntity>();
+		List<RodamientoDto> rodamientosDto = new ArrayList<RodamientoDto>();
+		List<RodamientoBean> rodamientosEntity = new ArrayList<RodamientoBean>();
 		
 		rodamientosEntity = RodamientoDAO.getInstancia().obtenerRodamientos();
 		
-		for(RodamientoEntity r : rodamientosEntity){
-			RodamientoBean aux = new RodamientoBean();
-			aux.setCodigo(r.getCodigo());
-			aux.setMarca(r.getMarca());
-			aux.setOrigen(r.getOrigen());
-			aux.setPrecio(r.getPrecio());
-			rodamientosDto.add(aux);
-		}
+//		for(RodamientoEntity r : rodamientosEntity){
+//			RodamientoBean aux = new RodamientoBean(null);
+//			aux.setCodigo(r.getCodigo());
+//			aux.setMarca(r.getMarca());
+//			aux.setOrigen(r.getOrigen());
+//			aux.setPrecio(r.getPrecio());
+//			rodamientosDto.add(aux);
+//		}
 		
 		return rodamientosDto;
 	}

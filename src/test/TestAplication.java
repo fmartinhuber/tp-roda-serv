@@ -4,8 +4,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.RodamientoBean;
+import bean.RodamientoBean;
 import controlador.Controlador;
+import dto.RodamientoDto;
 
 public class TestAplication {
 
@@ -13,7 +14,7 @@ public class TestAplication {
 
 		Controlador c = new Controlador();
 		
-		List<RodamientoBean> aux = new ArrayList<RodamientoBean>();
+		List<RodamientoDto> aux = new ArrayList<RodamientoDto>();
 		aux = c.obtenerRodamientos();
 		
 		System.out.println("===================================================================================");
@@ -22,9 +23,9 @@ public class TestAplication {
 		System.out.println();		
 		System.out.println();
 				
-		for (RodamientoBean r : aux){
-			System.out.println("Codigo: " +r.getCodigo() + " \t Marca: " +r.getMarca() + " \t Origen: " +r.getOrigen() + " \t Precio: " + r.getPrecio());
-		}
+//		for (RodamientoBean r : aux){
+//			System.out.println("Codigo: " +r.getCodigo() + " \t Marca: " +r.getMarca() + " \t Origen: " +r.getOrigen() + " \t Precio: " + r.getPrecio());
+//		}
 		System.out.println();
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
