@@ -18,7 +18,7 @@ import java.util.List;
 import javax.persistence.*;
 
 
-public class CPRBean
+public class CCBean
 {
 	private List <OrdenCompraBean> ordenesP;
 	private List <RodamientoBean> rodamientos;

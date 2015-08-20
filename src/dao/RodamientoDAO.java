@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 import bean.RodamientoBean;
 
-public class RodamientoDAO {
+public class RodamientoDAO extends HibernateDAO{
 
 	private static RodamientoDAO instancia;
 	

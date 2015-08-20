@@ -1,6 +1,6 @@
 package controlador;
 
-import interfaces.IAdministracionOV;
+import interfaces.IAdministracionODV;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -11,14 +11,14 @@ import bean.RodamientoBean;
 import dao.RodamientoDAO;
 import dto.RodamientoDto;
 
-public class AdministracionOV extends UnicastRemoteObject implements IAdministracionOV {
+public class AdministracionODV extends UnicastRemoteObject implements IAdministracionODV {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AdministracionOV() throws RemoteException {
+	public AdministracionODV() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
