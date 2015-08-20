@@ -11,14 +11,14 @@ import bean.RodamientoBean;
 import dao.RodamientoDAO;
 import dto.RodamientoDto;
 
-public class Controlador extends UnicastRemoteObject implements IAdministracionOV {
+public class AdministracionOV extends UnicastRemoteObject implements IAdministracionOV {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Controlador() throws RemoteException {
+	public AdministracionOV() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
