@@ -12,7 +12,7 @@ public class ClienteBean{
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-		private int idCliente;
+	private int idCliente;
 	private String razonSocial;
 	private String mail;
 	private int CUIT;
@@ -46,7 +46,6 @@ public class ClienteBean{
 	
 	public ClienteBean(ClienteDto c) {
 		super();
-		this.idCliente = c.getIdCliente();
 		this.razonSocial = c.getRazonSocial();
 		this.mail = c.getMail();
 		this.CUIT = c.getCUIT();

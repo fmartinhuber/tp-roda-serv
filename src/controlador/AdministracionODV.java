@@ -9,6 +9,11 @@ import java.util.List;
 
 import bean.RodamientoBean;
 import dao.RodamientoDAO;
+import dto.ClienteDto;
+import dto.CotizacionDto;
+import dto.EnvioDto;
+import dto.FacturaDto;
+import dto.RemitoDto;
 import dto.RodamientoDto;
 
 public class AdministracionODV extends UnicastRemoteObject implements IAdministracionODV {
@@ -40,6 +45,27 @@ public class AdministracionODV extends UnicastRemoteObject implements IAdministr
 //		}
 		
 		return rodamientosDto;
+	}
+
+	@Override
+	public CotizacionDto generarCotizacion(List<RodamientoDto> listaRodamientos)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FacturaDto generarFactura(ClienteDto cliente,
+			CotizacionDto cotizacion) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EnvioDto entregaPedidos(ClienteDto cliente, RemitoDto remito)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

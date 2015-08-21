@@ -23,7 +23,7 @@ public class CotizacionBean{
 		private List<ItemCotizacionBean> items;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="cotizacion_cliente")
-		private ClienteBean cliente; 
+	private ClienteBean cliente; 
 	private Date fecha;
 	private float total;
 	
@@ -72,7 +72,6 @@ public class CotizacionBean{
 
 	public CotizacionBean(CotizacionDto c) {
 		super();
-		this.idCotizacion = c.getIdCotizacion();
 		this.estado = c.getEstado();
 		List <ItemCotizacionBean> items=new ArrayList <ItemCotizacionBean>();
 		for(ItemCotizacionDto co:c.getItems())
