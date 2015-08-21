@@ -11,17 +11,13 @@ public class HibernateUtil {
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
 	        
-	        	 config.addAnnotatedClass(bean.CCBean.class);
 	             config.addAnnotatedClass(bean.ClienteBean.class);
 	        	 config.addAnnotatedClass(bean.CotizacionBean.class);
 	        	 config.addAnnotatedClass(bean.FacturaBean.class);
 	        	 config.addAnnotatedClass(bean.ItemCotizacionBean.class);
 	        	 config.addAnnotatedClass(bean.ItemFacturaBean.class);
 	        	 config.addAnnotatedClass(bean.ItemOrdenCompraBean.class);
-	        	 config.addAnnotatedClass(bean.ItemOrdenPedidoBean.class);	        	 
-	        	 config.addAnnotatedClass(bean.ODVBean.class);
 	        	 config.addAnnotatedClass(bean.OrdenCompraBean.class);
-	        	 config.addAnnotatedClass(bean.OrdenPedidoBean.class);
 	        	 config.addAnnotatedClass(bean.ProveedorBean.class);
 	        	 config.addAnnotatedClass(bean.RemitoBean.class);
 	        	 config.addAnnotatedClass(bean.RodamientoBean.class);

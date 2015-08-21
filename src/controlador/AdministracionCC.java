@@ -3,9 +3,10 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import utils.Item;
 import dto.ClienteDto;
 import dto.CotizacionDto;
-import dto.EnvioDto;
+import dto.EnvioAOVDto;
 import dto.FacturaDto;
 import dto.RemitoDto;
 import dto.RodamientoDto;
@@ -20,24 +21,24 @@ public class AdministracionCC implements IAdministracionODV {
 	}
 
 	@Override
-	public CotizacionDto generarCotizacion(List<RodamientoDto> listaRodamientos)
-			throws RemoteException {
+	public CotizacionDto generarCotizacion(List<Item> listaItems,
+			ClienteDto cliente) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public FacturaDto generarFactura(ClienteDto cliente,
-			CotizacionDto cotizacion) throws RemoteException {
+			List<CotizacionDto> cotizaciones) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public EnvioDto entregaPedidos(ClienteDto cliente, RemitoDto remito)
-			throws RemoteException {
+	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

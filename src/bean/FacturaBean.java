@@ -17,9 +17,6 @@ public class FacturaBean{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="factura_cliente")
 		private ClienteBean cliente;
-	@OneToOne
-	@JoinColumn(name="factura_pedido")
-		private OrdenPedidoBean pedido;
 	private float descuento;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="factura_item")
@@ -40,13 +37,6 @@ public class FacturaBean{
 	}
 	public void setItems(List<ItemFacturaBean> items) {
 		this.items = items;
-	}
-	
-	public OrdenPedidoBean getPedido() {
-		return pedido;
-	}
-	public void setPedido(OrdenPedidoBean pedido) {
-		this.pedido = pedido;
 	}
 	public int getIdFactura() {
 		return idFactura;

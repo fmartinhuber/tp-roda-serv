@@ -15,7 +15,7 @@ import dto.ItemCotizacionDto;
 public class CotizacionBean{
 	
 	@Id
-	//@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 		private int idCotizacion;
 	private String estado;
 	@OneToMany(cascade=CascadeType.ALL)

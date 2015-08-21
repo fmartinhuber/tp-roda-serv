@@ -12,28 +12,9 @@ public class ItemFacturaBean {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 		private int idItemFactura;
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="item_orden")
-		private OrdenPedidoBean orden;
+	@JoinColumn(name="item_cotizacion")
+		private CotizacionBean cotizacion;
 	private float subtotal;
 	
-		
 	
-	public int getIdItemFactura() {
-		return idItemFactura;
-	}
-	public void setIdItemFactura(int idItemFactura) {
-		this.idItemFactura = idItemFactura;
-	}
-	public OrdenPedidoBean getOrden() {
-		return orden;
-	}
-	public void setOrden(OrdenPedidoBean orden) {
-		this.orden = orden;
-	}
-	public float getSubtotal() {
-		return subtotal;
-	}
-	public void setSubtotal(float subtotal) {
-		this.subtotal = subtotal;
-	}
 }
