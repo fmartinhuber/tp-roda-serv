@@ -7,7 +7,6 @@
 *.jar
 *.war
 *.ear
-
 .project
 .classpath
 bin/
@@ -18,3 +17,6 @@ build/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+#Saco los .properties para que no nos pisemos el hibernate.properties
+*.properties
