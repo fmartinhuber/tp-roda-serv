@@ -4,20 +4,29 @@ import javax.persistence.*;
 
 import dto.ItemCotizacionDto;
 
+
+
 @Entity
 @Table(name="ItemCotizacion")
-
-public class ItemCotizacionBean
-{
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int numero; 
-
+public class ItemCotizacionBean{
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+		private int idItemCotizacion; 
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_rodamiento")
-	private RodamientoBean rodamiento;
+		private RodamientoBean rodamiento;
 	private int cant;
 	private float subtotal;
 	
+		
+	
+	public int getIdItemCotizacion() {
+		return idItemCotizacion;
+	}
+	public void setIdItemCotizacion(int idItemCotizacion) {
+		this.idItemCotizacion = idItemCotizacion;
+	}
 	public float getSubtotal() {
 		return subtotal;
 	}
@@ -36,6 +45,7 @@ public class ItemCotizacionBean
 	public void setCant(int cant) {
 		this.cant = cant;
 	}
+	
 	public ItemCotizacionBean(ItemCotizacionDto i) {
 		super();
 		RodamientoBean r=new RodamientoBean(i.getRodamiento());

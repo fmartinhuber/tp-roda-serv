@@ -12,8 +12,6 @@ public class RodamientoDAO extends HibernateDAO{
 
 	private static RodamientoDAO instancia;
 	
-	private RodamientoDAO(){};
-	
 	public static RodamientoDAO getInstancia(){
 		if(instancia==null)
 			instancia = new RodamientoDAO();
@@ -24,7 +22,7 @@ public class RodamientoDAO extends HibernateDAO{
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoEntity").list();
+		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoBean").list();
 		
 		return rodamientos;
 	}

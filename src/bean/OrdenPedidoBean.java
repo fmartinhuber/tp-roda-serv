@@ -1,27 +1,30 @@
 package bean;
 
-import java.util.List;
-
+import java.util.*;
 import javax.persistence.*;
 
 
 
 @Entity
 @Table(name="OrdenPedido")
-public class OrdenPedidoBean
-{
-	@Id @GeneratedValue (strategy=GenerationType.AUTO)
-	private int numero;
+public class OrdenPedidoBean{
+	
+	@Id 
+	@GeneratedValue (strategy=GenerationType.AUTO)
+		private int idOrdenPedido;
 	@OneToMany(cascade=CascadeType.ALL)
-	private List <ItemOrdenPedidoBean> items;
+		private List <ItemOrdenPedidoBean> items;
 	@OneToOne(cascade=CascadeType.ALL)
-	private ClienteBean cliente;
+		private ClienteBean cliente;
 	private String estado;
-	public int getNumero() {
-		return numero;
+	
+	
+		
+	public int getIdOrdenPedido() {
+		return idOrdenPedido;
 	}
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setIdOrdenPedido(int idOrdenPedido) {
+		this.idOrdenPedido = idOrdenPedido;
 	}
 	public List<ItemOrdenPedidoBean> getItems() {
 		return items;

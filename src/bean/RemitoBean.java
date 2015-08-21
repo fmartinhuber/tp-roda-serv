@@ -1,31 +1,35 @@
 package bean;
 
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 import javax.persistence.*;
+
 
 
 @Entity
 @Table(name="Remito")
-public class RemitoBean
-{
-	@Id @GeneratedValue (strategy=GenerationType.AUTO)
-	private int numero;
+public class RemitoBean{
+	
+	@Id 
+	@GeneratedValue (strategy=GenerationType.AUTO)
+		private int idRemito;
 	private String estado;
 	@OneToOne (cascade=CascadeType.ALL)
 	@JoinColumn(name="remito_cliente")
-	private ClienteBean cliente;
+		private ClienteBean cliente;
 	@OneToMany
 	@JoinColumn(name="remito_orden")
-	private List <OrdenPedidoBean> ordenes;
+		private List <OrdenPedidoBean> ordenes;
 	private String comentarios;
 	private Date fecha;
-	public int getNumero() {
-		return numero;
+	
+	
+	
+	
+	public int getIdRemito() {
+		return idRemito;
 	}
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setIdRemito(int idRemito) {
+		this.idRemito = idRemito;
 	}
 	public String getEstado() {
 		return estado;

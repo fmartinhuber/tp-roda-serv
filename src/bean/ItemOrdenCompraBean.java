@@ -1,18 +1,29 @@
 package bean;
+
 import javax.persistence.*;
 
 
 
 @Entity
 @Table(name="ItemOrdenCompra")
-public class ItemOrdenCompraBean
-{
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int numero;
+public class ItemOrdenCompraBean{
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+		private int idItemOrdenCompra;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_orden")
-	private OrdenPedidoBean ordenPedido;
+		private OrdenPedidoBean ordenPedido;
 	private float monto;
+	
+	
+		
+	public int getIdItemOrdenCompra() {
+		return idItemOrdenCompra;
+	}
+	public void setIdItemOrdenCompra(int idItemOrdenCompra) {
+		this.idItemOrdenCompra = idItemOrdenCompra;
+	}
 	public OrdenPedidoBean getOrdenPedido() {
 		return ordenPedido;
 	}

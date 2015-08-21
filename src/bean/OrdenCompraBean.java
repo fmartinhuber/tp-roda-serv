@@ -1,23 +1,32 @@
 package bean;
 
-import java.util.List;
-
+import java.util.*;
 import javax.persistence.*;
+
 
 
 @Entity
 @Table(name="OrdenCompra")
-public class OrdenCompraBean
-{
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int numero;
+public class OrdenCompraBean{
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+		private int idOrdenCompra;
 	private String formaPago;
 	private float total;
 	private float descuento;
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="ordenC_item")
-	private List <ItemOrdenCompraBean> items;
+		private List <ItemOrdenCompraBean> items;
+		
 	
+	
+	public int getIdOrdenCompra() {
+		return idOrdenCompra;
+	}
+	public void setIdOrdenCompra(int idOrdenCompra) {
+		this.idOrdenCompra = idOrdenCompra;
+	}
 	public String getFormaPago() {
 		return formaPago;
 	}

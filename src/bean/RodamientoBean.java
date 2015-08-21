@@ -1,4 +1,3 @@
-
 package bean;
 
 import javax.persistence.*;
@@ -6,12 +5,14 @@ import javax.persistence.*;
 import dto.RodamientoDto;
 
 
+
 @Entity
 @Table(name="Rodamiento")
-public class RodamientoBean
-{
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int IdRodamiento; 
+public class RodamientoBean{
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+		private int IdRodamiento; 
 	private String tipo;
 	private String codigo;
 	private int stock;
@@ -22,6 +23,8 @@ public class RodamientoBean
 	private float monto;
 	private String nombre;
 	private String pais;
+	
+	
 	
 	public int getIdRodamiento() {
 		return IdRodamiento;

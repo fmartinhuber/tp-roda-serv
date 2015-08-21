@@ -3,19 +3,6 @@ package hbt;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import bean.ClienteBean;
-import bean.CotizacionBean;
-import bean.FacturaBean;
-import bean.ItemCotizacionBean;
-import bean.ItemFacturaBean;
-import bean.ItemOrdenPedidoBean;
-import bean.ODVBean;
-import bean.OrdenCompraBean;
-import bean.OrdenPedidoBean;
-import bean.ProveedorBean;
-import bean.RemitoBean;
-import bean.RodamientoBean;
-
 public class HibernateUtil {
 	 private static final SessionFactory sessionFactory;
 	    static
@@ -24,19 +11,21 @@ public class HibernateUtil {
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
 	        
-	             config.addAnnotatedClass(RodamientoBean.class);	                    
-	             config.addAnnotatedClass(ClienteBean.class);
-	        	 config.addAnnotatedClass(CotizacionBean.class);
-	        	 config.addAnnotatedClass(FacturaBean.class);
-	        	 config.addAnnotatedClass(ItemCotizacionBean.class);
-	        	 config.addAnnotatedClass(ItemOrdenPedidoBean.class);
-	        	 config.addAnnotatedClass(ItemFacturaBean.class);
-	        	 config.addAnnotatedClass(ODVBean.class);
-	        	 config.addAnnotatedClass(OrdenPedidoBean.class);
-	        	 config.addAnnotatedClass(OrdenCompraBean.class);
-	        	 config.addAnnotatedClass(ProveedorBean.class);
-	        	 config.addAnnotatedClass(RemitoBean.class);
-	        	 config.addAnnotatedClass(RodamientoBean.class);
+	        	 config.addAnnotatedClass(bean.CCBean.class);
+	             config.addAnnotatedClass(bean.ClienteBean.class);
+	        	 config.addAnnotatedClass(bean.CotizacionBean.class);
+	        	 config.addAnnotatedClass(bean.FacturaBean.class);
+	        	 config.addAnnotatedClass(bean.ItemCotizacionBean.class);
+	        	 config.addAnnotatedClass(bean.ItemFacturaBean.class);
+	        	 config.addAnnotatedClass(bean.ItemOrdenCompraBean.class);
+	        	 config.addAnnotatedClass(bean.ItemOrdenPedidoBean.class);	        	 
+	        	 config.addAnnotatedClass(bean.ODVBean.class);
+	        	 config.addAnnotatedClass(bean.OrdenCompraBean.class);
+	        	 config.addAnnotatedClass(bean.OrdenPedidoBean.class);
+	        	 config.addAnnotatedClass(bean.ProveedorBean.class);
+	        	 config.addAnnotatedClass(bean.RemitoBean.class);
+	        	 config.addAnnotatedClass(bean.RodamientoBean.class);
+	        	 
 	             sessionFactory = config.buildSessionFactory();
 	        }
 	        catch (Throwable ex)

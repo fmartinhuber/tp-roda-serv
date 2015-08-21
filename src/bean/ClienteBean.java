@@ -8,13 +8,17 @@ import dto.ClienteDto;
 
 @Entity
 @Table(name="Cliente")
-public class ClienteBean
-{
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int numero;
+public class ClienteBean{
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+		private int idCliente;
 	private String razonSocial;
 	private String mail;
 	private int CUIT;
+	
+	
+	
 	public String getRazonSocial() {
 		return razonSocial;
 	}
@@ -33,15 +37,16 @@ public class ClienteBean
 	public void setCUIT(int cUIT) {
 		this.CUIT = cUIT;
 	}
-	public int getNumero() {
-		return numero;
+	public int getIdCliente() {
+		return idCliente;
 	}
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
+	
 	public ClienteBean(ClienteDto c) {
 		super();
-		this.numero = c.getNumero();
+		this.idCliente = c.getIdCliente();
 		this.razonSocial = c.getRazonSocial();
 		this.mail = c.getMail();
 		this.CUIT = c.getCUIT();
