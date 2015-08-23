@@ -15,12 +15,6 @@ import interfaces.IAdministracionODV;
 public class AdministracionCC implements IAdministracionODV {
 
 	@Override
-	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public CotizacionDto generarCotizacion(List<Item> listaItems,
 			ClienteDto cliente) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -36,6 +30,19 @@ public class AdministracionCC implements IAdministracionODV {
 
 	@Override
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean abmCliente(ClienteDto cliente, String accion)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

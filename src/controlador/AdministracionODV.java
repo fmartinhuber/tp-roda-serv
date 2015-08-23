@@ -26,25 +26,6 @@ public class AdministracionODV extends UnicastRemoteObject implements IAdministr
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
-		
-		List<RodamientoDto> rodamientosDto = new ArrayList<RodamientoDto>();
-		List<RodamientoBean> rodamientosEntity = new ArrayList<RodamientoBean>();
-		
-		rodamientosEntity = RodamientoDAO.getInstancia().obtenerRodamientos();
-		
-//		for(RodamientoEntity r : rodamientosEntity){
-//			RodamientoBean aux = new RodamientoBean(null);
-//			aux.setCodigo(r.getCodigo());
-//			aux.setMarca(r.getMarca());
-//			aux.setOrigen(r.getOrigen());
-//			aux.setPrecio(r.getPrecio());
-//			rodamientosDto.add(aux);
-//		}
-		
-		return rodamientosDto;
-	}
-
 	@Override
 	public CotizacionDto generarCotizacion(List<Item> listaItems,
 			ClienteDto cliente) throws RemoteException {
@@ -61,6 +42,19 @@ public class AdministracionODV extends UnicastRemoteObject implements IAdministr
 
 	@Override
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean abmCliente(ClienteDto cliente, String accion)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
