@@ -2,8 +2,6 @@ package bean;
 
 import javax.persistence.*;
 
-import dto.ItemCotizacionDto;
-
 
 
 @Entity
@@ -24,34 +22,34 @@ public class ItemCotizacionBean{
 	public int getIdItemCotizacion() {
 		return idItemCotizacion;
 	}
+	
 	public void setIdItemCotizacion(int idItemCotizacion) {
 		this.idItemCotizacion = idItemCotizacion;
 	}
+	
 	public float getSubtotal() {
 		return subtotal;
 	}
+	
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
 	}
+	
 	public RodamientoBean getRodamiento() {
 		return rodamiento;
 	}
+	
 	public void setRodamiento(RodamientoBean rodamiento) {
 		this.rodamiento = rodamiento;
 	}
+	
 	public int getCant() {
 		return cant;
 	}
+	
 	public void setCant(int cant) {
 		this.cant = cant;
 	}
 	
-	public ItemCotizacionBean(ItemCotizacionDto i) {
-		super();
-		RodamientoBean r=new RodamientoBean(i.getRodamiento());
-		this.rodamiento = r;
-		this.cant = i.getCant();
-//		this.subtotal=i.getSubtotal();
-	}
 	
 }

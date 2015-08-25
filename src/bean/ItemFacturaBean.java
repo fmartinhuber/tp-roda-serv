@@ -17,4 +17,30 @@ public class ItemFacturaBean {
 	private float subtotal;
 	
 	
+	
+	public int getIdItemFactura() {
+		return idItemFactura;
+	}
+	
+	public void setIdItemFactura(int idItemFactura) {
+		this.idItemFactura = idItemFactura;
+	}
+	
+	public CotizacionBean getCotizacion() {
+		return cotizacion;
+	}
+	
+	public void setCotizacion(CotizacionBean cotizacion) {
+		this.cotizacion = cotizacion;
+	}
+	
+	public float getSubtotal() {
+		return subtotal;
+	}
+	
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
+	}
+	
+	
 }

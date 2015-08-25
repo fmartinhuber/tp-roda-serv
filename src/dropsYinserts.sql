@@ -12,15 +12,7 @@ drop table ItemOrdenCompra
 go
 drop table OrdenCompra
 go
-drop table OrdenPedido_ItemOrdenPedido
-go
 drop table Factura
-go
-drop table ItemOrdenPedido
-go
-drop table OrdenPedido
-go
-drop table Remito
 go
 drop table ItemCotizacion
 go
@@ -30,9 +22,9 @@ drop table Cotizacion
 go
 drop table Proveedor
 go
-drop table Cliente
+drop table Remito
 go
-drop table ODV
+drop table Cliente
 go
 
 --------------------------------------------------

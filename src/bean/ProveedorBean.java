@@ -14,7 +14,7 @@ public class ProveedorBean{
 		private int IdProveedor;
 	private String nombre;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="Rodamiento_proveedor")
+	@JoinColumn(name="rodamiento_proveedor")
 		private List<RodamientoBean> Rodamientos;
 	
 	
@@ -22,19 +22,26 @@ public class ProveedorBean{
 	public int getIdProveedor() {
 		return IdProveedor;
 	}
+	
 	public void setIdProveedor(int idProveedor) {
 		IdProveedor = idProveedor;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 	public List<RodamientoBean> getRodamientos() {
 		return Rodamientos;
 	}
+	
 	public void setRodamientos(List<RodamientoBean> rodamientos) {
 		Rodamientos = rodamientos;
 	}
+	
+	
 }

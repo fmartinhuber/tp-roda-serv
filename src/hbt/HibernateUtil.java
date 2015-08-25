@@ -10,7 +10,7 @@ public class HibernateUtil {
 	        try
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
-	        
+	        	 
 	             config.addAnnotatedClass(bean.ClienteBean.class);
 	        	 config.addAnnotatedClass(bean.CotizacionBean.class);
 	        	 config.addAnnotatedClass(bean.FacturaBean.class);

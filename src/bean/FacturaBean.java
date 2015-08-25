@@ -35,36 +35,47 @@ public class FacturaBean{
 	public List<ItemFacturaBean> getItems() {
 		return items;
 	}
+	
 	public void setItems(List<ItemFacturaBean> items) {
 		this.items = items;
 	}
+	
 	public int getIdFactura() {
 		return idFactura;
 	}
+	
 	public void setIdFactura(int idFactura) {
 		this.idFactura = idFactura;
 	}
+	
 	public String getEstado() {
 		return estado;
 	}
+	
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
 	public Date getFecha() {
 		return fecha;
 	}
+	
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+	
 	public ClienteBean getCliente() {
 		return cliente;
 	}
+	
 	public void setCliente(ClienteBean cliente) {
 		this.cliente = cliente;
 	}
+	
 	public float getDescuento() {
 		return descuento;
 	}
+	
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
