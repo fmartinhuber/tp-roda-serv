@@ -1,6 +1,6 @@
 package controlador;
 
-import interfaces.IAdministracionODV;
+import interfaces.IAdministracionOV;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,7 +17,7 @@ import dto.FacturaDto;
 import dto.RemitoDto;
 import dto.RodamientoDto;
 
-public class AdministracionODV extends UnicastRemoteObject implements IAdministracionODV {
+public class AdministracionODV extends UnicastRemoteObject implements IAdministracionOV {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,19 +26,31 @@ public class AdministracionODV extends UnicastRemoteObject implements IAdministr
 		// TODO Auto-generated constructor stub
 	}
 
+
 	@Override
-	public CotizacionDto generarCotizacion(List<Item> listaItems,
+	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
+		// TODO Auto-generated method stub
+		List <RodamientoBean> listaRodamients = RodamientoDAO.getInstancia().obtenerRodamientos();
+		
+		return null;
+	}
+
+
+	@Override
+	public CotizacionDto crearCotizacion(List<Item> listaItems,
 			ClienteDto cliente) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
-	public FacturaDto generarFactura(ClienteDto cliente,
+	public FacturaDto crearFactura(ClienteDto cliente,
 			List<CotizacionDto> cotizaciones) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
@@ -46,17 +58,12 @@ public class AdministracionODV extends UnicastRemoteObject implements IAdministr
 		return null;
 	}
 
+
 	@Override
 	public boolean abmCliente(ClienteDto cliente, String accion)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

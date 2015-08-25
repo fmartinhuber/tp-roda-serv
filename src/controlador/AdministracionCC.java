@@ -10,19 +10,19 @@ import dto.EnvioAOVDto;
 import dto.FacturaDto;
 import dto.RemitoDto;
 import dto.RodamientoDto;
-import interfaces.IAdministracionODV;
+import interfaces.IAdministracionOV;
 
-public class AdministracionCC implements IAdministracionODV {
+public class AdministracionCC implements IAdministracionOV {
 
 	@Override
-	public CotizacionDto generarCotizacion(List<Item> listaItems,
+	public CotizacionDto crearCotizacion(List<Item> listaItems,
 			ClienteDto cliente) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FacturaDto generarFactura(ClienteDto cliente,
+	public FacturaDto crearFactura(ClienteDto cliente,
 			List<CotizacionDto> cotizaciones) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
@@ -46,6 +46,7 @@ public class AdministracionCC implements IAdministracionODV {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }

@@ -23,7 +23,7 @@ public class RodamientoBean{
 	private float monto;
 	private String nombre;
 	private String pais;
-	
+	private String descripcion; 
 	
 	
 	public int getIdRodamiento() {
@@ -102,6 +102,12 @@ public class RodamientoBean{
 	}
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
 	
