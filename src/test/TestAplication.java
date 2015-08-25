@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.RodamientoBean;
-import controlador.AdministracionODV;
+import controlador.AdministracionOV;
 import dto.RodamientoDto;
 
 public class TestAplication {
 
 	public static void main(String[] args) throws RemoteException {
 
-		AdministracionODV c = new AdministracionODV();
+		AdministracionOV c = new AdministracionOV();
 		
 		List<RodamientoDto> aux = new ArrayList<RodamientoDto>();
 		aux = c.obtenerRodamientos();

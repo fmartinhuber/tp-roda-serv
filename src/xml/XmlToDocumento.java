@@ -17,13 +17,12 @@ import org.xml.sax.SAXException;
 import dto.ClienteDto;
 import dto.CotizacionDto;
 import dto.ItemCotizacionDto;
-import dto.OVto;
 import dto.RodamientoDto;
 
 public class XmlToDocumento {
 	private Document doc; 
 	private CotizacionDto co=null; 
-	private OVto odv; 
+	//private OVto odv; 
 	public CotizacionDto XmlACotizacion()
 	{
 		try {
@@ -75,14 +74,13 @@ public class XmlToDocumento {
 					String st=solicitud.getAttribute("centroIndustrial");
 					
 					//agregar las cotizaciones al sistema >> odv >> cotizacion
-					odv.getCotizaciones().add(co);
+					//odv.getCotizaciones().add(co);
 				}
 			
 			}
 			
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

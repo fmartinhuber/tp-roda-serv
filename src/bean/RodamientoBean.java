@@ -22,7 +22,7 @@ public class RodamientoBean{
 	private String nombre;
 	private String pais;
 	private String descripcion; 
-	
+	private String marca;
 	
 	public int getIdRodamiento() {
 		return IdRodamiento;
@@ -118,6 +118,14 @@ public class RodamientoBean{
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 	
 	

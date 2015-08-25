@@ -20,7 +20,7 @@ public class Servidor {
 	public void iniciar() {
     	try {
     		LocateRegistry.createRegistry(1099);
-    		IAdministracionOV Server = new AdministracionODV();
+    		IAdministracionOV Server = new AdministracionOV();
             Naming.rebind ("//localhost/SistemaRodamiento", Server);
             System.out.println("Servidor corriendo. Fijado en //localhost/SistemaRodamiento");
 		} catch (Exception e) {
