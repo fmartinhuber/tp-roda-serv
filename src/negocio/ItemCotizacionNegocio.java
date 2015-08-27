@@ -1,5 +1,7 @@
 package negocio;
 
+import dto.ItemCotizacionDto;
+
 
 
 public class ItemCotizacionNegocio{
@@ -18,6 +20,11 @@ public class ItemCotizacionNegocio{
 	public ItemCotizacionNegocio(){
 		
 	}
+	
+	public ItemCotizacionNegocio transformarItemCotizacionDtoAItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public RodamientoNegocio getRodamiento() {
 		return rodamiento;
@@ -34,6 +41,8 @@ public class ItemCotizacionNegocio{
 	public void setCant(int cant) {
 		this.cant = cant;
 	}
+
+
 	
 
 }

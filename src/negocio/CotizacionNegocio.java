@@ -41,33 +41,28 @@ public class CotizacionNegocio{
 	 */
 	public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
 		//Creo la salida del metodo
-		CotizacionNegocio miCotNegocio= new CotizacionNegocio();
-		//Asigno los atributos simples		
-		miCotNegocio.setEstado(miCotDto.getEstado());
-		miCotNegocio.setFecha(miCotDto.getFecha());
-		//Asigno los atributos de Clase unica con el metodo de esa clase
-		ClienteNegocio miCliNegocio= new ClienteNegocio();
-		miCliNegocio = miCliNegocio.transformarClienteDtoAClienteNegocio(miCotDto.getCliente());
-		//Asigno los atributos de Listas de Clase
-		List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
-		for (int i=0; i<miCotDto.getItems().size(); i++){
-			//Creo el item Negocio
-			ItemCotizacionNegocio miItCotNegocio = new ItemCotizacionNegocio();
-			//Obtengo el itemDto iterado de la lista
-			ItemCotizacionDto miItCotDto = miCotDto.getItems().get(i);
-			//Asigno atributos simples
-			miItCotNegocio.setCant(miItCotDto.getCant());
-			//Asigno atributos de clase con el metodo de esa clase
-				//Rodamiento
-				RodamientoNegocio miRodaNegocio = new RodamientoNegocio();
-				miRodaNegocio = miRodaNegocio.transformarRodamientoDtoARodamientoNegocio(miItCotDto.getRodamiento());
-				miItCotNegocio.setRodamiento(miRodaNegocio);
-			//Agrego el item negocio a la lista de negocio
-			listaItCoNegocio.add(miItCotNegocio);
-		}
+			CotizacionNegocio miCotNegocio= new CotizacionNegocio();
+		//Asigno los atributos simples
+			miCotNegocio.setEstado(miCotDto.getEstado());
+			miCotNegocio.setFecha(miCotDto.getFecha());
+		//Asigno los atributos de Clase unica, con el metodo de esa clase
+			ClienteNegocio miCliNegocio= new ClienteNegocio();
+			miCliNegocio = miCliNegocio.transformarClienteDtoAClienteNegocio(miCotDto.getCliente());
+		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
+			List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
+			for (int i=0; i<miCotDto.getItems().size(); i++){
+				//Creo el item Negocio
+				ItemCotizacionNegocio miItCotNegocio = new ItemCotizacionNegocio();
+				//Obtengo el itemDto iterado de la lista
+				ItemCotizacionDto miItCotDto = miCotDto.getItems().get(i);
+				//Lo transformo
+				miItCotNegocio = miItCotNegocio.transformarItemCotizacionDtoAItemCotizacionNegocio(miItCotDto);
+				//Agrego el item negocio a la lista de negocio
+				listaItCoNegocio.add(miItCotNegocio);
+			}
 		//Asigno las clases a la salida
-		miCotNegocio.setCliente(miCliNegocio);
-		miCotNegocio.setItems(listaItCoNegocio);
+			miCotNegocio.setCliente(miCliNegocio);
+			miCotNegocio.setItems(listaItCoNegocio);
 		return miCotNegocio;
 	}
 	
