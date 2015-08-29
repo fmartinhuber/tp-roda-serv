@@ -4,12 +4,12 @@ package negocio;
 
 public class ItemOrdenCompraNegocio{
 
-	private CotizacionNegocio ordenPedido;
+	//private CotizacionNegocio ordenPedido;
 	private float monto;
 	
 	public ItemOrdenCompraNegocio(CotizacionNegocio ordenPedido, float monto) {
 		super();
-		this.ordenPedido = ordenPedido;
+		//this.ordenPedido = ordenPedido;
 		this.monto = monto;
 	}
 	
@@ -17,13 +17,13 @@ public class ItemOrdenCompraNegocio{
 		
 	}
 
-	public CotizacionNegocio getOrdenPedido() {
+	/*public CotizacionNegocio getOrdenPedido() {
 		return ordenPedido;
 	}
 
 	public void setOrdenPedido(CotizacionNegocio ordenPedido) {
 		this.ordenPedido = ordenPedido;
-	}
+	}*/
 
 	public float getMonto() {
 		return monto;
