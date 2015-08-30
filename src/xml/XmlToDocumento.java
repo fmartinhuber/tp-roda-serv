@@ -66,7 +66,8 @@ public class XmlToDocumento {
 					try {
 						Date date;
 						date = sdf.parse(solicitud.getAttribute("fecha"));
-						co.setFecha(date);;
+						//Daro: Aca puse la fecha de vigencia sola, falta la de creacion, nose como usar esto
+						co.setFechaVigencia(date);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}

@@ -18,17 +18,21 @@ public class CotizacionNegocio{
 	private List<ItemCotizacionNegocio> items;
 	private String estado;
 	private ClienteNegocio cliente;
-	private Date fecha;
+	private Date fechaCreacion;
+	private Date fechaVigencia;
+	
+	
 	
 	public CotizacionNegocio(List<ItemCotizacionNegocio> items, String estado,
-			ClienteNegocio cliente, Date fecha) {
+			ClienteNegocio cliente, Date fechaCreacion, Date fechaVigencia) {
 		super();
 		this.items = items;
 		this.estado = estado;
 		this.cliente = cliente;
-		this.fecha = fecha;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaVigencia = fechaVigencia;
 	}
-	
+
 	public CotizacionNegocio(){
 		
 	}
@@ -44,7 +48,8 @@ public class CotizacionNegocio{
 			CotizacionNegocio miCotNegocio= new CotizacionNegocio();
 		//Asigno los atributos simples
 			miCotNegocio.setEstado(miCotDto.getEstado());
-			miCotNegocio.setFecha(miCotDto.getFecha());
+			miCotNegocio.setFechaCreacion(miCotDto.getFechaCreacion());
+			miCotNegocio.setFechaVigencia(miCotDto.getFechaVigencia());
 		//Asigno los atributos de Clase unica, con el metodo de esa clase
 			ClienteNegocio miCliNegocio= new ClienteNegocio();
 			miCliNegocio = miCliNegocio.transformarClienteDtoAClienteNegocio(miCotDto.getCliente());
@@ -88,38 +93,46 @@ public class CotizacionNegocio{
 		return null;
 	}
 	
+	
 
-	public Date getFecha() {
-		return fecha;
+	public List<ItemCotizacionNegocio> getItems() {
+		return items;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setItems(List<ItemCotizacionNegocio> items) {
+		this.items = items;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public ClienteNegocio getCliente() {
 		return cliente;
 	}
-	
+
 	public void setCliente(ClienteNegocio cliente) {
 		this.cliente = cliente;
 	}
-	
-	public List<ItemCotizacionNegocio> getItems() {
-		return items;
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
-	
-	public void setItems(List<ItemCotizacionNegocio> items) {
-		this.items = items;
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
-	
-	public String getEstado() {
-		return estado;
+
+	public Date getFechaVigencia() {
+		return fechaVigencia;
 	}
-	
-	public void setEstado(String estado) {
-		this.estado = estado;
+
+	public void setFechaVigencia(Date fechaVigencia) {
+		this.fechaVigencia = fechaVigencia;
 	}
-	
 	
 }
