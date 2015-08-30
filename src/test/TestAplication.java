@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.RodamientoBean;
 import controlador.AdministracionOV;
 import dto.RodamientoDto;
 
