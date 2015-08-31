@@ -22,7 +22,12 @@ public class RodamientoDAO extends HibernateDAO{
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoBean").list();
+		/*Daro: Hacer que busque con where los parametros que se pasan, esta mal levantar toda una tabla
+		Si queres levantar toda la tabla pasarle % % % % */
+		
+		/*Rama: voy a sacarle los parámetros para que sea un método prueba
+		 */
+		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoBean r").list();
 		
 		return rodamientos;
 	}
