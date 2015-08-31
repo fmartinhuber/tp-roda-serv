@@ -51,8 +51,6 @@ public class AdministracionOV implements IAdministracionOV {
 		return null;
 	}
 
-<<<<<<< HEAD
-=======
 
 	@Override
 	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) 
@@ -63,9 +61,7 @@ public class AdministracionOV implements IAdministracionOV {
 		List<RodamientoBean> miRodaListBean= new ArrayList<RodamientoBean>();
 		//Aca hay que iterar la lista, pruebo solamente con el 1ero
 		miRodaListBean = RodamientoDAO.getInstancia().obtenerRodamientos
-				(listaItems.get(1).getRodamiento().getCodigo(), 
-				listaItems.get(1).getRodamiento().getOrigen(),
-				listaItems.get(1).getRodamiento().getMarca());
+				();
 		/*Tengo que ver si elijo el mas barato, o el que mas tenga, o algo, aca hay que hacer logica
 		 segun lo que pida el enunciado. Por ahora elijo el 1ero y listo*/
 		
@@ -77,7 +73,6 @@ public class AdministracionOV implements IAdministracionOV {
 		
 		return miCotDto;
 	}
->>>>>>> branch 'master' of https://github.com/fmartinhuber/tp-roda-serv
 
 
 	@Override
@@ -162,12 +157,6 @@ public class AdministracionOV implements IAdministracionOV {
 		this.centroIndustrial = centroIndustrial;
 	}
 
-	@Override
-	public CotizacionDto crearCotizacion(List<ItemDto> listaItems,
-			ClienteDto cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }
