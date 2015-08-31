@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Item;
+import utils.ItemDto;
 import bean.RodamientoBean;
 import dao.RodamientoDAO;
 import dto.ClienteDto;
@@ -52,13 +52,6 @@ public class AdministracionOV implements IAdministracionOV {
 		return null;
 	}
 
-
-	@Override
-	public CotizacionDto crearCotizacion(List<Item> listaItems,
-			ClienteDto cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	@Override
@@ -141,6 +134,13 @@ public class AdministracionOV implements IAdministracionOV {
 
 	public void setCentroIndustrial(String centroIndustrial) {
 		this.centroIndustrial = centroIndustrial;
+	}
+
+	@Override
+	public CotizacionDto crearCotizacion(List<ItemDto> listaItems,
+			ClienteDto cliente) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
