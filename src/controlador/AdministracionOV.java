@@ -45,9 +45,9 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 	
 	@Override
-	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
-		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos("%", "%", "%");
-		
+	public List<RodamientoDto> obtenerRodamientos(){		
+		@SuppressWarnings("unused")
+		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();		
 		return null;
 	}
 

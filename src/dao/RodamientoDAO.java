@@ -18,13 +18,16 @@ public class RodamientoDAO extends HibernateDAO{
 		return instancia;
 	}
 	
-	public List<RodamientoBean> obtenerRodamientos(String codigo, String origen, String marca){
+	public List<RodamientoBean> obtenerRodamientos(){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
 		/*Daro: Hacer que busque con where los parametros que se pasan, esta mal levantar toda una tabla
 		Si queres levantar toda la tabla pasarle % % % % */
-		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoBean").list();
+		
+		/*Rama: voy a sacarle los parámetros para que sea un método prueba
+		 */
+		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoBean r").list();
 		
 		return rodamientos;
 	}

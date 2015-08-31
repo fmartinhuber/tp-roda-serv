@@ -41,9 +41,9 @@ public class AdministracionCliente implements IAdministracionCliente {
 		return null;
 	}
 
-	public List<ClienteBean> listarClientes() throws RemoteException {		
-		List<ClienteBean> listaClientes = ClienteDAO.listarClientes();
-		return listaClientes;
+	public List<ClienteDto> listarClientes() throws RemoteException {		
+		List<ClienteBean> clientes = ClienteDAO.getInstancia().listarClientes();
+		return null;
 	}
 
 	
