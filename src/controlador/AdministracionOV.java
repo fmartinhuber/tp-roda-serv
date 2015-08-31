@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Item;
+import utils.ItemDto;
 import bean.RodamientoBean;
 import dao.RodamientoDAO;
 import dto.ClienteDto;
@@ -46,18 +46,34 @@ public class AdministracionOV implements IAdministracionOV {
 	
 	@Override
 	public List<RodamientoDto> obtenerRodamientos() throws RemoteException {
-		// TODO Auto-generated method stub
-		List <RodamientoBean> listaRodamients = RodamientoDAO.getInstancia().obtenerRodamientos();
+		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos("%", "%", "%");
 		
 		return null;
 	}
 
 
 	@Override
-	public CotizacionDto crearCotizacion(List<Item> listaItems,
-			ClienteDto cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) 
+			throws RemoteException {
+		//Declaro la cotizacion que voy a devolver
+		CotizacionDto miCotDto = new CotizacionDto();
+		//Declaro un rodamiento para obtener de la base a ver si existe
+		List<RodamientoBean> miRodaListBean= new ArrayList<RodamientoBean>();
+		//Aca hay que iterar la lista, pruebo solamente con el 1ero
+		miRodaListBean = RodamientoDAO.getInstancia().obtenerRodamientos
+				(listaItems.get(1).getRodamiento().getCodigo(), 
+				listaItems.get(1).getRodamiento().getOrigen(),
+				listaItems.get(1).getRodamiento().getMarca());
+		/*Tengo que ver si elijo el mas barato, o el que mas tenga, o algo, aca hay que hacer logica
+		 segun lo que pida el enunciado. Por ahora elijo el 1ero y listo*/
+		
+		/*Aca tengo que empezar a hacer el pasamanos para generar un CotizacionDto con 
+		 todos los bean que me devolvieron*/
+		
+		/*Tambien tengo que generar los precios (cantidad * monto) y ver si hay promociones o como aplica eso*/
+		
+		
+		return miCotDto;
 	}
 
 

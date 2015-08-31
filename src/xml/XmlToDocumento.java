@@ -42,7 +42,8 @@ public class XmlToDocumento {
 					ClienteDto c=new ClienteDto();
 					Element solicitud = (Element) solicitudes.item(u);
 					
-					c.setCUIT(Integer.parseInt(solicitud.getElementsByTagName("Cuil").item(0).getTextContent()));
+					//Daro: Cambie CUIT de int a String, rompe esta linea, nose como arreglar esto
+					//c.setCUIT(Integer.parseInt(solicitud.getElementsByTagName("Cuil").item(0).getTextContent()));
 					c.setRazonSocial(solicitud.getElementsByTagName("RazonSocial").item(0).getTextContent());
 					co.setCliente(c);			
 					

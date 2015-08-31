@@ -8,14 +8,14 @@ public class ClienteNegocio{
 
 	private String razonSocial;
 	private String mail;
-	private int CUIT;
+	private String CUIT;
 	private int unidades;
 	private int meses;
 	private int operaciones;
 	
 	
 	
-	public ClienteNegocio(String razonSocial, String mail, int CUIT, int unidades,
+	public ClienteNegocio(String razonSocial, String mail, String CUIT, int unidades,
 			int meses, int operaciones) {
 		super();
 		this.razonSocial = razonSocial;
@@ -31,8 +31,16 @@ public class ClienteNegocio{
 	}
 	
 	public ClienteNegocio transformarClienteDtoAClienteNegocio(ClienteDto miCliDto) {
-		// TODO Auto-generated method stub
-		return null;
+		//Creo la salida del metodo
+			ClienteNegocio miCliNegocio = new ClienteNegocio();
+		//Asigno los atributos simples
+			miCliNegocio.setCUIT(miCliDto.getCUIT());
+			miCliNegocio.setMail(miCliDto.getMail());
+			miCliNegocio.setMeses(miCliDto.getMeses());
+			miCliNegocio.setOperaciones(miCliDto.getOperaciones());
+			miCliNegocio.setRazonSocial(miCliDto.getRazonSocial());
+			miCliNegocio.setUnidades(miCliDto.getUnidades());
+		return miCliNegocio;
 	}
 	
 	
@@ -76,11 +84,11 @@ public class ClienteNegocio{
 		this.mail = mail;
 	}
 	
-	public int getCUIT() {
+	public String getCUIT() {
 		return CUIT;
 	}
 	
-	public void setCUIT(int CUIT) {
+	public void setCUIT(String CUIT) {
 		this.CUIT = CUIT;
 	}
 

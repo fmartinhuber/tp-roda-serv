@@ -21,10 +21,11 @@ public class TestAplication {
 		
 		System.out.println();		
 		System.out.println();
-				
+		
 //		for (RodamientoBean r : aux){
 //			System.out.println("Codigo: " +r.getCodigo() + " \t Marca: " +r.getMarca() + " \t Origen: " +r.getOrigen() + " \t Precio: " + r.getPrecio());
 //		}
+		
 		System.out.println();
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");

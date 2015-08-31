@@ -49,7 +49,8 @@ public class CotizacionAXml {
 			
 			Element cliente = doc.createElement("Cliente");
 			Element cuil = doc.createElement("Cuil");
-			i=c.getCliente().getCUIT();
+			//Daro: Cambie CUIT de int a String, rompe esta linea, nose como arreglar esto
+			//i=c.getCliente().getCUIT();
 			cuil.setTextContent(i.toString());
 			Element razon = doc.createElement("RazonSocial");
 			razon.setTextContent(c.getCliente().getRazonSocial());
