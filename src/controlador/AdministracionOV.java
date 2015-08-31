@@ -75,13 +75,6 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 
-	@Override
-	public FacturaDto crearFactura(ClienteDto cliente,
-			List<CotizacionDto> cotizaciones) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	@Override
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
@@ -155,6 +148,13 @@ public class AdministracionOV implements IAdministracionOV {
 
 	public void setCentroIndustrial(String centroIndustrial) {
 		this.centroIndustrial = centroIndustrial;
+	}
+
+	@Override
+	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

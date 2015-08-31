@@ -39,7 +39,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return false;
 	}
 
-	@Override
 	public List<RodamientoDto> obtenerListaComparativa(
 			List<RodamientoDto> listaRodamientosNueva) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -81,6 +80,19 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public void setRodamientos(List <RodamientoDto> rodamientos) {
 		this.rodamientos = rodamientos;
+	}
+
+	@Override
+	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actualizarListaComparativa(List<RodamientoDto> listado)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

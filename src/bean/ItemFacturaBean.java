@@ -2,6 +2,8 @@ package bean;
 
 import javax.persistence.*;
 
+import dto.RodamientoDto;
+
 
 
 @Entity
@@ -10,10 +12,10 @@ public class ItemFacturaBean {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-		private int idItemFactura;
+	private int idItemFactura;
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="item_cotizacion")
-		private CotizacionBean cotizacion;
+	@JoinColumn(name="item_rodamiento")
+	private RodamientoDto rodamiento;
 	private float subtotal;
 	
 	
@@ -26,13 +28,6 @@ public class ItemFacturaBean {
 		this.idItemFactura = idItemFactura;
 	}
 	
-	public CotizacionBean getCotizacion() {
-		return cotizacion;
-	}
-	
-	public void setCotizacion(CotizacionBean cotizacion) {
-		this.cotizacion = cotizacion;
-	}
 	
 	public float getSubtotal() {
 		return subtotal;
@@ -40,6 +35,14 @@ public class ItemFacturaBean {
 	
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
+	}
+
+	public RodamientoDto getRodamiento() {
+		return rodamiento;
+	}
+
+	public void setRodamiento(RodamientoDto rodamiento) {
+		this.rodamiento = rodamiento;
 	}
 	
 	

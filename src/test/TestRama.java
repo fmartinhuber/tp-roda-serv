@@ -12,9 +12,9 @@ public class TestRama {
 
 	public static void main(String[] args) throws RemoteException{
 		
-		AdministracionCliente administracionCliente = new AdministracionCliente();
+		AdministracionOV administracionCliente = new AdministracionOV();
 		List<ClienteDto> clienteDto = new ArrayList<ClienteDto>();
-		clienteDto = administracionCliente.listarClientes();
+		//clienteDto = administracionCliente.listarClientes();
 		
 		System.out.println("=====================================================================================");
 		System.out.println("=====================================================================================");

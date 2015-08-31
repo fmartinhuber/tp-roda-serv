@@ -10,7 +10,7 @@ public class ItemOrdenCompraBean{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-		private int idItemOrdenCompra;
+	private int idItemOrdenCompra;
 	private float monto;
 	
 	
