@@ -26,8 +26,8 @@ public class AdministracionCC implements IAdministracionCC {
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
-	private List <RodamientoDto> listaComparativa;
-	
+	private List <RodamientoDto> listaPrincipal;
+	private List <RodamientoDto> listaOpcional;
 	
 	
 	public AdministracionCC(){
@@ -93,27 +93,25 @@ public class AdministracionCC implements IAdministracionCC {
 
 	@Override
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.listaPrincipal;
+	}
+	
+	public List <RodamientoDto> obtenerListaComparativaOpcional () throws RemoteException{
+		return this.listaOpcional;
 	}
 
 	@Override
-	public void actualizarListaComparativa(List<RodamientoDto> listado)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void actualizarListaComparativa(List<RodamientoDto> listado)	throws RemoteException {
+		Iterator <RodamientoDto> iterador = this.listaPrincipal.iterator();
+		while(iterador.hasNext()){
+			RodamientoDto roda = iterador.next();
+			this.agregarNuevoRodamiento(roda);
+		}
 	}
 
-	public List <RodamientoDto> getListaComparativa() {
-		return listaComparativa;
-	}
-
-	public void setListaComparativa(List <RodamientoDto> listaComparativa) {
-		this.listaComparativa = listaComparativa;
-	}
 
 	private void agregarNuevoRodamiento (RodamientoDto rodamiento){
-		Iterator <RodamientoDto> iterador = this.listaComparativa.iterator();
+		Iterator <RodamientoDto> iterador = this.listaPrincipal.iterator();
 		boolean encontradoP = false, actualizadoP = false; 
 		while(iterador.hasNext() && !encontradoP){
 			RodamientoDto rodamientoComp = iterador.next();
@@ -122,8 +120,21 @@ public class AdministracionCC implements IAdministracionCC {
 				//si es mas barato
 				if(rodamientoComp.getMonto() < rodamiento.getMonto()){
 					actualizadoP = true; 
-					this.listaComparativa.remove(rodamientoComp);
-					this.listaComparativa.add(rodamiento);
+					this.listaPrincipal.remove(rodamientoComp);
+					this.listaPrincipal.add(rodamiento);
+				}
+			}
+		}
+		if(encontradoP && !actualizadoP){
+			this.listaOpcional.add(rodamiento);
+		}
+		if(!encontradoP && !actualizadoP){
+			iterador = this.listaOpcional.iterator();
+			while(iterador.hasNext() && !encontradoP){
+				RodamientoDto rodamientoComp = iterador.next();
+				if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
+					this.listaOpcional.add(rodamiento);
+					actualizadoP = true;
 				}
 			}
 		}
@@ -136,8 +147,13 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	
+	public List <RodamientoDto> getListaOpcional() {
+		return listaOpcional;
+	}
 
+	public void setListaOpcional(List <RodamientoDto> listaOpcional) {
+		this.listaOpcional = listaOpcional;
+	}
 
 
 }
