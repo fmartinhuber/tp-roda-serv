@@ -1,5 +1,9 @@
 package negocio;
 
+import java.util.List;
+
+import bean.RodamientoBean;
+import dao.RodamientoDAO;
 import dto.*;
 
 
@@ -39,6 +43,18 @@ public class RodamientoNegocio{
 		
 	}
 	
+	public void guardarRodamiento(){
+		
+		RodamientoBean rodamientoBean = new RodamientoBean();
+		rodamientoBean.setCodigo(this.codigo);
+		
+		RodamientoDAO.getInstancia().persist(rodamientoBean);
+	}
+	
+	
+	public List <RodamientoBean> obtenerRodamientos(){
+		return RodamientoDAO.getInstancia().obtenerRodamientos();
+	}
 
 	public RodamientoNegocio transformarRodamientoDtoARodamientoNegocio(RodamientoDto miRodaDto) {
 		// TODO Auto-generated method stub

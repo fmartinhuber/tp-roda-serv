@@ -8,7 +8,7 @@ public class ItemCotizacionNegocio{
 
 	private RodamientoNegocio rodamiento;
 	private int cant;
-	
+	private float precio;
 	
 	
 	public ItemCotizacionNegocio(RodamientoNegocio rodamiento, int cant) {
@@ -40,6 +40,14 @@ public class ItemCotizacionNegocio{
 	
 	public void setCant(int cant) {
 		this.cant = cant;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 
 

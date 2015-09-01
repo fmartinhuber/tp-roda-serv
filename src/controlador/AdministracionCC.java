@@ -2,8 +2,10 @@ package controlador;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 
 
 import dto.CotizacionDto;
@@ -17,8 +19,16 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public AdministracionCC administracion;
 	private List <OrdenCompraDto> ordenesP;
+	/**
+	 *  Actualizar stock propio. (RAMA)
+	 */
 	private List <RodamientoDto> rodamientos;
-	private Set <RodamientoDto> listaComparativa ;
+	/**
+	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
+	 */
+	private List <RodamientoDto> listaComparativa;
+	
+	
 	
 	public AdministracionCC(){
 		ordenesP = new ArrayList <OrdenCompraDto>();
@@ -60,8 +70,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	@Override
-	public void actualizarStock(List<RodamientoDto> listaRodamientos)
-			throws RemoteException {
+	public void actualizarStock(List<RodamientoDto> listaRodamientos) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -95,6 +104,37 @@ public class AdministracionCC implements IAdministracionCC {
 		
 	}
 
+	public List <RodamientoDto> getListaComparativa() {
+		return listaComparativa;
+	}
+
+	public void setListaComparativa(List <RodamientoDto> listaComparativa) {
+		this.listaComparativa = listaComparativa;
+	}
+
+	private void agregarNuevoRodamiento (RodamientoDto rodamiento){
+		Iterator <RodamientoDto> iterador = this.listaComparativa.iterator();
+		boolean encontradoP = false, actualizadoP = false; 
+		while(iterador.hasNext() && !encontradoP){
+			RodamientoDto rodamientoComp = iterador.next();
+			if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
+				encontradoP = true;
+				//si es mas barato
+				if(rodamientoComp.getMonto() < rodamiento.getMonto()){
+					actualizadoP = true; 
+					this.listaComparativa.remove(rodamientoComp);
+					this.listaComparativa.add(rodamiento);
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+	public RodamientoDto consultaMejorRodamiento (int codigo, int cantidad){
+		return null;
+	}
 
 	
 

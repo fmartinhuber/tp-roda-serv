@@ -30,6 +30,8 @@ public class ClienteNegocio{
 		
 	}
 	
+	
+	
 	public ClienteNegocio transformarClienteDtoAClienteNegocio(ClienteDto miCliDto) {
 		//Creo la salida del metodo
 			ClienteNegocio miCliNegocio = new ClienteNegocio();
