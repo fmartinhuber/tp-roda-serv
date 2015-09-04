@@ -21,13 +21,13 @@ public class testDaro {
 		//Creo Rodamientos
 		RodamientoDto rodaUno = new RodamientoDto();
 		RodamientoDto rodaDos = new RodamientoDto();
-		//Solamente le asigno los valores: Codigo, Pais y Marca, que va a ser por cuales lo busque
-		rodaUno.setCodigo("NJ208");
-		rodaUno.setOrigen("Francia");
-		rodaUno.setMarca("SNR");
-		rodaDos.setCodigo("NJ209");
-		rodaDos.setOrigen("Suecia");
-		rodaDos.setMarca("SKF");
+		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
+		rodaUno.setCodigo("22310");
+		rodaUno.setOrigen("Japon");
+		rodaUno.setMarca("ZKL");
+		rodaDos.setCodigo("6200F");
+		rodaDos.setOrigen("Francia");
+		rodaDos.setMarca("SNR");
 		//Agrego el rodamiento y su cantidad a la lista de items
 		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
 		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
@@ -40,6 +40,7 @@ public class testDaro {
 		//Solamente le asigno los valores: CUIT y Razon Social, que  
 		miClienteDto.setCUIT("20345850090");
 		miClienteDto.setRazonSocial("Nieto SRL");
+		miClienteDto.setMail("dariodario@gmail.com");
 		
 		//Creo una cotizacionDTO, que va a ser lo que me devuelva el metodo
 		CotizacionDto miCotDto = new CotizacionDto();

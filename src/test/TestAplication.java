@@ -19,7 +19,7 @@ public class TestAplication {
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
 		
-		System.out.println();		
+		System.out.println();
 		System.out.println();
 		
 //		for (RodamientoBean r : aux){

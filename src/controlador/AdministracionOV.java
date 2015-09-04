@@ -45,9 +45,10 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 	
 	@Override
-	public List<RodamientoDto> obtenerRodamientos(){		
+	public List<RodamientoDto> obtenerRodamientos(){
+		//Daro: Este es un metodo de mierda que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
-		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();		
+		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
 		return null;
 	}
 
@@ -57,10 +58,11 @@ public class AdministracionOV implements IAdministracionOV {
 			throws RemoteException {
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
-		//Declaro un rodamiento para obtener de la base a ver si existe
-		List<RodamientoBean> miRodaListBean= new ArrayList<RodamientoBean>();
-		//Aca hay que iterar la lista, pruebo solamente con el 1ero
-		miRodaListBean = RodamientoDAO.getInstancia().obtenerRodamientos();
+		//Uso la magica lista de Martin a ver como funca
+		AdministracionCC admCC = new AdministracionCC();
+		List<RodamientoDto> listaRoda = new ArrayList<RodamientoDto>();
+		listaRoda = admCC.obtenerListaComparativa();
+		
 		/*Tengo que ver si elijo el mas barato, o el que mas tenga, o algo, aca hay que hacer logica
 		 segun lo que pida el enunciado. Por ahora elijo el 1ero y listo*/
 		
