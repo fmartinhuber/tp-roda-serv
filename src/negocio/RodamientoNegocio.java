@@ -13,32 +13,30 @@ public class RodamientoNegocio{
 	private String tipo;
 	private String codigo;
 	private int stock;
-	private int medida;
-	private String nombre;
-	private String caracteristicas;
 	private int serie;
 	private String origen;
 	private String marca;
+	private String descripcion;
 	private float monto;
 	private ProveedorNegocio proveedor;
 	
 	
-	public RodamientoNegocio(String tipo, String codigo, int stock, int medida,
-			String nombre, String pais, String caracteristicas, int serie,
-			String origen, float monto, ProveedorNegocio proveedor) {
+
+	public RodamientoNegocio(String tipo, String codigo, int stock, int serie,
+			String origen, String marca, String descripcion, float monto,
+			ProveedorNegocio proveedor) {
 		super();
 		this.tipo = tipo;
 		this.codigo = codigo;
 		this.stock = stock;
-		this.medida = medida;
-		this.nombre = nombre;
-		this.caracteristicas = caracteristicas;
 		this.serie = serie;
 		this.origen = origen;
+		this.marca = marca;
+		this.descripcion = descripcion;
 		this.monto = monto;
 		this.proveedor = proveedor;
 	}
-	
+
 	public RodamientoNegocio(){
 		
 	}
@@ -101,36 +99,12 @@ public class RodamientoNegocio{
 		this.stock = stock;
 	}
 	
-	public int getMedida() {
-		return medida;
-	}
-	
-	public void setMedida(int medida) {
-		this.medida = medida;
-	}
-	
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-	
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-	
 	public int getSerie() {
 		return serie;
 	}
 	
 	public void setSerie(int serie) {
 		this.serie = serie;
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 	
 	public ProveedorNegocio getProveedor() {
@@ -148,6 +122,13 @@ public class RodamientoNegocio{
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	
 }

@@ -32,14 +32,14 @@ public class CotizacionNegocio{
 		this.fechaCreacion = fechaCreacion;
 		this.fechaVigencia = fechaVigencia;
 	}
-
+	
 	public CotizacionNegocio(){
 		
 	}
 	
 	/**
 	 * @author Daro
-	 * - Transformacion 1/3
+	 * - Transformacion 1/4
 	 * De esta forma se pasa Dto a Negocio. Cuando el cliente manda un Dto el servidor
 	 * necesita transformarlo a negocio para usar los metodos necesarios
 	 */
@@ -74,18 +74,29 @@ public class CotizacionNegocio{
 	
 	/**
 	 * @author Daro
-	 * - Transformacion 2/3
+	 * - Transformacion 2/4
 	 * De esta forma se pasa Negocio a Bean. Para llamar a los Dao y laburar con la BD se necesitan
 	 * objetos bean, por eso esta transformacion 
 	 */
-	public CotizacionNegocio transformarCotizacionNegocioACotizacionBean (CotizacionNegocio miCotNeg){
+	public CotizacionBean transformarCotizacionNegocioACotizacionBean (CotizacionNegocio miCotNeg){
 		return null;
 	}
 	
 	
 	/**
 	 * @author Daro
-	 * - Transformacion 3/3
+	 * - Transformacion 3/4
+	 * De esta forma se pasa Bean a Negocio. Una vez que la BD nos devuelve algo es un Bean,
+	 * necesitamos transformarlo a Negocio para trabajarlo
+	 */
+	public CotizacionNegocio transformarCotizacionBeanACotizacionNegocio (CotizacionBean miCotBean){
+		return null;
+	}
+	
+	
+	/**
+	 * @author Daro
+	 * - Transformacion 4/4
 	 * De esta forma se pasa Negocio a Dto. Cuando se necesita devolver informacion al cliente
 	 * hay que transformar la clase Negocio a Dto para enviarsela
 	 */
@@ -94,7 +105,7 @@ public class CotizacionNegocio{
 	}
 	
 	
-
+	
 	public List<ItemCotizacionNegocio> getItems() {
 		return items;
 	}

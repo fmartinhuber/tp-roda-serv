@@ -60,8 +60,7 @@ public class AdministracionOV implements IAdministracionOV {
 		//Declaro un rodamiento para obtener de la base a ver si existe
 		List<RodamientoBean> miRodaListBean= new ArrayList<RodamientoBean>();
 		//Aca hay que iterar la lista, pruebo solamente con el 1ero
-		miRodaListBean = RodamientoDAO.getInstancia().obtenerRodamientos
-				();
+		miRodaListBean = RodamientoDAO.getInstancia().obtenerRodamientos();
 		/*Tengo que ver si elijo el mas barato, o el que mas tenga, o algo, aca hay que hacer logica
 		 segun lo que pida el enunciado. Por ahora elijo el 1ero y listo*/
 		
