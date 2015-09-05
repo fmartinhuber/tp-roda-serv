@@ -11,6 +11,7 @@ public class OrdenCompraNegocio{
 	private List <ItemOrdenCompraNegocio> items;
 	private ProveedorNegocio proveedor;
 	private List<CotizacionNegocio> cotizaciones;
+	private String estado;
 		
 	
 	
@@ -76,6 +77,14 @@ public class OrdenCompraNegocio{
 	
 	public void setItems(List<ItemOrdenCompraNegocio> items) {
 		this.items = items;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	
