@@ -22,6 +22,7 @@ public class OrdenCompraBean{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="cotizacion_orden")
 		private CotizacionBean cotizacion;
+	private String estado;
 	
 	
 	
@@ -71,6 +72,14 @@ public class OrdenCompraBean{
 
 	public void setCotizacion(CotizacionBean cotizacion) {
 		this.cotizacion = cotizacion;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

@@ -19,26 +19,10 @@ public class CotizacionBean{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="cotizacion_cliente")
 		private ClienteBean cliente; 
-	private Date fecha;
-	private float total;
+	private Date fechaCreacion;
+	private Date fechaVigencia;
 	
 	
-	
-	public float getTotal() {
-		return total;
-	}
-
-	public void setTotal(float total) {
-		this.total = total;
-	}
-	
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
 	
 	public ClienteBean getCliente() {
 		return cliente;
@@ -70,6 +54,22 @@ public class CotizacionBean{
 	
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Date getFechaVigencia() {
+		return fechaVigencia;
+	}
+
+	public void setFechaVigencia(Date fechaVigencia) {
+		this.fechaVigencia = fechaVigencia;
 	}
 
 	

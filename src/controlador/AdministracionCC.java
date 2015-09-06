@@ -8,6 +8,8 @@ import java.util.Set;
 
 
 
+
+import negocio.CotizacionNegocio;
 import dto.CotizacionDto;
 import dto.OrdenCompraDto;
 import dto.ProveedorDto;
@@ -56,9 +58,25 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	@Override
+	
+	/*
+	 * No es necesario una lista de cotizaciónes
+	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra
+	 * Se requiere un nuevo estado en la orden de compra y en la solicitud de cotización
+	 * Marcar solicitud de cotización como "En Adquisición"
+	 * Marcar Orden de compra como "Nueva" luego de su creación y previo a la entrega al proveedor
+	*/
 	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
 			throws RemoteException {
 		// TODO Auto-generated method stub
+		return null;
+		// Levantar Cotizaciones en estado "APROBADAS"
+		
+		
+	}
+	
+	// Levanta las cotizaciones en estado "APROBADAS"
+	private List<CotizacionNegocio> buscarCotizacionesAprobadas(){
 		return null;
 	}
 
