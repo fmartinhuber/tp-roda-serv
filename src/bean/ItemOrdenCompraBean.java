@@ -13,8 +13,9 @@ public class ItemOrdenCompraBean{
 	private int idItemOrdenCompra;
 	private float monto;
 	private int cantidad;
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_rodamiento")
-	private RodamientoBean rodamiento;
+		private RodamientoBean rodamiento;
 	
 	
 	

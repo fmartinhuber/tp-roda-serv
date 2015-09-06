@@ -16,13 +16,21 @@ public class OrdenCompraBean{
 	private String formaPago;
 	private float total;
 	private float descuento;
+	private String estado;
+
+	//@OneToMany(fetch=FetchType.EAGER, mappedBy="club", cascade=CascadeType.ALL)
+	//@Fetch(FetchMode.SUBSELECT)
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="orden_item")
 		private List <ItemOrdenCompraBean> items;
+
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="cotizacion_orden")
-		private CotizacionBean cotizacion;
-	private String estado;
+	@PrimaryKeyJoinColumn
+		private ProveedorBean proveedor;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+		private List<CotizacionBean> cotizaciones;
+	
 	
 	
 	
@@ -66,20 +74,20 @@ public class OrdenCompraBean{
 		this.items = items;
 	}
 
-	public CotizacionBean getCotizacion() {
-		return cotizacion;
-	}
-
-	public void setCotizacion(CotizacionBean cotizacion) {
-		this.cotizacion = cotizacion;
-	}
-
 	public String getEstado() {
 		return estado;
 	}
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public List<CotizacionBean> getCotizaciones() {
+		return cotizaciones;
+	}
+
+	public void setCotizaciones(List<CotizacionBean> cotizaciones) {
+		this.cotizaciones = cotizaciones;
 	}
 	
 	
