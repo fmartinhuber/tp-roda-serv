@@ -25,11 +25,12 @@ public class CotizacionDAO extends HibernateDAO{
 		return instancia;
 	}
 
-	public List<CotizacionBean> obtenerCotizacionesAprobada(){
+	//Levanta las cotizaciones en un estado pasado por parametro
+	public List<CotizacionBean> obtenerCotizacionesAprobada(String estado){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<CotizacionBean> cotizacionesAprobadas = s.createQuery("from CotizacionBean c where c.estado = APROBADA").list();
+		List<CotizacionBean> cotizacionesAprobadas = s.createQuery("from CotizacionBean c where c.estado = ?").setParameter(1, estado).list();
 		
 		return cotizacionesAprobadas;
 	}

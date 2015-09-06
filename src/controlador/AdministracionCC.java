@@ -9,7 +9,9 @@ import java.util.Set;
 
 
 
+
 import negocio.CotizacionNegocio;
+import dao.CotizacionDAO;
 import dto.CotizacionDto;
 import dto.OrdenCompraDto;
 import dto.ProveedorDto;
@@ -75,8 +77,14 @@ public class AdministracionCC implements IAdministracionCC {
 		
 	}
 	
-	// Levanta las cotizaciones en estado "APROBADAS"
-	private List<CotizacionNegocio> buscarCotizacionesAprobadas(){
+	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX"  // "APROBADA"
+	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
+	public List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
+		
+		List<CotizacionNegocio> misCotizaciones = new ArrayList<CotizacionNegocio>();
+		
+		
+		
 		return null;
 	}
 

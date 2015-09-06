@@ -18,7 +18,7 @@ public class RodamientoBean{
 	private String origen;
 	private String descripcion;
 	private float monto;
-	private float costo;
+	//private float costo;
 	private String marca;
 	
 	
@@ -85,14 +85,6 @@ public class RodamientoBean{
 
 	public void setMarca(String marca) {
 		this.marca = marca;
-	}
-
-	public float getCosto() {
-		return costo;
-	}
-
-	public void setCosto(float costo) {
-		this.costo = costo;
 	}
 
 	public String getDescripcion() {

@@ -49,24 +49,85 @@ go
 
 --Rodamiento (Se usa la tabla de rodamientos al final del TPO como guia)
 --1
-insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, costo, marca, rodamiento_proveedor)
-values ('Bolilla', '22310', 85, 8979745, 'Japon', 'CCW33', 310.71, 310.71, 'ZKL', 1)
+insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, marca, rodamiento_proveedor)
+values ('Bolilla', '22310', 85, 8979745, 'Japon', 'CCW33', 310.71, 'ZKL', 1)
 go
 --2
-insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, costo, marca, rodamiento_proveedor)
-values ('Bolilla', '22310', 9, 9562174, 'Argentina', 'EKW33', 249, 249, 'SKF', 1)
+insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, marca, rodamiento_proveedor)
+values ('Bolilla', '22310', 9, 9562174, 'Argentina', 'EKW33', 249, 'SKF', 1)
 go
 --3
-insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, costo, marca, rodamiento_proveedor)
-values ('Agujas', '6200F', 0, 2025791, 'Francia', '', 7.1, 7.1, 'SNR', 2)
+insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, marca, rodamiento_proveedor)
+values ('Agujas', '6200F', 0, 2025791, 'Francia', '', 7.1, 'SNR', 2)
 go
 --4
-insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, costo, marca, rodamiento_proveedor)
-values ('Rodilla', '6200A', 30, 3328710, 'Alemania', '2RS', 7.9, 7.9, 'FAG', 3)
+insert into Rodamiento (tipo, codigo, stock, serie, origen, descripcion, monto, marca, rodamiento_proveedor)
+values ('Rodilla', '6200A', 30, 3328710, 'Alemania', '2RS', 7.9, 'FAG', 3)
 go
 
 --Cliente
 --1
 insert into Cliente (CUIT, mail, razonSocial)
 values ('20345850090', 'dariodario@gmail.com', 'Nieto SRL')
+go
+
+--Cotizaciones e Items
+
+--1
+insert into Cotizacion (cotizacion_cliente, estado, fechaCreacion, fechaVigencia)
+values (1,'APROBADA','2015-08-31','2015-09-30' )
+go
+-- 1-1
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (1, 200,((select monto from Rodamiento where IdRodamiento = 1)*200), 1)
+go
+-- 1-2
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (3, 150,((select monto from Rodamiento where IdRodamiento = 3)*150), 1)
+go
+-- 1-3
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (4, 60,((select monto from Rodamiento where IdRodamiento = 4)*60), 1)
+go
+
+
+--2
+insert into Cotizacion (cotizacion_cliente, estado, fechaCreacion, fechaVigencia)
+values (1,'APROBADA','2015-09-05','2015-10-05' )
+go
+-- 2-1
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (1, 100,((select monto from Rodamiento where IdRodamiento = 1)*100), 2)
+go
+-- 2-2
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (4, 90,((select monto from Rodamiento where IdRodamiento = 4)*90), 2)
+go
+
+
+--3
+insert into Cotizacion (cotizacion_cliente, estado, fechaCreacion, fechaVigencia)
+values (1,'PENDIENTE','2015-09-10','2015-10-10' )
+go
+--3-1
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (2, 40,((select monto from Rodamiento where IdRodamiento = 2)*40), 3)
+go
+--3-2
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (3, 90,((select monto from Rodamiento where IdRodamiento = 3)*90), 3)
+go
+--3-3
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (4, 60,((select monto from Rodamiento where IdRodamiento = 4)*60), 3)
+go
+
+
+--4
+insert into Cotizacion (cotizacion_cliente, estado, fechaCreacion, fechaVigencia)
+values (1,'ORDENADA','2015-08-10','2015-09-09' )
+go
+-- 4-1
+insert into ItemCotizacion (item_rodamiento, cant, subtotal, cotizacion_items)
+values (4, 30,((select monto from Rodamiento where IdRodamiento = 4)*30),4)
 go
