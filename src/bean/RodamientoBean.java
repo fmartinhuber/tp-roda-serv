@@ -18,8 +18,8 @@ public class RodamientoBean{
 	private String caracteristica;
 	private float monto;
 	private String marca;
-	
-	
+	private float costo;
+	private float ganancia;
 	
 	public int getIdRodamiento() {
 		return IdRodamiento;
@@ -83,6 +83,22 @@ public class RodamientoBean{
 
 	public void setCaracteristica(String caracteristica) {
 		this.caracteristica = caracteristica;
+	}
+
+	public float getCosto() {
+		return costo;
+	}
+
+	public void setCosto(float costo) {
+		this.costo = costo;
+	}
+
+	public float getGanancia() {
+		return ganancia;
+	}
+
+	public void setGanancia(float ganancia) {
+		this.ganancia = ganancia;
 	}	
 	
 }

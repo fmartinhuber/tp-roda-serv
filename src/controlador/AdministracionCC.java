@@ -4,14 +4,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
-
-
 
 
 import negocio.CotizacionNegocio;
-import dao.CotizacionDAO;
 import dto.CotizacionDto;
 import dto.OrdenCompraDto;
 import dto.ProveedorDto;
@@ -27,12 +22,12 @@ public class AdministracionCC implements IAdministracionCC {
 	/**
 	 *  Actualizar stock propio. (RAMA)
 	 */
-		private List <RodamientoDto> rodamientos;
+	private List <RodamientoDto> rodamientos;
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
-		private List <RodamientoDto> listaPrincipal;
-		private List <RodamientoDto> listaOpcional;
+	private List <RodamientoDto> listaPrincipal;
+	private List <RodamientoDto> listaOpcional;
 	
 	
 	public AdministracionCC(){
@@ -71,13 +66,7 @@ public class AdministracionCC implements IAdministracionCC {
 		return false;
 	}
 
-	public List<RodamientoDto> obtenerListaComparativa(
-			List<RodamientoDto> listaRodamientosNueva) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
 	
 	/*
 	 * No es necesario una lista de cotizaciónes
@@ -166,6 +155,7 @@ public class AdministracionCC implements IAdministracionCC {
 					actualizadoP = true; 
 					this.listaPrincipal.remove(rodamientoComp);
 					this.listaPrincipal.add(rodamiento);
+					break;
 				}
 			}
 		}
@@ -179,6 +169,7 @@ public class AdministracionCC implements IAdministracionCC {
 				if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
 					this.listaOpcional.add(rodamiento);
 					actualizadoP = true;
+					break;
 				}
 			}
 		}
