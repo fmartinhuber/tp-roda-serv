@@ -10,7 +10,7 @@ public class ClienteBean{
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-		private int idCliente;
+	private int idCliente;
 	private String razonSocial;
 	private String mail;
 	private String CUIT;
