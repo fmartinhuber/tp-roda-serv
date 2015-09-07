@@ -12,6 +12,8 @@ public class TestRama {
 
 	public static void main(String[] args) throws RemoteException{
 		
+		//Rama ni hagas los abm, ponete con lo otro, los abm ni los hacemos!
+		
 		AdministracionOV administracionCliente = new AdministracionOV();
 		List<ClienteDto> clienteDto = new ArrayList<ClienteDto>();
 		//clienteDto = administracionCliente.listarClientes();

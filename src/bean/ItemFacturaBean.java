@@ -12,10 +12,10 @@ public class ItemFacturaBean {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idItemFactura;
+		private int idItemFactura;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_rodamiento")
-	private RodamientoDto rodamiento;
+		private RodamientoBean rodamiento;
 	private float subtotal;
 	
 	
@@ -37,11 +37,11 @@ public class ItemFacturaBean {
 		this.subtotal = subtotal;
 	}
 
-	public RodamientoDto getRodamiento() {
+	public RodamientoBean getRodamiento() {
 		return rodamiento;
 	}
 
-	public void setRodamiento(RodamientoDto rodamiento) {
+	public void setRodamiento(RodamientoBean rodamiento) {
 		this.rodamiento = rodamiento;
 	}
 	

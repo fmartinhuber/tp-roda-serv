@@ -16,18 +16,18 @@ import utils.*;
 public class testDaro {
 
 	public static void main(String[] args)  throws RemoteException {
-		//Creo lista de utils
+		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
 		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
 		//Creo Rodamientos
 		RodamientoDto rodaUno = new RodamientoDto();
 		RodamientoDto rodaDos = new RodamientoDto();
-		//Solamente le asigno los valores: Codigo, Pais y Marca, que va a ser por cuales lo busque
-		rodaUno.setCodigo("NJ208");
-		rodaUno.setOrigen("Francia");
-		rodaUno.setMarca("SNR");
-		rodaDos.setCodigo("NJ209");
-		rodaDos.setOrigen("Suecia");
-		rodaDos.setMarca("SKF");
+		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
+		rodaUno.setCodigo("22310");
+		rodaUno.setOrigen("Japon");
+		rodaUno.setMarca("ZKL");
+		rodaDos.setCodigo("6200F");
+		rodaDos.setOrigen("Francia");
+		rodaDos.setMarca("SNR");
 		//Agrego el rodamiento y su cantidad a la lista de items
 		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
 		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
@@ -37,7 +37,7 @@ public class testDaro {
 		
 		//Creo un Cliente
 		ClienteDto miClienteDto = new ClienteDto();
-		//Solamente le asigno los valores: CUIT y Razon Social, que  
+		//Solamente le asigno los valores: CUIT y Razon Social, va a ser por cual lo busque
 		miClienteDto.setCUIT("20345850090");
 		miClienteDto.setRazonSocial("Nieto SRL");
 		

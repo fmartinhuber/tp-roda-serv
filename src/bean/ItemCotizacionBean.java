@@ -10,10 +10,10 @@ public class ItemCotizacionBean{
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idItemCotizacion; 
+		private int idItemCotizacion; 
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_rodamiento")
-	private RodamientoBean rodamiento;
+		private RodamientoBean rodamiento;
 	private int cant;
 	private float subtotal;
 	

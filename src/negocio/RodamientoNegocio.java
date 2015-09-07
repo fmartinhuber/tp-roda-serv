@@ -13,34 +13,28 @@ public class RodamientoNegocio{
 	private String tipo;
 	private String codigo;
 	private int stock;
-	private int medida;
-	private String nombre;
-	private String caracteristicas;
-	private int serie;
 	private String origen;
 	private String marca;
+	private String caracteristica;
 	private float monto;
-	private float costo;
 	private ProveedorNegocio proveedor;
 	
 	
 	
-	public RodamientoNegocio(String tipo, String codigo, int stock, int medida,
-			String nombre, String pais, String caracteristicas, int serie,
-			String origen, float monto, ProveedorNegocio proveedor) {
+	public RodamientoNegocio(String tipo, String codigo, int stock, String origen, 
+			String marca, String caracteristica, float monto,
+			ProveedorNegocio proveedor) {
 		super();
 		this.tipo = tipo;
 		this.codigo = codigo;
 		this.stock = stock;
-		this.medida = medida;
-		this.nombre = nombre;
-		this.caracteristicas = caracteristicas;
-		this.serie = serie;
 		this.origen = origen;
+		this.marca = marca;
+		this.caracteristica = caracteristica;
 		this.monto = monto;
 		this.proveedor = proveedor;
 	}
-	
+
 	public RodamientoNegocio(){
 		
 	}
@@ -103,38 +97,6 @@ public class RodamientoNegocio{
 		this.stock = stock;
 	}
 	
-	public int getMedida() {
-		return medida;
-	}
-	
-	public void setMedida(int medida) {
-		this.medida = medida;
-	}
-	
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-	
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-	
-	public int getSerie() {
-		return serie;
-	}
-	
-	public void setSerie(int serie) {
-		this.serie = serie;
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
 	public ProveedorNegocio getProveedor() {
 		return proveedor;
 	}
@@ -151,17 +113,12 @@ public class RodamientoNegocio{
 		this.marca = marca;
 	}
 
-	public float getGanancia() {
-		return (this.monto-this.costo);
+	public String getCaracteristica() {
+		return caracteristica;
 	}
 
-	public float getCosto() {
-		return costo;
+	public void setCaracteristica(String caracteristica) {
+		this.caracteristica = caracteristica;
 	}
-
-	public void setCosto(float costo) {
-		this.costo = costo;
-	}
-	
 	
 }

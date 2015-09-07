@@ -10,20 +10,16 @@ public class RodamientoBean{
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int IdRodamiento; 
+		private int IdRodamiento; 
 	private String tipo;
 	private String codigo;
 	private int stock;
-	private int medida;
-	private String caracteristicas;
-	private int serie;
 	private String origen;
+	private String caracteristica;
 	private float monto;
-	private float costo;
-	private String nombre;
-	private String pais;
-	private String descripcion; 
 	private String marca;
+	
+	
 	
 	public int getIdRodamiento() {
 		return IdRodamiento;
@@ -72,55 +68,7 @@ public class RodamientoBean{
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	
-	public int getMedida() {
-		return medida;
-	}
-	
-	public void setMedida(int medida) {
-		this.medida = medida;
-	}
-	
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-	
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-	
-	public int getSerie() {
-		return serie;
-	}
-	
-	public void setSerie(int serie) {
-		this.serie = serie;
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public String getPais() {
-		return pais;
-	}
-	
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-	
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
+		
 	public String getMarca() {
 		return marca;
 	}
@@ -129,13 +77,12 @@ public class RodamientoBean{
 		this.marca = marca;
 	}
 
-	public float getCosto() {
-		return costo;
+	public String getCaracteristica() {
+		return caracteristica;
 	}
 
-	public void setCosto(float costo) {
-		this.costo = costo;
-	}
-	
+	public void setCaracteristica(String caracteristica) {
+		this.caracteristica = caracteristica;
+	}	
 	
 }

@@ -13,7 +13,7 @@ public class ClienteBean{
 		private int idCliente;
 	private String razonSocial;
 	private String mail;
-	private int CUIT;
+	private String CUIT;
 	
 	
 	
@@ -33,12 +33,12 @@ public class ClienteBean{
 		this.mail = mail;
 	}
 	
-	public int getCUIT() {
+	public String getCUIT() {
 		return CUIT;
 	}
 	
-	public void setCUIT(int cUIT) {
-		this.CUIT = cUIT;
+	public void setCUIT(String CUIT) {
+		this.CUIT = CUIT;
 	}
 	
 	public int getIdCliente() {

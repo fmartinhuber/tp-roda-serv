@@ -12,6 +12,10 @@ public class ItemOrdenCompraBean{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemOrdenCompra;
 	private float monto;
+	private int cantidad;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_rodamiento")
+		private RodamientoBean rodamiento;
 	
 	
 	
@@ -29,6 +33,22 @@ public class ItemOrdenCompraBean{
 	
 	public void setMonto(float monto) {
 		this.monto = monto;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public RodamientoBean getRodamiento() {
+		return rodamiento;
+	}
+
+	public void setRodamiento(RodamientoBean rodamiento) {
+		this.rodamiento = rodamiento;
 	}
 	
 	

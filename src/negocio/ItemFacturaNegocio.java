@@ -1,17 +1,18 @@
 package negocio;
 
 
-
 public class ItemFacturaNegocio{
 
-	private CotizacionNegocio orden;  
+	private RodamientoNegocio rodamiento;
+	private int cantidad;
 	private float subtotal;
 	
 	
 	
-	public ItemFacturaNegocio(CotizacionNegocio orden, float subtotal) {
+	public ItemFacturaNegocio(RodamientoNegocio rodamiento, int cant, float subtotal) {
 		super();
-		this.orden = orden;
+		this.rodamiento = rodamiento;
+		this.cantidad = cant;
 		this.subtotal = subtotal;
 	}
 	
@@ -19,12 +20,23 @@ public class ItemFacturaNegocio{
 		
 	}
 	
-	public CotizacionNegocio getOrden() {
-		return orden;
+	
+	public RodamientoNegocio getRodamiento() {
+		return rodamiento;
 	}
-	public void setOrden(CotizacionNegocio orden) {
-		this.orden = orden;
+
+	public void setRodamiento(RodamientoNegocio rodamiento) {
+		this.rodamiento = rodamiento;
 	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	public float getSubtotal() {
 		return subtotal;
 	}

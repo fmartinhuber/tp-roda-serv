@@ -2,20 +2,13 @@ package controlador;
 
 import interfaces.IAdministracionOV;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
+import java.rmi.*;
+import java.util.*;
 
-import utils.ItemDto;
-import bean.RodamientoBean;
-import dao.RodamientoDAO;
-import dto.ClienteDto;
-import dto.CotizacionDto;
-import dto.EnvioAOVDto;
-import dto.FacturaDto;
-import dto.ProveedorDto;
-import dto.RemitoDto;
-import dto.RodamientoDto;
+import utils.*;
+import bean.*;
+import dao.*;
+import dto.*;
 
 public class AdministracionOV implements IAdministracionOV {
 
@@ -45,31 +38,70 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 	
 	@Override
-	public List<RodamientoDto> obtenerRodamientos(){		
+	public List<RodamientoDto> obtenerRodamientos(){
+		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
-		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();		
+		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
 		return null;
 	}
 
-
-	@Override
-	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) 
-			throws RemoteException {
+	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
-		//Declaro un rodamiento para obtener de la base a ver si existe
-		List<RodamientoBean> miRodaListBean= new ArrayList<RodamientoBean>();
-		//Aca hay que iterar la lista, pruebo solamente con el 1ero
-		miRodaListBean = RodamientoDAO.getInstancia().obtenerRodamientos
-				();
-		/*Tengo que ver si elijo el mas barato, o el que mas tenga, o algo, aca hay que hacer logica
-		 segun lo que pida el enunciado. Por ahora elijo el 1ero y listo*/
+		//Uso la magica lista de Martin a ver como funca
+		AdministracionCC admCC = new AdministracionCC();
+		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
+		listaCompa = admCC.obtenerListaComparativa();
+				
+		//Seteo los valores correspondientes a 
+		miCotDto.setCliente(cliente);
+		miCotDto.setEstado("Pendiente"); //Todas se crean pendientes hasta ser aprobadas
+			Date actual = new Date();
+		miCotDto.setFechaCreacion(actual); //Se crea con la fecha actual
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(actual); 
+			c.add(Calendar.DATE, 30); //Se agregan 30 dias a la fecha actual
+			Date vigencia = new Date();
+			vigencia = c.getTime();
+		miCotDto.setFechaVigencia(vigencia);
 		
-		/*Aca tengo que empezar a hacer el pasamanos para generar un CotizacionDto con 
-		 todos los bean que me devolvieron*/
+		/*Aca viene la magia, recorro la listaComparativa en busqueda de los rodamientos que me pidio el cliente
+		y los cotizo (multiplico monto * cantidad)*/
 		
-		/*Tambien tengo que generar los precios (cantidad * monto) y ver si hay promociones o como aplica eso*/
+		//Creo la lista de items que voy a utilizar para ir cargandolos
+		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
+
+		//Para cada elemento de la lista comparativa
+		for (int i=0; i<=listaCompa.size(); i++){
+			//Comparo con cada elemento de la lista Item
+			for (int j=0; j<=listaItems.size(); j++){
+				//Obtengo los codigos
+					String codComp = listaCompa.get(i).getCodigo();
+					String codItem = listaItems.get(j).getRodamiento().getCodigo();
+				//Origen
+					String orgComp = listaCompa.get(i).getCodigo();
+					String orgItem = listaItems.get(j).getRodamiento().getOrigen();
+				//Marca
+					String marComp = listaCompa.get(i).getCodigo();
+					String marItem = listaItems.get(j).getRodamiento().getOrigen();
+				//Si coinciden las 3 cosas, es el que busco
+				if (codComp == codItem && orgComp == orgItem && marComp == marItem){
+					//Creo item
+						ItemCotizacionDto itemCotDto = new ItemCotizacionDto();
+					//Seteo sus valores
+						itemCotDto.setCant(listaItems.get(j).getCantidad());
+						itemCotDto.setRodamiento(listaCompa.get(j));
+						itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
+					//Agrego el item a la lista de items
+						listaItemCotDto.add(itemCotDto);
+				}
+			}
+		}
 		
+		//Agrego a la cotizacion toda la lista de items obtenida
+		miCotDto.setItems(listaItemCotDto);
+		
+		// TODO: Aca tengo que guardar la cotizacion en la base antes de salir
 		
 		return miCotDto;
 	}

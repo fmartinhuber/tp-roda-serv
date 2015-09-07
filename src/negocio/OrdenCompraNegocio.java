@@ -9,16 +9,22 @@ public class OrdenCompraNegocio{
 	private float total;	
 	private float descuento;
 	private List <ItemOrdenCompraNegocio> items;
+	private ProveedorNegocio proveedor;
+	private List<CotizacionNegocio> cotizaciones;
+	private String estado;
 		
 	
 	
 	public OrdenCompraNegocio(String formaPago, float total,
-			float descuento, List<ItemOrdenCompraNegocio> items) {
+			float descuento, List<ItemOrdenCompraNegocio> items,
+			ProveedorNegocio prov, List<CotizacionNegocio> cotizaciones) {
 		super();
 		this.formaPago = formaPago;
 		this.total = total;
 		this.descuento = descuento;
 		this.items = items;
+		this.proveedor = prov;
+		this.cotizaciones = cotizaciones;
 	}
 	
 	public OrdenCompraNegocio(){
@@ -29,6 +35,22 @@ public class OrdenCompraNegocio{
 		return formaPago;
 	}
 	
+	public ProveedorNegocio getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorNegocio proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	public List<CotizacionNegocio> getCotizaciones() {
+		return cotizaciones;
+	}
+
+	public void setCotizaciones(List<CotizacionNegocio> cotizaciones) {
+		this.cotizaciones = cotizaciones;
+	}
+
 	public void setFormaPago(String formaPago) {
 		this.formaPago = formaPago;
 	}
@@ -55,6 +77,14 @@ public class OrdenCompraNegocio{
 	
 	public void setItems(List<ItemOrdenCompraNegocio> items) {
 		this.items = items;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	
