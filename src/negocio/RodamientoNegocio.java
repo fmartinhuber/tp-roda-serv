@@ -20,7 +20,9 @@ public class RodamientoNegocio{
 	private String origen;
 	private String marca;
 	private float monto;
+	private float costo;
 	private ProveedorNegocio proveedor;
+	
 	
 	
 	public RodamientoNegocio(String tipo, String codigo, int stock, int medida,
@@ -147,6 +149,18 @@ public class RodamientoNegocio{
 
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+
+	public float getGanancia() {
+		return (this.monto-this.costo);
+	}
+
+	public float getCosto() {
+		return costo;
+	}
+
+	public void setCosto(float costo) {
+		this.costo = costo;
 	}
 	
 	
