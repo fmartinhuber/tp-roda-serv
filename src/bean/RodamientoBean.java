@@ -14,11 +14,9 @@ public class RodamientoBean{
 	private String tipo;
 	private String codigo;
 	private int stock;
-	private int serie;
 	private String origen;
-	private String descripcion;
+	private String caracteristica;
 	private float monto;
-	//private float costo;
 	private String marca;
 	
 	
@@ -71,14 +69,6 @@ public class RodamientoBean{
 		this.stock = stock;
 	}
 		
-	public int getSerie() {
-		return serie;
-	}
-	
-	public void setSerie(int serie) {
-		this.serie = serie;
-	}
-	
 	public String getMarca() {
 		return marca;
 	}
@@ -87,12 +77,12 @@ public class RodamientoBean{
 		this.marca = marca;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getCaracteristica() {
+		return caracteristica;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setCaracteristica(String caracteristica) {
+		this.caracteristica = caracteristica;
 	}	
 	
 }

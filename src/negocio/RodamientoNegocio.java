@@ -13,26 +13,24 @@ public class RodamientoNegocio{
 	private String tipo;
 	private String codigo;
 	private int stock;
-	private int serie;
 	private String origen;
 	private String marca;
-	private String descripcion;
+	private String caracteristica;
 	private float monto;
 	private ProveedorNegocio proveedor;
 	
 	
-
-	public RodamientoNegocio(String tipo, String codigo, int stock, int serie,
-			String origen, String marca, String descripcion, float monto,
+	
+	public RodamientoNegocio(String tipo, String codigo, int stock, String origen, 
+			String marca, String caracteristica, float monto,
 			ProveedorNegocio proveedor) {
 		super();
 		this.tipo = tipo;
 		this.codigo = codigo;
 		this.stock = stock;
-		this.serie = serie;
 		this.origen = origen;
 		this.marca = marca;
-		this.descripcion = descripcion;
+		this.caracteristica = caracteristica;
 		this.monto = monto;
 		this.proveedor = proveedor;
 	}
@@ -99,14 +97,6 @@ public class RodamientoNegocio{
 		this.stock = stock;
 	}
 	
-	public int getSerie() {
-		return serie;
-	}
-	
-	public void setSerie(int serie) {
-		this.serie = serie;
-	}
-	
 	public ProveedorNegocio getProveedor() {
 		return proveedor;
 	}
@@ -123,12 +113,12 @@ public class RodamientoNegocio{
 		this.marca = marca;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getCaracteristica() {
+		return caracteristica;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setCaracteristica(String caracteristica) {
+		this.caracteristica = caracteristica;
 	}
 	
 }

@@ -16,7 +16,7 @@ import utils.*;
 public class testDaro {
 
 	public static void main(String[] args)  throws RemoteException {
-		//Creo lista de utils
+		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
 		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
 		//Creo Rodamientos
 		RodamientoDto rodaUno = new RodamientoDto();
@@ -37,10 +37,9 @@ public class testDaro {
 		
 		//Creo un Cliente
 		ClienteDto miClienteDto = new ClienteDto();
-		//Solamente le asigno los valores: CUIT y Razon Social, que  
+		//Solamente le asigno los valores: CUIT y Razon Social, va a ser por cual lo busque
 		miClienteDto.setCUIT("20345850090");
 		miClienteDto.setRazonSocial("Nieto SRL");
-		miClienteDto.setMail("dariodario@gmail.com");
 		
 		//Creo una cotizacionDTO, que va a ser lo que me devuelva el metodo
 		CotizacionDto miCotDto = new CotizacionDto();

@@ -22,21 +22,39 @@ import interfaces.IAdministracionCC;
 public class AdministracionCC implements IAdministracionCC {
 
 	public AdministracionCC administracion;
+	
 	private List <OrdenCompraDto> ordenesP;
 	/**
 	 *  Actualizar stock propio. (RAMA)
 	 */
-	private List <RodamientoDto> rodamientos;
+		private List <RodamientoDto> rodamientos;
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
-	private List <RodamientoDto> listaPrincipal;
-	private List <RodamientoDto> listaOpcional;
+		private List <RodamientoDto> listaPrincipal;
+		private List <RodamientoDto> listaOpcional;
 	
 	
 	public AdministracionCC(){
 		ordenesP = new ArrayList <OrdenCompraDto>();
 		rodamientos = new ArrayList <RodamientoDto>();
+		listaPrincipal = new ArrayList<RodamientoDto>();
+		listaOpcional = new ArrayList<RodamientoDto>();
+		
+		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
+		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
+		ProveedorDto provUno = new ProveedorDto();
+			provUno.setNombre("Solear SA");		
+		RodamientoDto rodaUno = new RodamientoDto();
+			rodaUno.setCodigo("22310");
+			rodaUno.setCaracteristica("CCW33");
+			rodaUno.setMarca("ZKL");
+			rodaUno.setMonto((float) 310.71);
+			rodaUno.setOrigen("Japon");
+			rodaUno.setProveedor(provUno);
+			rodaUno.setStock(85);
+			rodaUno.setTipo("Bolilla");
+		listaPrincipal.add(rodaUno);
 	}
 	
 	public AdministracionCC getInstancia(){
