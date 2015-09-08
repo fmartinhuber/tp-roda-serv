@@ -120,5 +120,32 @@ public class RodamientoNegocio{
 	public void setCaracteristica(String caracteristica) {
 		this.caracteristica = caracteristica;
 	}
+
+	public RodamientoBean rodamientoNegocioToBean() {
+		// TODO Auto-generated method stub
+		RodamientoBean miRodamientoBean = new RodamientoBean();
+		miRodamientoBean.setCaracteristica(this.getCaracteristica());
+		miRodamientoBean.setCodigo(this.getCodigo());
+		miRodamientoBean.setMarca(this.getMarca());
+		miRodamientoBean.setMonto(this.getMonto());
+		miRodamientoBean.setOrigen(this.getOrigen());
+		miRodamientoBean.setStock(this.getStock());
+		miRodamientoBean.setTipo(this.getTipo());
+		return miRodamientoBean;
+	}
+
+	public RodamientoNegocio rodamientoBeanToNegocio(RodamientoBean rodamiento) {
+		// TODO Auto-generated method stub
+		this.setCaracteristica(rodamiento.getCaracteristica());
+		this.setCodigo(rodamiento.getCodigo());
+		this.setMarca(rodamiento.getMarca());
+		this.setMonto(rodamiento.getMonto());
+		this.setOrigen(rodamiento.getOrigen());
+		//Falta el proveedor en el bean
+		//this.setProveedor(rodamiento.ge);
+		this.setStock(rodamiento.getStock());
+		this.setTipo(rodamiento.getTipo());
+		return this;
+	}
 	
 }

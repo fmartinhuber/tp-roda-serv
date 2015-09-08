@@ -13,9 +13,10 @@ public class ProveedorBean{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 		private int IdProveedor;
 	private String nombre;
-	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="rodamiento_proveedor")
-		private List<RodamientoBean> Rodamientos;
+	//@OneToMany (cascade=CascadeType.ALL)
+	//@JoinColumn(name="rodamiento_proveedor")
+	@OneToMany(mappedBy = "proveedor")
+		private List<RodamientoBean> rodamientos;
 	
 	
 	
@@ -36,11 +37,11 @@ public class ProveedorBean{
 	}
 	
 	public List<RodamientoBean> getRodamientos() {
-		return Rodamientos;
+		return rodamientos;
 	}
 	
 	public void setRodamientos(List<RodamientoBean> rodamientos) {
-		Rodamientos = rodamientos;
+		rodamientos = rodamientos;
 	}
 	
 	

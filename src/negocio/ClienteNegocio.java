@@ -1,5 +1,6 @@
 package negocio;
 
+import bean.ClienteBean;
 import dto.*;
 
 
@@ -58,6 +59,23 @@ public class ClienteNegocio{
 	
 	public void setCUIT(String CUIT) {
 		this.CUIT = CUIT;
+	}
+
+	public ClienteBean clienteNegocioToBean() {
+		// TODO Auto-generated method stub
+		ClienteBean miClienteBean = new ClienteBean();
+		miClienteBean.setCUIT(this.getCUIT());
+		miClienteBean.setRazonSocial(this.getRazonSocial());
+		miClienteBean.setMail(this.getMail());
+		return null;
+	}
+
+	public ClienteNegocio clienteBeanToNegocio(ClienteBean clienteBean) {
+		// TODO Auto-generated method stub
+		this.setCUIT(clienteBean.getCUIT());
+		this.setMail(clienteBean.getMail());
+		this.setRazonSocial(clienteBean.getRazonSocial());
+		return this;
 	}
 
 
