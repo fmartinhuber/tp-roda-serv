@@ -141,8 +141,9 @@ public class RodamientoNegocio{
 		this.setMarca(rodamiento.getMarca());
 		this.setMonto(rodamiento.getMonto());
 		this.setOrigen(rodamiento.getOrigen());
-		//Falta el proveedor en el bean
-		//this.setProveedor(rodamiento.ge);
+		ProveedorNegocio miProveedorNegocio = new ProveedorNegocio();
+		miProveedorNegocio.proveedorBeanToNegocio(rodamiento.getProveedor());
+		this.setProveedor(miProveedorNegocio);
 		this.setStock(rodamiento.getStock());
 		this.setTipo(rodamiento.getTipo());
 		return this;

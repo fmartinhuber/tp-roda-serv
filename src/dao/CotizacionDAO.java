@@ -2,7 +2,10 @@ package dao;
 
 import hbt.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import negocio.CotizacionNegocio;
 
 import org.hibernate.Session;
 
@@ -26,12 +29,19 @@ public class CotizacionDAO extends HibernateDAO{
 	}
 
 	//Levanta las cotizaciones en un estado pasado por parametro
-	public List<CotizacionBean> obtenerCotizacionesAprobada(String estado){
+	public List<CotizacionNegocio> obtenerCotizacionesAprobada(String estado){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
 		List<CotizacionBean> cotizacionesAprobadas = s.createQuery("from CotizacionBean c where c.estado = ?").setParameter(1, estado).list();
 		
-		return cotizacionesAprobadas;
+		List<CotizacionNegocio> cotizacionSalida = new ArrayList<CotizacionNegocio>();
+		for(int i=0; i<cotizacionesAprobadas.size(); i++){
+			CotizacionNegocio miCotizacion = new CotizacionNegocio();
+			miCotizacion = miCotizacion.CotizacionBeanToNegocio(cotizacionesAprobadas.get(i));
+			cotizacionSalida.add(miCotizacion);
+		}
+		
+		return cotizacionSalida;
 	}
 }

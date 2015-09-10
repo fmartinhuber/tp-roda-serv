@@ -87,6 +87,16 @@ public class RodamientoBean{
 	public void setCaracteristica(String caracteristica) {
 		this.caracteristica = caracteristica;
 	}
+
+	public ProveedorBean getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorBean proveedor) {
+		this.proveedor = proveedor;
+	}
+	
+	
 /*
 	public float getCosto() {
 		return costo;

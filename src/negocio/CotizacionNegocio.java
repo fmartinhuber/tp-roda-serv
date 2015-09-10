@@ -111,11 +111,13 @@ public class CotizacionNegocio{
 		this.setEstado(miCotBean.getEstado());
 		this.setFechaCreacion(miCotBean.getFechaCreacion());
 		this.setFechaVigencia(miCotBean.getFechaVigencia());
+		List<ItemCotizacionNegocio> itemsCotizacionNegocio = new ArrayList<ItemCotizacionNegocio>();
 		for(int i=0; i<miCotBean.getItems().size(); i++){
 			ItemCotizacionNegocio itemCotizacionNegocio = new ItemCotizacionNegocio();
 			itemCotizacionNegocio.itemCotizacionBeanToNegocio(miCotBean.getItems().get(i));
-			this.items.add(itemCotizacionNegocio);
+			itemsCotizacionNegocio.add(itemCotizacionNegocio);
 		}
+		this.setItems(itemsCotizacionNegocio);
 		return this;
 	}
 	
