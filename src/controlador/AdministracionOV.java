@@ -5,8 +5,8 @@ import interfaces.IAdministracionOV;
 import java.rmi.*;
 import java.util.*;
 
+import negocio.RodamientoNegocio;
 import utils.*;
-import bean.*;
 import dao.*;
 import dto.*;
 
@@ -41,7 +41,7 @@ public class AdministracionOV implements IAdministracionOV {
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
-		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
+		List <RodamientoNegocio> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
 		return null;
 	}
 

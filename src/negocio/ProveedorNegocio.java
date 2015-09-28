@@ -2,22 +2,32 @@ package negocio;
 
 import java.util.*;
 
-import bean.ProveedorBean;
-import bean.RodamientoBean;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-
-
+@Entity
+@Table(name="Proveedor")
 public class ProveedorNegocio{
 
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int IdProveedor;
 	private String nombre;
-	private List<RodamientoNegocio> Rodamientos;
+	//@OneToMany (cascade=CascadeType.ALL)
+	//@JoinColumn(name="rodamiento_proveedor")
+	@OneToMany(mappedBy = "proveedor")
+	private List<RodamientoNegocio> rodamientos;
 	
 	
 	
 	public ProveedorNegocio(String nombre, List<RodamientoNegocio> rodamientos) {
 		super();
 		this.nombre = nombre;
-		Rodamientos = rodamientos;
+		this.rodamientos = rodamientos;
 	}
 	
 	public ProveedorNegocio(){
@@ -33,33 +43,12 @@ public class ProveedorNegocio{
 	}
 	
 	public List<RodamientoNegocio> getRodamientos() {
-		return Rodamientos;
+		return rodamientos;
 	}
 	
 	public void setRodamientos(List<RodamientoNegocio> regulares) {
-		Rodamientos = regulares;
+		rodamientos = regulares;
 	}
 	
-	public ProveedorBean proveedorNegocioToBean(){
-		ProveedorBean miProveedorBean = new ProveedorBean();
-		miProveedorBean.setNombre(this.getNombre());
-		List<RodamientoBean> rodamientosBean = new ArrayList<RodamientoBean>();
-		for(int i=0; i<this.getRodamientos().size();i++){
-			RodamientoBean rodamientoBean = this.getRodamientos().get(i).rodamientoNegocioToBean();
-			rodamientosBean.add(rodamientoBean);
-		}
-		return miProveedorBean;
-	}
 	
-	public ProveedorNegocio proveedorBeanToNegocio(ProveedorBean miProveedorBean){
-		this.setNombre(miProveedorBean.getNombre());
-		List<RodamientoNegocio> rodamientosNegocio = new ArrayList<RodamientoNegocio>();
-		for(int i=0; i<miProveedorBean.getRodamientos().size(); i++){
-			RodamientoNegocio rodamientoNegocio = new RodamientoNegocio();
-			rodamientoNegocio.rodamientoBeanToNegocio(miProveedorBean.getRodamientos().get(i));
-			rodamientosNegocio.add(rodamientoNegocio);
-		}
-		this.setRodamientos(rodamientosNegocio);
-		return this;
-	}
 }

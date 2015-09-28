@@ -1,12 +1,27 @@
 package negocio;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name="ItemFactura")
 public class ItemFacturaNegocio{
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idItemFactura;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_rodamiento")
 	private RodamientoNegocio rodamiento;
-	private int cantidad;
 	private float subtotal;
-	
+	private int cantidad;
 	
 	
 	public ItemFacturaNegocio(RodamientoNegocio rodamiento, int cant, float subtotal) {

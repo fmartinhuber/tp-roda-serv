@@ -2,8 +2,17 @@ package negocio;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import dto.*;
-import bean.*;
 
 
 
@@ -13,14 +22,23 @@ import bean.*;
  *	Si es pendiente: El cliente pidio la cotizacion y el sistema se la genero
  *	Si es aprobada: El cliente aprobo la solicitud (Esto se lo llama en el enunciado "Pedido de Venta")
  */
+
+@Entity
+@Table(name="Cotizacion")
 public class CotizacionNegocio{
 	
-	private List<ItemCotizacionNegocio> items;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idCotizacion;
 	private String estado;
-	private ClienteNegocio cliente;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cotizacion_items")
+	private List<ItemCotizacionNegocio> items;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="cotizacion_cliente")
+	private ClienteNegocio cliente; 
 	private Date fechaCreacion;
 	private Date fechaVigencia;
-	
 	
 	
 	public CotizacionNegocio(List<ItemCotizacionNegocio> items, String estado,
@@ -72,54 +90,6 @@ public class CotizacionNegocio{
 		return miCotNegocio;
 	}
 	
-	
-	/**
-	 * @author Daro
-	 * - Transformacion 2/4
-	 * De esta forma se pasa Negocio a Bean. Para llamar a los Dao y laburar con la BD se necesitan
-	 * objetos bean, por eso esta transformacion 
-	 */
-	public CotizacionBean CotizacionNegocioToBean (){
-	//public CotizacionBean transformarCotizacionNegocioACotizacionBean (CotizacionNegocio miCotNeg){
-		CotizacionBean miCotBean = new CotizacionBean();
-		miCotBean.setEstado(this.getEstado());
-		miCotBean.setFechaCreacion(this.getFechaCreacion());
-		miCotBean.setFechaVigencia(this.getFechaVigencia());
-		//Falta el metodo TRASNFORMAR en cliente
-		miCotBean.setCliente(this.getCliente().clienteNegocioToBean());
-		List<ItemCotizacionBean> itemsCotizacionBean = new ArrayList<ItemCotizacionBean>();
-		for(int i=0; i<this.getItems().size(); i++){
-			ItemCotizacionBean itemCotizacionBean = new ItemCotizacionBean();
-			itemCotizacionBean = this.getItems().get(i).itemCotizacionNegocioToBean();
-			itemsCotizacionBean.add(itemCotizacionBean);
-		}
-		miCotBean.setItems(itemsCotizacionBean);
-		return miCotBean;
-	}
-	
-	
-	/**
-	 * @author Daro
-	 * - Transformacion 3/4
-	 * De esta forma se pasa Bean a Negocio. Una vez que la BD nos devuelve algo es un Bean,
-	 * necesitamos transformarlo a Negocio para trabajarlo
-	 */
-	public CotizacionNegocio CotizacionBeanToNegocio (CotizacionBean miCotBean){
-	//public CotizacionNegocio transformarCotizacionBeanACotizacionNegocio (CotizacionBean miCotBean){
-		
-		this.cliente.clienteBeanToNegocio(miCotBean.getCliente());
-		this.setEstado(miCotBean.getEstado());
-		this.setFechaCreacion(miCotBean.getFechaCreacion());
-		this.setFechaVigencia(miCotBean.getFechaVigencia());
-		List<ItemCotizacionNegocio> itemsCotizacionNegocio = new ArrayList<ItemCotizacionNegocio>();
-		for(int i=0; i<miCotBean.getItems().size(); i++){
-			ItemCotizacionNegocio itemCotizacionNegocio = new ItemCotizacionNegocio();
-			itemCotizacionNegocio.itemCotizacionBeanToNegocio(miCotBean.getItems().get(i));
-			itemsCotizacionNegocio.add(itemCotizacionNegocio);
-		}
-		this.setItems(itemsCotizacionNegocio);
-		return this;
-	}
 	
 	
 	/**

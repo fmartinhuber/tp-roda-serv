@@ -9,8 +9,8 @@ import negocio.CotizacionNegocio;
 
 import org.hibernate.Session;
 
-import bean.CotizacionBean;
-import bean.RodamientoBean;
+import negocio.CotizacionNegocio;
+import negocio.RodamientoNegocio;
 
 public class CotizacionDAO extends HibernateDAO{
 	
@@ -33,12 +33,11 @@ public class CotizacionDAO extends HibernateDAO{
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<CotizacionBean> cotizacionesAprobadas = s.createQuery("from CotizacionBean c where c.estado = ?").setParameter(1, estado).list();
+		List<CotizacionNegocio> cotizacionesAprobadas = s.createQuery("from CotizacionNegocio c where c.estado = ?").setParameter(1, estado).list();
 		
 		List<CotizacionNegocio> cotizacionSalida = new ArrayList<CotizacionNegocio>();
 		for(int i=0; i<cotizacionesAprobadas.size(); i++){
 			CotizacionNegocio miCotizacion = new CotizacionNegocio();
-			miCotizacion = miCotizacion.CotizacionBeanToNegocio(cotizacionesAprobadas.get(i));
 			cotizacionSalida.add(miCotizacion);
 		}
 		

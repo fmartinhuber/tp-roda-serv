@@ -4,9 +4,10 @@ import hbt.HibernateUtil;
 
 import java.util.List;
 
+import negocio.RodamientoNegocio;
+
 import org.hibernate.Session;
 
-import bean.RodamientoBean;
 
 public class RodamientoDAO extends HibernateDAO{
 
@@ -18,11 +19,11 @@ public class RodamientoDAO extends HibernateDAO{
 		return instancia;
 	}
 	
-	public List<RodamientoBean> obtenerRodamientos(){
+	public List<RodamientoNegocio> obtenerRodamientos(){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<RodamientoBean> rodamientos = s.createQuery("from RodamientoBean r").list();
+		List<RodamientoNegocio> rodamientos = s.createQuery("from RodamientoBean r").list();
 		
 		return rodamientos;
 	}

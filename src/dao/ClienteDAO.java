@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import bean.*;
+import negocio.*;
 
 public class ClienteDAO extends HibernateDAO {
 	
@@ -18,12 +18,12 @@ public class ClienteDAO extends HibernateDAO {
 		return instancia;
 	}
 
-	public List<ClienteBean> listarClientes(){
+	public List<ClienteNegocio> listarClientes(){
 		
 		Session s = HibernateUtil.getSessionFactory().openSession();
 				
 		@SuppressWarnings("unchecked")
-		List<ClienteBean> clientes = s.createQuery("from ClienteBean c").list();
+		List<ClienteNegocio> clientes = s.createQuery("from ClienteNegocio c").list();
 		
 		return clientes;
 	}

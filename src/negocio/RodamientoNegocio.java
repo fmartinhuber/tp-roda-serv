@@ -2,23 +2,37 @@ package negocio;
 
 import java.util.List;
 
-import bean.RodamientoBean;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import dao.RodamientoDAO;
 import dto.*;
 
 
-
+@Entity
+@Table(name="Rodamiento")
 public class RodamientoNegocio{
 	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int IdRodamiento; 
 	private String tipo;
 	private String codigo;
 	private int stock;
 	private String origen;
-	private String marca;
 	private String caracteristica;
 	private float monto;
+	private String marca;
+	@ManyToOne
+	@JoinColumn(name="IdProveedor") //Aqui va el nombre del campo clave de la tabla relacionada
 	private ProveedorNegocio proveedor;
-	
+	//private float costo;
+	//private float ganancia;
 	
 	
 	public RodamientoNegocio(String tipo, String codigo, int stock, String origen, 
@@ -39,18 +53,6 @@ public class RodamientoNegocio{
 		
 	}
 	
-	public void guardarRodamiento(){
-		
-		RodamientoBean rodamientoBean = new RodamientoBean();
-		rodamientoBean.setCodigo(this.codigo);
-		
-		RodamientoDAO.getInstancia().persist(rodamientoBean);
-	}
-	
-	
-	public List <RodamientoBean> obtenerRodamientos(){
-		return RodamientoDAO.getInstancia().obtenerRodamientos();
-	}
 
 	public RodamientoNegocio transformarRodamientoDtoARodamientoNegocio(RodamientoDto miRodaDto) {
 		// TODO Auto-generated method stub
@@ -121,32 +123,5 @@ public class RodamientoNegocio{
 		this.caracteristica = caracteristica;
 	}
 
-	public RodamientoBean rodamientoNegocioToBean() {
-		// TODO Auto-generated method stub
-		RodamientoBean miRodamientoBean = new RodamientoBean();
-		miRodamientoBean.setCaracteristica(this.getCaracteristica());
-		miRodamientoBean.setCodigo(this.getCodigo());
-		miRodamientoBean.setMarca(this.getMarca());
-		miRodamientoBean.setMonto(this.getMonto());
-		miRodamientoBean.setOrigen(this.getOrigen());
-		miRodamientoBean.setStock(this.getStock());
-		miRodamientoBean.setTipo(this.getTipo());
-		return miRodamientoBean;
-	}
-
-	public RodamientoNegocio rodamientoBeanToNegocio(RodamientoBean rodamiento) {
-		// TODO Auto-generated method stub
-		this.setCaracteristica(rodamiento.getCaracteristica());
-		this.setCodigo(rodamiento.getCodigo());
-		this.setMarca(rodamiento.getMarca());
-		this.setMonto(rodamiento.getMonto());
-		this.setOrigen(rodamiento.getOrigen());
-		ProveedorNegocio miProveedorNegocio = new ProveedorNegocio();
-		miProveedorNegocio.proveedorBeanToNegocio(rodamiento.getProveedor());
-		this.setProveedor(miProveedorNegocio);
-		this.setStock(rodamiento.getStock());
-		this.setTipo(rodamiento.getTipo());
-		return this;
-	}
 	
 }

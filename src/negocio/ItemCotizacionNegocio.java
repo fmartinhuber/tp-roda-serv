@@ -1,12 +1,26 @@
 package negocio;
 
-import bean.ItemCotizacionBean;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import dto.ItemCotizacionDto;
 
 
-
+@Entity
+@Table(name="ItemCotizacion")
 public class ItemCotizacionNegocio{
 
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idItemCotizacion; 
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_rodamiento")
 	private RodamientoNegocio rodamiento;
 	private int cant;
 	private float subtotal;
@@ -51,23 +65,6 @@ public class ItemCotizacionNegocio{
 		this.subtotal = subtotal;
 	}
 
-	public ItemCotizacionBean itemCotizacionNegocioToBean() {
-		// TODO Auto-generated method stub
-		ItemCotizacionBean miItemCotizacionBean = new ItemCotizacionBean();
-		miItemCotizacionBean.setCant(this.getCant());
-		miItemCotizacionBean.setSubtotal(subtotal);
-		miItemCotizacionBean.setRodamiento(this.getRodamiento().rodamientoNegocioToBean());
-		return miItemCotizacionBean;
-	}
-
-	public ItemCotizacionNegocio itemCotizacionBeanToNegocio(ItemCotizacionBean itemCotizacionBean) {
-		// TODO Auto-generated method stub
-		this.setCant(itemCotizacionBean.getCant());
-		this.setSubtotal(itemCotizacionBean.getSubtotal());
-		RodamientoNegocio rodamientoNegocio = new RodamientoNegocio();
-		this.setRodamiento(rodamientoNegocio.rodamientoBeanToNegocio(itemCotizacionBean.getRodamiento()));
-		return this;
-	}
 
 
 	
