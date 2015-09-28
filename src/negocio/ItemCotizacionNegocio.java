@@ -1,5 +1,6 @@
 package negocio;
 
+import bean.ItemCotizacionBean;
 import dto.ItemCotizacionDto;
 
 
@@ -8,7 +9,7 @@ public class ItemCotizacionNegocio{
 
 	private RodamientoNegocio rodamiento;
 	private int cant;
-	private float precio;
+	private float subtotal;
 	
 	
 	public ItemCotizacionNegocio(RodamientoNegocio rodamiento, int cant) {
@@ -42,12 +43,30 @@ public class ItemCotizacionNegocio{
 		this.cant = cant;
 	}
 
-	public float getPrecio() {
-		return precio;
+	public float getSubtotal() {
+		return subtotal;
 	}
 
-	public void setPrecio(float precio) {
-		this.precio = precio;
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public ItemCotizacionBean itemCotizacionNegocioToBean() {
+		// TODO Auto-generated method stub
+		ItemCotizacionBean miItemCotizacionBean = new ItemCotizacionBean();
+		miItemCotizacionBean.setCant(this.getCant());
+		miItemCotizacionBean.setSubtotal(subtotal);
+		miItemCotizacionBean.setRodamiento(this.getRodamiento().rodamientoNegocioToBean());
+		return miItemCotizacionBean;
+	}
+
+	public ItemCotizacionNegocio itemCotizacionBeanToNegocio(ItemCotizacionBean itemCotizacionBean) {
+		// TODO Auto-generated method stub
+		this.setCant(itemCotizacionBean.getCant());
+		this.setSubtotal(itemCotizacionBean.getSubtotal());
+		RodamientoNegocio rodamientoNegocio = new RodamientoNegocio();
+		this.setRodamiento(rodamientoNegocio.rodamientoBeanToNegocio(itemCotizacionBean.getRodamiento()));
+		return this;
 	}
 
 

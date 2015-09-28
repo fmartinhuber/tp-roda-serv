@@ -43,7 +43,8 @@ public class CotizacionNegocio{
 	 * De esta forma se pasa Dto a Negocio. Cuando el cliente manda un Dto el servidor
 	 * necesita transformarlo a negocio para usar los metodos necesarios
 	 */
-	public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
+	public CotizacionNegocio cotizacionDtoToNegocio (CotizacionDto miCotDto){
+	//public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
 		//Creo la salida del metodo
 			CotizacionNegocio miCotNegocio= new CotizacionNegocio();
 		//Asigno los atributos simples
@@ -78,8 +79,22 @@ public class CotizacionNegocio{
 	 * De esta forma se pasa Negocio a Bean. Para llamar a los Dao y laburar con la BD se necesitan
 	 * objetos bean, por eso esta transformacion 
 	 */
-	public CotizacionBean transformarCotizacionNegocioACotizacionBean (CotizacionNegocio miCotNeg){
-		return null;
+	public CotizacionBean CotizacionNegocioToBean (){
+	//public CotizacionBean transformarCotizacionNegocioACotizacionBean (CotizacionNegocio miCotNeg){
+		CotizacionBean miCotBean = new CotizacionBean();
+		miCotBean.setEstado(this.getEstado());
+		miCotBean.setFechaCreacion(this.getFechaCreacion());
+		miCotBean.setFechaVigencia(this.getFechaVigencia());
+		//Falta el metodo TRASNFORMAR en cliente
+		miCotBean.setCliente(this.getCliente().clienteNegocioToBean());
+		List<ItemCotizacionBean> itemsCotizacionBean = new ArrayList<ItemCotizacionBean>();
+		for(int i=0; i<this.getItems().size(); i++){
+			ItemCotizacionBean itemCotizacionBean = new ItemCotizacionBean();
+			itemCotizacionBean = this.getItems().get(i).itemCotizacionNegocioToBean();
+			itemsCotizacionBean.add(itemCotizacionBean);
+		}
+		miCotBean.setItems(itemsCotizacionBean);
+		return miCotBean;
 	}
 	
 	
@@ -89,8 +104,21 @@ public class CotizacionNegocio{
 	 * De esta forma se pasa Bean a Negocio. Una vez que la BD nos devuelve algo es un Bean,
 	 * necesitamos transformarlo a Negocio para trabajarlo
 	 */
-	public CotizacionNegocio transformarCotizacionBeanACotizacionNegocio (CotizacionBean miCotBean){
-		return null;
+	public CotizacionNegocio CotizacionBeanToNegocio (CotizacionBean miCotBean){
+	//public CotizacionNegocio transformarCotizacionBeanACotizacionNegocio (CotizacionBean miCotBean){
+		
+		this.cliente.clienteBeanToNegocio(miCotBean.getCliente());
+		this.setEstado(miCotBean.getEstado());
+		this.setFechaCreacion(miCotBean.getFechaCreacion());
+		this.setFechaVigencia(miCotBean.getFechaVigencia());
+		List<ItemCotizacionNegocio> itemsCotizacionNegocio = new ArrayList<ItemCotizacionNegocio>();
+		for(int i=0; i<miCotBean.getItems().size(); i++){
+			ItemCotizacionNegocio itemCotizacionNegocio = new ItemCotizacionNegocio();
+			itemCotizacionNegocio.itemCotizacionBeanToNegocio(miCotBean.getItems().get(i));
+			itemsCotizacionNegocio.add(itemCotizacionNegocio);
+		}
+		this.setItems(itemsCotizacionNegocio);
+		return this;
 	}
 	
 	
@@ -100,7 +128,8 @@ public class CotizacionNegocio{
 	 * De esta forma se pasa Negocio a Dto. Cuando se necesita devolver informacion al cliente
 	 * hay que transformar la clase Negocio a Dto para enviarsela
 	 */
-	public CotizacionDto transformarCotizacionNegocioACotizacionDto (CotizacionNegocio miCotNeg){
+	public CotizacionDto cotizacionNegocioToDto(CotizacionNegocio miCotNeg){
+	//public CotizacionDto transformarCotizacionNegocioACotizacionDto (CotizacionNegocio miCotNeg){
 		return null;
 	}
 	

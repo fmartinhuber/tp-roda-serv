@@ -18,8 +18,11 @@ public class RodamientoBean{
 	private String caracteristica;
 	private float monto;
 	private String marca;
-	private float costo;
-	private float ganancia;
+	@ManyToOne
+	@JoinColumn(name="IdProveedor") //Aqui va el nombre del campo clave de la tabla relacionada
+		private ProveedorBean proveedor;
+	//private float costo;
+	//private float ganancia;
 	
 	public int getIdRodamiento() {
 		return IdRodamiento;
@@ -85,6 +88,16 @@ public class RodamientoBean{
 		this.caracteristica = caracteristica;
 	}
 
+	public ProveedorBean getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorBean proveedor) {
+		this.proveedor = proveedor;
+	}
+	
+	
+/*
 	public float getCosto() {
 		return costo;
 	}
@@ -100,5 +113,5 @@ public class RodamientoBean{
 	public void setGanancia(float ganancia) {
 		this.ganancia = ganancia;
 	}	
-	
+*/	
 }
