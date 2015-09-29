@@ -16,7 +16,7 @@ import interfaces.IAdministracionCC;
 
 public class AdministracionCC implements IAdministracionCC {
 
-	public AdministracionCC administracion;
+	public static AdministracionCC administracion;
 	
 	private List <OrdenCompraDto> ordenesP;
 	/**
@@ -52,7 +52,7 @@ public class AdministracionCC implements IAdministracionCC {
 		listaPrincipal.add(rodaUno);
 	}
 	
-	public AdministracionCC getInstancia(){
+	public static AdministracionCC getInstancia(){
 		if(administracion == null){
 			administracion = new AdministracionCC();
 		}
@@ -175,12 +175,6 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
-	
-	
-	
-	public RodamientoDto consultaMejorRodamiento (int codigo, int cantidad){
-		return null;
-	}
 
 	public List <RodamientoDto> getListaOpcional() {
 		return listaOpcional;

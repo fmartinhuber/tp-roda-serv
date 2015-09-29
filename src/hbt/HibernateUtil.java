@@ -11,16 +11,16 @@ public class HibernateUtil {
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
 	        	 
-	             config.addAnnotatedClass(bean.ClienteBean.class);
-	        	 config.addAnnotatedClass(bean.CotizacionBean.class);
-	        	 config.addAnnotatedClass(bean.FacturaBean.class);
-	        	 config.addAnnotatedClass(bean.ItemCotizacionBean.class);
-	        	 config.addAnnotatedClass(bean.ItemFacturaBean.class);
-	        	 config.addAnnotatedClass(bean.ItemOrdenCompraBean.class);
-	        	 config.addAnnotatedClass(bean.OrdenCompraBean.class);
-	        	 config.addAnnotatedClass(bean.ProveedorBean.class);
-	        	 config.addAnnotatedClass(bean.RemitoBean.class);
-	        	 config.addAnnotatedClass(bean.RodamientoBean.class);
+	             config.addAnnotatedClass(negocio.ClienteNegocio.class);
+	        	 config.addAnnotatedClass(negocio.CotizacionNegocio.class);
+	        	 config.addAnnotatedClass(negocio.FacturaNegocio.class);
+	        	 config.addAnnotatedClass(negocio.ItemCotizacionNegocio.class);
+	        	 config.addAnnotatedClass(negocio.ItemFacturaNegocio.class);
+	        	 config.addAnnotatedClass(negocio.ItemOrdenCompraNegocio.class);
+	        	 config.addAnnotatedClass(negocio.OrdenCompraNegocio.class);
+	        	 config.addAnnotatedClass(negocio.ProveedorNegocio.class);
+	        	 config.addAnnotatedClass(negocio.RemitoNegocio.class);
+	        	 config.addAnnotatedClass(negocio.RodamientoNegocio.class);
 	        	 
 	             sessionFactory = config.buildSessionFactory();
 	        }

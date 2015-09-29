@@ -2,18 +2,33 @@ package negocio;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name="Remito")
 public class RemitoNegocio{
 
+	@Id 
+	@GeneratedValue (strategy=GenerationType.AUTO)
+	private int idRemito;
 	private String estado;
+	@OneToOne (cascade=CascadeType.ALL)
+	@JoinColumn(name="remito_cliente")
 	private ClienteNegocio cliente;
+	@OneToMany
+	@JoinColumn(name="remito_orden")
 	private List <CotizacionNegocio> cotizaciones;
 	private String comentarios;
 	private Date fecha;
 	private boolean conformidad;
-	
-	
 	
 	public RemitoNegocio(String estado, ClienteNegocio cliente,
 			List<CotizacionNegocio> cotizaciones, String comentarios, Date fecha,

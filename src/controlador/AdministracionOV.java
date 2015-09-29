@@ -5,14 +5,14 @@ import interfaces.IAdministracionOV;
 import java.rmi.*;
 import java.util.*;
 
+import negocio.RodamientoNegocio;
 import utils.*;
-import bean.*;
 import dao.*;
 import dto.*;
 
 public class AdministracionOV implements IAdministracionOV {
 
-	public AdministracionOV administracion; 
+	public static AdministracionOV administracion; 
 	
 	private List <ClienteDto> clientes;
 	private List <FacturaDto> facturas;
@@ -22,7 +22,7 @@ public class AdministracionOV implements IAdministracionOV {
 	private String centroIndustrial;
 	
 	
-	public AdministracionOV getInstancia(){
+	public static AdministracionOV getInstancia(){
 		if(administracion == null){
 			administracion = new AdministracionOV();
 		}
@@ -41,7 +41,7 @@ public class AdministracionOV implements IAdministracionOV {
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
-		List <RodamientoBean> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
+		List <RodamientoNegocio> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
 		return null;
 	}
 
@@ -85,7 +85,7 @@ public class AdministracionOV implements IAdministracionOV {
 					String marComp = listaCompa.get(i).getCodigo();
 					String marItem = listaItems.get(j).getRodamiento().getOrigen();
 				//Si coinciden las 3 cosas, es el que busco
-				if (codComp == codItem && orgComp == orgItem && marComp == marItem){
+				if (codComp.equals(codItem) && orgComp.equals(orgItem) && marComp.equals(marItem)){
 					//Creo item
 						ItemCotizacionDto itemCotDto = new ItemCotizacionDto();
 					//Seteo sus valores

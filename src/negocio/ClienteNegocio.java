@@ -1,16 +1,25 @@
 package negocio;
 
-import bean.ClienteBean;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import dto.*;
 
 
-
+@Entity
+@Table(name="Cliente")
 public class ClienteNegocio{
 
+	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idCliente;
 	private String razonSocial;
 	private String mail;
 	private String CUIT;
-	
 	
 	
 	public ClienteNegocio(String razonSocial, String mail, String CUIT) {
@@ -59,23 +68,6 @@ public class ClienteNegocio{
 	
 	public void setCUIT(String CUIT) {
 		this.CUIT = CUIT;
-	}
-
-	public ClienteBean clienteNegocioToBean() {
-		// TODO Auto-generated method stub
-		ClienteBean miClienteBean = new ClienteBean();
-		miClienteBean.setCUIT(this.getCUIT());
-		miClienteBean.setRazonSocial(this.getRazonSocial());
-		miClienteBean.setMail(this.getMail());
-		return null;
-	}
-
-	public ClienteNegocio clienteBeanToNegocio(ClienteBean clienteBean) {
-		// TODO Auto-generated method stub
-		this.setCUIT(clienteBean.getCUIT());
-		this.setMail(clienteBean.getMail());
-		this.setRazonSocial(clienteBean.getRazonSocial());
-		return this;
 	}
 
 

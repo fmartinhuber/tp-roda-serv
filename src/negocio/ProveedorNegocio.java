@@ -2,19 +2,32 @@ package negocio;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name="Proveedor")
 public class ProveedorNegocio{
 
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int IdProveedor;
 	private String nombre;
-	private List<RodamientoNegocio> Rodamientos;
+	//@OneToMany (cascade=CascadeType.ALL)
+	//@JoinColumn(name="rodamiento_proveedor")
+	@OneToMany(mappedBy = "proveedor")
+	private List<RodamientoNegocio> rodamientos;
 	
 	
 	
 	public ProveedorNegocio(String nombre, List<RodamientoNegocio> rodamientos) {
 		super();
 		this.nombre = nombre;
-		Rodamientos = rodamientos;
+		this.rodamientos = rodamientos;
 	}
 	
 	public ProveedorNegocio(){
@@ -29,12 +42,12 @@ public class ProveedorNegocio{
 		this.nombre = nombre;
 	}
 	
-	public List<RodamientoNegocio> getRegulares() {
-		return Rodamientos;
+	public List<RodamientoNegocio> getRodamientos() {
+		return rodamientos;
 	}
 	
-	public void setRegulares(List<RodamientoNegocio> regulares) {
-		Rodamientos = regulares;
+	public void setRodamientos(List<RodamientoNegocio> regulares) {
+		rodamientos = regulares;
 	}
 	
 	
