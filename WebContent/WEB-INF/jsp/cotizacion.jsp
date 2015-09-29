@@ -14,7 +14,6 @@
 	<tr><td>Nombre:</td><td><input type="TEXT" name="Nombre"></td></tr>
 	<tr><td>CUIT:</td><td><input type="TEXT" name="cuit"></td></tr>
 	<tr><td>Rodamiento:</td><td><input type="TEXT" name="rodamiento"></td><input type="SUBMIT" value="Agregar"></td></tr>
-	
 	<tr><td colspan=2><input type="SUBMIT" value="Aceptar	"></td></tr>
 </table>
 </form>
