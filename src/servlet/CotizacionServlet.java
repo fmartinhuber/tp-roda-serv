@@ -27,7 +27,6 @@ public class CotizacionServlet extends HttpServlet {
      * Default constructor. 
      */
     public CotizacionServlet() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**

@@ -26,7 +26,6 @@
 //import dto.ItemCotizacionDto;
 //
 //public class CotizacionAXml {
-//	//TODO esta desactualizada este lista y es solo de ejemplo... no va a formar parte de la entrega final.
 //	private Document doc;
 //	private Integer i;
 //	public void crearXML(CotizacionDto c)

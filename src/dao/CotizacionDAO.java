@@ -18,7 +18,6 @@ public class CotizacionDAO extends HibernateDAO{
 
 	private CotizacionDAO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static CotizacionDAO getinstancia(){

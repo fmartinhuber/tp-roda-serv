@@ -101,7 +101,7 @@ public class AdministracionOV implements IAdministracionOV {
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
 		
-		// TODO: Aca tengo que guardar la cotizacion en la base antes de salir
+		//Aca tengo que guardar la cotizacion en la base antes de salir
 		
 		return miCotDto;
 	}
@@ -110,7 +110,7 @@ public class AdministracionOV implements IAdministracionOV {
 
 	@Override
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
-		// TODO Auto-generated method stub
+		// TODO Carlos
 		return null;
 	}
 
@@ -118,7 +118,7 @@ public class AdministracionOV implements IAdministracionOV {
 	@Override
 	public boolean abmCliente(ClienteDto cliente, String accion)
 			throws RemoteException {
-		// TODO Auto-generated method stub
+		// TODO OTRO METODO ABM???
 		return false;
 	}
 
@@ -185,7 +185,7 @@ public class AdministracionOV implements IAdministracionOV {
 	@Override
 	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion)
 			throws RemoteException {
-		// TODO Auto-generated method stub
+		// TODO RAMA
 		return null;
 	}
 

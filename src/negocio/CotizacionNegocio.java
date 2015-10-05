@@ -71,7 +71,7 @@ public class CotizacionNegocio{
 			miCotNegocio.setFechaVigencia(miCotDto.getFechaVigencia());
 		//Asigno los atributos de Clase unica, con el metodo de esa clase
 			ClienteNegocio miCliNegocio= new ClienteNegocio();
-			miCliNegocio = miCliNegocio.transformarClienteDtoAClienteNegocio(miCotDto.getCliente());
+			miCliNegocio = miCliNegocio.aClienteNegocio(miCotDto.getCliente());
 		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
 			List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
 			for (int i=0; i<miCotDto.getItems().size(); i++){
@@ -80,7 +80,7 @@ public class CotizacionNegocio{
 				//Obtengo el itemDto iterado de la lista
 				ItemCotizacionDto miItCotDto = miCotDto.getItems().get(i);
 				//Lo transformo
-				miItCotNegocio = miItCotNegocio.transformarItemCotizacionDtoAItemCotizacionNegocio(miItCotDto);
+				miItCotNegocio = miItCotNegocio.aItemCotizacionNegocio(miItCotDto);
 				//Agrego el item negocio a la lista de negocio
 				listaItCoNegocio.add(miItCotNegocio);
 			}

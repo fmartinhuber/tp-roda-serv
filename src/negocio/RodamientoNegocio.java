@@ -54,8 +54,7 @@ public class RodamientoNegocio{
 	}
 	
 
-	public RodamientoNegocio transformarRodamientoDtoARodamientoNegocio(RodamientoDto miRodaDto) {
-		// TODO Auto-generated method stub
+	public RodamientoNegocio aRodamientoNegocio(RodamientoDto miRodaDto) {
 		return null;
 	}
 

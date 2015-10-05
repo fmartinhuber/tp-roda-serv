@@ -14,7 +14,6 @@ public class TestCharly {
 	 */
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		AdministracionOV c = new AdministracionOV();
 		

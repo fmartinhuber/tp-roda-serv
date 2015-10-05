@@ -35,7 +35,7 @@ public class ClienteNegocio{
 	
 	
 	
-	public ClienteNegocio transformarClienteDtoAClienteNegocio(ClienteDto miCliDto) {
+	public ClienteNegocio aClienteNegocio(ClienteDto miCliDto) {
 		//Creo la salida del metodo
 			ClienteNegocio miCliNegocio = new ClienteNegocio();
 		//Asigno los atributos simples

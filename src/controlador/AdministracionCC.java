@@ -21,12 +21,16 @@ public class AdministracionCC implements IAdministracionCC {
 	private List <OrdenCompraDto> ordenesP;
 	/**
 	 *  Actualizar stock propio. (RAMA)
+	 *  Se utiliza para manejar el stock interno.
 	 */
 	private List <RodamientoDto> rodamientos;
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
 	private List <RodamientoDto> listaPrincipal;
+	/**
+	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
+	 */
 	private List <RodamientoDto> listaOpcional;
 	
 	
@@ -62,7 +66,7 @@ public class AdministracionCC implements IAdministracionCC {
 	@Override
 	public boolean abmProveedor(ProveedorDto proveedor, String accion)
 			throws RemoteException {
-		// TODO Auto-generated method stub
+		// TODO NO ENTIENDO ESTO? QUIEN LO HIZO? DEBERIAN SER 3 METODOS DISTINTOS UN ABM
 		return false;
 	}
 
@@ -77,7 +81,7 @@ public class AdministracionCC implements IAdministracionCC {
 	*/
 	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
 			throws RemoteException {
-		// TODO Auto-generated method stub
+		// TODO NO SE A QUIEN LE TOCA ESTO
 		return null;
 		// Levantar Cotizaciones en estado "APROBADAS"
 		
@@ -98,13 +102,13 @@ public class AdministracionCC implements IAdministracionCC {
 	@Override
 	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes)
 			throws RemoteException {
-		// TODO Auto-generated method stub
+		// TODO CARLOS
 		return null;
 	}
 
 	@Override
 	public void actualizarStock(List<RodamientoDto> listaRodamientos) {
-		// TODO Auto-generated method stub
+		// TODO RAMA
 		
 	}
 

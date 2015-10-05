@@ -36,8 +36,7 @@ public class ItemCotizacionNegocio{
 		
 	}
 	
-	public ItemCotizacionNegocio transformarItemCotizacionDtoAItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
-		// TODO Auto-generated method stub
+	public ItemCotizacionNegocio aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
 		return null;
 	}
 
