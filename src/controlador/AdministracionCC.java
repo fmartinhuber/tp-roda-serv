@@ -103,14 +103,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return administracion;
 	}
 	
-	@Override
-	public boolean abmProveedor(ProveedorDto proveedor, String accion)
-			throws RemoteException {
-		// TODO NO ENTIENDO ESTO? QUIEN LO HIZO? DEBERIAN SER 3 METODOS DISTINTOS UN ABM
-		return false;
-	}
-
-
 	
 	/*
 	 * No es necesario una lista de cotizaciónes
@@ -239,5 +231,22 @@ public class AdministracionCC implements IAdministracionCC {
 		AdministracionCC.idAdministracionCC = idAdministracionCC;
 	}
 
+	public RodamientoDto buscarRodamientoDto(String codigo){
+		for(Iterator <RodamientoNegocio> iterador = rodamientos.iterator();iterador.hasNext();){
+			RodamientoNegocio rodamiento = iterador.next();
+			if(rodamiento.getCodigo().equals(codigo))
+				return rodamiento.aRodamientoDto();
+		}
+		return null;
+	}
+	
+	public RodamientoNegocio buscarRodamientoNegocio(String codigo){
+		for(Iterator <RodamientoNegocio> iterador = rodamientos.iterator();iterador.hasNext();){
+			RodamientoNegocio rodamiento = iterador.next();
+			if(rodamiento.getCodigo().equals(codigo))
+				return rodamiento;
+		}
+		return null;
+	}
 
 }

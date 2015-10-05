@@ -152,13 +152,6 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 
-	@Override
-	public boolean abmCliente(ClienteDto cliente, String accion)
-			throws RemoteException {
-		// TODO OTRO METODO ABM???
-		return false;
-	}
-
 
 	public List <ClienteNegocio> getClientes() {
 		return clientes;

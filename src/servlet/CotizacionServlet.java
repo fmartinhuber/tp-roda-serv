@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import negocio.RodamientoNegocio;
 import utils.ItemDto;
+import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
 import dto.CotizacionDto;
@@ -37,15 +39,14 @@ public class CotizacionServlet extends HttpServlet {
 		List <ItemDto> listaItems = new ArrayList <ItemDto>();
 		ClienteDto cliente = new ClienteDto();
 		cliente.setCUIT(request.getParameter("cuit"));
-		cliente.getRazonSocial();
+		cliente.setRazonSocial(request.getParameter("razonSocial"));
 		
-		RodamientoDto rodamiento = new RodamientoDto();
-		rodamiento.setCodigo(request.getParameter("codigo"));
-		
+		RodamientoDto rodamiento = AdministracionCC.getInstancia().buscarRodamientoDto(request.getParameter("codigo"));
 		
 		
-		CotizacionDto cotizacion = new CotizacionDto();
-		cotizacion.g
+		ItemDto item = new ItemDto();
+		item.setRodamiento(rodamiento);
+		
 		
 		AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
 		

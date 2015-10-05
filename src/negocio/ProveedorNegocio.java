@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import dto.ProveedorDto;
+
 @Entity
 @Table(name="Proveedor")
 public class ProveedorNegocio{
@@ -48,6 +50,12 @@ public class ProveedorNegocio{
 	
 	public void setRodamientos(List<RodamientoNegocio> regulares) {
 		rodamientos = regulares;
+	}
+
+	public ProveedorDto aProveedorDto() {
+		ProveedorDto prov = new ProveedorDto();
+		prov.setNombre(this.getNombre());
+		return prov;
 	}
 	
 	
