@@ -34,6 +34,10 @@ public class RodamientoNegocio{
 	//private float costo;
 	//private float ganancia;
 	
+	public RodamientoNegocio(){
+		
+	}
+	
 	
 	public RodamientoNegocio(String tipo, String codigo, int stock, String origen, 
 			String marca, String caracteristica, float monto,
@@ -49,10 +53,6 @@ public class RodamientoNegocio{
 		this.proveedor = proveedor;
 	}
 
-	public RodamientoNegocio(){
-		
-	}
-	
 
 	public RodamientoNegocio aRodamientoNegocio(RodamientoDto miRodaDto) {
 		return null;

@@ -9,10 +9,10 @@
 <body>
 <form action="CotizacionServlet" method="POST">
 <table>
-	<jsp:useBean id="cotizacion" class="dto.CotizacionDto"/>
-	<tr><td>Razon Social:</td><td><jsp:setProperty name="cotizacion" property="razonSocial" /></td></tr>
+	<tr><td>Razon Social:</td><td><input type="TEXT" name="razonSocial"></td></tr>
 	<tr><td>CUIT:</td><td><input type="TEXT" name="cuit"></td></tr>
-	<tr><td colspan="5">Rodamiento</td></<tr>
+	<tr><td colspan="2">Rodamiento</td></<tr>
+	<tr><td>Codigo:</td><td><input type="TEXT" name="codigo"></td></tr>
 	<tr><td>Cantidad:</td><td><input type="TEXT" name="cantidad"></td></tr>
 	<tr><td>caracteristica:</td><td><input type="TEXT" name="caracteristica"></td></tr>
 	<tr><td>pais:</td><td><input type="TEXT" name="pais"></td></tr>

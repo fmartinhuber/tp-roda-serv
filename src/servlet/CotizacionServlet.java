@@ -15,6 +15,7 @@ import controlador.AdministracionOV;
 import dto.ClienteDto;
 import dto.CotizacionDto;
 import dto.ItemCotizacionDto;
+import dto.RodamientoDto;
 
 /**
  * Servlet implementation class RodamientoServlet
@@ -37,6 +38,15 @@ public class CotizacionServlet extends HttpServlet {
 		ClienteDto cliente = new ClienteDto();
 		cliente.setCUIT(request.getParameter("cuit"));
 		cliente.getRazonSocial();
+		
+		RodamientoDto rodamiento = new RodamientoDto();
+		rodamiento.setCodigo(request.getParameter("codigo"));
+		
+		
+		
+		CotizacionDto cotizacion = new CotizacionDto();
+		cotizacion.g
+		
 		AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
 		
 	}

@@ -5,20 +5,57 @@ import interfaces.IAdministracionOV;
 import java.rmi.*;
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import negocio.ClienteNegocio;
+import negocio.CotizacionNegocio;
+import negocio.FacturaNegocio;
+import negocio.ProveedorNegocio;
+import negocio.RemitoNegocio;
 import negocio.RodamientoNegocio;
 import utils.*;
 import dao.*;
 import dto.*;
 
+@Entity
+@Table(name="OV")
 public class AdministracionOV implements IAdministracionOV {
-
+	@Transient
 	public static AdministracionOV administracion; 
 	
-	private List <ClienteDto> clientes;
-	private List <FacturaDto> facturas;
-	private List <RemitoDto> remitos;
-	private List <ProveedorDto> proveedores;
-	private List <CotizacionDto> cotizaciones;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private
+	static String idAdministracionOV;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_clientes")
+	private List <ClienteNegocio> clientes;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_facturas")
+	private List <FacturaNegocio> facturas;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_remitos")
+	private List <RemitoNegocio> remitos;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_proveedores")
+	private List <ProveedorNegocio> proveedores;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_cotizaciones")
+	private List <CotizacionNegocio> cotizaciones;
+	
 	private String centroIndustrial;
 	
 	
@@ -30,11 +67,11 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 	public AdministracionOV(){
-		clientes = new ArrayList <ClienteDto>();
-		facturas = new ArrayList <FacturaDto>();
-		remitos = new ArrayList <RemitoDto>();
-		proveedores = new ArrayList <ProveedorDto>();
-		cotizaciones = new ArrayList <CotizacionDto>();
+		clientes = new ArrayList <ClienteNegocio>();
+		facturas = new ArrayList <FacturaNegocio>();
+		remitos = new ArrayList <RemitoNegocio>();
+		proveedores = new ArrayList <ProveedorNegocio>();
+		cotizaciones = new ArrayList <CotizacionNegocio>();
 	}
 	
 	@Override
@@ -123,52 +160,52 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 
-	public List <ClienteDto> getClientes() {
+	public List <ClienteNegocio> getClientes() {
 		return clientes;
 	}
 
 
-	public void setClientes(List <ClienteDto> clientes) {
+	public void setClientes(List <ClienteNegocio> clientes) {
 		this.clientes = clientes;
 	}
 
 
-	public List <FacturaDto> getFacturas() {
+	public List <FacturaNegocio> getFacturas() {
 		return facturas;
 	}
 
 
-	public void setFacturas(List <FacturaDto> facturas) {
+	public void setFacturas(List <FacturaNegocio> facturas) {
 		this.facturas = facturas;
 	}
 
 
-	public List <RemitoDto> getRemitos() {
+	public List <RemitoNegocio> getRemitos() {
 		return remitos;
 	}
 
 
-	public void setRemitos(List <RemitoDto> remitos) {
+	public void setRemitos(List <RemitoNegocio> remitos) {
 		this.remitos = remitos;
 	}
 
 
-	public List <ProveedorDto> getProveedores() {
+	public List <ProveedorNegocio> getProveedores() {
 		return proveedores;
 	}
 
 
-	public void setProveedores(List <ProveedorDto> proveedores) {
+	public void setProveedores(List <ProveedorNegocio> proveedores) {
 		this.proveedores = proveedores;
 	}
 
 
-	public List <CotizacionDto> getCotizaciones() {
+	public List <CotizacionNegocio> getCotizaciones() {
 		return cotizaciones;
 	}
 
 
-	public void setCotizaciones(List <CotizacionDto> cotizaciones) {
+	public void setCotizaciones(List <CotizacionNegocio> cotizaciones) {
 		this.cotizaciones = cotizaciones;
 	}
 
@@ -187,6 +224,14 @@ public class AdministracionOV implements IAdministracionOV {
 			throws RemoteException {
 		// TODO RAMA
 		return null;
+	}
+
+	public static String getIdAdministracionOV() {
+		return idAdministracionOV;
+	}
+
+	public static void setIdAdministracionOV(String idAdministracionOV) {
+		AdministracionOV.idAdministracionOV = idAdministracionOV;
 	}
 
 

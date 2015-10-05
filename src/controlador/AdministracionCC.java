@@ -6,7 +6,31 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+
+
+
+
+
+
+
+
+
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import negocio.CotizacionNegocio;
+import negocio.OrdenCompraNegocio;
+import negocio.ProveedorNegocio;
+import negocio.RodamientoNegocio;
 import dto.CotizacionDto;
 import dto.OrdenCompraDto;
 import dto.ProveedorDto;
@@ -14,37 +38,53 @@ import dto.RemitoDto;
 import dto.RodamientoDto;
 import interfaces.IAdministracionCC;
 
+@Entity
+@Table(name="CC")
 public class AdministracionCC implements IAdministracionCC {
 
+	@Transient
 	public static AdministracionCC administracion;
 	
-	private List <OrdenCompraDto> ordenesP;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private
+	static String idAdministracionCC;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_ordenes")
+	private List <OrdenCompraNegocio> ordenesP;
 	/**
 	 *  Actualizar stock propio. (RAMA)
 	 *  Se utiliza para manejar el stock interno.
 	 */
-	private List <RodamientoDto> rodamientos;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_rodamientos_interno")
+	private List <RodamientoNegocio> rodamientos;
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
-	private List <RodamientoDto> listaPrincipal;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_rodamientos_pri")
+	private List <RodamientoNegocio> listaPrincipal;
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
-	private List <RodamientoDto> listaOpcional;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_rodamientos_opc")
+	private List <RodamientoNegocio> listaOpcional;
 	
 	
 	public AdministracionCC(){
-		ordenesP = new ArrayList <OrdenCompraDto>();
-		rodamientos = new ArrayList <RodamientoDto>();
-		listaPrincipal = new ArrayList<RodamientoDto>();
-		listaOpcional = new ArrayList<RodamientoDto>();
+		ordenesP = new ArrayList <OrdenCompraNegocio>();
+		rodamientos = new ArrayList <RodamientoNegocio>();
+		listaPrincipal = new ArrayList<RodamientoNegocio>();
+		listaOpcional = new ArrayList<RodamientoNegocio>();
 		
 		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
 		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
-		ProveedorDto provUno = new ProveedorDto();
+		ProveedorNegocio provUno = new ProveedorNegocio();
 			provUno.setNombre("Solear SA");		
-		RodamientoDto rodaUno = new RodamientoDto();
+		RodamientoNegocio rodaUno = new RodamientoNegocio();
 			rodaUno.setCodigo("22310");
 			rodaUno.setCaracteristica("CCW33");
 			rodaUno.setMarca("ZKL");
@@ -112,46 +152,49 @@ public class AdministracionCC implements IAdministracionCC {
 		
 	}
 
-	public List <OrdenCompraDto> getOrdenesP() {
+	public List <OrdenCompraNegocio> getOrdenesP() {
 		return ordenesP;
 	}
 
-	public void setOrdenesP(List <OrdenCompraDto> ordenesP) {
+	public void setOrdenesP(List <OrdenCompraNegocio> ordenesP) {
 		this.ordenesP = ordenesP;
 	}
 
-	public List <RodamientoDto> getRodamientos() {
+	public List <RodamientoNegocio> getRodamientos() {
 		return rodamientos;
 	}
 
-	public void setRodamientos(List <RodamientoDto> rodamientos) {
+	public void setRodamientos(List <RodamientoNegocio> rodamientos) {
 		this.rodamientos = rodamientos;
 	}
 
 	@Override
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-		return this.listaPrincipal;
+		//TODO REVISAR.
+		return null;
 	}
 	
 	public List <RodamientoDto> obtenerListaComparativaOpcional () throws RemoteException{
-		return this.listaOpcional;
+		//TODO REVISAR.
+		return null;
 	}
 
 	@Override
 	public void actualizarListaComparativa(List<RodamientoDto> listado)	throws RemoteException {
-		Iterator <RodamientoDto> iterador = this.listaPrincipal.iterator();
+		//TODO REVISAR.
+		Iterator <RodamientoNegocio> iterador = this.listaPrincipal.iterator();
 		while(iterador.hasNext()){
-			RodamientoDto roda = iterador.next();
+			RodamientoNegocio roda = iterador.next();
 			this.agregarNuevoRodamiento(roda);
 		}
 	}
 
 
-	private void agregarNuevoRodamiento (RodamientoDto rodamiento){
-		Iterator <RodamientoDto> iterador = this.listaPrincipal.iterator();
+	private void agregarNuevoRodamiento (RodamientoNegocio rodamiento){
+		Iterator <RodamientoNegocio> iterador = this.listaPrincipal.iterator();
 		boolean encontradoP = false, actualizadoP = false; 
 		while(iterador.hasNext() && !encontradoP){
-			RodamientoDto rodamientoComp = iterador.next();
+			RodamientoNegocio rodamientoComp = iterador.next();
 			if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
 				encontradoP = true;
 				//si es mas barato
@@ -169,7 +212,7 @@ public class AdministracionCC implements IAdministracionCC {
 		if(!encontradoP && !actualizadoP){
 			iterador = this.listaOpcional.iterator();
 			while(iterador.hasNext() && !encontradoP){
-				RodamientoDto rodamientoComp = iterador.next();
+				RodamientoNegocio rodamientoComp = iterador.next();
 				if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
 					this.listaOpcional.add(rodamiento);
 					actualizadoP = true;
@@ -180,12 +223,20 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 	
 
-	public List <RodamientoDto> getListaOpcional() {
+	public List <RodamientoNegocio> getListaOpcional() {
 		return listaOpcional;
 	}
 
-	public void setListaOpcional(List <RodamientoDto> listaOpcional) {
+	public void setListaOpcional(List <RodamientoNegocio> listaOpcional) {
 		this.listaOpcional = listaOpcional;
+	}
+
+	public static String getIdAdministracionCC() {
+		return idAdministracionCC;
+	}
+
+	public static void setIdAdministracionCC(String idAdministracionCC) {
+		AdministracionCC.idAdministracionCC = idAdministracionCC;
 	}
 
 
