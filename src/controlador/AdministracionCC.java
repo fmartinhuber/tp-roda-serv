@@ -17,6 +17,7 @@ import java.util.List;
 
 
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -247,6 +248,13 @@ public class AdministracionCC implements IAdministracionCC {
 				return rodamiento;
 		}
 		return null;
+	}
+
+	@Override
+	public boolean abmProveedor(ProveedorDto proveedor, String accion)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

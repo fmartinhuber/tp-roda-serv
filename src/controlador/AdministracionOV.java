@@ -227,6 +227,13 @@ public class AdministracionOV implements IAdministracionOV {
 		AdministracionOV.idAdministracionOV = idAdministracionOV;
 	}
 
+	@Override
+	public boolean abmCliente(ClienteDto cliente, String accion)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 }
