@@ -23,7 +23,7 @@ public class RodamientoDAO extends HibernateDAO{
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		@SuppressWarnings("unchecked")
-		List<RodamientoNegocio> rodamientos = s.createQuery("from RodamientoBean r").list();
+		List<RodamientoNegocio> rodamientos = s.createQuery("from RodamientoNegocio r").list();
 		
 		return rodamientos;
 	}

@@ -1,11 +1,11 @@
 package controlador;
 
+import javax.persistence.*;
+
 import interfaces.IAdministracionOV;
 
 import java.rmi.*;
 import java.util.*;
-
-import javax.persistence.*;
 
 import negocio.*;
 import utils.*;
@@ -15,13 +15,14 @@ import dto.*;
 @Entity
 @Table(name="OV")
 public class AdministracionOV implements IAdministracionOV {
+
+	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@Column(name="idOV")
+	private int idAdministracionOV;
+	
 	@Transient
 	public static AdministracionOV administracion; 
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private
-	static String idAdministracionOV;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_clientes")
@@ -219,13 +220,14 @@ public class AdministracionOV implements IAdministracionOV {
 		return aux;
 	}
 
-	public static String getIdAdministracionOV() {
+	public int getIdAdministracionOV() {
 		return idAdministracionOV;
 	}
 
-	public static void setIdAdministracionOV(String idAdministracionOV) {
-		AdministracionOV.idAdministracionOV = idAdministracionOV;
-	}
+	//Daro 24-10: Esto obliga a que el id sea static, y eso no permite mapear hibernate, queda comentado igual no sirve setear ids
+//	public static void setIdAdministracionOV(int idAdministracionOV) {
+//		AdministracionOV.idAdministracionOV = idAdministracionOV;
+//	}
 
 	@Override
 	public boolean abmCliente(ClienteDto cliente, String accion)

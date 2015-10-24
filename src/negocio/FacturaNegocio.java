@@ -33,7 +33,7 @@ public class FacturaNegocio{
 	//Lo agregue para que se sepa que cotizacion se esta facturando.
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="factura_cotizacion")
-	private CotizacionNegocio cotizacion;
+	private List<CotizacionNegocio> cotizacion;
 	
 	public FacturaNegocio(String estado, Date fecha,
 			ClienteNegocio cliente, float descuento, List<ItemFacturaNegocio> items,

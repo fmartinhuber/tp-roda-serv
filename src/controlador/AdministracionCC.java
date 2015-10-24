@@ -4,40 +4,25 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import javax.persistence.*;
-
-<<<<<<< HEAD
 import negocio.*;
-
-import dto.CotizacionDto;
-import dto.OrdenCompraDto;
-import dto.ProveedorDto;
-import dto.RemitoDto;
-import dto.RodamientoDto;
-import interfaces.IAdministracionCC;
-=======
 import dto.*;
-import negocio.*;
 import interfaces.*;
->>>>>>> branch 'master' of https://github.com/fmartinhuber/tp-roda-serv
 
 @Entity
 @Table(name="CC")
 public class AdministracionCC implements IAdministracionCC {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idAdministracionCC;
+	
 	@Transient
 	public static AdministracionCC administracion;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-<<<<<<< HEAD
-	private static int idAdministracionCC;
-=======
-	private static String idAdministracionCC;
->>>>>>> branch 'master' of https://github.com/fmartinhuber/tp-roda-serv
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_ordenes")
 	private List <OrdenCompraNegocio> ordenesP;
+	
 	/**
 	 *  Actualizar stock propio. (RAMA)
 	 *  Se utiliza para manejar el stock interno.
@@ -45,12 +30,14 @@ public class AdministracionCC implements IAdministracionCC {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_rodamientos_interno")
 	private List <RodamientoNegocio> rodamientos;
+	
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_rodamientos_pri")
 	private List <RodamientoNegocio> listaPrincipal;
+	
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
@@ -208,13 +195,14 @@ public class AdministracionCC implements IAdministracionCC {
 		this.listaOpcional = listaOpcional;
 	}
 
-	public static int getIdAdministracionCC() {
+	public int getIdAdministracionCC() {
 		return idAdministracionCC;
 	}
 
-	public static void setIdAdministracionCC(int idAdministracionCC) {
-		AdministracionCC.idAdministracionCC = idAdministracionCC;
-	}
+	//Daro 24-10: Esto obliga a que el id sea static, y eso no permite mapear hibernate, queda comentado igual no sirve setear ids
+//	public void setIdAdministracionCC(int idAdministracionCC) {
+//		AdministracionCC.idAdministracionCC = idAdministracionCC;
+//	}
 
 	public RodamientoDto buscarRodamientoDto(String codigo){
 		for(Iterator <RodamientoNegocio> iterador = rodamientos.iterator();iterador.hasNext();){

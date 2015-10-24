@@ -10,7 +10,7 @@ public class HibernateUtil {
 	        try
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
-	        	 	        	 
+	        	 
 	        	 config.addAnnotatedClass(controlador.AdministracionOV.class);
 	        	 config.addAnnotatedClass(controlador.AdministracionCC.class);
 	             config.addAnnotatedClass(negocio.ClienteNegocio.class);
@@ -32,7 +32,7 @@ public class HibernateUtil {
 	            throw new ExceptionInInitializerError(ex);
 	        }
 	    }
-	 
+	    
 	    public static SessionFactory getSessionFactory()
 	    {
 	        return sessionFactory;
