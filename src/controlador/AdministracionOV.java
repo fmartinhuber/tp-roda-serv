@@ -5,22 +5,9 @@ import interfaces.IAdministracionOV;
 import java.rmi.*;
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
-import negocio.ClienteNegocio;
-import negocio.CotizacionNegocio;
-import negocio.FacturaNegocio;
-import negocio.ProveedorNegocio;
-import negocio.RemitoNegocio;
-import negocio.RodamientoNegocio;
+import negocio.*;
 import utils.*;
 import dao.*;
 import dto.*;
@@ -213,10 +200,23 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 	@Override
-	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion)
-			throws RemoteException {
+	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion) throws RemoteException {
 		// TODO RAMA
-		return null;
+		
+		ClienteDto cl = new ClienteDto();
+		cl.setCUIT(cliente.getCUIT());
+		cl.setMail(cliente.getMail());
+		cl.setRazonSocial(cliente.getRazonSocial());
+		CotizacionDto c = new CotizacionDto();
+		c.setEstado(cotizacion.getEstado());
+		FacturaDto aux = new FacturaDto(); 
+		
+		if(c.getEstado()=="Aprobada"){
+			
+			
+		}
+		
+		return aux;
 	}
 
 	public static String getIdAdministracionOV() {
