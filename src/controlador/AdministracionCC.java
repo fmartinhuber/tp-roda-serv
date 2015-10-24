@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import javax.persistence.*;
+
 import negocio.*;
 import dto.*;
 import interfaces.*;
@@ -14,6 +15,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="idCC")
 	private int idAdministracionCC;
 	
 	@Transient

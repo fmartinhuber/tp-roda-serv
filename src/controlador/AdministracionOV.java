@@ -17,36 +17,36 @@ import dto.*;
 public class AdministracionOV implements IAdministracionOV {
 
 	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-//	@Column(name="idOV")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="idOV")
 	private int idAdministracionOV;
-	
+
 	@Transient
 	public static AdministracionOV administracion; 
-	
+
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_clientes")
 	private List <ClienteNegocio> clientes;
-	
+
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_facturas")
 	private List <FacturaNegocio> facturas;
-	
+
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_remitos")
 	private List <RemitoNegocio> remitos;
-	
+
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_proveedores")
 	private List <ProveedorNegocio> proveedores;
-	
+
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_cotizaciones")
 	private List <CotizacionNegocio> cotizaciones;
-	
+
 	private String centroIndustrial;
-	
-	
+
+
 	public static AdministracionOV getInstancia(){
 		if(administracion == null){
 			administracion = new AdministracionOV();
@@ -61,7 +61,7 @@ public class AdministracionOV implements IAdministracionOV {
 		proveedores = new ArrayList <ProveedorNegocio>();
 		cotizaciones = new ArrayList <CotizacionNegocio>();
 	}
-	
+
 	@Override
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
@@ -77,22 +77,22 @@ public class AdministracionOV implements IAdministracionOV {
 		AdministracionCC admCC = new AdministracionCC();
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
 		listaCompa = admCC.obtenerListaComparativa();
-				
+
 		//Seteo los valores correspondientes a 
 		miCotDto.setCliente(cliente);
 		miCotDto.setEstado("Pendiente"); //Todas se crean pendientes hasta ser aprobadas
-			Date actual = new Date();
+		Date actual = new Date();
 		miCotDto.setFechaCreacion(actual); //Se crea con la fecha actual
-			Calendar c = Calendar.getInstance(); 
-			c.setTime(actual); 
-			c.add(Calendar.DATE, 30); //Se agregan 30 dias a la fecha actual
-			Date vigencia = new Date();
-			vigencia = c.getTime();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(actual); 
+		c.add(Calendar.DATE, 30); //Se agregan 30 dias a la fecha actual
+		Date vigencia = new Date();
+		vigencia = c.getTime();
 		miCotDto.setFechaVigencia(vigencia);
-		
+
 		/*Aca viene la magia, recorro la listaComparativa en busqueda de los rodamientos que me pidio el cliente
 		y los cotizo (multiplico monto * cantidad)*/
-		
+
 		//Creo la lista de items que voy a utilizar para ir cargandolos
 		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
 
@@ -101,33 +101,33 @@ public class AdministracionOV implements IAdministracionOV {
 			//Comparo con cada elemento de la lista Item
 			for (int j=0; j<=listaItems.size(); j++){
 				//Obtengo los codigos
-					String codComp = listaCompa.get(i).getCodigo();
-					String codItem = listaItems.get(j).getRodamiento().getCodigo();
+				String codComp = listaCompa.get(i).getCodigo();
+				String codItem = listaItems.get(j).getRodamiento().getCodigo();
 				//Origen
-					String orgComp = listaCompa.get(i).getCodigo();
-					String orgItem = listaItems.get(j).getRodamiento().getOrigen();
+				String orgComp = listaCompa.get(i).getCodigo();
+				String orgItem = listaItems.get(j).getRodamiento().getOrigen();
 				//Marca
-					String marComp = listaCompa.get(i).getCodigo();
-					String marItem = listaItems.get(j).getRodamiento().getOrigen();
+				String marComp = listaCompa.get(i).getCodigo();
+				String marItem = listaItems.get(j).getRodamiento().getOrigen();
 				//Si coinciden las 3 cosas, es el que busco
 				if (codComp.equals(codItem) && orgComp.equals(orgItem) && marComp.equals(marItem)){
 					//Creo item
-						ItemCotizacionDto itemCotDto = new ItemCotizacionDto();
+					ItemCotizacionDto itemCotDto = new ItemCotizacionDto();
 					//Seteo sus valores
-						itemCotDto.setCant(listaItems.get(j).getCantidad());
-						itemCotDto.setRodamiento(listaCompa.get(j));
-						itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
+					itemCotDto.setCant(listaItems.get(j).getCantidad());
+					itemCotDto.setRodamiento(listaCompa.get(j));
+					itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
 					//Agrego el item a la lista de items
-						listaItemCotDto.add(itemCotDto);
+					listaItemCotDto.add(itemCotDto);
 				}
 			}
 		}
-		
+
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
-		
+
 		//Aca tengo que guardar la cotizacion en la base antes de salir
-		
+
 		return miCotDto;
 	}
 
@@ -203,7 +203,7 @@ public class AdministracionOV implements IAdministracionOV {
 	@Override
 	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion) throws RemoteException {
 		// TODO RAMA
-		
+
 		ClienteDto cl = new ClienteDto();
 		cl.setCUIT(cliente.getCUIT());
 		cl.setMail(cliente.getMail());
@@ -211,12 +211,12 @@ public class AdministracionOV implements IAdministracionOV {
 		CotizacionDto c = new CotizacionDto();
 		c.setEstado(cotizacion.getEstado());
 		FacturaDto aux = new FacturaDto(); 
-		
+
 		if(c.getEstado()=="Aprobada"){
-			
-			
+
+
 		}
-		
+
 		return aux;
 	}
 
@@ -225,9 +225,9 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 	//Daro 24-10: Esto obliga a que el id sea static, y eso no permite mapear hibernate, queda comentado igual no sirve setear ids
-//	public static void setIdAdministracionOV(int idAdministracionOV) {
-//		AdministracionOV.idAdministracionOV = idAdministracionOV;
-//	}
+	//	public static void setIdAdministracionOV(int idAdministracionOV) {
+	//		AdministracionOV.idAdministracionOV = idAdministracionOV;
+	//	}
 
 	@Override
 	public boolean abmCliente(ClienteDto cliente, String accion)
