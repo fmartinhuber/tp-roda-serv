@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import dao.CotizacionDAO;
 import dto.*;
 
 
@@ -145,4 +146,7 @@ public class CotizacionNegocio{
 		this.fechaVigencia = fechaVigencia;
 	}
 
+	public void persistirCotizacion(){
+		CotizacionDAO.getinstancia().persist(this);
+	}
 }

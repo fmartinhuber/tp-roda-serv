@@ -1,8 +1,14 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import negocio.ClienteNegocio;
+import negocio.CotizacionNegocio;
+import negocio.ItemCotizacionNegocio;
 import negocio.ProveedorNegocio;
 import negocio.RodamientoNegocio;
 
@@ -167,6 +173,79 @@ public class CargarDatos {
 				cli05.persistirCliente();
 				cli06.persistirCliente();
 
+		// Alta de cotizaciones
+				// Seteo de fechas				
+				Calendar cal01 = GregorianCalendar.getInstance(); 	cal01.add(Calendar.DAY_OF_YEAR, -1);	Date day01 = cal01.getTime();	cal01.add(Calendar.MONTH, 1); 	Date day06 = cal01.getTime();
+				Calendar cal02 = GregorianCalendar.getInstance();	cal02.add(Calendar.DAY_OF_YEAR, -5);	Date day02 = cal02.getTime();	cal02.add(Calendar.MONTH, 1); 	Date day07 = cal02.getTime();
+				Calendar cal03 = GregorianCalendar.getInstance();	cal03.add(Calendar.DAY_OF_YEAR, -13);	Date day03 = cal03.getTime();	cal03.add(Calendar.MONTH, 1); 	Date day08 = cal03.getTime();
+				Calendar cal04 = GregorianCalendar.getInstance();	cal04.add(Calendar.DAY_OF_YEAR, -27);	Date day04 = cal04.getTime();	cal04.add(Calendar.MONTH, 1); 	Date day09 = cal04.getTime();
+				Calendar cal05 = GregorianCalendar.getInstance();	cal05.add(Calendar.DAY_OF_YEAR, -31);	Date day05 = cal05.getTime();	cal05.add(Calendar.MONTH, 1); 	Date day10 = cal05.getTime();
 		
+				// Seteo de Clientes y fechas en cotizaciones
+				CotizacionNegocio cot01 = new CotizacionNegocio();	cot01.setCliente(cli01); 	cot01.setEstado("pendiente"); 	cot01.setFechaCreacion(day01); 	cot01.setFechaVigencia(day06);
+				CotizacionNegocio cot02 = new CotizacionNegocio();	cot02.setCliente(cli02); 	cot02.setEstado("aprobada"); 	cot02.setFechaCreacion(day02); 	cot02.setFechaVigencia(day07);
+				CotizacionNegocio cot03 = new CotizacionNegocio();	cot03.setCliente(cli01); 	cot03.setEstado("aprobada"); 	cot03.setFechaCreacion(day03); 	cot03.setFechaVigencia(day08);
+				CotizacionNegocio cot04 = new CotizacionNegocio();	cot04.setCliente(cli04); 	cot04.setEstado("aprobada"); 	cot04.setFechaCreacion(day04); 	cot04.setFechaVigencia(day09);
+				CotizacionNegocio cot05 = new CotizacionNegocio();	cot05.setCliente(cli01); 	cot05.setEstado("aprobada"); 	cot05.setFechaCreacion(day01); 	cot05.setFechaVigencia(day06);
+				CotizacionNegocio cot06 = new CotizacionNegocio();	cot06.setCliente(cli03); 	cot06.setEstado("aprobada"); 	cot06.setFechaCreacion(day02); 	cot06.setFechaVigencia(day07);
+				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
+				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
+				
+				// Alta de itemsCotizacion
+				List<ItemCotizacionNegocio> listItem01 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot0101);
+				ItemCotizacionNegocio itCot0102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot0102);
+				ItemCotizacionNegocio itCot0103 = new ItemCotizacionNegocio(roda72, 7);		listItem01.add(itCot0103);	
+				ItemCotizacionNegocio itCot0104 = new ItemCotizacionNegocio(roda12, 91);	listItem01.add(itCot0104);
+				ItemCotizacionNegocio itCot0105 = new ItemCotizacionNegocio(roda33, 14);	listItem01.add(itCot0105);
+				
+				List<ItemCotizacionNegocio> listItem02 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0201 = new ItemCotizacionNegocio(roda29, 5);		listItem02.add(itCot0201);
+				ItemCotizacionNegocio itCot0202 = new ItemCotizacionNegocio(roda37, 13);	listItem02.add(itCot0202);
+				ItemCotizacionNegocio itCot0203 = new ItemCotizacionNegocio(roda79, 14);	listItem02.add(itCot0203);
+				
+				List<ItemCotizacionNegocio> listItem03 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0301 = new ItemCotizacionNegocio(roda42, 15);	listItem03.add(itCot0301);
+				ItemCotizacionNegocio itCot0302 = new ItemCotizacionNegocio(roda66, 31);	listItem03.add(itCot0302);
+				
+				List<ItemCotizacionNegocio> listItem04 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0401 = new ItemCotizacionNegocio(roda01, 15);	listItem04.add(itCot0401);
+				ItemCotizacionNegocio itCot0402 = new ItemCotizacionNegocio(roda09, 22);	listItem04.add(itCot0402);
+				
+				List<ItemCotizacionNegocio> listItem05 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0501 = new ItemCotizacionNegocio(roda21, 15);	listItem05.add(itCot0501);
+				ItemCotizacionNegocio itCot0502 = new ItemCotizacionNegocio(roda39, 12);	listItem05.add(itCot0502);
+				ItemCotizacionNegocio itCot0503 = new ItemCotizacionNegocio(roda55, 22);	listItem05.add(itCot0503);
+				ItemCotizacionNegocio itCot0504 = new ItemCotizacionNegocio(roda67, 19);	listItem05.add(itCot0504);
+				
+				List<ItemCotizacionNegocio> listItem06 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0601 = new ItemCotizacionNegocio(roda22, 90);	listItem06.add(itCot0601);
+				ItemCotizacionNegocio itCot0602 = new ItemCotizacionNegocio(roda39, 14);	listItem01.add(itCot0602);
+				ItemCotizacionNegocio itCot0603 = new ItemCotizacionNegocio(roda10, 10);	listItem06.add(itCot0603);
+				
+				List<ItemCotizacionNegocio> listItem07 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0701 = new ItemCotizacionNegocio(roda78, 22);	listItem07.add(itCot0701);
+				ItemCotizacionNegocio itCot0702 = new ItemCotizacionNegocio(roda65, 14);	listItem07.add(itCot0702);
+				ItemCotizacionNegocio itCot0703 = new ItemCotizacionNegocio(roda51, 17);	listItem07.add(itCot0703);
+				
+				List<ItemCotizacionNegocio> listItem08 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot0801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot0801);
+				ItemCotizacionNegocio itCot0802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot0802);
+				
+				// Asociamos Lista de Items Cotizaciones a Cotizaciones y persistimos
+				cot01.setItems(listItem01);		cot01.persistirCotizacion();
+				cot02.setItems(listItem02);		cot02.persistirCotizacion();
+				cot03.setItems(listItem03);		cot03.persistirCotizacion();
+				cot04.setItems(listItem04);		cot04.persistirCotizacion();
+				cot05.setItems(listItem05);		cot05.persistirCotizacion();
+				cot06.setItems(listItem06);		cot06.persistirCotizacion();
+				cot07.setItems(listItem07);		cot07.persistirCotizacion();
+				cot08.setItems(listItem08);		cot08.persistirCotizacion();
+				
+				
+				
+				
+				
+				
 	}
 }
