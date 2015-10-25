@@ -1,7 +1,5 @@
 package controlador;
 
-import javax.persistence.*;
-
 import interfaces.IAdministracionOV;
 
 import java.rmi.*;
@@ -12,40 +10,16 @@ import utils.*;
 import dao.*;
 import dto.*;
 
-@Entity
-@Table(name="OV")
-public class AdministracionOV implements IAdministracionOV {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="idOV")
-	private int idAdministracionOV;
+public class AdministracionOV implements IAdministracionOV{
 
-	@Transient
 	public static AdministracionOV administracion; 
-
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_clientes")
-	private List <ClienteNegocio> clientes;
-
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_facturas")
-	private List <FacturaNegocio> facturas;
-
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_remitos")
-	private List <RemitoNegocio> remitos;
-
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_proveedores")
-	private List <ProveedorNegocio> proveedores;
-
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_cotizaciones")
-	private List <CotizacionNegocio> cotizaciones;
-
-	private String centroIndustrial;
-
+	
+	//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
+	//sumado con el singleton en el medio seria una locura saber cuando se levanta tal o cual OV (y los constructores se harian multiples, demente)
+	//Creo una OV unica y se deberia sacar el singleton de esta clase, asi se puede dar de alta los controladores que se deseen para cada OV (negrisimo pero logico)
+	//De la forma que esta hecho ahora funciona para una unica OV
+	public OVNegocio OficinaVentaNegocio = new OVNegocio();
 
 	public static AdministracionOV getInstancia(){
 		if(administracion == null){
@@ -55,14 +29,13 @@ public class AdministracionOV implements IAdministracionOV {
 	}
 
 	public AdministracionOV(){
-		clientes = new ArrayList <ClienteNegocio>();
-		facturas = new ArrayList <FacturaNegocio>();
-		remitos = new ArrayList <RemitoNegocio>();
-		proveedores = new ArrayList <ProveedorNegocio>();
-		cotizaciones = new ArrayList <CotizacionNegocio>();
+		OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
+		OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
+		OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
+		OficinaVentaNegocio.setProveedores(new ArrayList <ProveedorNegocio>());
+		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
 	}
 
-	@Override
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
@@ -133,74 +106,12 @@ public class AdministracionOV implements IAdministracionOV {
 
 
 
-	@Override
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
 		// TODO Carlos
 		return null;
 	}
 
 
-
-	public List <ClienteNegocio> getClientes() {
-		return clientes;
-	}
-
-
-	public void setClientes(List <ClienteNegocio> clientes) {
-		this.clientes = clientes;
-	}
-
-
-	public List <FacturaNegocio> getFacturas() {
-		return facturas;
-	}
-
-
-	public void setFacturas(List <FacturaNegocio> facturas) {
-		this.facturas = facturas;
-	}
-
-
-	public List <RemitoNegocio> getRemitos() {
-		return remitos;
-	}
-
-
-	public void setRemitos(List <RemitoNegocio> remitos) {
-		this.remitos = remitos;
-	}
-
-
-	public List <ProveedorNegocio> getProveedores() {
-		return proveedores;
-	}
-
-
-	public void setProveedores(List <ProveedorNegocio> proveedores) {
-		this.proveedores = proveedores;
-	}
-
-
-	public List <CotizacionNegocio> getCotizaciones() {
-		return cotizaciones;
-	}
-
-
-	public void setCotizaciones(List <CotizacionNegocio> cotizaciones) {
-		this.cotizaciones = cotizaciones;
-	}
-
-
-	public String getCentroIndustrial() {
-		return centroIndustrial;
-	}
-
-
-	public void setCentroIndustrial(String centroIndustrial) {
-		this.centroIndustrial = centroIndustrial;
-	}
-
-	@Override
 	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion) throws RemoteException {
 		// TODO RAMA
 
@@ -220,18 +131,8 @@ public class AdministracionOV implements IAdministracionOV {
 		return aux;
 	}
 
-	public int getIdAdministracionOV() {
-		return idAdministracionOV;
-	}
 
-	//Daro 24-10: Esto obliga a que el id sea static, y eso no permite mapear hibernate, queda comentado igual no sirve setear ids
-	//	public static void setIdAdministracionOV(int idAdministracionOV) {
-	//		AdministracionOV.idAdministracionOV = idAdministracionOV;
-	//	}
-
-	@Override
-	public boolean abmCliente(ClienteDto cliente, String accion)
-			throws RemoteException {
+	public boolean abmCliente(ClienteDto cliente, String accion) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}

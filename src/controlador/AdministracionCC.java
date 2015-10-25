@@ -3,56 +3,22 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import javax.persistence.*;
-
 import negocio.*;
 import dto.*;
 import interfaces.*;
 
-@Entity
-@Table(name="CC")
+
 public class AdministracionCC implements IAdministracionCC {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="idCC")
-	private int idAdministracionCC;
+	public static AdministracionCC administracion; 
 	
-	@Transient
-	public static AdministracionCC administracion;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_ordenes")
-	private List <OrdenCompraNegocio> ordenesP;
-	
-	/**
-	 *  Actualizar stock propio. (RAMA)
-	 *  Se utiliza para manejar el stock interno.
-	 */
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_interno")
-	private List <RodamientoNegocio> rodamientos;
-	
-	/**
-	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
-	 */
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_pri")
-	private List <RodamientoNegocio> listaPrincipal;
-	
-	/**
-	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
-	 */
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_opc")
-	private List <RodamientoNegocio> listaOpcional;
-	
-	
+	private CCNegocio casaCentralNegocio = new CCNegocio();
+		
 	public AdministracionCC(){
-		ordenesP = new ArrayList <OrdenCompraNegocio>();
-		rodamientos = new ArrayList <RodamientoNegocio>();
-		listaPrincipal = new ArrayList<RodamientoNegocio>();
-		listaOpcional = new ArrayList<RodamientoNegocio>();
+		casaCentralNegocio.setOrdenesP(new ArrayList <OrdenCompraNegocio>());
+		casaCentralNegocio.setRodamientos(new ArrayList <RodamientoNegocio>());
+		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
+		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
 		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
 		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
@@ -67,7 +33,7 @@ public class AdministracionCC implements IAdministracionCC {
 			rodaUno.setProveedor(provUno);
 			rodaUno.setStock(85);
 			rodaUno.setTipo("Bolilla");
-		listaPrincipal.add(rodaUno);
+		casaCentralNegocio.getListaPrincipal().add(rodaUno);
 	}
 	
 	public static AdministracionCC getInstancia(){
@@ -118,22 +84,6 @@ public class AdministracionCC implements IAdministracionCC {
 		
 	}
 
-	public List <OrdenCompraNegocio> getOrdenesP() {
-		return ordenesP;
-	}
-
-	public void setOrdenesP(List <OrdenCompraNegocio> ordenesP) {
-		this.ordenesP = ordenesP;
-	}
-
-	public List <RodamientoNegocio> getRodamientos() {
-		return rodamientos;
-	}
-
-	public void setRodamientos(List <RodamientoNegocio> rodamientos) {
-		this.rodamientos = rodamientos;
-	}
-
 	@Override
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
 		//TODO REVISAR.
@@ -148,7 +98,7 @@ public class AdministracionCC implements IAdministracionCC {
 	@Override
 	public void actualizarListaComparativa(List<RodamientoDto> listado)	throws RemoteException {
 		//TODO REVISAR.
-		Iterator <RodamientoNegocio> iterador = this.listaPrincipal.iterator();
+		Iterator <RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
 		while(iterador.hasNext()){
 			RodamientoNegocio roda = iterador.next();
 			this.agregarNuevoRodamiento(roda);
@@ -157,7 +107,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 
 	private void agregarNuevoRodamiento (RodamientoNegocio rodamiento){
-		Iterator <RodamientoNegocio> iterador = this.listaPrincipal.iterator();
+		Iterator <RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
 		boolean encontradoP = false, actualizadoP = false; 
 		while(iterador.hasNext() && !encontradoP){
 			RodamientoNegocio rodamientoComp = iterador.next();
@@ -165,22 +115,22 @@ public class AdministracionCC implements IAdministracionCC {
 				encontradoP = true;
 				//si es mas barato
 				if(rodamientoComp.getMonto() < rodamiento.getMonto()){
-					actualizadoP = true; 
-					this.listaPrincipal.remove(rodamientoComp);
-					this.listaPrincipal.add(rodamiento);
+					actualizadoP = true;
+					casaCentralNegocio.getListaPrincipal().remove(rodamientoComp);
+					casaCentralNegocio.getListaPrincipal().add(rodamiento);
 					break;
 				}
 			}
 		}
 		if(encontradoP && !actualizadoP){
-			this.listaOpcional.add(rodamiento);
+			this.casaCentralNegocio.getListaPrincipal().add(rodamiento);
 		}
 		if(!encontradoP && !actualizadoP){
-			iterador = this.listaOpcional.iterator();
+			iterador = this.casaCentralNegocio.getListaOpcional().iterator();
 			while(iterador.hasNext() && !encontradoP){
 				RodamientoNegocio rodamientoComp = iterador.next();
 				if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
-					this.listaOpcional.add(rodamiento);
+					this.casaCentralNegocio.getListaOpcional().add(rodamiento);
 					actualizadoP = true;
 					break;
 				}
@@ -188,26 +138,8 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
-
-	public List <RodamientoNegocio> getListaOpcional() {
-		return listaOpcional;
-	}
-
-	public void setListaOpcional(List <RodamientoNegocio> listaOpcional) {
-		this.listaOpcional = listaOpcional;
-	}
-
-	public int getIdAdministracionCC() {
-		return idAdministracionCC;
-	}
-
-	//Daro 24-10: Esto obliga a que el id sea static, y eso no permite mapear hibernate, queda comentado igual no sirve setear ids
-//	public void setIdAdministracionCC(int idAdministracionCC) {
-//		AdministracionCC.idAdministracionCC = idAdministracionCC;
-//	}
-
 	public RodamientoDto buscarRodamientoDto(String codigo){
-		for(Iterator <RodamientoNegocio> iterador = rodamientos.iterator();iterador.hasNext();){
+		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
 			RodamientoNegocio rodamiento = iterador.next();
 			if(rodamiento.getCodigo().equals(codigo))
 				return rodamiento.aRodamientoDto();
@@ -216,7 +148,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 	
 	public RodamientoNegocio buscarRodamientoNegocio(String codigo){
-		for(Iterator <RodamientoNegocio> iterador = rodamientos.iterator();iterador.hasNext();){
+		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
 			RodamientoNegocio rodamiento = iterador.next();
 			if(rodamiento.getCodigo().equals(codigo))
 				return rodamiento;
@@ -225,12 +157,24 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	@Override
-	public boolean abmProveedor(ProveedorDto proveedor, String accion)
-			throws RemoteException {
+	public boolean abmProveedor(ProveedorDto proveedor, String accion) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	
+	
+	public AdministracionCC(CCNegocio casaCentralNegocio) {
+		this.casaCentralNegocio = casaCentralNegocio;
+	}
+	
+	public CCNegocio getCasaCentralNegocio() {
+		return casaCentralNegocio;
+	}
+
+	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
+		this.casaCentralNegocio = casaCentralNegocio;
+	}
 
 
 }

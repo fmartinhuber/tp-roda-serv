@@ -23,6 +23,8 @@ public class HibernateUtil {
 	        	 config.addAnnotatedClass(negocio.ProveedorNegocio.class);
 	        	 config.addAnnotatedClass(negocio.RemitoNegocio.class);
 	        	 config.addAnnotatedClass(negocio.RodamientoNegocio.class);
+	        	 config.addAnnotatedClass(negocio.CCNegocio.class);
+	        	 config.addAnnotatedClass(negocio.OVNegocio.class);
 	        	 
 	             sessionFactory = config.buildSessionFactory();
 	        }
