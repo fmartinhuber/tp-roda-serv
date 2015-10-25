@@ -134,6 +134,9 @@ public class RodamientoNegocio{
 	public void setCaracteristica(String caracteristica) {
 		this.caracteristica = caracteristica;
 	}
-
+	
+	public void persistirRodamiento(){
+		RodamientoDAO.getInstancia().persist(this);
+	}
 	
 }

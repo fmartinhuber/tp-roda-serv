@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import dao.ProveedorDAO;
 import dto.ProveedorDto;
 
 @Entity
@@ -58,5 +59,13 @@ public class ProveedorNegocio{
 		return prov;
 	}
 	
+	public void persistirProveedor(){
+		ProveedorDAO.getInstancia().persist(this);
+	}
+	
+	public boolean updateProveedor(){
+		ProveedorDAO.getInstancia().update(this);
+		return false;
+	}
 	
 }

@@ -3,6 +3,8 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.ProveedorNegocio;
+import negocio.RodamientoNegocio;
 import controlador.AdministracionOV;
 import dto.RodamientoDto;
 
@@ -17,16 +19,12 @@ public class TestCharly {
 		
 		AdministracionOV c = new AdministracionOV();
 		
-		List<RodamientoDto> aux = new ArrayList<RodamientoDto>();
-		aux = c.obtenerRodamientos();
-		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
-		
-				
-		System.out.println("prueba Charly");
-		
-	
+			
+		System.out.println("Prueba Charly - Cargamos Datos");
+		CargarDatos.getInstance().cargaDeDatos();
+		System.out.println("Prueba Charly - Carga Finalizada");	
 		
 		
 		System.out.println("===================================================================================");
