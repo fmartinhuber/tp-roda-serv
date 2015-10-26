@@ -1,84 +1,24 @@
 package controlador;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
+import negocio.*;
+import dto.*;
+import interfaces.*;
 
 
-
-
-
-
-
-
-
-
-
-
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import negocio.CotizacionNegocio;
-import negocio.OrdenCompraNegocio;
-import negocio.ProveedorNegocio;
-import negocio.RodamientoNegocio;
-import dto.CotizacionDto;
-import dto.OrdenCompraDto;
-import dto.ProveedorDto;
-import dto.RemitoDto;
-import dto.RodamientoDto;
-import interfaces.IAdministracionCC;
-
-@Entity
-@Table(name="CC")
 public class AdministracionCC implements IAdministracionCC {
 
-	@Transient
-	public static AdministracionCC administracion;
+	public static AdministracionCC administracion; 
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private
-	static String idAdministracionCC;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_ordenes")
-	private List <OrdenCompraNegocio> ordenesP;
-	/**
-	 *  Actualizar stock propio. (RAMA)
-	 *  Se utiliza para manejar el stock interno.
-	 */
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_interno")
-	private List <RodamientoNegocio> rodamientos;
-	/**
-	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
-	 */
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_pri")
-	private List <RodamientoNegocio> listaPrincipal;
-	/**
-	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
-	 */
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_opc")
-	private List <RodamientoNegocio> listaOpcional;
-	
-	
+	private CCNegocio casaCentralNegocio = new CCNegocio();
+		
 	public AdministracionCC(){
-		ordenesP = new ArrayList <OrdenCompraNegocio>();
-		rodamientos = new ArrayList <RodamientoNegocio>();
-		listaPrincipal = new ArrayList<RodamientoNegocio>();
-		listaOpcional = new ArrayList<RodamientoNegocio>();
+		casaCentralNegocio.setOrdenesP(new ArrayList <OrdenCompraNegocio>());
+		casaCentralNegocio.setRodamientos(new ArrayList <RodamientoNegocio>());
+		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
+		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
 		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
 		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
@@ -93,7 +33,7 @@ public class AdministracionCC implements IAdministracionCC {
 			rodaUno.setProveedor(provUno);
 			rodaUno.setStock(85);
 			rodaUno.setTipo("Bolilla");
-		listaPrincipal.add(rodaUno);
+		casaCentralNegocio.getListaPrincipal().add(rodaUno);
 	}
 	
 	public static AdministracionCC getInstancia(){
@@ -103,14 +43,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return administracion;
 	}
 	
-	@Override
-	public boolean abmProveedor(ProveedorDto proveedor, String accion)
-			throws RemoteException {
-		// TODO NO ENTIENDO ESTO? QUIEN LO HIZO? DEBERIAN SER 3 METODOS DISTINTOS UN ABM
-		return false;
-	}
-
-
 	
 	/*
 	 * No es necesario una lista de cotizaciónes
@@ -152,22 +84,6 @@ public class AdministracionCC implements IAdministracionCC {
 		
 	}
 
-	public List <OrdenCompraNegocio> getOrdenesP() {
-		return ordenesP;
-	}
-
-	public void setOrdenesP(List <OrdenCompraNegocio> ordenesP) {
-		this.ordenesP = ordenesP;
-	}
-
-	public List <RodamientoNegocio> getRodamientos() {
-		return rodamientos;
-	}
-
-	public void setRodamientos(List <RodamientoNegocio> rodamientos) {
-		this.rodamientos = rodamientos;
-	}
-
 	@Override
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
 		//TODO REVISAR.
@@ -182,7 +98,7 @@ public class AdministracionCC implements IAdministracionCC {
 	@Override
 	public void actualizarListaComparativa(List<RodamientoDto> listado)	throws RemoteException {
 		//TODO REVISAR.
-		Iterator <RodamientoNegocio> iterador = this.listaPrincipal.iterator();
+		Iterator <RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
 		while(iterador.hasNext()){
 			RodamientoNegocio roda = iterador.next();
 			this.agregarNuevoRodamiento(roda);
@@ -191,7 +107,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 
 	private void agregarNuevoRodamiento (RodamientoNegocio rodamiento){
-		Iterator <RodamientoNegocio> iterador = this.listaPrincipal.iterator();
+		Iterator <RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
 		boolean encontradoP = false, actualizadoP = false; 
 		while(iterador.hasNext() && !encontradoP){
 			RodamientoNegocio rodamientoComp = iterador.next();
@@ -199,22 +115,22 @@ public class AdministracionCC implements IAdministracionCC {
 				encontradoP = true;
 				//si es mas barato
 				if(rodamientoComp.getMonto() < rodamiento.getMonto()){
-					actualizadoP = true; 
-					this.listaPrincipal.remove(rodamientoComp);
-					this.listaPrincipal.add(rodamiento);
+					actualizadoP = true;
+					casaCentralNegocio.getListaPrincipal().remove(rodamientoComp);
+					casaCentralNegocio.getListaPrincipal().add(rodamiento);
 					break;
 				}
 			}
 		}
 		if(encontradoP && !actualizadoP){
-			this.listaOpcional.add(rodamiento);
+			this.casaCentralNegocio.getListaPrincipal().add(rodamiento);
 		}
 		if(!encontradoP && !actualizadoP){
-			iterador = this.listaOpcional.iterator();
+			iterador = this.casaCentralNegocio.getListaOpcional().iterator();
 			while(iterador.hasNext() && !encontradoP){
 				RodamientoNegocio rodamientoComp = iterador.next();
 				if(rodamientoComp.getCodigo().equals(rodamiento.getCodigo())){
-					this.listaOpcional.add(rodamiento);
+					this.casaCentralNegocio.getListaOpcional().add(rodamiento);
 					actualizadoP = true;
 					break;
 				}
@@ -222,21 +138,42 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
-
-	public List <RodamientoNegocio> getListaOpcional() {
-		return listaOpcional;
+	public RodamientoDto buscarRodamientoDto(String codigo){
+		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
+			RodamientoNegocio rodamiento = iterador.next();
+			if(rodamiento.getCodigo().equals(codigo))
+				return rodamiento.aRodamientoDto();
+		}
+		return null;
+	}
+	
+	public RodamientoNegocio buscarRodamientoNegocio(String codigo){
+		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
+			RodamientoNegocio rodamiento = iterador.next();
+			if(rodamiento.getCodigo().equals(codigo))
+				return rodamiento;
+		}
+		return null;
 	}
 
-	public void setListaOpcional(List <RodamientoNegocio> listaOpcional) {
-		this.listaOpcional = listaOpcional;
+	@Override
+	public boolean abmProveedor(ProveedorDto proveedor, String accion) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public static String getIdAdministracionCC() {
-		return idAdministracionCC;
+	
+	
+	public AdministracionCC(CCNegocio casaCentralNegocio) {
+		this.casaCentralNegocio = casaCentralNegocio;
+	}
+	
+	public CCNegocio getCasaCentralNegocio() {
+		return casaCentralNegocio;
 	}
 
-	public static void setIdAdministracionCC(String idAdministracionCC) {
-		AdministracionCC.idAdministracionCC = idAdministracionCC;
+	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
+		this.casaCentralNegocio = casaCentralNegocio;
 	}
 
 

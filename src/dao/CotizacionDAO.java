@@ -7,8 +7,11 @@ import java.util.List;
 
 import negocio.CotizacionNegocio;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import negocio.ClienteNegocio;
 import negocio.CotizacionNegocio;
 import negocio.RodamientoNegocio;
 
@@ -42,4 +45,48 @@ public class CotizacionDAO extends HibernateDAO{
 		
 		return cotizacionSalida;
 	}
+	
+	//Levantar las cotizaciones de un cliente en estado distinto de "solicitada"
+	@SuppressWarnings("unchecked")
+	public List<CotizacionNegocio> obtenerCotizacionesDeCiente(ClienteNegocio clie){
+		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<CotizacionNegocio> salida;
+		Transaction tr = se.getTransaction();
+		tr.begin();
+		Query q = se.createQuery("from CotizacionNegocio cot "
+				+ "where cot.cliente = :clie "
+				+ "and cot.estado <> 'solicitada'").setParameter("clie", clie);
+		salida = q.list();
+		tr.commit();
+		se = null;
+		return salida;
+	}
+	
+	// Levantar cotizacion segun id recibido
+	public CotizacionNegocio buscarCotizacion(int idCot){
+		Session se = HibernateUtil.getSessionFactory().openSession();
+		CotizacionNegocio salida = (CotizacionNegocio) se.get(CotizacionNegocio.class, idCot);
+		se = null;
+		return salida;
+	}
+	
+	// Levantar Items Cotización de determinas cotizaciones
+	@SuppressWarnings("unchecked")
+	public List<Object[]> itemsCotizacionAgrupadosPorRodamiento(List<Integer> cotizaciones){
+		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<Object[]> salida;
+		Transaction tr = se.getTransaction();
+		tr.begin();
+		Query q = se.createQuery("Select ro.IdRodamiento, sum(itCot.cant), sum(itCot.subtotal)  "
+				+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro "
+				+ "where cot.idCotizacion in (:ids) "
+				+ "group by ro.IdRodamiento").setParameterList("ids", cotizaciones);
+		salida = q.list();
+		tr.commit();
+		se = null;
+		return salida;
+	}
+	
+	
+	
 }

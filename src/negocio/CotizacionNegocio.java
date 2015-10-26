@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import dao.CotizacionDAO;
 import dto.*;
 
 
@@ -26,7 +27,7 @@ import dto.*;
 @Entity
 @Table(name="Cotizacion")
 public class CotizacionNegocio{
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCotizacion;
@@ -39,8 +40,8 @@ public class CotizacionNegocio{
 	private ClienteNegocio cliente; 
 	private Date fechaCreacion;
 	private Date fechaVigencia;
-	
-	
+
+
 	public CotizacionNegocio(List<ItemCotizacionNegocio> items, String estado,
 			ClienteNegocio cliente, Date fechaCreacion, Date fechaVigencia) {
 		super();
@@ -50,11 +51,11 @@ public class CotizacionNegocio{
 		this.fechaCreacion = fechaCreacion;
 		this.fechaVigencia = fechaVigencia;
 	}
-	
+
 	public CotizacionNegocio(){
-		
+
 	}
-	
+
 	/**
 	 * @author Daro
 	 * - Transformacion 1/4
@@ -62,36 +63,36 @@ public class CotizacionNegocio{
 	 * necesita transformarlo a negocio para usar los metodos necesarios
 	 */
 	public CotizacionNegocio cotizacionDtoToNegocio (CotizacionDto miCotDto){
-	//public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
+		//public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
 		//Creo la salida del metodo
-			CotizacionNegocio miCotNegocio= new CotizacionNegocio();
+		CotizacionNegocio miCotNegocio= new CotizacionNegocio();
 		//Asigno los atributos simples
-			miCotNegocio.setEstado(miCotDto.getEstado());
-			miCotNegocio.setFechaCreacion(miCotDto.getFechaCreacion());
-			miCotNegocio.setFechaVigencia(miCotDto.getFechaVigencia());
+		miCotNegocio.setEstado(miCotDto.getEstado());
+		miCotNegocio.setFechaCreacion(miCotDto.getFechaCreacion());
+		miCotNegocio.setFechaVigencia(miCotDto.getFechaVigencia());
 		//Asigno los atributos de Clase unica, con el metodo de esa clase
-			ClienteNegocio miCliNegocio= new ClienteNegocio();
-			miCliNegocio = miCliNegocio.aClienteNegocio(miCotDto.getCliente());
+		ClienteNegocio miCliNegocio= new ClienteNegocio();
+		miCliNegocio = miCliNegocio.aClienteNegocio(miCotDto.getCliente());
 		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
-			List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
-			for (int i=0; i<miCotDto.getItems().size(); i++){
-				//Creo el item Negocio
-				ItemCotizacionNegocio miItCotNegocio = new ItemCotizacionNegocio();
-				//Obtengo el itemDto iterado de la lista
-				ItemCotizacionDto miItCotDto = miCotDto.getItems().get(i);
-				//Lo transformo
-				miItCotNegocio = miItCotNegocio.aItemCotizacionNegocio(miItCotDto);
-				//Agrego el item negocio a la lista de negocio
-				listaItCoNegocio.add(miItCotNegocio);
-			}
+		List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
+		for (int i=0; i<miCotDto.getItems().size(); i++){
+			//Creo el item Negocio
+			ItemCotizacionNegocio miItCotNegocio = new ItemCotizacionNegocio();
+			//Obtengo el itemDto iterado de la lista
+			ItemCotizacionDto miItCotDto = miCotDto.getItems().get(i);
+			//Lo transformo
+			miItCotNegocio = miItCotNegocio.aItemCotizacionNegocio(miItCotDto);
+			//Agrego el item negocio a la lista de negocio
+			listaItCoNegocio.add(miItCotNegocio);
+		}
 		//Asigno las clases a la salida
-			miCotNegocio.setCliente(miCliNegocio);
-			miCotNegocio.setItems(listaItCoNegocio);
+		miCotNegocio.setCliente(miCliNegocio);
+		miCotNegocio.setItems(listaItCoNegocio);
 		return miCotNegocio;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @author Daro
 	 * - Transformacion 4/4
@@ -99,12 +100,12 @@ public class CotizacionNegocio{
 	 * hay que transformar la clase Negocio a Dto para enviarsela
 	 */
 	public CotizacionDto cotizacionNegocioToDto(CotizacionNegocio miCotNeg){
-	//public CotizacionDto transformarCotizacionNegocioACotizacionDto (CotizacionNegocio miCotNeg){
+		//public CotizacionDto transformarCotizacionNegocioACotizacionDto (CotizacionNegocio miCotNeg){
 		return null;
 	}
-	
-	
-	
+
+
+
 	public List<ItemCotizacionNegocio> getItems() {
 		return items;
 	}
@@ -144,5 +145,8 @@ public class CotizacionNegocio{
 	public void setFechaVigencia(Date fechaVigencia) {
 		this.fechaVigencia = fechaVigencia;
 	}
-	
+
+	public void persistirCotizacion(){
+		CotizacionDAO.getinstancia().persist(this);
+	}
 }

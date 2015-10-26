@@ -30,6 +30,7 @@ public class ItemCotizacionNegocio{
 		super();
 		this.rodamiento = rodamiento;
 		this.cant = cant;
+		this.subtotal = rodamiento.getMonto()*cant;
 	}
 	
 	public ItemCotizacionNegocio(){

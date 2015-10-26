@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import dao.FacturaDAO;
+
 @Entity
 @Table(name="Factura")
 public class FacturaNegocio{
@@ -19,7 +21,7 @@ public class FacturaNegocio{
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idFactura;	
-	private String estado;
+	private String estado; // Generada // enviada // pagada
 	private Date fecha;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="factura_cliente")
@@ -33,7 +35,7 @@ public class FacturaNegocio{
 	//Lo agregue para que se sepa que cotizacion se esta facturando.
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="factura_cotizacion")
-	private CotizacionNegocio cotizacion;
+	private List<CotizacionNegocio> cotizacion;
 	
 	public FacturaNegocio(String estado, Date fecha,
 			ClienteNegocio cliente, float descuento, List<ItemFacturaNegocio> items,
@@ -98,6 +100,20 @@ public class FacturaNegocio{
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
 	}
+
+	public List<CotizacionNegocio> getCotizacion() {
+		return cotizacion;
+	}
+
+	public void setCotizacion(List<CotizacionNegocio> cotizacion) {
+		this.cotizacion = cotizacion;
+	}
 	
+	public void persistirFactura(){
+		FacturaDAO.getInstancia().persist(this);
+	}
 	
+	public void updateFactura(){
+		FacturaDAO.getInstancia().update(this);
+	}
 }

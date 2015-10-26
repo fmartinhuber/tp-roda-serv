@@ -11,8 +11,8 @@ public class HibernateUtil {
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
 	        	 
-	        	 config.addAnnotatedClass(controlador.AdministracionCC.class);
 	        	 config.addAnnotatedClass(controlador.AdministracionOV.class);
+	        	 config.addAnnotatedClass(controlador.AdministracionCC.class);
 	             config.addAnnotatedClass(negocio.ClienteNegocio.class);
 	        	 config.addAnnotatedClass(negocio.CotizacionNegocio.class);
 	        	 config.addAnnotatedClass(negocio.FacturaNegocio.class);
@@ -23,6 +23,8 @@ public class HibernateUtil {
 	        	 config.addAnnotatedClass(negocio.ProveedorNegocio.class);
 	        	 config.addAnnotatedClass(negocio.RemitoNegocio.class);
 	        	 config.addAnnotatedClass(negocio.RodamientoNegocio.class);
+	        	 config.addAnnotatedClass(negocio.CCNegocio.class);
+	        	 config.addAnnotatedClass(negocio.OVNegocio.class);
 	        	 
 	             sessionFactory = config.buildSessionFactory();
 	        }
@@ -32,7 +34,7 @@ public class HibernateUtil {
 	            throw new ExceptionInInitializerError(ex);
 	        }
 	    }
-	 
+	    
 	    public static SessionFactory getSessionFactory()
 	    {
 	        return sessionFactory;

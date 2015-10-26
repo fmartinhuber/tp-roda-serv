@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import dao.ClienteDAO;
 import dto.*;
 
 
@@ -70,5 +71,8 @@ public class ClienteNegocio{
 		this.CUIT = CUIT;
 	}
 
+	public void persistirCliente(){
+		ClienteDAO.getInstancia().persist(this);
+	}
 
 }

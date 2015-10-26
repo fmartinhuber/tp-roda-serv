@@ -55,5 +55,11 @@ public class HibernateDAO{
 		session.getTransaction().commit();
 	}
 	
+	public void update(Object obj) {
+		Session session = getSession();
+		session.beginTransaction();
+		session.update(obj);
+		session.getTransaction().commit();
+	}
 	
 }
