@@ -4,6 +4,7 @@ import hbt.HibernateUtil;
 
 import java.util.List;
 
+import negocio.CotizacionNegocio;
 import negocio.RodamientoNegocio;
 
 import org.hibernate.Session;
@@ -28,4 +29,11 @@ public class RodamientoDAO extends HibernateDAO{
 		return rodamientos;
 	}
 	
+	// Levantar rodamiento segun id recibido
+		public RodamientoNegocio buscarRodamiento(int idRota){
+			Session se = HibernateUtil.getSessionFactory().openSession();
+			RodamientoNegocio salida = (RodamientoNegocio) se.get(RodamientoNegocio.class, idRota);
+			se = null;
+			return salida;
+		}
 }

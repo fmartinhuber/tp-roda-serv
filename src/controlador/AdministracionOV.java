@@ -137,6 +137,75 @@ public class AdministracionOV implements IAdministracionOV{
 		return false;
 	}
 
-
+	public void procesarCotizaciones(int idCli){
+		
+		//Levantamos un ciente, cuyo ID sea el pasado.
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCli);
+		
+		//Listamos las cotizaciones de un cliente que no hayan sido "solicitada" a CC
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesDeCiente(cli);
+		
+		for(int i=0; i<cotizaciones.size(); i++){
+			System.out.println(cotizaciones.get(i).getEstado());
+		}
+			
+	}
+	
+	public void GenerarFactura(List<Integer> idsCoti, int idCliente){
+		
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCliente);
+		// Crear Factura y setear datos primarios
+		FacturaNegocio factura = new FacturaNegocio();
+			//factura.setCliente(cli);
+			factura.setEstado("generada");
+			Calendar c = new GregorianCalendar();
+			factura.setFecha(c.getTime());
+			List<CotizacionNegocio> cotizacionesFactura = new ArrayList<CotizacionNegocio>();
+		// Crear ItemsFactura
+		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
+		for(int i=0; i<idsCoti.size(); i++){
+			CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idsCoti.get(i).intValue());
+			cotizacionesFactura.add(coti);
+			ActualizarEstadoCotizacion(coti, "solicitada");
+		}
+		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
+		for(int i=0; i<misObjects.size(); i++){
+			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
+			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
+			itFactura.setRodamiento(rodamiento);
+			itFactura.setCantidad((Integer)misObjects.get(i)[0]);
+			Double sal = (Double)misObjects.get(i)[2];
+			itFactura.setSubtotal(sal.floatValue());
+			itemsFactura.add(itFactura);
+		}
+		factura.setItems(itemsFactura);
+		factura.persistirFactura();
+		//factura.setCliente(cli);
+		//factura.updateFactura();
+		
+	}
+	// Actualiza ESTADO de cotización
+	private boolean ActualizarEstadoCotizacion (CotizacionNegocio cotizacion, String estadoNuevo){
+		//CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
+		Boolean salida = true;
+		try{
+			cotizacion.setEstado(estadoNuevo);
+			CotizacionDAO.getinstancia().update(cotizacion);
+		}
+		catch(Exception ex){
+			System.out.println("Error al actualizar estado de cotización");
+			salida = false;
+		}
+		return salida;
+	}
+	// Prueba
+	public void Prueba(List<Integer> coti){
+		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(coti);
+		for(int i=0; i<misObjects.size(); i++){
+			System.out.println(misObjects.get(i)[0]);
+			System.out.println(misObjects.get(i)[1]);
+			System.out.println(misObjects.get(i)[2]);
+		}
+	}
 
 }

@@ -28,4 +28,12 @@ public class ClienteDAO extends HibernateDAO {
 		return clientes;
 	}
 	
+	public ClienteNegocio buscarCliente(int idCli){
+		
+		Session se = HibernateUtil.getSessionFactory().openSession();
+		ClienteNegocio salida = (ClienteNegocio) se.get(ClienteNegocio.class, idCli);
+		se = null;
+		return salida;
+	}
+	
 }
