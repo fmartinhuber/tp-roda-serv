@@ -44,22 +44,13 @@ public class CotizacionServlet extends HttpServlet {
 		
 		RodamientoDto rodamiento = AdministracionCC.getInstancia().buscarRodamientoDto(request.getParameter("codigo"));
 		
-<<<<<<< HEAD
 		ItemCotizacionDto item = new ItemCotizacionDto();
 		item.setRodamiento(rodamiento);
 		item.setCant(Integer.valueOf(request.getParameter("cantidad")));
-=======
 		
-		ItemDto item = new ItemDto();
-		item.setRodamiento(rodamiento);
->>>>>>> refs/remotes/origin/master
-		
-<<<<<<< HEAD
 		CotizacionDto cotizacion = new CotizacionDto();
 		cotizacion.setCliente(cliente);
 		cotizacion.getItems().add(item);
-=======
->>>>>>> refs/remotes/origin/master
 		
 		AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
 		

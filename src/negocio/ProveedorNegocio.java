@@ -9,10 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
-=======
 import dao.ProveedorDAO;
->>>>>>> refs/remotes/origin/master
 import dto.ProveedorDto;
 
 @Entity
@@ -38,12 +35,6 @@ public class ProveedorNegocio{
 	
 	public ProveedorNegocio(){
 		
-	}
-	
-	public ProveedorDto aProveedorDto(){
-		ProveedorDto prove = new ProveedorDto();
-		prove.setNombre(nombre);
-		return prove;
 	}
 	
 	public ProveedorNegocio aProveedorNegocio(ProveedorDto proveedor){
