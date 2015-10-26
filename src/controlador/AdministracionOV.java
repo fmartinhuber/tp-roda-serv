@@ -36,7 +36,10 @@ public class AdministracionOV implements IAdministracionOV{
 		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
 	}
 
+<<<<<<< HEAD
 	//TODO REVISAR
+=======
+>>>>>>> refs/remotes/origin/master
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")

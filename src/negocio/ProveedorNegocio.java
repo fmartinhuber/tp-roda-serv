@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+<<<<<<< HEAD
+=======
+import dao.ProveedorDAO;
+>>>>>>> refs/remotes/origin/master
 import dto.ProveedorDto;
 
 @Entity
@@ -63,6 +67,20 @@ public class ProveedorNegocio{
 	public void setRodamientos(List<RodamientoNegocio> regulares) {
 		rodamientos = regulares;
 	}
+
+	public ProveedorDto aProveedorDto() {
+		ProveedorDto prov = new ProveedorDto();
+		prov.setNombre(this.getNombre());
+		return prov;
+	}
 	
+	public void persistirProveedor(){
+		ProveedorDAO.getInstancia().persist(this);
+	}
+	
+	public boolean updateProveedor(){
+		ProveedorDAO.getInstancia().update(this);
+		return false;
+	}
 	
 }

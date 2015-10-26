@@ -2,12 +2,22 @@ package controlador;
 
 import java.rmi.RemoteException;
 import java.util.*;
-
+<<<<<<< HEAD
+=======
 
 import negocio.*;
 import dto.*;
 import interfaces.*;
+>>>>>>> refs/remotes/origin/master
 
+
+<<<<<<< HEAD
+import negocio.*;
+import dto.*;
+import interfaces.*;
+
+=======
+>>>>>>> refs/remotes/origin/master
 public class AdministracionCC implements IAdministracionCC {
 
 	public static AdministracionCC administracion; 
@@ -138,6 +148,7 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
+<<<<<<< HEAD
 	//TODO REVISAR
 	public RodamientoDto buscarRodamientoDto(String codigo){
 		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
@@ -145,6 +156,13 @@ public class AdministracionCC implements IAdministracionCC {
 //			if(rodamiento.getCodigo().equals(codigo)){
 //				return rodamiento.aRodamientoDto();
 //			}
+=======
+	public RodamientoDto buscarRodamientoDto(String codigo){
+		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
+			RodamientoNegocio rodamiento = iterador.next();
+			if(rodamiento.getCodigo().equals(codigo))
+				return rodamiento.aRodamientoDto();
+>>>>>>> refs/remotes/origin/master
 		}
 		return null;
 	}
