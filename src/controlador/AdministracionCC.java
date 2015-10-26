@@ -138,11 +138,13 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
+	//TODO REVISAR
 	public RodamientoDto buscarRodamientoDto(String codigo){
 		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
 			RodamientoNegocio rodamiento = iterador.next();
-			if(rodamiento.getCodigo().equals(codigo))
-				return rodamiento.aRodamientoDto();
+//			if(rodamiento.getCodigo().equals(codigo)){
+//				return rodamiento.aRodamientoDto();
+//			}
 		}
 		return null;
 	}

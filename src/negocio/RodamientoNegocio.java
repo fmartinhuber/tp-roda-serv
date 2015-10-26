@@ -69,31 +69,31 @@ public class RodamientoNegocio{
 		return roda;
 	}
 	
-	public RodamientoDto aRodamientoDto() {
-		RodamientoDto roda = new RodamientoDto();
-		roda.setCaracteristica(caracteristica);
-		roda.setCodigo(codigo);
-		roda.setMarca(marca);
-		roda.setMonto(monto);
-		roda.setOrigen(origen);
-		roda.setStock(stock);
-		roda.setProveedor(proveedor.aProveedorDto());
-		roda.setTipo(tipo);
-		return roda;
-	}
-	
-	public RodamientoDto aRodamientoDto() {
-		RodamientoDto roda = new RodamientoDto();
-		roda.setCaracteristica(this.getCaracteristica());
-		roda.setCodigo(this.getCodigo());
-		roda.setMarca(this.getMarca());
-		roda.setMonto(this.getMonto());
-		roda.setOrigen(this.getOrigen());
-		roda.setStock(this.getStock());
-		roda.setTipo(this.getTipo());
-		roda.setProveedor(this.getProveedor().aProveedorDto());
-		return roda;
-	}
+//	public RodamientoDto aRodamientoDto() {
+//		RodamientoDto roda = new RodamientoDto();
+//		roda.setCaracteristica(caracteristica);
+//		roda.setCodigo(codigo);
+//		roda.setMarca(marca);
+//		roda.setMonto(monto);
+//		roda.setOrigen(origen);
+//		roda.setStock(stock);
+//		roda.setProveedor(proveedor.aProveedorDto());
+//		roda.setTipo(tipo);
+//		return roda;
+//	}
+//	
+//	public RodamientoDto aRodamientoDto() {
+//		RodamientoDto roda = new RodamientoDto();
+//		roda.setCaracteristica(this.getCaracteristica());
+//		roda.setCodigo(this.getCodigo());
+//		roda.setMarca(this.getMarca());
+//		roda.setMonto(this.getMonto());
+//		roda.setOrigen(this.getOrigen());
+//		roda.setStock(this.getStock());
+//		roda.setTipo(this.getTipo());
+//		roda.setProveedor(this.getProveedor().aProveedorDto());
+//		return roda;
+//	}
 
 	public float getMonto() {
 		return monto;

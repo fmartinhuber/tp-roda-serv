@@ -34,6 +34,7 @@ public class CotizacionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		List <ItemDto> listaItems = new ArrayList <ItemDto>();
 		ClienteDto cliente = new ClienteDto();
 		cliente.setCUIT(request.getParameter("cuit"));
@@ -42,10 +43,13 @@ public class CotizacionServlet extends HttpServlet {
 		RodamientoDto rodamiento = new RodamientoDto();
 		rodamiento.setCodigo(request.getParameter("codigo"));
 		
-		
+		ItemCotizacionDto item = new ItemCotizacionDto();
+		item.setRodamiento(rodamiento);
+		item.setCant(Integer.valueOf(request.getParameter("cantidad")));
 		
 		CotizacionDto cotizacion = new CotizacionDto();
-		cotizacion.g
+		cotizacion.setCliente(cliente);
+		cotizacion.getItems().add(item);
 		
 		AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
 		

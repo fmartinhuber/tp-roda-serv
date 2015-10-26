@@ -36,16 +36,17 @@ public class AdministracionOV implements IAdministracionOV{
 		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
 	}
 
+	//TODO REVISAR
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
 		List <RodamientoNegocio> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();
 		List <RodamientoDto> listaRodaDto = new ArrayList <RodamientoDto>();
-		for(int i=0;i<listaRodamientos.size();i++){
-			RodamientoNegocio roda = listaRodamientos.get(i);
-			RodamientoDto rodaDto = roda.aRodamientoDto();
-			listaRodaDto.add(rodaDto);
-		}
+//		for(int i=0;i<listaRodamientos.size();i++){
+//			RodamientoNegocio roda = listaRodamientos.get(i);
+//			//RodamientoDto rodaDto = roda.aRodamientoDto();
+//			listaRodaDto.add(rodaDto);
+//		}
 		return listaRodaDto;
 	}
 	
