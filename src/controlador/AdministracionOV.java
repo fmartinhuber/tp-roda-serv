@@ -14,7 +14,7 @@ import dto.*;
 public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV administracion; 
-	
+
 	//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
 	//sumado con el singleton en el medio seria una locura saber cuando se levanta tal o cual OV (y los constructores se harian multiples, demente)
 	//Creo una OV unica y se deberia sacar el singleton de esta clase, asi se puede dar de alta los controladores que se deseen para cada OV (negrisimo pero logico)
@@ -138,29 +138,29 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 
 	public void procesarCotizaciones(int idCli){
-		
+
 		//Levantamos un ciente, cuyo ID sea el pasado.
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCli);
-		
+
 		//Listamos las cotizaciones de un cliente que no hayan sido "solicitada" a CC
 		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesDeCiente(cli);
-		
+
 		for(int i=0; i<cotizaciones.size(); i++){
 			System.out.println(cotizaciones.get(i).getEstado());
 		}
-			
+
 	}
-	
+
 	public void GenerarFactura(List<Integer> idsCoti, int idCliente){
-		
+
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCliente);
 		// Crear Factura y setear datos primarios
 		FacturaNegocio factura = new FacturaNegocio();
-			//factura.setCliente(cli);
-			factura.setEstado("generada");
-			Calendar c = new GregorianCalendar();
-			factura.setFecha(c.getTime());
-			List<CotizacionNegocio> cotizacionesFactura = new ArrayList<CotizacionNegocio>();
+		factura.setCliente(cli);
+		factura.setEstado("generada");
+		Calendar c = new GregorianCalendar();
+		factura.setFecha(c.getTime());
+		List<CotizacionNegocio> cotizacionesFactura = new ArrayList<CotizacionNegocio>();
 		// Crear ItemsFactura
 		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
 		for(int i=0; i<idsCoti.size(); i++){
@@ -180,9 +180,7 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 		factura.setItems(itemsFactura);
 		factura.persistirFactura();
-		//factura.setCliente(cli);
-		//factura.updateFactura();
-		
+
 	}
 	// Actualiza ESTADO de cotización
 	private boolean ActualizarEstadoCotizacion (CotizacionNegocio cotizacion, String estadoNuevo){

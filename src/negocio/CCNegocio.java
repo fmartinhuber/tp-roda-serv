@@ -22,21 +22,24 @@ public class CCNegocio {
 	 *  Se utiliza para manejar el stock interno.
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_interno")
+	@PrimaryKeyJoinColumn
+	//@JoinColumn(name="cc_rodamientos_interno")
 	private List <RodamientoNegocio> rodamientos;
 	
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_pri")
+	@PrimaryKeyJoinColumn
+	//@JoinColumn(name="IdRodamiento")
 	private List <RodamientoNegocio> listaPrincipal;
 	
 	/**
 	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_rodamientos_opc")
+	@PrimaryKeyJoinColumn
+	//@JoinColumn(name="cc_rodamientos_opc")
 	private List <RodamientoNegocio> listaOpcional;
 
 	

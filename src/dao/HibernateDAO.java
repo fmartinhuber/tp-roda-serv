@@ -44,6 +44,13 @@ public class HibernateDAO{
 		session.getTransaction().commit();
 	}
 	
+	public void merge(Object obj) {
+		Session session = getSession();
+		session.beginTransaction();
+		session.merge(obj);
+		session.getTransaction().commit();
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public void persistList(List lista){
 		Session session = getSession();

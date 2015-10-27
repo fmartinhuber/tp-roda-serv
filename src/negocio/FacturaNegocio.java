@@ -110,7 +110,7 @@ public class FacturaNegocio{
 	}
 	
 	public void persistirFactura(){
-		FacturaDAO.getInstancia().persist(this);
+		FacturaDAO.getInstancia().merge(this);
 	}
 	
 	public void updateFactura(){

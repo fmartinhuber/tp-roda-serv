@@ -138,5 +138,15 @@ public class RodamientoNegocio{
 	public void persistirRodamiento(){
 		RodamientoDAO.getInstancia().persist(this);
 	}
+
+
+	public int getIdRodamiento() {
+		return IdRodamiento;
+	}
+
+
+	public void setIdRodamiento(int idRodamiento) {
+		IdRodamiento = idRodamiento;
+	}
 	
 }

@@ -67,5 +67,13 @@ public class ProveedorNegocio{
 		ProveedorDAO.getInstancia().update(this);
 		return false;
 	}
+
+	public int getIdProveedor() {
+		return IdProveedor;
+	}
+
+	public void setIdProveedor(int idProveedor) {
+		IdProveedor = idProveedor;
+	}
 	
 }

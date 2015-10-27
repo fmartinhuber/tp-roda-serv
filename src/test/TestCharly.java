@@ -29,6 +29,7 @@ public class TestCharly {
 		//CargarDatos.getInstance().cargaDeDatos();
 		//System.out.println("Prueba Charly - Carga Finalizada");	
 		
+		
 		c.procesarCotizaciones(1);
 		
 		List<Integer> parametros = new ArrayList<Integer>();
@@ -36,6 +37,7 @@ public class TestCharly {
 		parametros.add(2);
 		//c.Prueba(parametros);
 		c.GenerarFactura(parametros, 1);
+		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
 
