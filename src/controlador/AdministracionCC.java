@@ -7,7 +7,6 @@ import negocio.*;
 import dto.*;
 import interfaces.*;
 
-
 public class AdministracionCC implements IAdministracionCC {
 
 	public static AdministracionCC administracion; 
@@ -105,7 +104,6 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 
-	
 
 	private void agregarNuevoRodamiento (RodamientoNegocio rodamiento){
 		Iterator <RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
@@ -139,11 +137,13 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
+	//TODO REVISAR
 	public RodamientoDto buscarRodamientoDto(String codigo){
 		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
 			RodamientoNegocio rodamiento = iterador.next();
-			if(rodamiento.getCodigo().equals(codigo))
-				return rodamiento.aRodamientoDto();
+//			if(rodamiento.getCodigo().equals(codigo)){
+//				return rodamiento.aRodamientoDto();
+//			}
 		}
 		return null;
 	}

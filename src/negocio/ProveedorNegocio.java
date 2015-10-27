@@ -36,6 +36,12 @@ public class ProveedorNegocio{
 	public ProveedorNegocio(){
 		
 	}
+	
+	public ProveedorNegocio aProveedorNegocio(ProveedorDto proveedor){
+		ProveedorNegocio prove = new ProveedorNegocio();
+		prove.setNombre(proveedor.getNombre());
+		return prove;
+	}
 
 	public String getNombre() {
 		return nombre;

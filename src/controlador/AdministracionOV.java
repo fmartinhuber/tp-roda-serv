@@ -14,7 +14,6 @@ import dto.*;
 public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV administracion; 
-
 	//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
 	//sumado con el singleton en el medio seria una locura saber cuando se levanta tal o cual OV (y los constructores se harian multiples, demente)
 	//Creo una OV unica y se deberia sacar el singleton de esta clase, asi se puede dar de alta los controladores que se deseen para cada OV (negrisimo pero logico)
@@ -39,7 +38,17 @@ public class AdministracionOV implements IAdministracionOV{
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
 		@SuppressWarnings("unused")
-		List <RodamientoNegocio> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();	
+		List <RodamientoNegocio> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();
+		List <RodamientoDto> listaRodaDto = new ArrayList <RodamientoDto>();
+//		for(int i=0;i<listaRodamientos.size();i++){
+//			RodamientoNegocio roda = listaRodamientos.get(i);
+//			//RodamientoDto rodaDto = roda.aRodamientoDto();
+//			listaRodaDto.add(rodaDto);
+//		}
+		return listaRodaDto;
+	}
+	
+	public List<RodamientoDto> obtenerRodamientos(String marca){
 		return null;
 	}
 
