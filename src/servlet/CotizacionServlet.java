@@ -10,19 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import negocio.RodamientoNegocio;
 import utils.ItemDto;
 import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
-import dto.CotizacionDto;
-import dto.ItemCotizacionDto;
 import dto.RodamientoDto;
 
 /**
  * Servlet implementation class RodamientoServlet
  */
-@WebServlet("/RodamientoServlet")
+@WebServlet("/CotizacionServlet")
 public class CotizacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +55,7 @@ public class CotizacionServlet extends HttpServlet {
 			String string = arrayRodamiento[i];
 			RodamientoDto rodamiento = AdministracionCC.getInstancia().buscarRodamientoDto(string);
 			ItemDto item = new ItemDto();
-			item.setRodamiento(rodamiento);
+			item.setRodamiento(rodamiento); 
 			item.setCantidad(Integer.valueOf(arrayCantidad[i]));
 			listaItems.add(item);
 		}
