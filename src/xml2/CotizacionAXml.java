@@ -1,3 +1,4 @@
+package xml2;
 //package xml;
 //
 //import java.io.File;
