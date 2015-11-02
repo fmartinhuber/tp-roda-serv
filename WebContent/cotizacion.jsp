@@ -27,7 +27,7 @@ function agregar(){
 
 function enviar(){
 	JSON.stringify(listItems);
-	document.listaRodamiento = listItems;
+	document.getElementById("listaRodamiento").value = listItems;
 }
 
 
