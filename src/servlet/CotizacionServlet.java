@@ -50,6 +50,8 @@ public class CotizacionServlet extends HttpServlet {
 		cliente.setCUIT(request.getParameter("cuit"));
 		cliente.setRazonSocial(request.getParameter("razonSocial"));
 		
+		//JSON.parse(request.getParameter("listado"));
+		
 		String [] arrayRodamiento = request.getParameterValues("listado");
 		String [] arrayCantidad = request.getParameterValues("listado");
 		List <ItemDto> listaItems = new ArrayList<ItemDto>();
