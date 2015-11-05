@@ -23,28 +23,30 @@ function agregar(){
 		"pais": document.getElementsByName('pais').getValue ,
 		"marca": document.getElementsByName('marca').getValue
 	});
+	alert("Se agrego un elemento");
 }
 
 function enviar(){
 	JSON.stringify(listItems);
 	document.getElementById("listaRodamiento").value = listItems;
+	alert("Se creo la cotizacion");
 }
 
 
 </script>
 <form action="CotizacionServlet" method="POST">
-<input type="hidden" name="listaRodamiento" >
-<input type="hidden" name="listCantidad" >
+<input type="hidden" name="listaRodamiento" value="">
 <table>
-	<tr><td>Razon Social:</td><td><input type="TEXT" name="razonSocial"></td></tr>
-	<tr><td>CUIT:</td><td><input type="TEXT" name="cuit"></td></tr>
+	<tr><td>Razon Social:</td><td><input type="TEXT" name="razonSocial" value="1"></td></tr>
+	<tr><td>CUIT:</td><td><input type="TEXT" name="cuit" value="1"></td></tr>
 	<tr><td colspan="2" align="center">Rodamiento</td></tr>
-	<tr><td>Codigo:</td><td><input type="TEXT" name="codigo"></td></tr>
-	<tr><td>Cantidad:</td><td><input type="TEXT" name="cantidad"></td></tr>
-	<tr><td>caracteristica:</td><td><input type="TEXT" name="caracteristica"></td></tr>
-	<tr><td>pais:</td><td><input type="TEXT" name="pais"></td></tr>
-	<tr><td>marca:</td><td><input type="TEXT" name="marca"></td></tr>
-	<tr><td><input type="Submit" value="Agregar" onClick="agregar();"></td><td><input type="SUBMIT" value="Aceptar" onClick="enviar();"></td></tr>
+	<tr><td>Codigo:</td><td><input type="TEXT" name="codigo" value="1"></td></tr>
+	<tr><td>Cantidad:</td><td><input type="TEXT" name="cantidad" value="1"></td></tr>
+	<tr><td>caracteristica:</td><td><input type="TEXT" name="caracteristica" value="1"></td></tr>
+	<tr><td>pais:</td><td><input type="TEXT" name="pais" value="1"></td></tr>
+	<tr><td>marca:</td><td><input type="TEXT" name="marca" value="1"	></td></tr>
+	<tr><td colspan="2" align="right"><input type="button" value="Agregar" onClick="agregar();"></td></tr>
+	<tr><td align="center"><input type="submit" value="Aceptar" onClick="enviar();"></td><td align="center"><input type="reset" value="Cancelar" ></td></tr>
 </table>
 </form>
 </body>

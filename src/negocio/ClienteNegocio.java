@@ -36,13 +36,13 @@ public class ClienteNegocio{
 	
 	
 	
-	public ClienteNegocio aClienteNegocio(ClienteDto miCliDto) {
+	public ClienteNegocio aClienteNegocio(dto.ClienteDto clienteDto) {
 		//Creo la salida del metodo
 			ClienteNegocio miCliNegocio = new ClienteNegocio();
 		//Asigno los atributos simples
-			miCliNegocio.setCUIT(miCliDto.getCUIT());
-			miCliNegocio.setMail(miCliDto.getMail());
-			miCliNegocio.setRazonSocial(miCliDto.getRazonSocial());
+			miCliNegocio.setCUIT(clienteDto.getCUIT());
+			miCliNegocio.setMail(clienteDto.getMail());
+			miCliNegocio.setRazonSocial(clienteDto.getRazonSocial());
 		return miCliNegocio;
 	}
 	
