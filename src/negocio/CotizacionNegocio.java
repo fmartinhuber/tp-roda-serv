@@ -149,4 +149,12 @@ public class CotizacionNegocio{
 	public void persistirCotizacion(){
 		CotizacionDAO.getinstancia().persist(this);
 	}
+
+	public int getIdCotizacion() {
+		return idCotizacion;
+	}
+
+	public void setIdCotizacion(int idCotizacion) {
+		this.idCotizacion = idCotizacion;
+	}
 }

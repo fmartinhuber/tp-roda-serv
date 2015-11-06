@@ -10,63 +10,63 @@ import interfaces.*;
 public class AdministracionCC implements IAdministracionCC {
 
 	public static AdministracionCC administracion; 
-	
+
 	private CCNegocio casaCentralNegocio = new CCNegocio();
-		
+
 	public AdministracionCC(){
 		casaCentralNegocio.setOrdenesP(new ArrayList <OrdenCompraNegocio>());
 		casaCentralNegocio.setRodamientos(new ArrayList <RodamientoNegocio>());
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
-		
+
 		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
 		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
 		ProveedorNegocio provUno = new ProveedorNegocio();
-			provUno.setNombre("Solear SA");		
+		provUno.setNombre("Solear SA");		
 		RodamientoNegocio rodaUno = new RodamientoNegocio();
-			rodaUno.setCodigo("22310");
-			rodaUno.setCaracteristica("CCW33");
-			rodaUno.setMarca("ZKL");
-			rodaUno.setMonto((float) 310.71);
-			rodaUno.setOrigen("Japon");
-			rodaUno.setProveedor(provUno);
-			rodaUno.setStock(85);
-			rodaUno.setTipo("Bolilla");
+		rodaUno.setCodigo("22310");
+		rodaUno.setCaracteristica("CCW33");
+		rodaUno.setMarca("ZKL");
+		rodaUno.setMonto((float) 310.71);
+		rodaUno.setOrigen("Japon");
+		rodaUno.setProveedor(provUno);
+		rodaUno.setStock(85);
+		rodaUno.setTipo("Bolilla");
 		casaCentralNegocio.getListaPrincipal().add(rodaUno);
 	}
-	
+
 	public static AdministracionCC getInstancia(){
 		if(administracion == null){
 			administracion = new AdministracionCC();
 		}
 		return administracion;
 	}
-	
-	
+
+
 	/*
 	 * No es necesario una lista de cotizaciónes
 	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra
 	 * Se requiere un nuevo estado en la orden de compra y en la solicitud de cotización
 	 * Marcar solicitud de cotización como "En Adquisición"
 	 * Marcar Orden de compra como "Nueva" luego de su creación y previo a la entrega al proveedor
-	*/
+	 */
 	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
 			throws RemoteException {
 		// TODO NO SE A QUIEN LE TOCA ESTO
 		return null;
 		// Levantar Cotizaciones en estado "APROBADAS"
-		
-		
+
+
 	}
-	
+
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX"  // "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
 	public List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
-		
+
 		List<CotizacionNegocio> misCotizaciones = new ArrayList<CotizacionNegocio>();
-		
-		
-		
+
+
+
 		return null;
 	}
 
@@ -80,7 +80,7 @@ public class AdministracionCC implements IAdministracionCC {
 	@Override
 	public void actualizarStock(List<RodamientoDto> listaRodamientos) {
 		// TODO RAMA
-		
+
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class AdministracionCC implements IAdministracionCC {
 		//TODO REVISAR.
 		return null;
 	}
-	
+
 	public List <RodamientoDto> obtenerListaComparativaOpcional () throws RemoteException{
 		//TODO REVISAR.
 		return null;
@@ -136,18 +136,18 @@ public class AdministracionCC implements IAdministracionCC {
 			}
 		}
 	}
-	
+
 	//TODO REVISAR
 	public RodamientoDto buscarRodamientoDto(String codigo){
 		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
 			RodamientoNegocio rodamiento = iterador.next();
-//			if(rodamiento.getCodigo().equals(codigo)){
-//				return rodamiento.aRodamientoDto();
-//			}
+			//			if(rodamiento.getCodigo().equals(codigo)){
+			//				return rodamiento.aRodamientoDto();
+			//			}
 		}
 		return null;
 	}
-	
+
 	public RodamientoNegocio buscarRodamientoNegocio(String codigo){
 		for(Iterator <RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator();iterador.hasNext();){
 			RodamientoNegocio rodamiento = iterador.next();
@@ -163,12 +163,12 @@ public class AdministracionCC implements IAdministracionCC {
 		return false;
 	}
 
-	
-	
+
+
 	public AdministracionCC(CCNegocio casaCentralNegocio) {
 		this.casaCentralNegocio = casaCentralNegocio;
 	}
-	
+
 	public CCNegocio getCasaCentralNegocio() {
 		return casaCentralNegocio;
 	}

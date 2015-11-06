@@ -206,7 +206,14 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 		return salida;
 	}
+	
+	public List<CotizacionNegocio> obtenerCotizacionesDeCiente(ClienteNegocio clie){
+		CotizacionDAO cotizacionDao = CotizacionDAO.getinstancia();
+		return cotizacionDao.obtenerCotizacionesDeCiente(clie);
+	}
+	
 	// Prueba
+	@Deprecated
 	public void Prueba(List<Integer> coti){
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(coti);
 		for(int i=0; i<misObjects.size(); i++){
