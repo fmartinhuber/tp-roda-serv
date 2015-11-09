@@ -15,9 +15,9 @@
 	</script>
 	<form action="AprobarCotizacionServlet" method="obtenerCotizaciones">
 		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="">
-		<jsp:useBean id="CotizacionDtoId" class="dto.CotizacionDto" scope="session">
+		<!--<jsp:useBean id="CotizacionDtoId" class="dto.CotizacionDto" scope="session">
 			<jsp:setProperty property="*" name="CotizacionDtoId" />
-		</jsp:useBean>
+		</jsp:useBean>-->
 		<table>
 			<tr>
 				<td>Cliente:</td>
@@ -34,14 +34,15 @@
 				<td>Nro cotizacion:</td>
 				<td><input type="TEXT" id="codigo" value="1"></td>
 			</tr>
-			<jsp:getProperty property="items" name="CotizacionDtoId" />
-			<select name="country">
-				<option value="0">--Country--</option>
-				<option value="1">United States</option>
-				<option value="2">Canada</option>
-				<option value="3">Mexico</option>
+			<!--<jsp:getProperty property="items" name="CotizacionDtoId" />-->
+			<select name="role">
+				<option value="${selected}" selected>${selected}</option>
+				<c:forEach items="${roles}" var="role">
+					<c:if test="${role != selected}">
+						<option value="${role}">${role}</option>
+					</c:if>
+				</c:forEach>
 			</select>
-			<br>
 			<tr>
 				<td align="center"><input type="submit" value="Aceptar" onClick="enviar();"></td>
 				<td align="center"><input type="reset" value="Cancelar"></td>
