@@ -70,20 +70,17 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	@Override
 	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes)
 			throws RemoteException {
 		// TODO CARLOS
 		return null;
 	}
 
-	@Override
 	public void actualizarStock(List<RodamientoDto> listaRodamientos) {
 		// TODO RAMA
 
 	}
 
-	@Override
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
 		//TODO REVISAR.
 		return null;
@@ -94,7 +91,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	@Override
 	public void actualizarListaComparativa(List<RodamientoDto> listado)	throws RemoteException {
 		//TODO REVISAR.
 		Iterator <RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
@@ -157,7 +153,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	@Override
 	public boolean abmProveedor(ProveedorDto proveedor, String accion) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
