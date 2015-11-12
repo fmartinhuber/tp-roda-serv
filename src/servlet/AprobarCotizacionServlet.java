@@ -31,8 +31,11 @@ public class AprobarCotizacionServlet extends HttpServlet {
     }
 
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void aprobarCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		AdministracionOV.getInstancia().procesarCotizaciones(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
+		dispatcher.forward(request,response);
 	}
 
 	/**
@@ -50,7 +53,7 @@ public class AprobarCotizacionServlet extends HttpServlet {
 		for (int i = 0; i < arrayCotizaciones.length; i++) {
 			arrayCotizaciones[i] = String.valueOf(cotizaciones.get(i).getIdCotizacion());
 		}
-		request.setAttribute("cotizaciones", arrayCotizaciones);
+		request.setAttribute("arrayCotizaciones", arrayCotizaciones);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
 		dispatcher.forward(request,response);

@@ -10,11 +10,12 @@
 
 	<script type="text/javascript">
 		function enviar() {
-
+			alert("Cotizacion aprobada");
 		}
+		
 	</script>
-	<form action="AprobarCotizacionServlet" method="obtenerCotizaciones">
-		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="">
+	<form action="AprobarCotizacionServlet" method="aceptarCotizaciones">
+		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="" />
 		<!--<jsp:useBean id="CotizacionDtoId" class="dto.CotizacionDto" scope="session">
 			<jsp:setProperty property="*" name="CotizacionDtoId" />
 		</jsp:useBean>-->
@@ -28,27 +29,36 @@
 				<td><input type="TEXT" name="cuit" value="1"></td>
 			</tr>
 			<tr>
+				<td align="center" colspan="2"><input type="submit" value="Buscar" ></td>
+			</tr>
+		</table>
+	</form>
+	<form action="AprobarCotizacionServlet" method="aprobarCotizaciones">
+		<table>
+			<tr>
 				<td colspan="2" align="center">Cotizaciones</td>
 			</tr>
 			<tr>
 				<td>Nro cotizacion:</td>
-				<td><input type="TEXT" id="codigo" value="1"></td>
+				<td>
+					<select name="cotizacion">
+						<option value="${cotizacionSeleccionada}" selected>${cotizacionSeleccionada}</option>
+						<c:forEach items="${arrayCotizaciones}" var="cotizacion">
+							<c:if test="${cotizacion != selected}">
+								<option value="${cotizacion}">${cotizacion}</option>
+							</c:if>
+						</c:forEach>
+					</select>
+					<!-- <input type="TEXT" id="cotizacionSeleccionada" value="1"> -->
+				</td>
 			</tr>
 			<!--<jsp:getProperty property="items" name="CotizacionDtoId" />-->
-			<select name="role">
-				<option value="${selected}" selected>${selected}</option>
-				<c:forEach items="${roles}" var="role">
-					<c:if test="${role != selected}">
-						<option value="${role}">${role}</option>
-					</c:if>
-				</c:forEach>
-			</select>
+			
 			<tr>
 				<td align="center"><input type="submit" value="Aceptar" onClick="enviar();"></td>
 				<td align="center"><input type="reset" value="Cancelar"></td>
 			</tr>
 		</table>
 	</form>
-
 </body>
 </html>
