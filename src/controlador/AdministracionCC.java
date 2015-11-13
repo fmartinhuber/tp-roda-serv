@@ -18,11 +18,11 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setRodamientos(new ArrayList <RodamientoNegocio>());
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
-
+		
 		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
 		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
 		ProveedorNegocio provUno = new ProveedorNegocio();
-		provUno.setNombre("Solear SA");		
+		provUno.setNombre("Solear SA");
 		RodamientoNegocio rodaUno = new RodamientoNegocio();
 		rodaUno.setCodigo("22310");
 		rodaUno.setCaracteristica("CCW33");
@@ -81,9 +81,14 @@ public class AdministracionCC implements IAdministracionCC {
 
 	}
 
+	//Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y devuelve (RodamientoDto)
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-		//TODO REVISAR.
-		return null;
+		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
+		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
+		for (int i=0; i<rodasNegocio.size(); i++){
+			rodasDto.add(rodasNegocio.get(i).aRodamientoDto());
+		}
+		return rodasDto;
 	}
 
 	public List <RodamientoDto> obtenerListaComparativaOpcional () throws RemoteException{

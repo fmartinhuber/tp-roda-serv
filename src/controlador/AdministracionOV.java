@@ -58,6 +58,7 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionDto miCotDto = new CotizacionDto();
 		//Uso la magica lista de Martin a ver como funca
 		AdministracionCC admCC = new AdministracionCC();
+		//Daro: Martin no uses este metodo hasta desarrollaro que me caga las pruebas, devuelve null ahora
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
 		listaCompa = admCC.obtenerListaComparativa();
 
@@ -80,9 +81,9 @@ public class AdministracionOV implements IAdministracionOV{
 		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
 
 		//Para cada elemento de la lista comparativa
-		for (int i=0; i<=listaCompa.size(); i++){
+		for (int i=0; i<listaCompa.size(); i++){
 			//Comparo con cada elemento de la lista Item
-			for (int j=0; j<=listaItems.size(); j++){
+			for (int j=0; j<listaItems.size(); j++){
 				//Obtengo los codigos
 				String codComp = listaCompa.get(i).getCodigo();
 				String codItem = listaItems.get(j).getRodamiento().getCodigo();

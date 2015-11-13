@@ -13,7 +13,7 @@ import utils.*;
  * NO TOCAR!
  */
 
-public class testDaro {
+public class TestDaro {
 
 	public static void main(String[] args)  throws RemoteException {
 		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)

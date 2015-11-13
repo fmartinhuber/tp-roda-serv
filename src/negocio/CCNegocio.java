@@ -23,7 +23,6 @@ public class CCNegocio {
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	//@JoinColumn(name="cc_rodamientos_interno")
 	private List <RodamientoNegocio> rodamientos;
 	
 	/**
@@ -31,7 +30,6 @@ public class CCNegocio {
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	//@JoinColumn(name="IdRodamiento")
 	private List <RodamientoNegocio> listaPrincipal;
 	
 	/**
@@ -39,7 +37,6 @@ public class CCNegocio {
 	 */
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	//@JoinColumn(name="cc_rodamientos_opc")
 	private List <RodamientoNegocio> listaOpcional;
 
 	
