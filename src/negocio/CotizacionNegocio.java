@@ -11,11 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import dao.CotizacionDAO;
 import dto.*;
-
-
 
 /**
  * 	@author Daro
@@ -26,6 +27,8 @@ import dto.*;
 
 @Entity
 @Table(name="Cotizacion")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class CotizacionNegocio{
 
 	@Id
