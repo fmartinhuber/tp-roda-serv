@@ -20,3 +20,6 @@ hs_err_pid*
 
 #Saco los .properties para que no nos pisemos el hibernate.properties
 *.properties
+
+#Saco los .xml ya que empezamos a generarlos y puede joder
+*.xml
