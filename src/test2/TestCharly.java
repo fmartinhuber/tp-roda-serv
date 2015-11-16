@@ -36,7 +36,7 @@ public class TestCharly {
 		parametros.add(1);
 		parametros.add(2);
 		//c.Prueba(parametros);
-		c.GenerarFactura(parametros, 1);
+		//c.GenerarFactura(parametros, 1);
 		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");

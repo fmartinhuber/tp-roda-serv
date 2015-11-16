@@ -55,17 +55,21 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 	
-	
 
 	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public CotizacionDto crearCotizacion(ClienteDto cliente) throws RemoteException {
+	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+		//Obtengo la lista comparativa
+		AdministracionCC admCC = new AdministracionCC();
+		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
+		listaCompa = admCC.obtenerListaComparativa();
+		
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
 
 		//Seteo los valores correspondientes a la Cotizacion
 		miCotDto.setCliente(cliente);		//Seteo Cliente
 		miCotDto.setEstado("Pendiente"); 	//Todas se crean pendientes hasta ser aprobadas
-		Date actual = new Date();			
+		Date actual = new Date();
 		miCotDto.setFechaCreacion(actual); 	//Se crea con la fecha actual
 		Calendar c = Calendar.getInstance();
 		c.setTime(actual);
@@ -88,7 +92,11 @@ public class AdministracionOV implements IAdministracionOV{
 		//Obtengo la lista comparativa
 		AdministracionCC admCC = new AdministracionCC();
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
-		listaCompa = admCC.obtenerListaComparativa();
+		try {
+			listaCompa = admCC.getInstancia().obtenerListaComparativa();
+		} catch (RemoteException e) {
+			e.getCause();
+		}
 		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
@@ -118,8 +126,6 @@ public class AdministracionOV implements IAdministracionOV{
 					itemCotDto.setCant(listaItems.get(j).getCantidad());
 					itemCotDto.setRodamiento(listaCompa.get(j));
 					itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
-					//Aumento el costoFinal a devolver por cada itemCantidad*itemMonto
-					costoFinal = costoFinal + (listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
 					//Agrego el item a la lista de items
 					listaItemCotDto.add(itemCotDto);
 				}
@@ -136,10 +142,10 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
 		//Persisto la CotizacionNegocio
-		cotizNegocio.persistirCotizacion();
+		cotizNegocio.mergearCotizacion();
 		
-	//Devuelvo el costo final de la Cotizacion
-	return costoFinal;
+		//Devuelvo el costo final de la Cotizacion
+		return costoFinal;
 	}
 	
 	
@@ -161,38 +167,10 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 
-	
 
-	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion) throws RemoteException {
-		// TODO RAMA
-
-		ClienteDto cl = new ClienteDto();
-		cl.setCUIT(cliente.getCUIT());
-		cl.setMail(cliente.getMail());
-		cl.setRazonSocial(cliente.getRazonSocial());
-		CotizacionDto c = new CotizacionDto();
-		c.setEstado(cotizacion.getEstado());
-		FacturaDto aux = new FacturaDto(); 
-
-		if(c.getEstado()=="Aprobada"){
-
-
-		}
-
-		return aux;
-	}
-
-	
-
-	public boolean abmCliente(ClienteDto cliente, String accion) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-	
 	public void procesarCotizaciones(int idCli){
 
+		//TODO y esto? de quien es? 
 		//Levantamos un ciente, cuyo ID sea el pasado.
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCli);
 
@@ -207,7 +185,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 
-	public void GenerarFactura(List<Integer> idsCoti, int idCliente){
+	public void generarFactura(List<Integer> idsCoti, int idCliente){
 
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCliente);
 		// Crear Factura y setear datos primarios
@@ -236,7 +214,6 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 		factura.setItems(itemsFactura);
 		factura.persistirFactura();
-
 	}
 	
 	
@@ -275,5 +252,27 @@ public class AdministracionOV implements IAdministracionOV{
 			System.out.println(misObjects.get(i)[2]);
 		}
 	}
+
+	@Override
+	public boolean altaCliente(ClienteDto cliente) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean bajaCliente(ClienteDto cliente) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean modificacionCliente(ClienteDto cliente)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+
 
 }

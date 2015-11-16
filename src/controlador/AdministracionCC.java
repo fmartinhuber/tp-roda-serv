@@ -52,19 +52,17 @@ public class AdministracionCC implements IAdministracionCC {
 	 */
 	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
 			throws RemoteException {
-		// TODO NO SE A QUIEN LE TOCA ESTO
+		// TODO MARTIN (?)
 		return null;
 		// Levantar Cotizaciones en estado "APROBADAS"
-
 
 	}
 
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX"  // "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
-	public List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
+	private List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
 
 		List<CotizacionNegocio> misCotizaciones = new ArrayList<CotizacionNegocio>();
-
 
 
 		return null;
@@ -82,7 +80,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	//Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y devuelve (RodamientoDto)
-	public List<RodamientoDto> obtenerListaComparativa() {
+	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException{
 		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i=0; i<rodasNegocio.size(); i++){
@@ -158,10 +156,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	public boolean abmProveedor(ProveedorDto proveedor, String accion) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 
@@ -175,6 +169,25 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
 		this.casaCentralNegocio = casaCentralNegocio;
+	}
+
+	@Override
+	public boolean altaProveedor(ProveedorDto proveedor) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean bajaProveedor(ProveedorDto proveedor) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean modificacionProveedor(ProveedorDto proveedor)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
