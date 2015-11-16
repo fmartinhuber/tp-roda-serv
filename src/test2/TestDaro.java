@@ -12,7 +12,7 @@ import negocio.RodamientoNegocio;
 import controlador.*;
 import dto.*;
 import utils.*;
-import xml.CotizacionXML;
+import xml2.CotizacionXML;
 
 /**
  * @author Daro: Desde aca voy a hacer pruebas unitarias de lo que tengo que hacer yo
