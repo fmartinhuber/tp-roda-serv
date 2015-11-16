@@ -61,20 +61,19 @@ public class CotizacionNegocio{
 
 	/**
 	 * @author Daro
-	 * - Transformacion 1/4
+	 * - Transformacion 1/2
 	 * De esta forma se pasa Dto a Negocio. Cuando el cliente manda un Dto el servidor
 	 * necesita transformarlo a negocio para usar los metodos necesarios
 	 */
-	public CotizacionNegocio cotizacionDtoToNegocio (CotizacionDto miCotDto){
-		//public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
+	public CotizacionNegocio aCotizacionNegocio (CotizacionDto miCotDto){
 		//Creo la salida del metodo
-		CotizacionNegocio miCotNegocio= new CotizacionNegocio();
+		CotizacionNegocio miCotNegocio = new CotizacionNegocio();
 		//Asigno los atributos simples
 		miCotNegocio.setEstado(miCotDto.getEstado());
 		miCotNegocio.setFechaCreacion(miCotDto.getFechaCreacion());
 		miCotNegocio.setFechaVigencia(miCotDto.getFechaVigencia());
 		//Asigno los atributos de Clase unica, con el metodo de esa clase
-		ClienteNegocio miCliNegocio= new ClienteNegocio();
+		ClienteNegocio miCliNegocio = new ClienteNegocio();
 		miCliNegocio = miCliNegocio.aClienteNegocio(miCotDto.getCliente());
 		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
 		List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
@@ -91,20 +90,44 @@ public class CotizacionNegocio{
 		//Asigno las clases a la salida
 		miCotNegocio.setCliente(miCliNegocio);
 		miCotNegocio.setItems(listaItCoNegocio);
-		return miCotNegocio;
+	return miCotNegocio;
 	}
-
-
-
+	
+	
+	
 	/**
 	 * @author Daro
-	 * - Transformacion 4/4
+	 * - Transformacion 2/2
 	 * De esta forma se pasa Negocio a Dto. Cuando se necesita devolver informacion al cliente
 	 * hay que transformar la clase Negocio a Dto para enviarsela
 	 */
-	public CotizacionDto cotizacionNegocioToDto(CotizacionNegocio miCotNeg){
-		//public CotizacionDto transformarCotizacionNegocioACotizacionDto (CotizacionNegocio miCotNeg){
-		return null;
+	public CotizacionDto aCotizacionDto(){
+		//Creo la salida del metodo
+		CotizacionDto miCotDto = new CotizacionDto();
+		//Asigno los atributos simples
+		miCotDto.setEstado(this.getEstado());
+		miCotDto.setFechaCreacion(this.getFechaCreacion());
+		miCotDto.setFechaVigencia(this.getFechaVigencia());
+		//Asigno los atributos de Clase unica, con el metodo de esa clase
+		ClienteDto miCliDto = new ClienteDto();
+		miCliDto = this.getCliente().aClienteDto();		
+		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
+		List<ItemCotizacionDto> listaItCoDto= new ArrayList<ItemCotizacionDto>();
+		for (int i=0; i<this.getItems().size(); i++){
+			//Creo el item Dto
+			ItemCotizacionDto miItCotDto = new ItemCotizacionDto();
+			//Obtengo el itemNegocio iterado de la lista
+			ItemCotizacionNegocio miItCotNeg = this.getItems().get(i);
+			//Lo trasnformo
+			miItCotDto = this.getItems().get(i).aItemCotizacionDto();
+			//Agrego el item Dto a la lista de Dto
+			listaItCoDto.add(miItCotDto);
+		}
+		//Asigno las clases a la salida
+		miCotDto.setCliente(miCliDto);
+		miCotDto.setItems(listaItCoDto);
+		
+	return miCotDto;
 	}
 
 
@@ -151,6 +174,10 @@ public class CotizacionNegocio{
 
 	public void persistirCotizacion(){
 		CotizacionDAO.getinstancia().persist(this);
+	}
+	
+	public void mergearCotizacion(){
+		CotizacionDAO.getinstancia().merge(this);
 	}
 
 	public int getIdCotizacion() {
