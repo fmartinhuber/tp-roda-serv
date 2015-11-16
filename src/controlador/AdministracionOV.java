@@ -124,7 +124,7 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		
 	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarCotizacion (CotizacionDto miCotDto){		
+	public float aprobarCotizacion (CotizacionDto miCotDto)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
