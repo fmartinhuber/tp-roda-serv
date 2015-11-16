@@ -58,14 +58,19 @@ public class AdministracionOV implements IAdministracionOV{
 	
 
 	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public CotizacionDto crearCotizacion(ClienteDto cliente) throws RemoteException {
+	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+		//Obtengo la lista comparativa
+		AdministracionCC admCC = new AdministracionCC();
+		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
+		listaCompa = admCC.obtenerListaComparativa();
+		
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
 
 		//Seteo los valores correspondientes a la Cotizacion
 		miCotDto.setCliente(cliente);		//Seteo Cliente
 		miCotDto.setEstado("Pendiente"); 	//Todas se crean pendientes hasta ser aprobadas
-		Date actual = new Date();			
+		Date actual = new Date();
 		miCotDto.setFechaCreacion(actual); 	//Se crea con la fecha actual
 		Calendar c = Calendar.getInstance();
 		c.setTime(actual);
@@ -75,25 +80,6 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotDto.setFechaVigencia(vigencia);
 		miCotDto.setItems(new ArrayList<ItemCotizacionDto>());	//Creo Items Cotizacion vacios
 
-		//Aca no se persiste nada, solamente se crea la cotizacion y se guarda el XML correspondiente
-
-	//Devuelvo la cotizacion
-	return miCotDto;
-	}
-	
-	
-	
-	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarCotizacion (List<ItemDto> listaItems, CotizacionDto miCotDto){
-		//Obtengo la lista comparativa
-		AdministracionCC admCC = new AdministracionCC();
-		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
-		listaCompa = admCC.obtenerListaComparativa();
-		
-		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
-		float costoFinal;
-		costoFinal = 0;
-		
 		//Creo la lista de items que voy a utilizar para ir cargandolos
 		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
 
@@ -118,8 +104,6 @@ public class AdministracionOV implements IAdministracionOV{
 					itemCotDto.setCant(listaItems.get(j).getCantidad());
 					itemCotDto.setRodamiento(listaCompa.get(j));
 					itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
-					//Aumento el costoFinal a devolver por cada itemCantidad*itemMonto
-					costoFinal = costoFinal + (listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
 					//Agrego el item a la lista de items
 					listaItemCotDto.add(itemCotDto);
 				}
@@ -129,6 +113,27 @@ public class AdministracionOV implements IAdministracionOV{
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
 		
+		//Persisto la Cotizacion
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = miCotNeg.aCotizacionNegocio(miCotDto);
+		miCotNeg.persistirCotizacion();		
+
+	//Devuelvo la cotizacion
+	return miCotDto;
+	}
+	
+	
+	
+	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
+	public float aprobarCotizacion (CotizacionDto miCotDto){		
+		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
+		float costoFinal;
+		costoFinal = 0;
+		//Recorro la lista y voy sumando los costos
+		for (int i=0; i<miCotDto.getItems().size(); i++){
+			costoFinal = miCotDto.getItems().get(i).getPrecio() + costoFinal;
+		}
+		
 		//Cambio el estado a Aprobada
 		miCotDto.setEstado("Aprobada");
 		
@@ -136,7 +141,7 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
 		//Persisto la CotizacionNegocio
-		cotizNegocio.persistirCotizacion();
+		cotizNegocio.mergearCotizacion();
 		
 	//Devuelvo el costo final de la Cotizacion
 	return costoFinal;

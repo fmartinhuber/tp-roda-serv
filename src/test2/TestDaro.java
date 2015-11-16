@@ -3,6 +3,8 @@ package test2;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import org.hibernate.mapping.Array;
+
 import negocio.ClienteNegocio;
 import negocio.CotizacionNegocio;
 import negocio.ItemCotizacionNegocio;
@@ -50,27 +52,17 @@ public class TestDaro {
 		CotizacionDto miCotDto = new CotizacionDto();
 		//Llamo al metodo para que me genere la Cotizacion
 		AdministracionOV miAdminOV = new AdministracionOV();
-		miCotDto = miAdminOV.crearCotizacion(miClienteDto);
+		miCotDto = miAdminOV.crearCotizacion(listaUtils, miClienteDto);
 		
-		//Transformo la Cotizacion Pendiente a XML
-		CotizacionNegocio miCotNeg = new CotizacionNegocio();
-		miCotNeg = miCotNeg.aCotizacionNegocio(miCotDto);
-		String nombreDelXML;
-		nombreDelXML = CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
+		//miCotDto es la Cotizacion pendiente, la misma no se guarda en la Base de Datos porque no tiene items
 		
 		
 		//Analizar los resultados de la cotizacion
 		
 		
-		//Levantamos la cotizacion pendiente del XML y la aprobamos
-		CotizacionNegocio miCotDesdeXMLNeg = new CotizacionNegocio();
-		miCotDesdeXMLNeg = CotizacionXML.getInstancia().xmlTOcotizacion(nombreDelXML);
-		CotizacionDto miCotDesdeXMLDto = new CotizacionDto();
-		miCotDesdeXMLDto = miCotDesdeXMLNeg.aCotizacionDto();
-		
 		//Aprobamos la Cotizacion junto a la lista de items
 		float totalCotizacion;
-		totalCotizacion = miAdminOV.aprobarCotizacion(listaUtils, miCotDto);
+		totalCotizacion = miAdminOV.aprobarCotizacion(miCotDto);
 
 		
 		
