@@ -18,9 +18,9 @@ public class CotizacionXML {
 	
 	public static CotizacionXML instancia; 
 	private static JAXBContext mijaxbcontext;
-	
+		
 	public CotizacionXML() {
-
+		
 	}
 	
 	public static CotizacionXML getInstancia(){
@@ -57,7 +57,7 @@ public class CotizacionXML {
 	//Devuelvo el nombre de la cotizacion generada
 	return nombreXML;
 	}
-		
+	
 	
 	/*Este metodo recibe el nombre de un XML y devuelve la CotizacionNegocio*/
 	public CotizacionNegocio xmlTOcotizacion(String nombreXML){
