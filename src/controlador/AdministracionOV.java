@@ -28,11 +28,11 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 
 	public AdministracionOV(){
-		getOficinaVentaNegocio().setClientes(new ArrayList <ClienteNegocio>());
-		getOficinaVentaNegocio().setFacturas(new ArrayList <FacturaNegocio>());
-		getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
-		getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
-		getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
+		this.getOficinaVentaNegocio().setClientes(new ArrayList <ClienteNegocio>());
+		this.getOficinaVentaNegocio().setFacturas(new ArrayList <FacturaNegocio>());
+		this.getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
+		this.getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
+		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
 	}
 	
 	
