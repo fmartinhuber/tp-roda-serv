@@ -58,7 +58,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 
 	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public void crearCotizacion(ClienteDto cliente) throws RemoteException {
+	public CotizacionDto crearCotizacion(ClienteDto cliente) throws RemoteException {
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
 
@@ -75,13 +75,10 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotDto.setFechaVigencia(vigencia);
 		miCotDto.setItems(new ArrayList<ItemCotizacionDto>());	//Creo Items Cotizacion vacios
 
-		//Transformo la CotizacionDto a CotizacionNegocio
-		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
-		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
-		
-		//Persisto la CotizacionNegocio
-		cotizNegocio.persistirCotizacion();
+		//Aca no se persiste nada, solamente se crea la cotizacion y se guarda el XML correspondiente
 
+	//Devuelvo la cotizacion
+	return miCotDto;
 	}
 	
 	
@@ -134,10 +131,12 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		//Cambio el estado a Aprobada
 		miCotDto.setEstado("Aprobada");
-		//Hago merge de la Cotizacion para que cambie su estado a "Aprobada" en la BD
+		
+		//Transformo la CotizacionDto a CotizacionNegocio
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
-		cotizNegocio.mergearCotizacion();
+		//Persisto la CotizacionNegocio
+		cotizNegocio.persistirCotizacion();
 		
 	//Devuelvo el costo final de la Cotizacion
 	return costoFinal;

@@ -36,6 +36,10 @@ public class ItemCotizacionNegocio{
 	public ItemCotizacionNegocio aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
 		return null;
 	}
+	
+	public ItemCotizacionDto aItemCotizacionDto() {
+		return null;
+	}
 
 	public RodamientoNegocio getRodamiento() {
 		return rodamiento;

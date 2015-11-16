@@ -48,18 +48,29 @@ public class TestDaro {
 		
 		//Creo una cotizacionDTO, que va a ser lo que me devuelva el metodo
 		CotizacionDto miCotDto = new CotizacionDto();
-		
 		//Llamo al metodo para que me genere la Cotizacion
 		AdministracionOV miAdminOV = new AdministracionOV();
-		miAdminOV.crearCotizacion(miClienteDto);
+		miCotDto = miAdminOV.crearCotizacion(miClienteDto);
+		
+		//Transformo la Cotizacion Pendiente a XML
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = miCotNeg.aCotizacionNegocio(miCotDto);
+		String nombreDelXML;
+		nombreDelXML = CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
+		
 		
 		//Analizar los resultados de la cotizacion
 		
 		
+		//Levantamos la cotizacion pendiente del XML y la aprobamos
+		CotizacionNegocio miCotDesdeXMLNeg = new CotizacionNegocio();
+		miCotDesdeXMLNeg = CotizacionXML.getInstancia().xmlTOcotizacion(nombreDelXML);
+		CotizacionDto miCotDesdeXMLDto = new CotizacionDto();
+		miCotDesdeXMLDto = miCotDesdeXMLNeg.aCotizacionDto();
+		
 		//Aprobamos la Cotizacion junto a la lista de items
-		//Aca hay que consultar la base para que me devuelva la Cotizacion que busco, por objetos de una no funca
-//		float totalCotizacion;
-//		totalCotizacion = miAdminOV.aprobarCotizacion(listaUtils, miCotDto);
+		float totalCotizacion;
+		totalCotizacion = miAdminOV.aprobarCotizacion(listaUtils, miCotDto);
 
 		
 		
