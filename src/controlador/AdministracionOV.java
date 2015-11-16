@@ -18,7 +18,7 @@ public class AdministracionOV implements IAdministracionOV{
 	//sumado con el singleton en el medio seria una locura saber cuando se levanta tal o cual OV (y los constructores se harian multiples, demente)
 	//Creo una OV unica y se deberia sacar el singleton de esta clase, asi se puede dar de alta los controladores que se deseen para cada OV (negrisimo pero logico)
 	//De la forma que esta hecho ahora funciona para una unica OV
-	public OVNegocio OficinaVentaNegocio = new OVNegocio();
+	private OVNegocio OficinaVentaNegocio = new OVNegocio();
 
 	public static AdministracionOV getInstancia(){
 		if(administracion == null){
@@ -28,11 +28,11 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 
 	public AdministracionOV(){
-		OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
-		OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
-		OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
-		OficinaVentaNegocio.setProveedores(new ArrayList <ProveedorNegocio>());
-		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
+		getOficinaVentaNegocio().setClientes(new ArrayList <ClienteNegocio>());
+		getOficinaVentaNegocio().setFacturas(new ArrayList <FacturaNegocio>());
+		getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
+		getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
+		getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
 	}
 	
 	
@@ -253,22 +253,32 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 
 	@Override
-	public boolean altaCliente(ClienteDto cliente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+	public void altaCliente(ClienteDto cliente) throws RemoteException {
+		ClienteNegocio clientenNegocio = new ClienteNegocio(cliente.getRazonSocial(), cliente.getMail(), cliente.getCUIT());
+		AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().add(clientenNegocio);
+		return;
 	}
 
 	@Override
-	public boolean bajaCliente(ClienteDto cliente) throws RemoteException {
+	public void bajaCliente(ClienteDto cliente) throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		//AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().remove(index);
+		return;
 	}
 
 	@Override
-	public boolean modificacionCliente(ClienteDto cliente)
+	public void modificacionCliente(ClienteDto cliente)
 			throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		return;
+	}
+
+	public OVNegocio getOficinaVentaNegocio() {
+		return OficinaVentaNegocio;
+	}
+
+	public void setOficinaVentaNegocio(OVNegocio oficinaVentaNegocio) {
+		OficinaVentaNegocio = oficinaVentaNegocio;
 	}
 
 	

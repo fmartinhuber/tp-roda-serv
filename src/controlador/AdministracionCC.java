@@ -19,20 +19,20 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
-		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
-		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
-		ProveedorNegocio provUno = new ProveedorNegocio();
-		provUno.setNombre("Solear SA");
-		RodamientoNegocio rodaUno = new RodamientoNegocio();
-		rodaUno.setCodigo("22310");
-		rodaUno.setCaracteristica("CCW33");
-		rodaUno.setMarca("ZKL");
-		rodaUno.setMonto((float) 310.71);
-		rodaUno.setOrigen("Japon");
-		rodaUno.setProveedor(provUno);
-		rodaUno.setStock(85);
-		rodaUno.setTipo("Bolilla");
-		casaCentralNegocio.getListaPrincipal().add(rodaUno);
+//		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
+//		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
+//		ProveedorNegocio provUno = new ProveedorNegocio();
+//		provUno.setNombre("Solear SA");
+//		RodamientoNegocio rodaUno = new RodamientoNegocio();
+//		rodaUno.setCodigo("22310");
+//		rodaUno.setCaracteristica("CCW33");
+//		rodaUno.setMarca("ZKL");
+//		rodaUno.setMonto((float) 310.71);
+//		rodaUno.setOrigen("Japon");
+//		rodaUno.setProveedor(provUno);
+//		rodaUno.setStock(85);
+//		rodaUno.setTipo("Bolilla");
+//		casaCentralNegocio.getListaPrincipal().add(rodaUno);
 	}
 
 	public static AdministracionCC getInstancia(){
@@ -172,22 +172,24 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	@Override
-	public boolean altaProveedor(ProveedorDto proveedor) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+	public void altaProveedor(ProveedorDto proveedor) throws RemoteException {
+		//TODO no se que onda esto, porque la lista de proveedores esta en la OV, no tendria que estar en la CC? 
+		ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+		//AdministracionCC.getInstancia().getCasaCentralNegocio();
+		return;
 	}
 
 	@Override
-	public boolean bajaProveedor(ProveedorDto proveedor) throws RemoteException {
+	public void bajaProveedor(ProveedorDto proveedor) throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	@Override
-	public boolean modificacionProveedor(ProveedorDto proveedor)
+	public void modificacionProveedor(ProveedorDto proveedor)
 			throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 
