@@ -21,7 +21,7 @@ import xml.CotizacionXML;
 public class TestDaro {
 
 	public static void main(String[] args)  throws RemoteException {
-/*		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
+		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
 		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
 		//Creo Rodamientos
 		RodamientoDto rodaUno = new RodamientoDto();
@@ -51,28 +51,31 @@ public class TestDaro {
 		
 		//Llamo al metodo para que me genere la Cotizacion
 		AdministracionOV miAdminOV = new AdministracionOV();
-		miCotDto = miAdminOV.crearCotizacion(listaUtils, miClienteDto);
+		miAdminOV.crearCotizacion(miClienteDto);
 		
 		//Analizar los resultados de la cotizacion
+		
+		
+		//Aprobamos la Cotizacion junto a la lista de items
+		//Aca hay que consultar la base para que me devuelva la Cotizacion que busco, por objetos de una no funca
+//		float totalCotizacion;
+//		totalCotizacion = miAdminOV.aprobarCotizacion(listaUtils, miCotDto);
 
-*/
 		
 		
-	
+/*	
 		
 		//Prueba Cotizacion to XML
 		ClienteNegocio miCliNeg = new ClienteNegocio("Juancho SRL", "NOOOOOOOO@PRUEBA_NO.COM", "20341085110");
 		ItemCotizacionNegocio misItemsNegUno = new ItemCotizacionNegocio();
 		ItemCotizacionNegocio misItemsNegDos = new ItemCotizacionNegocio();
-		misItemsNegUno.setCant(4);
 		RodamientoNegocio roda01 = new RodamientoNegocio(); roda01.setTipo("Rodamientos de rodillos a rotula"); roda01.setCodigo("20210"); roda01.setStock(0); roda01.setOrigen("Suecia"); roda01.setMonto((float) 5317.96); roda01.setCaracteristica("20210 TN9  . . . . . . . . . .SKF       Rodamiento");
 		misItemsNegUno.setRodamiento(roda01);
-		misItemsNegUno.setSubtotal(119);
+		misItemsNegUno.setPrecio(119);
 		
-		misItemsNegDos.setCant(9);
 		RodamientoNegocio roda02 = new RodamientoNegocio(); roda02.setTipo("Rodamientos de rodillos a rotula"); roda02.setCodigo("21311 K"); roda02.setStock(0); roda02.setOrigen("Suecia"); roda02.setMonto((float) 3689.45); roda02.setCaracteristica("21311 EK . . . . . . . . . . .SKF       Rodamiento");
 		misItemsNegDos.setRodamiento(roda02);
-		misItemsNegUno.setSubtotal(878);
+		misItemsNegUno.setPrecio(878);
 		
 		List <ItemCotizacionNegocio> listaItemsCotNeg = new ArrayList<ItemCotizacionNegocio>();
 		listaItemsCotNeg.add(misItemsNegUno);
@@ -95,6 +98,10 @@ public class TestDaro {
 		CotizacionNegocio cotizacionObtenida = new CotizacionNegocio();
 		cotizacionObtenida = CotizacionXML.getInstancia().xmlTOcotizacion("cotizacion_2015-11-15_145056.xml");
 		System.out.println(cotizacionObtenida.getEstado());
-	}
-
+		
+		
+		
+*/
+	}		
+		
 }

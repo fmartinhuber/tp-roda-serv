@@ -82,7 +82,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	//Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y devuelve (RodamientoDto)
-	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
+	public List<RodamientoDto> obtenerListaComparativa() {
 		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i=0; i<rodasNegocio.size(); i++){

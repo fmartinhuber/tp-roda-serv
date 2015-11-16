@@ -61,12 +61,11 @@ public class CotizacionNegocio{
 
 	/**
 	 * @author Daro
-	 * - Transformacion 1/4
+	 * - Transformacion 1/2
 	 * De esta forma se pasa Dto a Negocio. Cuando el cliente manda un Dto el servidor
 	 * necesita transformarlo a negocio para usar los metodos necesarios
 	 */
-	public CotizacionNegocio cotizacionDtoToNegocio (CotizacionDto miCotDto){
-		//public CotizacionNegocio transformarCotizacionDtoACotizacionNegocio (CotizacionDto miCotDto){
+	public CotizacionNegocio aCotizacionNegocio (CotizacionDto miCotDto){
 		//Creo la salida del metodo
 		CotizacionNegocio miCotNegocio= new CotizacionNegocio();
 		//Asigno los atributos simples
@@ -91,19 +90,19 @@ public class CotizacionNegocio{
 		//Asigno las clases a la salida
 		miCotNegocio.setCliente(miCliNegocio);
 		miCotNegocio.setItems(listaItCoNegocio);
-		return miCotNegocio;
+	return miCotNegocio;
 	}
 
 
 
 	/**
 	 * @author Daro
-	 * - Transformacion 4/4
+	 * - Transformacion 2/2
 	 * De esta forma se pasa Negocio a Dto. Cuando se necesita devolver informacion al cliente
 	 * hay que transformar la clase Negocio a Dto para enviarsela
 	 */
-	public CotizacionDto cotizacionNegocioToDto(CotizacionNegocio miCotNeg){
-		//public CotizacionDto transformarCotizacionNegocioACotizacionDto (CotizacionNegocio miCotNeg){
+	public CotizacionDto aCotizacionDto(CotizacionNegocio miCotNeg){
+		
 		return null;
 	}
 
@@ -151,6 +150,10 @@ public class CotizacionNegocio{
 
 	public void persistirCotizacion(){
 		CotizacionDAO.getinstancia().persist(this);
+	}
+	
+	public void mergearCotizacion(){
+		CotizacionDAO.getinstancia().merge(this);
 	}
 
 	public int getIdCotizacion() {

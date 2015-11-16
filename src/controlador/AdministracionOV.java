@@ -34,7 +34,9 @@ public class AdministracionOV implements IAdministracionOV{
 		OficinaVentaNegocio.setProveedores(new ArrayList <ProveedorNegocio>());
 		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
 	}
-
+	
+	
+	
 	//TODO REVISAR
 	public List<RodamientoDto> obtenerRodamientos(){
 		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
@@ -52,31 +54,49 @@ public class AdministracionOV implements IAdministracionOV{
 	public List<RodamientoDto> obtenerRodamientos(String marca){
 		return null;
 	}
+	
+	
 
-	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
+	public void crearCotizacion(ClienteDto cliente) throws RemoteException {
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
-		//Uso la magica lista de Martin a ver como funca
-		AdministracionCC admCC = new AdministracionCC();
-		//Daro: Martin no uses este metodo hasta desarrollaro que me caga las pruebas, devuelve null ahora
-		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
-		listaCompa = admCC.obtenerListaComparativa();
 
-		//Seteo los valores correspondientes a 
-		miCotDto.setCliente(cliente);
-		miCotDto.setEstado("Pendiente"); //Todas se crean pendientes hasta ser aprobadas
-		Date actual = new Date();
-		miCotDto.setFechaCreacion(actual); //Se crea con la fecha actual
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(actual); 
-		c.add(Calendar.DATE, 30); //Se agregan 30 dias a la fecha actual
+		//Seteo los valores correspondientes a la Cotizacion
+		miCotDto.setCliente(cliente);		//Seteo Cliente
+		miCotDto.setEstado("Pendiente"); 	//Todas se crean pendientes hasta ser aprobadas
+		Date actual = new Date();			
+		miCotDto.setFechaCreacion(actual); 	//Se crea con la fecha actual
+		Calendar c = Calendar.getInstance();
+		c.setTime(actual);
+		c.add(Calendar.DATE, 30); 			//Se agregan 30 dias a la fecha actual para la vigencia
 		Date vigencia = new Date();
 		vigencia = c.getTime();
 		miCotDto.setFechaVigencia(vigencia);
+		miCotDto.setItems(new ArrayList<ItemCotizacionDto>());	//Creo Items Cotizacion vacios
 
-		/*Aca viene la magia, recorro la listaComparativa en busqueda de los rodamientos que me pidio el cliente
-		y los cotizo (multiplico monto * cantidad)*/
+		//Transformo la CotizacionDto a CotizacionNegocio
+		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
+		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
+		
+		//Persisto la CotizacionNegocio
+		cotizNegocio.persistirCotizacion();
 
+	}
+	
+	
+	
+	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
+	public float aprobarCotizacion (List<ItemDto> listaItems, CotizacionDto miCotDto){
+		//Obtengo la lista comparativa
+		AdministracionCC admCC = new AdministracionCC();
+		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
+		listaCompa = admCC.obtenerListaComparativa();
+		
+		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
+		float costoFinal;
+		costoFinal = 0;
+		
 		//Creo la lista de items que voy a utilizar para ir cargandolos
 		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
 
@@ -88,11 +108,11 @@ public class AdministracionOV implements IAdministracionOV{
 				String codComp = listaCompa.get(i).getCodigo();
 				String codItem = listaItems.get(j).getRodamiento().getCodigo();
 				//Origen
-				String orgComp = listaCompa.get(i).getCodigo();
+				String orgComp = listaCompa.get(i).getOrigen();
 				String orgItem = listaItems.get(j).getRodamiento().getOrigen();
 				//Marca
-				String marComp = listaCompa.get(i).getCodigo();
-				String marItem = listaItems.get(j).getRodamiento().getOrigen();
+				String marComp = listaCompa.get(i).getMarca();
+				String marItem = listaItems.get(j).getRodamiento().getMarca();
 				//Si coinciden las 3 cosas, es el que busco
 				if (codComp.equals(codItem) && orgComp.equals(orgItem) && marComp.equals(marItem)){
 					//Creo item
@@ -101,6 +121,8 @@ public class AdministracionOV implements IAdministracionOV{
 					itemCotDto.setCant(listaItems.get(j).getCantidad());
 					itemCotDto.setRodamiento(listaCompa.get(j));
 					itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
+					//Aumento el costoFinal a devolver por cada itemCantidad*itemMonto
+					costoFinal = costoFinal + (listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
 					//Agrego el item a la lista de items
 					listaItemCotDto.add(itemCotDto);
 				}
@@ -109,19 +131,38 @@ public class AdministracionOV implements IAdministracionOV{
 
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
-
-		//Aca tengo que guardar la cotizacion en la base antes de salir
-
-		return miCotDto;
+		
+		//Cambio el estado a Aprobada
+		miCotDto.setEstado("Aprobada");
+		//Hago merge de la Cotizacion para que cambie su estado a "Aprobada" en la BD
+		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
+		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
+		cotizNegocio.mergearCotizacion();
+		
+	//Devuelvo el costo final de la Cotizacion
+	return costoFinal;
 	}
-
-
-
+	
+	
+	
+	//Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
+	public void rechazarCotizacion (CotizacionDto miCotDto){
+		//Cambio el estado a Rechazada
+		miCotDto.setEstado("Rechazada");
+		//Hago merge de la Cotizacion para que cambie su estado a "Rechazada" en la BD
+		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
+		cotizNegocio = cotizNegocio.aCotizacionNegocio(miCotDto);
+		cotizNegocio.mergearCotizacion();
+	}
+	
+	
+	
 	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
 		// TODO Carlos
 		return null;
 	}
 
+	
 
 	public FacturaDto crearFactura(ClienteDto cliente, CotizacionDto cotizacion) throws RemoteException {
 		// TODO RAMA
@@ -142,12 +183,15 @@ public class AdministracionOV implements IAdministracionOV{
 		return aux;
 	}
 
+	
 
 	public boolean abmCliente(ClienteDto cliente, String accion) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	
+	
 	public void procesarCotizaciones(int idCli){
 
 		//Levantamos un ciente, cuyo ID sea el pasado.
@@ -161,6 +205,8 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 
 	}
+	
+	
 
 	public void GenerarFactura(List<Integer> idsCoti, int idCliente){
 
@@ -193,6 +239,9 @@ public class AdministracionOV implements IAdministracionOV{
 		factura.persistirFactura();
 
 	}
+	
+	
+	
 	// Actualiza ESTADO de cotización
 	private boolean ActualizarEstadoCotizacion (CotizacionNegocio cotizacion, String estadoNuevo){
 		//CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
@@ -208,10 +257,14 @@ public class AdministracionOV implements IAdministracionOV{
 		return salida;
 	}
 	
+	
+	
 	public List<CotizacionNegocio> obtenerCotizacionesDeCiente(ClienteNegocio clie){
 		CotizacionDAO cotizacionDao = CotizacionDAO.getinstancia();
 		return cotizacionDao.obtenerCotizacionesDeCiente(clie);
 	}
+	
+	
 	
 	// Prueba
 	@Deprecated
