@@ -19,20 +19,20 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
-		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
-		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
-		ProveedorNegocio provUno = new ProveedorNegocio();
-		provUno.setNombre("Solear SA");
-		RodamientoNegocio rodaUno = new RodamientoNegocio();
-		rodaUno.setCodigo("22310");
-		rodaUno.setCaracteristica("CCW33");
-		rodaUno.setMarca("ZKL");
-		rodaUno.setMonto((float) 310.71);
-		rodaUno.setOrigen("Japon");
-		rodaUno.setProveedor(provUno);
-		rodaUno.setStock(85);
-		rodaUno.setTipo("Bolilla");
-		casaCentralNegocio.getListaPrincipal().add(rodaUno);
+//		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
+//		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
+//		ProveedorNegocio provUno = new ProveedorNegocio();
+//		provUno.setNombre("Solear SA");
+//		RodamientoNegocio rodaUno = new RodamientoNegocio();
+//		rodaUno.setCodigo("22310");
+//		rodaUno.setCaracteristica("CCW33");
+//		rodaUno.setMarca("ZKL");
+//		rodaUno.setMonto((float) 310.71);
+//		rodaUno.setOrigen("Japon");
+//		rodaUno.setProveedor(provUno);
+//		rodaUno.setStock(85);
+//		rodaUno.setTipo("Bolilla");
+//		casaCentralNegocio.getListaPrincipal().add(rodaUno);
 	}
 
 	public static AdministracionCC getInstancia(){
@@ -52,19 +52,17 @@ public class AdministracionCC implements IAdministracionCC {
 	 */
 	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
 			throws RemoteException {
-		// TODO NO SE A QUIEN LE TOCA ESTO
+		// TODO MARTIN (?)
 		return null;
 		// Levantar Cotizaciones en estado "APROBADAS"
-
 
 	}
 
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX"  // "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
-	public List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
+	private List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
 
 		List<CotizacionNegocio> misCotizaciones = new ArrayList<CotizacionNegocio>();
-
 
 
 		return null;
@@ -82,7 +80,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	//Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y devuelve (RodamientoDto)
-	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
+	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException{
 		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i=0; i<rodasNegocio.size(); i++){
@@ -158,10 +156,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	public boolean abmProveedor(ProveedorDto proveedor, String accion) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 
@@ -175,6 +169,27 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
 		this.casaCentralNegocio = casaCentralNegocio;
+	}
+
+	@Override
+	public void altaProveedor(ProveedorDto proveedor) throws RemoteException {
+		//TODO no se que onda esto, porque la lista de proveedores esta en la OV, no tendria que estar en la CC? 
+		ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+		//AdministracionCC.getInstancia().getCasaCentralNegocio();
+		return;
+	}
+
+	@Override
+	public void bajaProveedor(ProveedorDto proveedor) throws RemoteException {
+		// TODO Auto-generated method stub
+		return;
+	}
+
+	@Override
+	public void modificacionProveedor(ProveedorDto proveedor)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return;
 	}
 
 
