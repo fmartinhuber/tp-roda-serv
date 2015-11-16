@@ -79,29 +79,6 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotDto.setFechaVigencia(vigencia);
 		miCotDto.setItems(new ArrayList<ItemCotizacionDto>());	//Creo Items Cotizacion vacios
 
-		//Aca no se persiste nada, solamente se crea la cotizacion y se guarda el XML correspondiente
-
-	//Devuelvo la cotizacion
-	return miCotDto;
-	}
-	
-	
-	
-	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarCotizacion (List<ItemDto> listaItems, CotizacionDto miCotDto){
-		//Obtengo la lista comparativa
-		AdministracionCC admCC = new AdministracionCC();
-		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
-		try {
-			listaCompa = admCC.getInstancia().obtenerListaComparativa();
-		} catch (RemoteException e) {
-			e.getCause();
-		}
-		
-		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
-		float costoFinal;
-		costoFinal = 0;
-		
 		//Creo la lista de items que voy a utilizar para ir cargandolos
 		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
 
@@ -135,6 +112,27 @@ public class AdministracionOV implements IAdministracionOV{
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
 		
+		//Persisto la Cotizacion
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = miCotNeg.aCotizacionNegocio(miCotDto);
+		miCotNeg.persistirCotizacion();		
+
+		//Devuelvo la cotizacion
+		return miCotDto;
+	}
+		
+		
+		
+	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
+	public float aprobarCotizacion (CotizacionDto miCotDto){		
+		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
+		float costoFinal;
+		costoFinal = 0;
+		//Recorro la lista y voy sumando los costos
+		for (int i=0; i<miCotDto.getItems().size(); i++){
+			costoFinal = miCotDto.getItems().get(i).getPrecio() + costoFinal;
+		}
+		
 		//Cambio el estado a Aprobada
 		miCotDto.setEstado("Aprobada");
 		
@@ -147,6 +145,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
+		
 	
 	
 	

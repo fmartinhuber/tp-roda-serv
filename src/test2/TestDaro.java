@@ -62,7 +62,7 @@ public class TestDaro {
 		
 		//Aprobamos la Cotizacion junto a la lista de items
 		float totalCotizacion;
-		//totalCotizacion = miAdminOV.aprobarCotizacion(miCotDto);
+		totalCotizacion = miAdminOV.aprobarCotizacion(miCotDto);
 
 		
 		
