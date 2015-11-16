@@ -2,13 +2,29 @@ package controlador;
 
 import interfaces.IAdministracionOV;
 
-import java.rmi.*;
-import java.util.*;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-import negocio.*;
-import utils.*;
-import dao.*;
-import dto.*;
+import negocio.ClienteNegocio;
+import negocio.CotizacionNegocio;
+import negocio.FacturaNegocio;
+import negocio.OVNegocio;
+import negocio.ProveedorNegocio;
+import negocio.RemitoNegocio;
+import negocio.RodamientoNegocio;
+import utils.ItemDto;
+import dao.CotizacionDAO;
+import dao.RodamientoDAO;
+import dto.BultoDto;
+import dto.ClienteDto;
+import dto.CotizacionDto;
+import dto.ItemCotizacionDto;
+import dto.RemitoDto;
+import dto.RodamientoDto;
+import dto.SolicitudCompraDto;
 
 
 public class AdministracionOV implements IAdministracionOV{
@@ -18,11 +34,12 @@ public class AdministracionOV implements IAdministracionOV{
 	//sumado con el singleton en el medio seria una locura saber cuando se levanta tal o cual OV (y los constructores se harian multiples, demente)
 	//Creo una OV unica y se deberia sacar el singleton de esta clase, asi se puede dar de alta los controladores que se deseen para cada OV (negrisimo pero logico)
 	//De la forma que esta hecho ahora funciona para una unica OV
-	private OVNegocio OficinaVentaNegocio = new OVNegocio();
+	private static OVNegocio OficinaVentaNegocio;
 
 	public static AdministracionOV getInstancia(){
 		if(administracion == null){
 			administracion = new AdministracionOV();
+			OficinaVentaNegocio = new OVNegocio();
 		}
 		return administracion;
 	}
@@ -33,6 +50,7 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
 		this.getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
 		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
+		
 	}
 	
 	
@@ -57,7 +75,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 
 	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+	public void crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
 		//Obtengo la lista comparativa
 		AdministracionCC admCC = new AdministracionCC();
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
@@ -118,7 +136,7 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.persistirCotizacion();		
 
 		//Devuelvo la cotizacion
-		return miCotDto;
+		return;
 	}
 		
 		
@@ -145,7 +163,6 @@ public class AdministracionOV implements IAdministracionOV{
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
-		
 	
 	
 	
@@ -161,58 +178,41 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	
-	public EnvioAOVDto entregaPedidos(RemitoDto remito) throws RemoteException {
-		// TODO Carlos
+	public BultoDto entregaPedidos(RemitoDto remito) throws RemoteException {
+		// TODO Daro
 		return null;
 	}
 
 
-	public void procesarCotizaciones(int idCli){
-
-		//TODO y esto? de quien es? 
-		//Levantamos un ciente, cuyo ID sea el pasado.
-		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCli);
-
-		//Listamos las cotizaciones de un cliente que no hayan sido "solicitada" a CC
-		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesDeCiente(cli);
-
-		for(int i=0; i<cotizaciones.size(); i++){
-			System.out.println(cotizaciones.get(i).getEstado());
-		}
-
-	}
-	
-	
-
-	public void generarFactura(List<Integer> idsCoti, int idCliente){
-
-		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCliente);
-		// Crear Factura y setear datos primarios
-		FacturaNegocio factura = new FacturaNegocio();
-		factura.setCliente(cli);
-		factura.setEstado("generada");
-		Calendar c = new GregorianCalendar();
-		factura.setFecha(c.getTime());
-		List<CotizacionNegocio> cotizacionesFactura = new ArrayList<CotizacionNegocio>();
-		// Crear ItemsFactura
-		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
-		for(int i=0; i<idsCoti.size(); i++){
-			CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idsCoti.get(i).intValue());
-			cotizacionesFactura.add(coti);
-			ActualizarEstadoCotizacion(coti, "solicitada");
-		}
-		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
-		for(int i=0; i<misObjects.size(); i++){
-			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
-			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
-			itFactura.setRodamiento(rodamiento);
-			itFactura.setCantidad((Integer)misObjects.get(i)[0]);
-			Double sal = (Double)misObjects.get(i)[2];
-			itFactura.setSubtotal(sal.floatValue());
-			itemsFactura.add(itFactura);
-		}
-		factura.setItems(itemsFactura);
-		factura.persistirFactura();
+	public void generarFactura(List<CotizacionDto> idsCoti, ClienteDto idCliente){
+		//TODO revisar carlos.
+//		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(idCliente);
+//		// Crear Factura y setear datos primarios
+//		FacturaNegocio factura = new FacturaNegocio();
+//		factura.setCliente(cli);
+//		factura.setEstado("generada");
+//		Calendar c = new GregorianCalendar();
+//		factura.setFecha(c.getTime());
+//		List<CotizacionNegocio> cotizacionesFactura = new ArrayList<CotizacionNegocio>();
+//		// Crear ItemsFactura
+//		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
+//		for(int i=0; i<idsCoti.size(); i++){
+//			CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idsCoti.get(i).intValue());
+//			cotizacionesFactura.add(coti);
+//			ActualizarEstadoCotizacion(coti, "solicitada");
+//		}
+//		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
+//		for(int i=0; i<misObjects.size(); i++){
+//			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
+//			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
+//			itFactura.setRodamiento(rodamiento);
+//			itFactura.setCantidad((Integer)misObjects.get(i)[0]);
+//			Double sal = (Double)misObjects.get(i)[2];
+//			itFactura.setSubtotal(sal.floatValue());
+//			itemsFactura.add(itFactura);
+//		}
+//		factura.setItems(itemsFactura);
+//		factura.persistirFactura();
 	}
 	
 	
@@ -281,7 +281,33 @@ public class AdministracionOV implements IAdministracionOV{
 		OficinaVentaNegocio = oficinaVentaNegocio;
 	}
 
-	
 
+	@Override
+	public List<CotizacionDto> obtenerCotizacionesAprobadas()
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<SolicitudCompraDto> obtenerSolicitudesPendientes()
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void crearOrdenCompra(List<SolicitudCompraDto> solicitudesPendientes)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

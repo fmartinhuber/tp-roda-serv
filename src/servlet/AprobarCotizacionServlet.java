@@ -33,7 +33,7 @@ public class AprobarCotizacionServlet extends HttpServlet {
     
 	protected void aprobarCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		AdministracionOV.getInstancia().procesarCotizaciones(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
+		//AdministracionOV.getInstancia().aprobarCotizacion(miCotDto)(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
 		dispatcher.forward(request,response);
 	}

@@ -30,7 +30,7 @@ public class TestCharly {
 		//System.out.println("Prueba Charly - Carga Finalizada");	
 		
 		
-		c.procesarCotizaciones(1);
+		//c.procesarCotizaciones(1);
 		
 		List<Integer> parametros = new ArrayList<Integer>();
 		parametros.add(1);

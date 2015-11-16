@@ -3,6 +3,7 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import utils.ItemDto;
 import negocio.*;
 import dto.*;
 import interfaces.*;
@@ -52,7 +53,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 */
 	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
 			throws RemoteException {
-		// TODO MARTIN (?)
+		// TODO CARLOS (?)
 		return null;
 		// Levantar Cotizaciones en estado "APROBADAS"
 
@@ -70,11 +71,11 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes)
 			throws RemoteException {
-		// TODO CARLOS
+		// TODO RAMA
 		return null;
 	}
 
-	public void actualizarStock(List<RodamientoDto> listaRodamientos) {
+	public void actualizarStock(List<ItemDto> listaRodamientos, String accion) {
 		// TODO RAMA
 
 	}
@@ -89,6 +90,7 @@ public class AdministracionCC implements IAdministracionCC {
 		return rodasDto;
 	}
 
+	@Deprecated
 	public List <RodamientoDto> obtenerListaComparativaOpcional () throws RemoteException{
 		//TODO REVISAR.
 		return null;

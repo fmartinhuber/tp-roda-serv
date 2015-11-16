@@ -33,6 +33,11 @@ public class OVNegocio{
 	@JoinColumn(name="ov_cotizaciones")
 	private List <CotizacionNegocio> cotizaciones;
 
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_solicitudes")
+	private List <SolicitudCompraNegocio> solicitudes;
+	
+	
 	private String centroIndustrial;
 
 	public OVNegocio() {

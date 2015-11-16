@@ -14,7 +14,7 @@
 		}
 		
 	</script>
-	<form action="AprobarCotizacionServlet" method="aceptarCotizaciones">
+	<form action="AprobarCotizacionServlet" method="obtenerCotizaciones">
 		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="" />
 		<!--<jsp:useBean id="CotizacionDtoId" class="dto.CotizacionDto" scope="session">
 			<jsp:setProperty property="*" name="CotizacionDtoId" />

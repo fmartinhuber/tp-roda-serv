@@ -4,7 +4,7 @@ import java.util.*;
 
 
 
-public class EnvioAOVNegocio {
+public class BultoNegocio {
 
 	private List <RodamientoNegocio> rodamientos;
 	private ClienteNegocio cliente;
@@ -12,7 +12,7 @@ public class EnvioAOVNegocio {
 	
 	
 	
-	public EnvioAOVNegocio(List<RodamientoNegocio> rodamientos, ClienteNegocio cliente,
+	public BultoNegocio(List<RodamientoNegocio> rodamientos, ClienteNegocio cliente,
 			RemitoNegocio remito) {
 		super();
 		this.rodamientos = rodamientos;
@@ -20,7 +20,7 @@ public class EnvioAOVNegocio {
 		this.remito = remito;
 	}
 	
-	public EnvioAOVNegocio(){
+	public BultoNegocio(){
 		
 	}
 
