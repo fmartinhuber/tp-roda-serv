@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class ItemCotizacionDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private int idItemCotizacion;
 	private RodamientoDto rodamiento;
 	private int cant;
 	private float precio;
@@ -46,6 +47,14 @@ public class ItemCotizacionDto implements Serializable{
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+	public int getIdItemCotizacion() {
+		return idItemCotizacion;
+	}
+
+	public void setIdItemCotizacion(int idItemCotizacion) {
+		this.idItemCotizacion = idItemCotizacion;
 	}
 	
 }

@@ -34,16 +34,13 @@ public class ClienteNegocio{
 		
 	}
 	
-	
-	
-	public ClienteNegocio aClienteNegocio(dto.ClienteDto clienteDto) {
-		//Creo la salida del metodo
-		ClienteNegocio miCliNegocio = new ClienteNegocio();
+	public void aClienteNegocio(dto.ClienteDto clienteDto) {
+		
 		//Asigno los atributos simples
-		miCliNegocio.setCUIT(clienteDto.getCUIT());
-		miCliNegocio.setMail(clienteDto.getMail());
-		miCliNegocio.setRazonSocial(clienteDto.getRazonSocial());
-	return miCliNegocio;
+		this.setCUIT(clienteDto.getCUIT());
+		this.setMail(clienteDto.getMail());
+		this.setRazonSocial(clienteDto.getRazonSocial());
+	
 	}
 	
 	public ClienteDto aClienteDto() {
@@ -84,6 +81,12 @@ public class ClienteNegocio{
 		ClienteDAO.getInstancia().persist(this);
 	}
 
+	public int getIdCliente() {
+		return idCliente;
+	}
 
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
 
 }

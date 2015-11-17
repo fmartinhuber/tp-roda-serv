@@ -54,19 +54,18 @@ public class RodamientoNegocio{
 	}
 
 
-	public RodamientoNegocio aRodamientoNegocio(RodamientoDto miRodaDto) {
-		RodamientoNegocio roda = new RodamientoNegocio ();
-		roda.setCaracteristica(miRodaDto.getCaracteristica());
-		roda.setCodigo(miRodaDto.getCodigo());
-		roda.setMarca(miRodaDto.getMarca());
-		roda.setMonto(miRodaDto.getMonto());
-		roda.setOrigen(miRodaDto.getOrigen());
-		roda.setStock(miRodaDto.getStock());
-		roda.setTipo(miRodaDto.getTipo());
+	public void aRodamientoNegocio(RodamientoDto miRodaDto) {
+		//RodamientoNegocio roda = new RodamientoNegocio ();
+		this.setCaracteristica(miRodaDto.getCaracteristica());
+		this.setCodigo(miRodaDto.getCodigo());
+		this.setMarca(miRodaDto.getMarca());
+		this.setMonto(miRodaDto.getMonto());
+		this.setOrigen(miRodaDto.getOrigen());
+		this.setStock(miRodaDto.getStock());
+		this.setTipo(miRodaDto.getTipo());
 		ProveedorNegocio prove = new ProveedorNegocio();
 		prove.aProveedorNegocio(miRodaDto.getProveedor());
-		roda.setProveedor(prove);
-		return roda;
+		this.setProveedor(prove);
 	}
 	
 	public RodamientoDto aRodamientoDto() {

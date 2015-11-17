@@ -14,6 +14,7 @@ import java.util.*;
 public class CotizacionDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	private int idCotizacion;
 	private List<ItemCotizacionDto> items;
 	private String estado;
 	private ClienteDto cliente;
@@ -74,6 +75,14 @@ public class CotizacionDto implements Serializable{
 
 	public void setFechaVigencia(Date fechaVigencia) {
 		this.fechaVigencia = fechaVigencia;
+	}
+
+	public int getIdCotizacion() {
+		return idCotizacion;
+	}
+
+	public void setIdCotizacion(int idCotizacion) {
+		this.idCotizacion = idCotizacion;
 	}
 	
 }

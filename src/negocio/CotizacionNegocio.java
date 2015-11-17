@@ -67,16 +67,14 @@ public class CotizacionNegocio{
 	 * De esta forma se pasa Dto a Negocio. Cuando el cliente manda un Dto el servidor
 	 * necesita transformarlo a negocio para usar los metodos necesarios
 	 */
-	public CotizacionNegocio aCotizacionNegocio (CotizacionDto miCotDto){
-		//Creo la salida del metodo
-		CotizacionNegocio miCotNegocio = new CotizacionNegocio();
+	public void aCotizacionNegocio (CotizacionDto miCotDto){
 		//Asigno los atributos simples
-		miCotNegocio.setEstado(miCotDto.getEstado());
-		miCotNegocio.setFechaCreacion(miCotDto.getFechaCreacion());
-		miCotNegocio.setFechaVigencia(miCotDto.getFechaVigencia());
+		this.setEstado(miCotDto.getEstado());
+		this.setFechaCreacion(miCotDto.getFechaCreacion());
+		this.setFechaVigencia(miCotDto.getFechaVigencia());
 		//Asigno los atributos de Clase unica, con el metodo de esa clase
 		ClienteNegocio miCliNegocio = new ClienteNegocio();
-		miCliNegocio = miCliNegocio.aClienteNegocio(miCotDto.getCliente());
+		miCliNegocio.aClienteNegocio(miCotDto.getCliente());
 		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
 		List<ItemCotizacionNegocio> listaItCoNegocio= new ArrayList<ItemCotizacionNegocio>();
 		for (int i=0; i<miCotDto.getItems().size(); i++){
@@ -85,14 +83,13 @@ public class CotizacionNegocio{
 			//Obtengo el itemDto iterado de la lista
 			ItemCotizacionDto miItCotDto = miCotDto.getItems().get(i);
 			//Lo transformo
-			miItCotNegocio = miItCotNegocio.aItemCotizacionNegocio(miItCotDto);
+			miItCotNegocio.aItemCotizacionNegocio(miItCotDto);
 			//Agrego el item negocio a la lista de negocio
 			listaItCoNegocio.add(miItCotNegocio);
 		}
 		//Asigno las clases a la salida
-		miCotNegocio.setCliente(miCliNegocio);
-		miCotNegocio.setItems(listaItCoNegocio);
-	return miCotNegocio;
+		this.setCliente(miCliNegocio);
+		this.setItems(listaItCoNegocio);
 	}
 	
 	
@@ -189,4 +186,5 @@ public class CotizacionNegocio{
 	public void setIdCotizacion(int idCotizacion) {
 		this.idCotizacion = idCotizacion;
 	}
+	
 }

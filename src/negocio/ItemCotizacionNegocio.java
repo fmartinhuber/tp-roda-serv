@@ -22,6 +22,7 @@ public class ItemCotizacionNegocio{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_rodamiento")
 	private RodamientoNegocio rodamiento;
+	private int cant;
 	private float precio;
 	
 	public ItemCotizacionNegocio(RodamientoNegocio rodamiento, float precio) {
@@ -34,9 +35,14 @@ public class ItemCotizacionNegocio{
 	}
 	
 	//TODO
-	public ItemCotizacionNegocio aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
+	public void aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
 		
-		return null;
+		this.setIdItemCotizacion(miItCotDto.getIdItemCotizacion());
+		this.setPrecio(miItCotDto.getPrecio());
+		this.setCantidad(miItCotDto.getCant());
+		RodamientoNegocio roda = new RodamientoNegocio();
+		roda.aRodamientoNegocio(miItCotDto.getRodamiento());
+		this.setRodamiento(roda);
 	}
 	
 	public ItemCotizacionDto aItemCotizacionDto() {
@@ -65,6 +71,14 @@ public class ItemCotizacionNegocio{
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+	public int getCantidad() {
+		return cant;
+	}
+
+	public void setCantidad(int cant) {
+		this.cant = cant;
 	}
 
 }
