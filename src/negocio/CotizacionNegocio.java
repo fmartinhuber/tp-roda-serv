@@ -27,8 +27,6 @@ import dto.*;
 
 @Entity
 @Table(name="Cotizacion")
-
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class CotizacionNegocio{

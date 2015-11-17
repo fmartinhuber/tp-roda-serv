@@ -20,6 +20,7 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
+		//Esto ahora no se hace mas asi, va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
 //		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
 //		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
 //		ProveedorNegocio provUno = new ProveedorNegocio();
