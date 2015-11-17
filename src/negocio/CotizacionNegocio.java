@@ -176,6 +176,10 @@ public class CotizacionNegocio{
 	public void mergearCotizacion(){
 		CotizacionDAO.getinstancia().merge(this);
 	}
+	
+	public void actualizarCotizacion(){
+		CotizacionDAO.getinstancia().update(this);
+	}
 
 	public int getIdCotizacion() {
 		return idCotizacion;

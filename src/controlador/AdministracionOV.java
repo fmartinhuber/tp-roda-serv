@@ -72,8 +72,8 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 	
-
-	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
+	
+	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
 	public void crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
 		//Obtengo la lista comparativa
 		AdministracionCC admCC = new AdministracionCC();
@@ -134,14 +134,14 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.aCotizacionNegocio(miCotDto);
 		miCotNeg.persistirCotizacion();		
 
-		//Devuelvo la cotizacion
-		return;
+	//Devuelvo la cotizacion
+	return;
 	}
-		
-		
-		
-	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarCotizacion (CotizacionDto miCotDto)  throws RemoteException{		
+	
+	
+	
+	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
+	public float aprobarYCotizarCotizacion (CotizacionDto miCotDto)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
@@ -156,33 +156,34 @@ public class AdministracionOV implements IAdministracionOV{
 		//Transformo la CotizacionDto a CotizacionNegocio
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio.aCotizacionNegocio(miCotDto);
-		//Persisto la CotizacionNegocio
-		cotizNegocio.mergearCotizacion();
+		//Actualizo la CotizacionNegocio
+		cotizNegocio.actualizarCotizacion();
 		
-		//Devuelvo el costo final de la Cotizacion
-		return costoFinal;
+	//Devuelvo el costo final de la Cotizacion
+	return costoFinal;
 	}
 	
 	
-	
-	//Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
+	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
 	public void rechazarCotizacion (CotizacionDto miCotDto){
 		//Cambio el estado a Rechazada
 		miCotDto.setEstado("Rechazada");
 		//Hago merge de la Cotizacion para que cambie su estado a "Rechazada" en la BD
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio.aCotizacionNegocio(miCotDto);
-		cotizNegocio.mergearCotizacion();
+		//Actualizo la CotizacionNegocio
+		cotizNegocio.actualizarCotizacion();
 	}
 	
 	
-	
+	//TODO Daro
 	public BultoDto entregaPedidos(RemitoDto remito) throws RemoteException {
-		// TODO Daro
-		return null;
+		
+	return null;
 	}
-
-
+	
+	
+	
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		//TODO revisar carlos.
 		ClienteNegocio cli = new ClienteNegocio();
