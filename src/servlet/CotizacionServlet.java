@@ -16,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import utils.ItemDto;
+import dto.ItemDto;
 import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
@@ -79,7 +79,7 @@ public class CotizacionServlet extends HttpServlet {
 				item.setCantidad(Integer.valueOf(cantidad));
 				listaItems.add(item);
 				
-				AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
+				//AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
 				
 				
 			}

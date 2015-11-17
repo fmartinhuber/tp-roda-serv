@@ -187,7 +187,6 @@ public class AdministracionOV implements IAdministracionOV{
 
 
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
-		//TODO revisar carlos.
 		ClienteNegocio cli = new ClienteNegocio();
 		cli.aClienteNegocio(cliente);
 		//Creo lista de ids de cotizaciones

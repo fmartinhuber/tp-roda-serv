@@ -20,28 +20,30 @@ import controlador.AdministracionOV;
  * Servlet implementation class AprobarCotizacionServlet
  */
 @WebServlet("/AprobarCotizacionServlet")
-public class AprobarCotizacionServlet extends HttpServlet {
+public class CotizacionServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AprobarCotizacionServlet() {
+    public CotizacionServlet2() {
         super();
     }
 
     
-	protected void aprobarCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
 		
+		//System.out.println("aprobarCotizaciones");
 		//AdministracionOV.getInstancia().aprobarCotizacion(miCotDto)(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
-		dispatcher.forward(request,response);
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
+//		dispatcher.forward(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void obtenerCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ClienteNegocio clienteNegocio = new ClienteNegocio();
 		clienteNegocio.setCUIT(request.getParameter("cuit"));
@@ -55,7 +57,7 @@ public class AprobarCotizacionServlet extends HttpServlet {
 		}
 		request.setAttribute("arrayCotizaciones", arrayCotizaciones);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/aprobarCotizacion.jsp");
 		dispatcher.forward(request,response);
 	
 	}

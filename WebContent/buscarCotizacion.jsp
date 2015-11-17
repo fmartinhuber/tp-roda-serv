@@ -24,31 +24,22 @@
 		
 		
 	</script>
-	<form action="AprobarCotizacionServlet" id='AprobarCotizacionServlet' method="POST">
+	<form action="CotizacionServlet2" id='CotizacionServlet2' method="POST">
 		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="" />
+		<!--<jsp:useBean id="CotizacionDtoId" class="dto.CotizacionDto" scope="session">
+			<jsp:setProperty property="*" name="CotizacionDtoId" />
+		</jsp:useBean>-->
 		<table>
 			<tr>
-				<td colspan="2" align="center">Cotizaciones</td>
+				<td>Cliente:</td>
+				<td><input type="TEXT" name="cliente" value="1"></td>
 			</tr>
 			<tr>
-				<td>Nro cotizacion:</td>
-				<td>
-					<select name="cotizacionSeleccionada">
-						<option value="${cotizacionSeleccionada}" selected>${cotizacionSeleccionada}</option>
-						<c:forEach items="${arrayCotizaciones}" var="cotizacion">
-							<c:if test="${cotizacion != selected}">
-								<option value="${cotizacion}">${cotizacion}</option>
-							</c:if>
-						</c:forEach>
-					</select>
-					<!--  <input type="TEXT" id="cotizacionSeleccionada" value="1">-->
-				</td>
+				<td>Cuit:</td>
+				<td><input type="TEXT" name="cuit" value="1"></td>
 			</tr>
-			<!--<jsp:getProperty property="items" name="CotizacionDtoId" />-->
-			
 			<tr>
-				<td align="center"><input type="submit" value="Aceptar" onClick="enviar();"></td>
-				<td align="center"><input type="reset" value="Cancelar"></td>
+				<td align="center" colspan="2"><input type="button" value="Buscar" onClick="buscar()"></td>
 			</tr>
 		</table>
 	</form>
