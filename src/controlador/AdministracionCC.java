@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import utils.ItemDto;
+import utils.ItemNegocioList;
+import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;
 import interfaces.*;
@@ -20,21 +22,19 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
-		//Esto ahora no se hace mas asi, va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
-//		/*Daro: Meto valores hardcodeados a la ListaPrincipal para poder crear la Cotizacion
-//		Esto deberia hacerse de forma automatica desde algun lado que elija Martin para su lista*/
-//		ProveedorNegocio provUno = new ProveedorNegocio();
-//		provUno.setNombre("Solear SA");
-//		RodamientoNegocio rodaUno = new RodamientoNegocio();
-//		rodaUno.setCodigo("22310");
-//		rodaUno.setCaracteristica("CCW33");
-//		rodaUno.setMarca("ZKL");
-//		rodaUno.setMonto((float) 310.71);
-//		rodaUno.setOrigen("Japon");
-//		rodaUno.setProveedor(provUno);
-//		rodaUno.setStock(85);
-//		rodaUno.setTipo("Bolilla");
-//		casaCentralNegocio.getListaPrincipal().add(rodaUno);
+		
+		
+		/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
+		IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
+		
+		//Levanto el XML RodamientosProveedores
+		ItemNegocioList miItemNegocioList = new ItemNegocioList();
+		miItemNegocioList = ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
+		
+		//Recorro el ItemNegocioList y cargo la listaComparativa
+		for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
+			casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
+		}
 	}
 
 	public static AdministracionCC getInstancia(){
