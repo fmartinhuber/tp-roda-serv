@@ -25,6 +25,7 @@ public class HibernateUtil {
 	        	 config.addAnnotatedClass(negocio.RodamientoNegocio.class);
 	        	 config.addAnnotatedClass(negocio.CCNegocio.class);
 	        	 config.addAnnotatedClass(negocio.OVNegocio.class);
+	        	 config.addAnnotatedClass(negocio.SolicitudCompraNegocio.class);
 	        	 
 	             sessionFactory = config.buildSessionFactory();
 	        }

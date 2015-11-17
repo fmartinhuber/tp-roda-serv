@@ -37,7 +37,6 @@ public class OVNegocio{
 	@JoinColumn(name="ov_solicitudes")
 	private List <SolicitudCompraNegocio> solicitudes;
 	
-	
 	private String centroIndustrial;
 
 	public OVNegocio() {
@@ -99,5 +98,13 @@ public class OVNegocio{
 	public void setCentroIndustrial(String centroIndustrial) {
 		this.centroIndustrial = centroIndustrial;
 	}
-	
+
+	public List<SolicitudCompraNegocio> getSolicitudes() {
+		return solicitudes;
+	}
+
+	public void setSolicitudes(List<SolicitudCompraNegocio> solicitudes) {
+		this.solicitudes = solicitudes;
+	}
+
 }
