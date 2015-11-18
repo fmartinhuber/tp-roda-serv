@@ -11,20 +11,14 @@ public class TestRama {
 
 	public static void main(String[] args) throws RemoteException{
 		
-		//Rama ni hagas los abm, ponete con lo otro, los abm ni los hacemos!
+		//AdministracionOV c = new AdministracionOV();
 		
-		AdministracionOV administracionCliente = new AdministracionOV();
-		List<ClienteDto> clienteDto = new ArrayList<ClienteDto>();
-		//clienteDto = administracionCliente.listarClientes();
-		
-		System.out.println("=====================================================================================");
-		System.out.println("=====================================================================================");
-		System.out.println();
-		System.out.println();
-		
-		for(ClienteDto c : clienteDto){
-			System.out.println("CUIT: " +c.getCUIT());
-		}
+		System.out.println("===================================================================================");
+		System.out.println("===================================================================================");
+			
+//		System.out.println("Cargamos Datos");
+//		CargarDatos.getInstance().cargaDeDatos();
+//		System.out.println("Carga Finalizada");
 
 	}
 
