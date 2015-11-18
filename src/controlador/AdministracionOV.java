@@ -17,6 +17,7 @@ import negocio.OVNegocio;
 import negocio.ProveedorNegocio;
 import negocio.RemitoNegocio;
 import negocio.RodamientoNegocio;
+import negocio.SolicitudCompraNegocio;
 import utils.ItemDto;
 import dao.CotizacionDAO;
 import dao.RodamientoDAO;
@@ -28,7 +29,7 @@ import dto.RemitoDto;
 import dto.RodamientoDto;
 import dto.SolicitudCompraDto;
 
-
+//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
 public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV administracion; 
@@ -52,7 +53,7 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
 		this.getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
 		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
-		
+		this.getOficinaVentaNegocio().setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
 	}
 	
 	
@@ -75,8 +76,8 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 	
-
-	//Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
+	
+	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
 	public void crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
 		//Obtengo la lista comparativa
 		AdministracionCC admCC = new AdministracionCC();
@@ -140,11 +141,11 @@ public class AdministracionOV implements IAdministracionOV{
 		//Devuelvo la cotizacion
 		return;
 	}
-		
-		
-		
-	//Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarCotizacion (CotizacionDto miCotDto)  throws RemoteException{		
+	
+	
+	
+	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
+	public float aprobarYCotizarCotizacion (CotizacionDto miCotDto)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
@@ -159,33 +160,35 @@ public class AdministracionOV implements IAdministracionOV{
 		//Transformo la CotizacionDto a CotizacionNegocio
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio.aCotizacionNegocio(miCotDto);
-		//Persisto la CotizacionNegocio
-		cotizNegocio.mergearCotizacion();
+		//Actualizo la CotizacionNegocio
+		cotizNegocio.actualizarCotizacion();
 		
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
 	
 	
-	
-	//Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
+	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
 	public void rechazarCotizacion (CotizacionDto miCotDto){
 		//Cambio el estado a Rechazada
 		miCotDto.setEstado("Rechazada");
 		//Hago merge de la Cotizacion para que cambie su estado a "Rechazada" en la BD
 		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
 		cotizNegocio.aCotizacionNegocio(miCotDto);
+		//Actualizo la CotizacionNegocio
 		cotizNegocio.mergearCotizacion();
+
 	}
 	
 	
-	
+	//TODO Daro
 	public BultoDto entregaPedidos(RemitoDto remito) throws RemoteException {
-		// TODO Daro
-		return null;
+		
+	return null;
 	}
-
-
+	
+	
+	
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		ClienteNegocio cli = new ClienteNegocio();
 		cli.aClienteNegocio(cliente);
@@ -320,5 +323,6 @@ public class AdministracionOV implements IAdministracionOV{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

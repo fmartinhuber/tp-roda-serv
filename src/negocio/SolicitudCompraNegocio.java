@@ -2,35 +2,30 @@ package negocio;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="SolicitudCompra")
 public class SolicitudCompraNegocio {
 	
 	@Id
-	private int id; 
-	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	private String estado;
-	
-	private int numeroOv;
-	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="solicitud_cotizacion")
 	private List <CotizacionNegocio> listaCotizaciones;
-
-	public List <CotizacionNegocio> getListaCotizaciones() {
-		return listaCotizaciones;
-	}
-
-	public void setListaCotizaciones(List <CotizacionNegocio> listaCotizaciones) {
+	
+	
+	public SolicitudCompraNegocio(int id, String estado, List<CotizacionNegocio> listaCotizaciones) {
+		super();
+		this.id = id;
+		this.estado = estado;
 		this.listaCotizaciones = listaCotizaciones;
 	}
 
-	public int getNumeroOv() {
-		return numeroOv;
-	}
-
-	public void setNumeroOv(int numeroOv) {
-		this.numeroOv = numeroOv;
+	public SolicitudCompraNegocio() {
+		
 	}
 
 	public int getId() {
@@ -48,6 +43,13 @@ public class SolicitudCompraNegocio {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
+
+	public List<CotizacionNegocio> getListaCotizaciones() {
+		return listaCotizaciones;
+	}
+
+	public void setListaCotizaciones(List<CotizacionNegocio> listaCotizaciones) {
+		this.listaCotizaciones = listaCotizaciones;
+	}
 	
 }
