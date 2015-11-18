@@ -180,6 +180,7 @@ public class CotizacionNegocio{
 	public void actualizarCotizacion(){
 		CotizacionDAO.getinstancia().update(this);
 	}
+
 	public int getIdCotizacion() {
 		return idCotizacion;
 	}

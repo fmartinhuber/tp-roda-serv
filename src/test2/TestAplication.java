@@ -12,26 +12,11 @@ public class TestAplication {
 
 	public static void main(String[] args) throws RemoteException {
 
-		AdministracionOV c = new AdministracionOV();
+		AdministracionOV ov = AdministracionOV.getInstancia();
 		
 		List<RodamientoDto> aux = new ArrayList<RodamientoDto>();
-		aux = c.obtenerRodamientos();
+		aux = ov.obtenerRodamientos();
 		
-		System.out.println("===================================================================================");
-		System.out.println("===================================================================================");
-		
-		System.out.println();
-		System.out.println();
-		
-//		for (RodamientoBean r : aux){
-//			System.out.println("Codigo: " +r.getCodigo() + " \t Marca: " +r.getMarca() + " \t Origen: " +r.getOrigen() + " \t Precio: " + r.getPrecio());
-//		}
-		
-		
-		System.out.println();
-		System.out.println("===================================================================================");
-		System.out.println("===================================================================================");
-
 	}
 
 }
