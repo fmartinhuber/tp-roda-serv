@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import dao.CotizacionDAO;
 import dao.RodamientoDAO;
 import dto.*;
 
@@ -157,6 +158,14 @@ public class RodamientoNegocio{
 
 	public void setIdRodamiento(int idRodamiento) {
 		IdRodamiento = idRodamiento;
+	}
+	
+	public RodamientoNegocio buscarRodamientoPorCodigoMarcaOrigen(RodamientoNegocio r){
+		return RodamientoDAO.getInstancia().buscarRodamientoPorCodigoMarcaOrigen(r);
+	}
+	
+	public void actualizarRodamiento(){
+		RodamientoDAO.getInstancia().update(this);
 	}
 	
 }

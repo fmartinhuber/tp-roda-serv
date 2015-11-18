@@ -74,9 +74,33 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	public void actualizarStock(List<ItemDto> listaRodamientos, String accion) {
-		// TODO RAMA
-
+	public void actualizarStock(List<ItemDto> listaItems, String accion) {
+		
+		List<RodamientoNegocio> listaRodamiento = new ArrayList<RodamientoNegocio>();
+		
+		// Transformar DTO a negocio
+		for (int i=0; i<listaItems.size(); i++){		
+			RodamientoNegocio roda = new RodamientoNegocio();
+			roda.aRodamientoNegocio(listaItems.get(i).getRodamiento());
+			listaRodamiento.add(roda);
+		}
+		
+		// Recorrer la lista de rodamientos
+		for (int j=0; j<listaRodamiento.size(); j++){
+			RodamientoNegocio rodamiento = new RodamientoNegocio();
+			// la lista tiene que ser de negocio
+			rodamiento = rodamiento.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento.get(j));
+			
+			
+		}
+		
+		if(accion.equalsIgnoreCase("sumar")){
+			
+		}
+		if(accion.equalsIgnoreCase("restar")){
+			
+		}
+		
 	}
 
 	//Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y devuelve (RodamientoDto)

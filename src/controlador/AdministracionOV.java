@@ -209,7 +209,7 @@ public class AdministracionOV implements IAdministracionOV{
 			coti.aCotizacionNegocio(cotis.get(i));
 			cotizacionesFactura.add(coti);
 			ActualizarEstadoCotizacion(coti, "SOLICITADA");
-		}
+		}	
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
 		for(int i=0; i<misObjects.size(); i++){
 			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
