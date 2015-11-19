@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import negocio.ClienteNegocio;
+import negocio.CotizacionNegocio;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,11 +46,17 @@ public class CotizacionServlet extends HttpServlet {
 		doPost(request,response);
 		
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void generarCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		try {
 			ClienteDto cliente = new ClienteDto();
@@ -91,6 +100,44 @@ public class CotizacionServlet extends HttpServlet {
 			e.printStackTrace();
 		} 
 		
+	}
+	
+	protected void buscarCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Buscar cotizaciones aprobadas.
+		ClienteNegocio clienteNegocio = new ClienteNegocio();
+		clienteNegocio.setCUIT(request.getParameter("cuit"));
+		
+		List <CotizacionNegocio> cotizaciones = AdministracionOV.getInstancia().obtenerCotizacionesDeCiente(clienteNegocio);
+		
+		String [] arrayCotizaciones = new String [cotizaciones.size()];
+		
+		for (int i = 0; i < arrayCotizaciones.length; i++) {
+			arrayCotizaciones[i] = String.valueOf(cotizaciones.get(i).getIdCotizacion());
+		}
+		request.setAttribute("arrayCotizaciones", arrayCotizaciones);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/aprobarCotizacion.jsp");
+		dispatcher.forward(request,response);
+	
+	}
+	
+	protected void aprobarCotizaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Buscar cotizaciones aprobadas.
+		ClienteNegocio clienteNegocio = new ClienteNegocio();
+		clienteNegocio.setCUIT(request.getParameter("cuit"));
+		
+		List <CotizacionNegocio> cotizaciones = AdministracionOV.getInstancia().obtenerCotizacionesDeCiente(clienteNegocio);
+		
+		String [] arrayCotizaciones = new String [cotizaciones.size()];
+		
+		for (int i = 0; i < arrayCotizaciones.length; i++) {
+			arrayCotizaciones[i] = String.valueOf(cotizaciones.get(i).getIdCotizacion());
+		}
+		request.setAttribute("arrayCotizaciones", arrayCotizaciones);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/aprobarCotizacion.jsp");
+		dispatcher.forward(request,response);
+	
 	}
 
 }

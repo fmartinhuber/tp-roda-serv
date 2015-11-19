@@ -24,7 +24,7 @@
 		
 		
 	</script>
-	<form action="AprobarCotizacionServlet" id='AprobarCotizacionServlet' method="POST">
+	<form action="/aprobarCotizacion" id='AprobarCotizacionServlet' method="POST">
 		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="" />
 		<table>
 			<tr>
