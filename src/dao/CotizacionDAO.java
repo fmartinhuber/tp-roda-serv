@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import negocio.CotizacionNegocio;
+import negocio.ProveedorNegocio;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -87,6 +88,38 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 	
+	// Levantar Rodamientos de Items Cotización de determinas cotizaciones para un proveedor dado
+		@SuppressWarnings("unchecked")
+		public List<Object[]> rodamientoDeItemsCotizacionAgrupadosPorRodamiento(ProveedorNegocio prove){
+			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+			List<Object[]> salida;
+			Transaction tr = se.getTransaction();
+			tr.begin();
+			Query q = se.createQuery("Select ro, sum(itCot.cant), sum(itCot.subtotal) "
+					+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
+					+ "where prov = (:ids) "
+					+ "group by ro.IdRodamiento").setParameter("ids", prove);
+			salida = q.list();
+			tr.commit();
+			se = null;
+			return salida;
+		}
 	
-	
+		// Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
+		@SuppressWarnings("unchecked")
+		public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
+			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+			List<ProveedorNegocio> salida;
+			Transaction tr = se.getTransaction();
+			tr.begin();
+			Query q = se.createQuery("Select prov "
+					+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
+					+ "where cot in (:ids) "
+					+ "group by prov ").setParameterList("ids", cotizaciones);
+			salida = q.list();
+			tr.commit();
+			se = null;
+			return salida;
+		}
+
 }
