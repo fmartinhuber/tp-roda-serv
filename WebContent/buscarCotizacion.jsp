@@ -11,19 +11,22 @@
 	<script type="text/javascript">
 		function enviar() {
 			alert("Cotizacion aprobada");
+			document.getElementById("metodo").value = "aprobarCotizacion";
 			document.getElementById("AprobarCotizacionServlet").submit();
 		}
 		
 		function buscar() {
 			
-			
+			document.getElementById("metodo").value = "buscarCotizaciones";
 			document.getElementById("AprobarCotizacionServlet").submit();
+			
 		}
 		
 		
 	</script>
 	<form action="/buscarCotizaciones" id='buscarCotizaciones' method="POST">
 		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="" />
+		<input type="hidden" name="metodo" id="metodo" value="">
 		<!--<jsp:useBean id="CotizacionDtoId" class="dto.CotizacionDto" scope="session">
 			<jsp:setProperty property="*" name="CotizacionDtoId" />
 		</jsp:useBean>-->

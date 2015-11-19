@@ -11,21 +11,16 @@
 	<script type="text/javascript">
 		function enviar() {
 			alert("Cotizacion aprobada");
-			document.getElementById("method").value = "aprobarCotizaciones";
+			document.getElementById("method").value = "aprobarCotizacion";
 			document.getElementById("AprobarCotizacionServlet").submit();
 		}
 		
-		function buscar() {
-			
-			document.getElementById("method").value = "obtenerCotizaciones";
-			
-			document.getElementById("AprobarCotizacionServlet").submit();
-		}
 		
 		
 	</script>
-	<form action="/aprobarCotizacion" id='AprobarCotizacionServlet' method="POST">
+	<form action="CotizacionServlet" method="POST">
 		<input type="hidden" name="listaRodamiento" id="listaRodamiento" value="" />
+		<input type="hidden" name="metodo" id="metodo" value="">
 		<table>
 			<tr>
 				<td colspan="2" align="center">Cotizaciones</td>
