@@ -3,6 +3,7 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import dao.CotizacionDAO;
 import utils.ItemDto;
 import utils.ItemNegocioList;
 import xml2.ListaComparativaXML;
@@ -50,9 +51,9 @@ public class AdministracionCC implements IAdministracionCC {
 	 * Marcar solicitud de cotización como "En Adquisición"
 	 * Marcar Orden de compra como "Nueva" luego de su creación y previo a la entrega al proveedor
 	 */
-	public List<OrdenCompraDto> crearOrden(List<CotizacionDto> listaCotizaciones)
-			throws RemoteException {
+	public List<OrdenCompraDto> crearOrden(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {
 		// TODO CARLOS (?)
+		
 		return null;
 		// Levantar Cotizaciones en estado "APROBADAS"
 
@@ -60,16 +61,17 @@ public class AdministracionCC implements IAdministracionCC {
 
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX"  // "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
-	private List<CotizacionNegocio> buscarCotizacionesAprobadas(String estado){
-
-		List<CotizacionNegocio> misCotizaciones = new ArrayList<CotizacionNegocio>();
-
-
-		return null;
+	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");
+		List<CotizacionDto> cotizacionesDto = new ArrayList<CotizacionDto>();
+		for(int i=0; i<cotizaciones.size(); i++){
+			cotizacionesDto.add(cotizaciones.get(i).aCotizacionDto());
+		}
+		return cotizacionesDto;
 	}
 
-	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes)
-			throws RemoteException {
+	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
 		// TODO RAMA
 		return null;
 	}

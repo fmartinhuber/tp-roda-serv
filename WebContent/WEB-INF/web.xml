@@ -8,6 +8,23 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    
+    <servlet>
+		<servlet-name>CotizacionServlet</servlet-name>
+		<servlet-class>servlet.CotizacionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CotizacionServlet</servlet-name>
+		<url-pattern>/aprobarCotizacion/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CotizacionServlet</servlet-name>
+		<url-pattern>/generarCotizacion.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CotizacionServlet</servlet-name>
+		<url-pattern>/buscarCotizaciones/</url-pattern>
+	</servlet-mapping>
     
 </web-app>

@@ -31,7 +31,7 @@ function enviar(){
 
 
 </script>
-<form action="CotizacionServlet" method="POST">
+<form action="/generarCotizacion.do" method="POST">
 <input type="hidden" name="listaRodamiento" id="listaRodamiento" value="">
 <table>
 	<tr><td>Razon Social:</td><td><input type="TEXT" name="razonSocial" value="1"></td></tr>
