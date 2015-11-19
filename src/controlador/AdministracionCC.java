@@ -22,17 +22,17 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		
-		/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
-		IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
-		
-		//Levanto el XML RodamientosProveedores
-		ItemNegocioList miItemNegocioList = new ItemNegocioList();
-		miItemNegocioList = ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
-		
-		//Recorro el ItemNegocioList y cargo la listaComparativa
-		for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
-			casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
-		}
+//		/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
+//		IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
+//		
+//		//Levanto el XML RodamientosProveedores
+//		ItemNegocioList miItemNegocioList = new ItemNegocioList();
+//		miItemNegocioList = ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
+//		
+//		//Recorro el ItemNegocioList y cargo la listaComparativa
+//		for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
+//			casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
+//		}
 	}
 
 	public static AdministracionCC getInstancia(){
@@ -90,16 +90,17 @@ public class AdministracionCC implements IAdministracionCC {
 			RodamientoNegocio rodamiento = new RodamientoNegocio();
 			// la lista tiene que ser de negocio
 			rodamiento = rodamiento.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento.get(j));
-			
+		
+			if(accion.equalsIgnoreCase("sumar")){
+				rodamiento.setStock(listaRodamiento.get(j).getStock());
+				rodamiento.actualizarRodamiento();				
+			}
+			if(accion.equalsIgnoreCase("restar")){
+				rodamiento.actualizarRodamiento();
+			}
 			
 		}
 		
-		if(accion.equalsIgnoreCase("sumar")){
-			
-		}
-		if(accion.equalsIgnoreCase("restar")){
-			
-		}
 		
 	}
 

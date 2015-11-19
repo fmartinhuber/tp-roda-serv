@@ -64,9 +64,9 @@ public class RodamientoNegocio{
 		this.setOrigen(miRodaDto.getOrigen());
 		this.setStock(miRodaDto.getStock());
 		this.setTipo(miRodaDto.getTipo());
-		ProveedorNegocio prove = new ProveedorNegocio();
-		prove.aProveedorNegocio(miRodaDto.getProveedor());
-		this.setProveedor(prove);
+//		ProveedorNegocio prove = new ProveedorNegocio();
+//		prove.aProveedorNegocio(miRodaDto.getProveedor());
+//		this.setProveedor(prove);
 	}
 	
 	public RodamientoDto aRodamientoDto() {

@@ -42,7 +42,8 @@ public class RodamientoDAO extends HibernateDAO{
 	public RodamientoNegocio buscarRodamientoPorCodigoMarcaOrigen(RodamientoNegocio rodamiento){
 		
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		RodamientoNegocio salida = (RodamientoNegocio) s.createQuery("from RodamientoNegocio where r.codigo = " + rodamiento.getCodigo() + " and r.marca = " +rodamiento.getMarca() + " and r.origen = " + rodamiento.getOrigen()).uniqueResult();
+//		RodamientoNegocio salida = (RodamientoNegocio) s.createQuery("from RodamientoNegocio r where r.codigo = " + rodamiento.getCodigo() + " and r.marca = " +rodamiento.getMarca() + " and r.origen = " + rodamiento.getOrigen()).list();
+		RodamientoNegocio salida = (RodamientoNegocio) s.createQuery("from RodamientoNegocio r where r.codigo like '" +rodamiento.getCodigo() + "'" + " and r.marca like '" +rodamiento.getMarca() + "'" + " and r.origen like '" +rodamiento.getOrigen() +"'").uniqueResult();
 		s = null;
 		return salida;
 	}
