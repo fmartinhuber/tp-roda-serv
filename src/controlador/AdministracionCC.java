@@ -93,11 +93,12 @@ public class AdministracionCC implements IAdministracionCC {
 			// la lista tiene que ser de negocio
 			rodamiento = rodamiento.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento.get(j));
 		
-			if(accion.equalsIgnoreCase("sumar")){
-				rodamiento.setStock(listaRodamiento.get(j).getStock());
+			if( (accion.equalsIgnoreCase("sumar")) || (accion.equalsIgnoreCase("suma"))){
+				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j))+1);
 				rodamiento.actualizarRodamiento();				
 			}
-			if(accion.equalsIgnoreCase("restar")){
+			if( (accion.equalsIgnoreCase("restar")) || (accion.equalsIgnoreCase("resta"))){
+				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j))-1);
 				rodamiento.actualizarRodamiento();
 			}
 			

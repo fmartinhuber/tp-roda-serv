@@ -1,7 +1,5 @@
 package negocio;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import dao.CotizacionDAO;
-import dao.RodamientoDAO;
+import dao.*;
+
 import dto.*;
 
 
@@ -166,6 +164,11 @@ public class RodamientoNegocio{
 	
 	public void actualizarRodamiento(){
 		RodamientoDAO.getInstancia().update(this);
+	}
+
+
+	public int buscarStock(RodamientoNegocio r) {
+		return RodamientoDAO.getInstancia().buscarStock(r);
 	}
 	
 }

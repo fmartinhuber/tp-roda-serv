@@ -27,7 +27,7 @@ public class TestRama {
 		RodamientoDto roda2 = new RodamientoDto();
 		roda1.setCodigo("20210");
 		roda1.setOrigen("Suecia");
-		roda1.setMarca("SKF");
+		roda1.setMarca("SKF");		
 		roda2.setCodigo("21311 K");
 		roda2.setOrigen("Suecia");
 		roda2.setMarca("SKF");
