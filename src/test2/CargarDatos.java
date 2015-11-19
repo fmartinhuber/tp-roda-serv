@@ -109,133 +109,133 @@ public class CargarDatos {
 				RodamientoNegocio roda78 = new RodamientoNegocio(); roda78.setTipo("Rodamientos Rigidos de bolas"); roda78.setCodigo("61824 2RS"); roda78.setStock(30); roda78.setOrigen("Suecia"); roda78.setMonto((float) 6756.27); roda78.setCaracteristica("61824-2RS1  . . . . . . . . . SKF       Rodamiento"); roda78.setMarca("SKF"); roda78.setProveedor(prov06);roda78.persistirRodamiento(); 
 				RodamientoNegocio roda79 = new RodamientoNegocio(); roda79.setTipo("Rodamientos Rigidos de bolas"); roda79.setCodigo("61824 2RS"); roda79.setStock(20); roda79.setOrigen("Japon"); roda79.setMonto((float) 2258.43); roda79.setCaracteristica("61824 2RS (6824 VV) . . . . . JAP       Rodamiento"); roda79.setMarca("Japon"); roda79.setProveedor(prov07);roda79.persistirRodamiento(); 
 				RodamientoNegocio roda80 = new RodamientoNegocio(); roda80.setTipo("Rodamientos Rigidos de bolas"); roda80.setCodigo("6313 NR"); roda80.setStock(10); roda80.setOrigen("Israel"); roda80.setMonto((float) 471.54); roda80.setCaracteristica("6313 NR . . . . . . . . . . . URB       Rodamiento"); roda80.setMarca("URB"); roda80.setProveedor(prov08);roda80.persistirRodamiento(); 
-
-		// Asociamos rodamientos a proveedores
-				ArrayList<RodamientoNegocio> listProv01 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv02 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv03 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv04 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv05 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv06 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv07 = new ArrayList<RodamientoNegocio>(); 
-				ArrayList<RodamientoNegocio> listProv08 = new ArrayList<RodamientoNegocio>(); 
-
-				listProv01.add(roda01);		listProv02.add(roda02);		listProv03.add(roda03);		listProv04.add(roda04);
-				listProv05.add(roda05);		listProv06.add(roda06);		listProv07.add(roda07);		listProv08.add(roda08);
-				listProv01.add(roda09);		listProv02.add(roda10);		listProv03.add(roda11);		listProv04.add(roda12);
-				listProv05.add(roda13);		listProv06.add(roda14);		listProv07.add(roda15);		listProv08.add(roda16);
-				listProv01.add(roda17);		listProv02.add(roda18);		listProv03.add(roda19);		listProv04.add(roda20);
-				listProv05.add(roda21);		listProv06.add(roda22);		listProv07.add(roda23);		listProv08.add(roda24);
-				listProv01.add(roda25);		listProv02.add(roda26);		listProv03.add(roda27);		listProv04.add(roda28);
-				listProv05.add(roda29);		listProv06.add(roda30);		listProv07.add(roda31);		listProv08.add(roda32);
-				listProv01.add(roda33);		listProv02.add(roda34);		listProv03.add(roda35);		listProv04.add(roda36);
-				listProv05.add(roda37);		listProv06.add(roda38);		listProv07.add(roda39);		listProv08.add(roda40);
-				listProv01.add(roda41);		listProv02.add(roda42);		listProv03.add(roda43);		listProv04.add(roda44);
-				listProv05.add(roda45);		listProv06.add(roda46);		listProv07.add(roda47);		listProv08.add(roda48);
-				listProv01.add(roda49);		listProv02.add(roda50);		listProv03.add(roda51);		listProv04.add(roda52);
-				listProv05.add(roda53);		listProv06.add(roda54);		listProv07.add(roda55);		listProv08.add(roda56);
-				listProv01.add(roda57);		listProv02.add(roda58);		listProv03.add(roda59);		listProv04.add(roda60);
-				listProv05.add(roda61);		listProv06.add(roda62);		listProv07.add(roda63);		listProv08.add(roda64);
-				listProv01.add(roda65);		listProv02.add(roda66);		listProv03.add(roda67);		listProv04.add(roda68);
-				listProv05.add(roda69);		listProv06.add(roda70);		listProv07.add(roda71);		listProv08.add(roda72);
-				listProv01.add(roda73);		listProv02.add(roda74);		listProv03.add(roda75);		listProv04.add(roda76);
-				listProv05.add(roda77);		listProv06.add(roda78);		listProv07.add(roda79);		listProv08.add(roda80);
-
-				prov01.setRodamientos(listProv01);		prov01.updateProveedor();
-				prov02.setRodamientos(listProv02);		prov02.updateProveedor();
-				prov03.setRodamientos(listProv03);		prov03.updateProveedor();
-				prov04.setRodamientos(listProv04);		prov04.updateProveedor();
-				prov05.setRodamientos(listProv05);		prov05.updateProveedor();
-				prov06.setRodamientos(listProv06);		prov06.updateProveedor();
-				prov07.setRodamientos(listProv07);		prov07.updateProveedor();
-				prov08.setRodamientos(listProv08);		prov08.updateProveedor();
-
-		// Alta de Clientes
-				
-				ClienteNegocio cli01 = new ClienteNegocio("Mecanica Industrial SRL", "compras@mecind.com.ar", "30-11111111-2");
-				ClienteNegocio cli02 = new ClienteNegocio("Maquinaria Industrial SA", "compras@mi.com.ar", "30-22222222-3");
-				ClienteNegocio cli03 = new ClienteNegocio("Isolda e Hijos SRL", "jose.rodriguez@isolda.com", "30-33333333-4");
-				ClienteNegocio cli04 = new ClienteNegocio("Cooperativa Industrial Campo Santo", "compras@camposanto.coop.ar", "30-44444444-5");
-				ClienteNegocio cli05 = new ClienteNegocio("Industrial Rosales SA", "roberto.fuentes@rosales.com.ar", "30-55555555-6");
-				ClienteNegocio cli06 = new ClienteNegocio("Tubos Norte SRL", "compras@tubosnorte.com", "30-66666666-7");
-				
-				cli01.persistirCliente();
-				cli02.persistirCliente();
-				cli03.persistirCliente();
-				cli04.persistirCliente();
-				cli05.persistirCliente();
-				cli06.persistirCliente();
-
-		// Alta de cotizaciones
-				// Seteo de fechas				
-				Calendar cal01 = GregorianCalendar.getInstance(); 	cal01.add(Calendar.DAY_OF_YEAR, -1);	Date day01 = cal01.getTime();	cal01.add(Calendar.MONTH, 1); 	Date day06 = cal01.getTime();
-				Calendar cal02 = GregorianCalendar.getInstance();	cal02.add(Calendar.DAY_OF_YEAR, -5);	Date day02 = cal02.getTime();	cal02.add(Calendar.MONTH, 1); 	Date day07 = cal02.getTime();
-				Calendar cal03 = GregorianCalendar.getInstance();	cal03.add(Calendar.DAY_OF_YEAR, -13);	Date day03 = cal03.getTime();	cal03.add(Calendar.MONTH, 1); 	Date day08 = cal03.getTime();
-				Calendar cal04 = GregorianCalendar.getInstance();	cal04.add(Calendar.DAY_OF_YEAR, -27);	Date day04 = cal04.getTime();	cal04.add(Calendar.MONTH, 1); 	Date day09 = cal04.getTime();
-				Calendar cal05 = GregorianCalendar.getInstance();	cal05.add(Calendar.DAY_OF_YEAR, -31);	Date day05 = cal05.getTime();	cal05.add(Calendar.MONTH, 1); 	Date day10 = cal05.getTime();
-		
-				// Seteo de Clientes y fechas en cotizaciones
-				CotizacionNegocio cot01 = new CotizacionNegocio();	cot01.setCliente(cli01); 	cot01.setEstado("pendiente"); 	cot01.setFechaCreacion(day01); 	cot01.setFechaVigencia(day06);
-				CotizacionNegocio cot02 = new CotizacionNegocio();	cot02.setCliente(cli02); 	cot02.setEstado("aprobada"); 	cot02.setFechaCreacion(day02); 	cot02.setFechaVigencia(day07);
-				CotizacionNegocio cot03 = new CotizacionNegocio();	cot03.setCliente(cli01); 	cot03.setEstado("aprobada"); 	cot03.setFechaCreacion(day03); 	cot03.setFechaVigencia(day08);
-				CotizacionNegocio cot04 = new CotizacionNegocio();	cot04.setCliente(cli04); 	cot04.setEstado("aprobada"); 	cot04.setFechaCreacion(day04); 	cot04.setFechaVigencia(day09);
-				CotizacionNegocio cot05 = new CotizacionNegocio();	cot05.setCliente(cli01); 	cot05.setEstado("aprobada"); 	cot05.setFechaCreacion(day01); 	cot05.setFechaVigencia(day06);
-				CotizacionNegocio cot06 = new CotizacionNegocio();	cot06.setCliente(cli03); 	cot06.setEstado("aprobada"); 	cot06.setFechaCreacion(day02); 	cot06.setFechaVigencia(day07);
-				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
-				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
-				
-				// Alta de itemsCotizacion
-				List<ItemCotizacionNegocio> listItem01 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot0101);
-				ItemCotizacionNegocio itCot0102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot0102);
-				ItemCotizacionNegocio itCot0103 = new ItemCotizacionNegocio(roda72, 7);		listItem01.add(itCot0103);	
-				ItemCotizacionNegocio itCot0104 = new ItemCotizacionNegocio(roda12, 91);	listItem01.add(itCot0104);
-				ItemCotizacionNegocio itCot0105 = new ItemCotizacionNegocio(roda33, 14);	listItem01.add(itCot0105);
-				
-				List<ItemCotizacionNegocio> listItem02 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0201 = new ItemCotizacionNegocio(roda29, 5);		listItem02.add(itCot0201);
-				ItemCotizacionNegocio itCot0202 = new ItemCotizacionNegocio(roda37, 13);	listItem02.add(itCot0202);
-				ItemCotizacionNegocio itCot0203 = new ItemCotizacionNegocio(roda79, 14);	listItem02.add(itCot0203);
-				
-				List<ItemCotizacionNegocio> listItem03 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0301 = new ItemCotizacionNegocio(roda42, 15);	listItem03.add(itCot0301);
-				ItemCotizacionNegocio itCot0302 = new ItemCotizacionNegocio(roda66, 31);	listItem03.add(itCot0302);
-				
-				List<ItemCotizacionNegocio> listItem04 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0401 = new ItemCotizacionNegocio(roda01, 15);	listItem04.add(itCot0401);
-				ItemCotizacionNegocio itCot0402 = new ItemCotizacionNegocio(roda09, 22);	listItem04.add(itCot0402);
-				
-				List<ItemCotizacionNegocio> listItem05 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0501 = new ItemCotizacionNegocio(roda21, 15);	listItem05.add(itCot0501);
-				ItemCotizacionNegocio itCot0502 = new ItemCotizacionNegocio(roda39, 12);	listItem05.add(itCot0502);
-				ItemCotizacionNegocio itCot0503 = new ItemCotizacionNegocio(roda55, 22);	listItem05.add(itCot0503);
-				ItemCotizacionNegocio itCot0504 = new ItemCotizacionNegocio(roda67, 19);	listItem05.add(itCot0504);
-				
-				List<ItemCotizacionNegocio> listItem06 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0601 = new ItemCotizacionNegocio(roda22, 90);	listItem06.add(itCot0601);
-				ItemCotizacionNegocio itCot0602 = new ItemCotizacionNegocio(roda39, 14);	listItem01.add(itCot0602);
-				ItemCotizacionNegocio itCot0603 = new ItemCotizacionNegocio(roda10, 10);	listItem06.add(itCot0603);
-				
-				List<ItemCotizacionNegocio> listItem07 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0701 = new ItemCotizacionNegocio(roda78, 22);	listItem07.add(itCot0701);
-				ItemCotizacionNegocio itCot0702 = new ItemCotizacionNegocio(roda65, 14);	listItem07.add(itCot0702);
-				ItemCotizacionNegocio itCot0703 = new ItemCotizacionNegocio(roda51, 17);	listItem07.add(itCot0703);
-				
-				List<ItemCotizacionNegocio> listItem08 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot0801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot0801);
-				ItemCotizacionNegocio itCot0802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot0802);
-				
-				// Asociamos Lista de Items Cotizaciones a Cotizaciones y persistimos
-				cot01.setItems(listItem01);		cot01.persistirCotizacion();
-				cot02.setItems(listItem02);		cot02.persistirCotizacion();
-				cot03.setItems(listItem03);		cot03.persistirCotizacion();
-				cot04.setItems(listItem04);		cot04.persistirCotizacion();
-				cot05.setItems(listItem05);		cot05.persistirCotizacion();
-				cot06.setItems(listItem06);		cot06.persistirCotizacion();
-				cot07.setItems(listItem07);		cot07.persistirCotizacion();
-				cot08.setItems(listItem08);		cot08.persistirCotizacion();
-				
-				
+//
+//		// Asociamos rodamientos a proveedores
+//				ArrayList<RodamientoNegocio> listProv01 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv02 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv03 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv04 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv05 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv06 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv07 = new ArrayList<RodamientoNegocio>(); 
+//				ArrayList<RodamientoNegocio> listProv08 = new ArrayList<RodamientoNegocio>(); 
+//
+//				listProv01.add(roda01);		listProv02.add(roda02);		listProv03.add(roda03);		listProv04.add(roda04);
+//				listProv05.add(roda05);		listProv06.add(roda06);		listProv07.add(roda07);		listProv08.add(roda08);
+//				listProv01.add(roda09);		listProv02.add(roda10);		listProv03.add(roda11);		listProv04.add(roda12);
+//				listProv05.add(roda13);		listProv06.add(roda14);		listProv07.add(roda15);		listProv08.add(roda16);
+//				listProv01.add(roda17);		listProv02.add(roda18);		listProv03.add(roda19);		listProv04.add(roda20);
+//				listProv05.add(roda21);		listProv06.add(roda22);		listProv07.add(roda23);		listProv08.add(roda24);
+//				listProv01.add(roda25);		listProv02.add(roda26);		listProv03.add(roda27);		listProv04.add(roda28);
+//				listProv05.add(roda29);		listProv06.add(roda30);		listProv07.add(roda31);		listProv08.add(roda32);
+//				listProv01.add(roda33);		listProv02.add(roda34);		listProv03.add(roda35);		listProv04.add(roda36);
+//				listProv05.add(roda37);		listProv06.add(roda38);		listProv07.add(roda39);		listProv08.add(roda40);
+//				listProv01.add(roda41);		listProv02.add(roda42);		listProv03.add(roda43);		listProv04.add(roda44);
+//				listProv05.add(roda45);		listProv06.add(roda46);		listProv07.add(roda47);		listProv08.add(roda48);
+//				listProv01.add(roda49);		listProv02.add(roda50);		listProv03.add(roda51);		listProv04.add(roda52);
+//				listProv05.add(roda53);		listProv06.add(roda54);		listProv07.add(roda55);		listProv08.add(roda56);
+//				listProv01.add(roda57);		listProv02.add(roda58);		listProv03.add(roda59);		listProv04.add(roda60);
+//				listProv05.add(roda61);		listProv06.add(roda62);		listProv07.add(roda63);		listProv08.add(roda64);
+//				listProv01.add(roda65);		listProv02.add(roda66);		listProv03.add(roda67);		listProv04.add(roda68);
+//				listProv05.add(roda69);		listProv06.add(roda70);		listProv07.add(roda71);		listProv08.add(roda72);
+//				listProv01.add(roda73);		listProv02.add(roda74);		listProv03.add(roda75);		listProv04.add(roda76);
+//				listProv05.add(roda77);		listProv06.add(roda78);		listProv07.add(roda79);		listProv08.add(roda80);
+//
+//				prov01.setRodamientos(listProv01);		prov01.updateProveedor();
+//				prov02.setRodamientos(listProv02);		prov02.updateProveedor();
+//				prov03.setRodamientos(listProv03);		prov03.updateProveedor();
+//				prov04.setRodamientos(listProv04);		prov04.updateProveedor();
+//				prov05.setRodamientos(listProv05);		prov05.updateProveedor();
+//				prov06.setRodamientos(listProv06);		prov06.updateProveedor();
+//				prov07.setRodamientos(listProv07);		prov07.updateProveedor();
+//				prov08.setRodamientos(listProv08);		prov08.updateProveedor();
+//
+//		// Alta de Clientes
+//				
+//				ClienteNegocio cli01 = new ClienteNegocio("Mecanica Industrial SRL", "compras@mecind.com.ar", "30-11111111-2");
+//				ClienteNegocio cli02 = new ClienteNegocio("Maquinaria Industrial SA", "compras@mi.com.ar", "30-22222222-3");
+//				ClienteNegocio cli03 = new ClienteNegocio("Isolda e Hijos SRL", "jose.rodriguez@isolda.com", "30-33333333-4");
+//				ClienteNegocio cli04 = new ClienteNegocio("Cooperativa Industrial Campo Santo", "compras@camposanto.coop.ar", "30-44444444-5");
+//				ClienteNegocio cli05 = new ClienteNegocio("Industrial Rosales SA", "roberto.fuentes@rosales.com.ar", "30-55555555-6");
+//				ClienteNegocio cli06 = new ClienteNegocio("Tubos Norte SRL", "compras@tubosnorte.com", "30-66666666-7");
+//				
+//				cli01.persistirCliente();
+//				cli02.persistirCliente();
+//				cli03.persistirCliente();
+//				cli04.persistirCliente();
+//				cli05.persistirCliente();
+//				cli06.persistirCliente();
+//
+//		// Alta de cotizaciones
+//				// Seteo de fechas				
+//				Calendar cal01 = GregorianCalendar.getInstance(); 	cal01.add(Calendar.DAY_OF_YEAR, -1);	Date day01 = cal01.getTime();	cal01.add(Calendar.MONTH, 1); 	Date day06 = cal01.getTime();
+//				Calendar cal02 = GregorianCalendar.getInstance();	cal02.add(Calendar.DAY_OF_YEAR, -5);	Date day02 = cal02.getTime();	cal02.add(Calendar.MONTH, 1); 	Date day07 = cal02.getTime();
+//				Calendar cal03 = GregorianCalendar.getInstance();	cal03.add(Calendar.DAY_OF_YEAR, -13);	Date day03 = cal03.getTime();	cal03.add(Calendar.MONTH, 1); 	Date day08 = cal03.getTime();
+//				Calendar cal04 = GregorianCalendar.getInstance();	cal04.add(Calendar.DAY_OF_YEAR, -27);	Date day04 = cal04.getTime();	cal04.add(Calendar.MONTH, 1); 	Date day09 = cal04.getTime();
+//				Calendar cal05 = GregorianCalendar.getInstance();	cal05.add(Calendar.DAY_OF_YEAR, -31);	Date day05 = cal05.getTime();	cal05.add(Calendar.MONTH, 1); 	Date day10 = cal05.getTime();
+//		
+//				// Seteo de Clientes y fechas en cotizaciones
+//				CotizacionNegocio cot01 = new CotizacionNegocio();	cot01.setCliente(cli01); 	cot01.setEstado("pendiente"); 	cot01.setFechaCreacion(day01); 	cot01.setFechaVigencia(day06);
+//				CotizacionNegocio cot02 = new CotizacionNegocio();	cot02.setCliente(cli02); 	cot02.setEstado("aprobada"); 	cot02.setFechaCreacion(day02); 	cot02.setFechaVigencia(day07);
+//				CotizacionNegocio cot03 = new CotizacionNegocio();	cot03.setCliente(cli01); 	cot03.setEstado("aprobada"); 	cot03.setFechaCreacion(day03); 	cot03.setFechaVigencia(day08);
+//				CotizacionNegocio cot04 = new CotizacionNegocio();	cot04.setCliente(cli04); 	cot04.setEstado("aprobada"); 	cot04.setFechaCreacion(day04); 	cot04.setFechaVigencia(day09);
+//				CotizacionNegocio cot05 = new CotizacionNegocio();	cot05.setCliente(cli01); 	cot05.setEstado("aprobada"); 	cot05.setFechaCreacion(day01); 	cot05.setFechaVigencia(day06);
+//				CotizacionNegocio cot06 = new CotizacionNegocio();	cot06.setCliente(cli03); 	cot06.setEstado("aprobada"); 	cot06.setFechaCreacion(day02); 	cot06.setFechaVigencia(day07);
+//				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
+//				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
+//				
+//				// Alta de itemsCotizacion
+//				List<ItemCotizacionNegocio> listItem01 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot0101);
+//				ItemCotizacionNegocio itCot0102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot0102);
+//				ItemCotizacionNegocio itCot0103 = new ItemCotizacionNegocio(roda72, 7);		listItem01.add(itCot0103);	
+//				ItemCotizacionNegocio itCot0104 = new ItemCotizacionNegocio(roda12, 91);	listItem01.add(itCot0104);
+//				ItemCotizacionNegocio itCot0105 = new ItemCotizacionNegocio(roda33, 14);	listItem01.add(itCot0105);
+//				
+//				List<ItemCotizacionNegocio> listItem02 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0201 = new ItemCotizacionNegocio(roda29, 5);		listItem02.add(itCot0201);
+//				ItemCotizacionNegocio itCot0202 = new ItemCotizacionNegocio(roda37, 13);	listItem02.add(itCot0202);
+//				ItemCotizacionNegocio itCot0203 = new ItemCotizacionNegocio(roda79, 14);	listItem02.add(itCot0203);
+//				
+//				List<ItemCotizacionNegocio> listItem03 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0301 = new ItemCotizacionNegocio(roda42, 15);	listItem03.add(itCot0301);
+//				ItemCotizacionNegocio itCot0302 = new ItemCotizacionNegocio(roda66, 31);	listItem03.add(itCot0302);
+//				
+//				List<ItemCotizacionNegocio> listItem04 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0401 = new ItemCotizacionNegocio(roda01, 15);	listItem04.add(itCot0401);
+//				ItemCotizacionNegocio itCot0402 = new ItemCotizacionNegocio(roda09, 22);	listItem04.add(itCot0402);
+//				
+//				List<ItemCotizacionNegocio> listItem05 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0501 = new ItemCotizacionNegocio(roda21, 15);	listItem05.add(itCot0501);
+//				ItemCotizacionNegocio itCot0502 = new ItemCotizacionNegocio(roda39, 12);	listItem05.add(itCot0502);
+//				ItemCotizacionNegocio itCot0503 = new ItemCotizacionNegocio(roda55, 22);	listItem05.add(itCot0503);
+//				ItemCotizacionNegocio itCot0504 = new ItemCotizacionNegocio(roda67, 19);	listItem05.add(itCot0504);
+//				
+//				List<ItemCotizacionNegocio> listItem06 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0601 = new ItemCotizacionNegocio(roda22, 90);	listItem06.add(itCot0601);
+//				ItemCotizacionNegocio itCot0602 = new ItemCotizacionNegocio(roda39, 14);	listItem01.add(itCot0602);
+//				ItemCotizacionNegocio itCot0603 = new ItemCotizacionNegocio(roda10, 10);	listItem06.add(itCot0603);
+//				
+//				List<ItemCotizacionNegocio> listItem07 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0701 = new ItemCotizacionNegocio(roda78, 22);	listItem07.add(itCot0701);
+//				ItemCotizacionNegocio itCot0702 = new ItemCotizacionNegocio(roda65, 14);	listItem07.add(itCot0702);
+//				ItemCotizacionNegocio itCot0703 = new ItemCotizacionNegocio(roda51, 17);	listItem07.add(itCot0703);
+//				
+//				List<ItemCotizacionNegocio> listItem08 = new ArrayList<ItemCotizacionNegocio>();
+//				ItemCotizacionNegocio itCot0801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot0801);
+//				ItemCotizacionNegocio itCot0802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot0802);
+//				
+//				// Asociamos Lista de Items Cotizaciones a Cotizaciones y persistimos
+//				cot01.setItems(listItem01);		cot01.persistirCotizacion();
+//				cot02.setItems(listItem02);		cot02.persistirCotizacion();
+//				cot03.setItems(listItem03);		cot03.persistirCotizacion();
+//				cot04.setItems(listItem04);		cot04.persistirCotizacion();
+//				cot05.setItems(listItem05);		cot05.persistirCotizacion();
+//				cot06.setItems(listItem06);		cot06.persistirCotizacion();
+//				cot07.setItems(listItem07);		cot07.persistirCotizacion();
+//				cot08.setItems(listItem08);		cot08.persistirCotizacion();
+//				
+//				
 				
 				
 				

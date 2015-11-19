@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import dao.CotizacionDAO;
+import dao.RodamientoDAO;
 import utils.ItemDto;
 import utils.ItemNegocioList;
 import xml2.ListaComparativaXML;
@@ -79,12 +80,14 @@ public class AdministracionCC implements IAdministracionCC {
 	public void actualizarStock(List<ItemDto> listaItems, String accion) {
 		
 		List<RodamientoNegocio> listaRodamiento = new ArrayList<RodamientoNegocio>();
+		int cantidad=0;
 		
 		// Transformar DTO a negocio
 		for (int i=0; i<listaItems.size(); i++){		
-			RodamientoNegocio roda = new RodamientoNegocio();
+			RodamientoNegocio roda = new RodamientoNegocio();			
 			roda.aRodamientoNegocio(listaItems.get(i).getRodamiento());
-			listaRodamiento.add(roda);
+			cantidad = listaItems.get(i).getCantidad();
+			listaRodamiento.add(roda);			
 		}
 		
 		// Recorrer la lista de rodamientos
@@ -94,16 +97,22 @@ public class AdministracionCC implements IAdministracionCC {
 			rodamiento = rodamiento.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento.get(j));
 		
 			if( (accion.equalsIgnoreCase("sumar")) || (accion.equalsIgnoreCase("suma"))){
-				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j))+1);
+				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j)) + cantidad );
 				rodamiento.actualizarRodamiento();				
 			}
-			if( (accion.equalsIgnoreCase("restar")) || (accion.equalsIgnoreCase("resta"))){
-				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j))-1);
+			if( (accion.equalsIgnoreCase("restar")) || (accion.equalsIgnoreCase("resta"))){				
+				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j)) - cantidad );
 				rodamiento.actualizarRodamiento();
+				
+				// La validación que sigue es por si la cantidad pasa a ser un número negativo
+				int cantStock = rodamiento.buscarStock(listaRodamiento.get(j));
+				if(cantStock < 0){
+					rodamiento.setStock(0);
+					rodamiento.actualizarRodamiento();
+				}
 			}
 			
-		}
-		
+		}				
 		
 	}
 
