@@ -72,9 +72,29 @@ public class AdministracionCC implements IAdministracionCC {
 		return cotizacionesDto;
 	}
 
-	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
-		// TODO RAMA
-		return null;
+	
+	// TODO: Rama
+	public void crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
+		
+		ClienteNegocio cli = new ClienteNegocio();
+		cli.aClienteNegocio(cliente);
+		
+		RemitoNegocio remito = new RemitoNegocio();
+		remito.setCliente(cli);
+		remito.setComentarios("comentario");
+		remito.setConformidad(true);
+		remito.setEstado("generada");		
+		Calendar c = new GregorianCalendar();
+		remito.setFecha(c.getTime());
+		List<CotizacionNegocio> cotizacionesRemito = new ArrayList<CotizacionNegocio>();
+		List<ItemOrdenCompraNegocio> ordenCompraNegocio = new ArrayList<ItemOrdenCompraNegocio>();
+		List<Integer> idsOrdenes = new ArrayList<Integer>();
+		for(int i=0; i<listaOrdenes.size(); i++){
+			idsOrdenes.add(listaOrdenes.get(i).getIdOrdenCompra());
+			OrdenCompraNegocio orden = new OrdenCompraNegocio();
+			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
+		}
+		
 	}
 
 	public void actualizarStock(List<ItemDto> listaItems, String accion) {

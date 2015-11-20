@@ -7,6 +7,7 @@ import java.util.*;
 public class OrdenCompraDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private int idOrdenCompra;
 	private String formaPago;
 	private float total;	
 	private float descuento;
@@ -15,9 +16,10 @@ public class OrdenCompraDto implements Serializable{
 	private List <CotizacionDto> listaCotizaciones;
 	private String estado;
 	
-	public OrdenCompraDto(String formaPago, float total,
+	public OrdenCompraDto(int idOrdenCompra, String formaPago, float total,
 			float descuento, List<ItemOrdenCompraDto> items) {
 		super();
+		this.idOrdenCompra = idOrdenCompra;
 		this.formaPago = formaPago;
 		this.total = total;
 		this.descuento = descuento;
@@ -83,6 +85,19 @@ public class OrdenCompraDto implements Serializable{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public int getIdOrdenCompra() {
+		return idOrdenCompra;
+	}
+
+	public void setIdOrdenCompra(int idOrdenCompra) {
+		this.idOrdenCompra = idOrdenCompra;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	
 	
 }

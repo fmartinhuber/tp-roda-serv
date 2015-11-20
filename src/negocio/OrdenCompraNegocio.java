@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import dto.*;
+
 @Entity
 @Table(name="OrdenCompra")
 public class OrdenCompraNegocio{
@@ -109,6 +111,27 @@ public class OrdenCompraNegocio{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public int getIdOrdenCompra() {
+		return idOrdenCompra;
+	}
+
+	public void setIdOrdenCompra(int idOrdenCompra) {
+		this.idOrdenCompra = idOrdenCompra;
+	}
+
+	public void aOrdenCompraNegocio(OrdenCompraDto miOrdenDto) {
+		
+		this.setDescuento(miOrdenDto.getDescuento());
+		this.setEstado(miOrdenDto.getEstado());
+		this.setFormaPago(miOrdenDto.getFormaPago());
+		this.setTotal(miOrdenDto.getTotal());
+		List<ItemOrdenCompraNegocio> lista = new ArrayList<ItemOrdenCompraNegocio>();
+		// algun for
+		this.setItems(lista);
+
+		
 	}
 	
 	
