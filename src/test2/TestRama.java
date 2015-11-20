@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controlador.*;
+import dao.ClienteDAO;
 import dto.*;
 
 public class TestRama {
@@ -22,27 +23,32 @@ public class TestRama {
 		
 		AdministracionCC cc = new AdministracionCC();
 		
-		List<utils.ItemDto> listaItems = new ArrayList<utils.ItemDto>();	
-		RodamientoDto roda1 = new RodamientoDto();
-		RodamientoDto roda2 = new RodamientoDto();
-		int cantidad = 5;		
-		roda1.setCodigo("20210");
-		roda1.setOrigen("Suecia");
-		roda1.setMarca("SKF");		
-		roda2.setCodigo("21311 K");
-		roda2.setOrigen("Suecia");
-		roda2.setMarca("SKF");
-		utils.ItemDto itemNeg1 = new utils.ItemDto(roda1, cantidad);
-		utils.ItemDto itemNeg2 = new utils.ItemDto(roda2, cantidad);
-		listaItems.add(itemNeg1);
-		listaItems.add(itemNeg2);
+//		List<utils.ItemDto> listaItems = new ArrayList<utils.ItemDto>();	
+//		RodamientoDto roda1 = new RodamientoDto();
+//		RodamientoDto roda2 = new RodamientoDto();
+//		int cantidad = 5;		
+//		roda1.setCodigo("20210");
+//		roda1.setOrigen("Suecia");
+//		roda1.setMarca("SKF");		
+//		roda2.setCodigo("21311 K");
+//		roda2.setOrigen("Suecia");
+//		roda2.setMarca("SKF");
+//		utils.ItemDto itemNeg1 = new utils.ItemDto(roda1, cantidad);
+//		utils.ItemDto itemNeg2 = new utils.ItemDto(roda2, cantidad);
+//		listaItems.add(itemNeg1);
+//		listaItems.add(itemNeg2);
 				
-		// fijensé si el método está bien. Trataré de estar entre 23:00 y 23:20 (juega Independiente a las 21:30)
-		cc.actualizarStock(listaItems, "suma");
+//		cc.actualizarStock(listaItems, "suma");
 		
-		System.out.println("===================================================================================");
-		System.out.println("===================================================================================");
-		System.out.println("Se actualizo el stock");
+		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
+		ClienteDto cliente = new ClienteDto();
+		cliente.setCUIT("30-11111111-2");
+		cliente.setMail("compras@mecind.com.ar");
+		cliente.setRazonSocial("Mecanica Industrial SRL");
+		
+		cc.crearRemito(listaOrdenes, cliente);
+		System.out.println("Remito creado");
+		
 
 	}
 
