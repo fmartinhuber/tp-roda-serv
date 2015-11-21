@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import dao.FacturaDAO;
+import dao.RemitoDAO;
+
 @Entity
 @Table(name="Remito")
 public class RemitoNegocio{
@@ -92,6 +95,14 @@ public class RemitoNegocio{
 
 	public void setConformidad(boolean conformidad) {
 		this.conformidad = conformidad;
+	}
+
+	public void persistirRemito() {
+		RemitoDAO.getInstancia().merge(this);		
+	}
+	
+	public void updateRemito() {
+		RemitoDAO.getInstancia().update(this);		
 	}
 	
 

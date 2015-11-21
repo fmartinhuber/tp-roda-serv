@@ -33,16 +33,11 @@ import dto.SolicitudCompraDto;
 public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV administracion; 
-	//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
-	//sumado con el singleton en el medio seria una locura saber cuando se levanta tal o cual OV (y los constructores se harian multiples, demente)
-	//Creo una OV unica y se deberia sacar el singleton de esta clase, asi se puede dar de alta los controladores que se deseen para cada OV (negrisimo pero logico)
-	//De la forma que esta hecho ahora funciona para una unica OV
 	private static OVNegocio OficinaVentaNegocio;
 
 	public static AdministracionOV getInstancia(){
 		if(administracion == null){
 			administracion = new AdministracionOV();
-			OficinaVentaNegocio = new OVNegocio();
 		}
 		return administracion;
 	}

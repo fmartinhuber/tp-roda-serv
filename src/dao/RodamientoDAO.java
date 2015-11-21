@@ -4,12 +4,9 @@ import hbt.HibernateUtil;
 
 import java.util.List;
 
-import negocio.CotizacionNegocio;
-import negocio.RodamientoNegocio;
+import negocio.*;
 
 import org.hibernate.Session;
-
-import dto.RodamientoDto;
 
 
 public class RodamientoDAO extends HibernateDAO{
@@ -42,8 +39,19 @@ public class RodamientoDAO extends HibernateDAO{
 	public RodamientoNegocio buscarRodamientoPorCodigoMarcaOrigen(RodamientoNegocio rodamiento){
 		
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		RodamientoNegocio salida = (RodamientoNegocio) s.createQuery("from RodamientoNegocio where r.codigo = " + rodamiento.getCodigo() + " and r.marca = " +rodamiento.getMarca() + " and r.origen = " + rodamiento.getOrigen()).uniqueResult();
+		RodamientoNegocio salida = (RodamientoNegocio) s.createQuery("from RodamientoNegocio r where "
+				+ "r.codigo like '" +rodamiento.getCodigo() + "'" + " "
+				+ "and r.marca like '" +rodamiento.getMarca() + "'" + " "
+				+ "and r.origen like '" +rodamiento.getOrigen() +"'").uniqueResult();
 		s = null;
 		return salida;
+	}
+
+	public int buscarStock(RodamientoNegocio r) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		int stock = (int) s.createQuery("select r.stock from RodamientoNegocio r where r.codigo like '" + r.getCodigo() + "'" + " and r.marca like '" +r.getMarca() + "'" + " and r.origen like '" +r.getOrigen() + "'" ).uniqueResult();
+		
+		s = null;
+		return stock;
 	}
 }

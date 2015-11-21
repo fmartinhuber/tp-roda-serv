@@ -5,10 +5,10 @@
 	id="WebApp_ID" version="2.5" >
 	
  
-   <!--  <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    <servlet>
+   <!--  <servlet>
 		<servlet-name>CotizacionServlet</servlet-name>
 		<servlet-class>servlet.CotizacionServlet</servlet-class>
 	</servlet>
@@ -25,6 +25,7 @@
 	<servlet-mapping>
 		<servlet-name>CotizacionServlet</servlet-name>
 		<url-pattern>/buscarCotizaciones/</url-pattern>
-	</servlet-mapping>
-    --> 
+
+	</servlet-mapping>--> 
+    
 </web-app>

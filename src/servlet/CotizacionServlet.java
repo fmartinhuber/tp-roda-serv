@@ -48,10 +48,20 @@ public class CotizacionServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("metodo:" + request.getMethod());
+		if(request.getParameter("metodo").equals("generarCotizacion")){
+		   generarCotizaciones(request,response);
+	   }else if(request.getParameter("metodo").equals("aprobarCotizacion")){
+		   aprobarCotizaciones(request,response);
+	   }else if(request.getParameter("metodo").equals("buscarCotizaciones")){
+		   buscarCotizaciones(request,response);
+	   }else{
+	      super.service(request, response);
+	   }
 		
 		
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -66,7 +76,6 @@ public class CotizacionServlet extends HttpServlet {
 			List <ItemDto> listaItems = new ArrayList<ItemDto>();
 	
 			JSONArray jObj = new JSONArray(request.getParameter("listaRodamiento")); // this parses the json
-			System.out.println(jObj);
 			
 			
 			for (int i = 0; i < jObj.length(); i++) {
@@ -89,7 +98,6 @@ public class CotizacionServlet extends HttpServlet {
 				listaItems.add(item);
 				
 				//AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
-				
 				
 			}
 			
