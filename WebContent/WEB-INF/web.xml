@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="2.5" >
 	
  
-    <welcome-file-list>
+   <!--  <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
     <servlet>
@@ -19,12 +19,12 @@
 	
 	<servlet-mapping>
 		<servlet-name>CotizacionServlet</servlet-name>
-		<url-pattern>/generarCotizacion.do</url-pattern>
+		<url-pattern>/generarCotizacion.do*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>CotizacionServlet</servlet-name>
 		<url-pattern>/buscarCotizaciones/</url-pattern>
 	</servlet-mapping>
-    
+    --> 
 </web-app>
