@@ -20,7 +20,7 @@ public class FacturaNegocio{
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idFactura;	
+	private int idFactura;
 	private String estado; // Generada // enviada // pagada
 	private Date fecha;
 	@OneToOne(cascade=CascadeType.ALL)
