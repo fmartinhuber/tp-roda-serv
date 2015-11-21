@@ -21,24 +21,20 @@ public class AdministracionCC implements IAdministracionCC {
 	public AdministracionCC() {
 		casaCentralNegocio.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
 		casaCentralNegocio.setRodamientos(new ArrayList<RodamientoNegocio>());
-		casaCentralNegocio
-				.setListaPrincipal(new ArrayList<RodamientoNegocio>());
+		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 
-		// /*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver
-		// clase test.CargarDatosListaComparativa)
-		// IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes
-		// ejecutarlo desde TestDaro para generarlo*/
-		//
-		// //Levanto el XML RodamientosProveedores
-		// ItemNegocioList miItemNegocioList = new ItemNegocioList();
-		// miItemNegocioList =
-		// ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
-		//
-		// //Recorro el ItemNegocioList y cargo la listaComparativa
-		// for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
-		// casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
-		// }
+		/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
+		IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
+		
+		//Levanto el XML RodamientosProveedores
+		ItemNegocioList miItemNegocioList = new ItemNegocioList();
+		miItemNegocioList = ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
+		
+		//Recorro el ItemNegocioList y cargo la listaComparativa
+		for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
+			casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
+		}
 	}
 
 	public static AdministracionCC getInstancia() {
