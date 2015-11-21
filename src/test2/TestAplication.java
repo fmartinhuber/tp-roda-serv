@@ -1,12 +1,11 @@
 package test2;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
+import java.rmi.*;
+import java.util.*;
 
-import controlador.AdministracionOV;
-import dao.CCDAO;
-import dto.RodamientoDto;
+import controlador.*;
+
+import dto.*;
 
 public class TestAplication {
 
@@ -14,6 +13,7 @@ public class TestAplication {
 
 		AdministracionOV ov = AdministracionOV.getInstancia();
 		
+		@SuppressWarnings("unused")
 		List<RodamientoDto> aux = new ArrayList<RodamientoDto>();
 		aux = ov.obtenerRodamientos();
 		

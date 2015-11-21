@@ -3,10 +3,10 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import dao.CotizacionDAO;
-import dao.RodamientoDAO;
-import utils.ItemDto;
-import utils.ItemNegocioList;
+import dao.*;
+
+import utils.*;
+
 import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;

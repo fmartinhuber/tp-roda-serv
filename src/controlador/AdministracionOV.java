@@ -3,31 +3,18 @@ package controlador;
 import interfaces.IAdministracionOV;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
-import negocio.ClienteNegocio;
-import negocio.CotizacionNegocio;
-import negocio.FacturaNegocio;
-import negocio.ItemFacturaNegocio;
-import negocio.OVNegocio;
-import negocio.ProveedorNegocio;
-import negocio.RemitoNegocio;
-import negocio.RodamientoNegocio;
-import negocio.SolicitudCompraNegocio;
+import java.util.*;
+
+
+import negocio.*;
+
 import utils.ItemDto;
-import dao.CotizacionDAO;
-import dao.RodamientoDAO;
-import dto.BultoDto;
-import dto.ClienteDto;
-import dto.CotizacionDto;
-import dto.ItemCotizacionDto;
-import dto.RemitoDto;
-import dto.RodamientoDto;
-import dto.SolicitudCompraDto;
+
+import dao.*;
+
+import dto.*;
+
 
 //Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
 public class AdministracionOV implements IAdministracionOV{

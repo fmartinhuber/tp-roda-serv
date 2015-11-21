@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 

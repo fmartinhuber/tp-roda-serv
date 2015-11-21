@@ -2,19 +2,11 @@ package dao;
 
 import hbt.HibernateUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import negocio.CotizacionNegocio;
-import negocio.ProveedorNegocio;
+import negocio.*;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import negocio.ClienteNegocio;
-import negocio.CotizacionNegocio;
-import negocio.RodamientoNegocio;
+import org.hibernate.*;
 
 public class CotizacionDAO extends HibernateDAO{
 	

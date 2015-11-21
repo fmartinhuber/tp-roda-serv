@@ -1,11 +1,10 @@
 package test2;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import controlador.*;
-import dao.ClienteDAO;
+import dao.*;
 import dto.*;
 
 public class TestRama {
