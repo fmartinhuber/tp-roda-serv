@@ -4,9 +4,8 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import dao.*;
-
 import utils.*;
-
+import utils.ItemDto;
 import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;
@@ -83,14 +82,15 @@ public class AdministracionCC implements IAdministracionCC {
 		cli.aClienteNegocio(cliente);
 
 		RemitoNegocio remito = new RemitoNegocio();
+		// TODO: chequear acá porque me genera un cliente y lo asocia como el tujes
 		remito.setCliente(cli);
-		remito.setComentarios("Ingresar comentario");
+		remito.setComentarios("comentario 1");
 		remito.setConformidad(true); // qué joraca es esto?
-		remito.setEstado("Generado");
+		remito.setEstado("generado");
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 
-		// Falta agregar los ov_remitos
+		// Falta agregar los ov_remitos, primero encaro el cliente
 
 		// List<CotizacionNegocio> cotizacionesRemito = new
 		// ArrayList<CotizacionNegocio>();
