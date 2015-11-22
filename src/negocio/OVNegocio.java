@@ -25,9 +25,9 @@ public class OVNegocio{
 	@JoinColumn(name="ov_remitos")
 	private List <RemitoNegocio> remitos;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_proveedores")
-	private List <ProveedorNegocio> proveedores;
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@JoinColumn(name="ov_proveedores")
+//	private List <ProveedorNegocio> proveedores;
 
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_cotizaciones")
@@ -75,13 +75,13 @@ public class OVNegocio{
 		this.remitos = remitos;
 	}
 
-	public List<ProveedorNegocio> getProveedores() {
-		return proveedores;
-	}
-
-	public void setProveedores(List<ProveedorNegocio> proveedores) {
-		this.proveedores = proveedores;
-	}
+//	public List<ProveedorNegocio> getProveedores() {
+//		return proveedores;
+//	}
+//
+//	public void setProveedores(List<ProveedorNegocio> proveedores) {
+//		this.proveedores = proveedores;
+//	}
 
 	public List<CotizacionNegocio> getCotizaciones() {
 		return cotizaciones;

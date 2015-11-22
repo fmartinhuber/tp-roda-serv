@@ -14,8 +14,16 @@ public class CCNegocio {
 	private int idAdministracionCC;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_ov")
+	private List <OVNegocio> ovs;
+	
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_ordenes")
 	private List <OrdenCompraNegocio> ordenesP;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_proveedores")
+	private List <ProveedorNegocio> proveedores;
 	
 	/**
 	 *  Actualizar stock propio. (RAMA)

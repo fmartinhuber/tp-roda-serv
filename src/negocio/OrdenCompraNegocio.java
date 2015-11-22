@@ -18,8 +18,6 @@ public class OrdenCompraNegocio{
 	private float descuento;
 	private String estado;
 
-	//@OneToMany(fetch=FetchType.EAGER, mappedBy="club", cascade=CascadeType.ALL)
-	//@Fetch(FetchMode.SUBSELECT)
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="orden_item")
 	private List <ItemOrdenCompraNegocio> items;
@@ -28,21 +26,25 @@ public class OrdenCompraNegocio{
 	@PrimaryKeyJoinColumn
 	private ProveedorNegocio proveedor;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	private List<CotizacionNegocio> cotizaciones;
+	@OneToMany (cascade=CascadeType.ALL)
+	@JoinColumn(name="orden_solicitud")
+	private List<SolicitudCompraNegocio> solicitudesCompra;
 	
-	public OrdenCompraNegocio(String formaPago, float total,
-			float descuento, List<ItemOrdenCompraNegocio> items,
-			ProveedorNegocio prov, List<CotizacionNegocio> cotizaciones) {
+		
+	public OrdenCompraNegocio(int idOrdenCompra, String formaPago, float total, float descuento, String estado,
+			List<ItemOrdenCompraNegocio> items, ProveedorNegocio proveedor,
+			List<SolicitudCompraNegocio> solicitudesCompra) {
 		super();
+		this.idOrdenCompra = idOrdenCompra;
 		this.formaPago = formaPago;
 		this.total = total;
 		this.descuento = descuento;
+		this.estado = estado;
 		this.items = items;
-		this.proveedor = prov;
-		this.cotizaciones = cotizaciones;
+		this.proveedor = proveedor;
+		this.solicitudesCompra = solicitudesCompra;
 	}
-	
+
 	public OrdenCompraNegocio(){
 		
 	}
@@ -59,12 +61,12 @@ public class OrdenCompraNegocio{
 		this.proveedor = proveedor;
 	}
 
-	public List<CotizacionNegocio> getCotizaciones() {
-		return cotizaciones;
+	public List<SolicitudCompraNegocio> getSolicitudesCompra() {
+		return solicitudesCompra;
 	}
 
-	public void setCotizaciones(List<CotizacionNegocio> cotizaciones) {
-		this.cotizaciones = cotizaciones;
+	public void setSolicitudesCompra(List<SolicitudCompraNegocio> solicitudesCompra) {
+		this.solicitudesCompra = solicitudesCompra;
 	}
 
 	public void setFormaPago(String formaPago) {
