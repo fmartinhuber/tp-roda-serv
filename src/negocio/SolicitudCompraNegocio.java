@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -10,7 +10,7 @@ public class SolicitudCompraNegocio {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int idSolicitudCompra;
 	private String estado;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="solicitud_cotizacion")
@@ -19,7 +19,7 @@ public class SolicitudCompraNegocio {
 	
 	public SolicitudCompraNegocio(int id, String estado, List<CotizacionNegocio> listaCotizaciones) {
 		super();
-		this.id = id;
+		this.idSolicitudCompra = id;
 		this.estado = estado;
 		this.listaCotizaciones = listaCotizaciones;
 	}
@@ -29,11 +29,11 @@ public class SolicitudCompraNegocio {
 	}
 
 	public int getId() {
-		return id;
+		return idSolicitudCompra;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idSolicitudCompra = id;
 	}
 
 	public String getEstado() {

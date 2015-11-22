@@ -2,15 +2,11 @@ package negocio;
 
 import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import dao.ProveedorDAO;
-import dto.ProveedorDto;
+import dao.*;
+
+import dto.*;
 
 @Entity
 @Table(name="Proveedor")
@@ -20,19 +16,21 @@ public class ProveedorNegocio{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int IdProveedor;
 	private String nombre;
-	//@OneToMany (cascade=CascadeType.ALL)
-	//@JoinColumn(name="rodamiento_proveedor")
+	private String CUIT;
 	@OneToMany(mappedBy = "proveedor")
 	private List<RodamientoNegocio> rodamientos;
 	
 	
-	
-	public ProveedorNegocio(String nombre, List<RodamientoNegocio> rodamientos) {
+		
+	public ProveedorNegocio(int idProveedor, String nombre, String CUIT,
+			List<RodamientoNegocio> rodamientos) {
 		super();
+		IdProveedor = idProveedor;
 		this.nombre = nombre;
+		this.CUIT = CUIT;
 		this.rodamientos = rodamientos;
 	}
-	
+
 	public ProveedorNegocio(){
 		
 	}
@@ -80,6 +78,14 @@ public class ProveedorNegocio{
 
 	public void setIdProveedor(int idProveedor) {
 		IdProveedor = idProveedor;
+	}
+
+	public String getCUIT() {
+		return CUIT;
+	}
+
+	public void setCUIT(String CUIT) {
+		this.CUIT = CUIT;
 	}
 	
 }

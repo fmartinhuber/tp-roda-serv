@@ -3,10 +3,9 @@ package controlador;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import dao.CotizacionDAO;
-import dao.RodamientoDAO;
+import dao.*;
+import utils.*;
 import utils.ItemDto;
-import utils.ItemNegocioList;
 import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;
@@ -21,24 +20,20 @@ public class AdministracionCC implements IAdministracionCC {
 	public AdministracionCC() {
 		casaCentralNegocio.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
 		casaCentralNegocio.setRodamientos(new ArrayList<RodamientoNegocio>());
-		casaCentralNegocio
-				.setListaPrincipal(new ArrayList<RodamientoNegocio>());
+		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 
-		// /*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver
-		// clase test.CargarDatosListaComparativa)
-		// IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes
-		// ejecutarlo desde TestDaro para generarlo*/
-		//
-		// //Levanto el XML RodamientosProveedores
-		// ItemNegocioList miItemNegocioList = new ItemNegocioList();
-		// miItemNegocioList =
-		// ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
-		//
-		// //Recorro el ItemNegocioList y cargo la listaComparativa
-		// for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
-		// casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
-		// }
+		/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
+		IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
+		
+		//Levanto el XML RodamientosProveedores
+		ItemNegocioList miItemNegocioList = new ItemNegocioList();
+		miItemNegocioList = ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
+		
+		//Recorro el ItemNegocioList y cargo la listaComparativa
+		for (int i=0; i<miItemNegocioList.getMisItemsNegocio().size(); i++){
+			casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
+		}
 	}
 
 	public static AdministracionCC getInstancia() {
@@ -87,14 +82,15 @@ public class AdministracionCC implements IAdministracionCC {
 		cli.aClienteNegocio(cliente);
 
 		RemitoNegocio remito = new RemitoNegocio();
+		// TODO: chequear acá porque me genera un cliente y lo asocia como el tujes
 		remito.setCliente(cli);
-		remito.setComentarios("Ingresar comentario");
+		remito.setComentarios("comentario 1");
 		remito.setConformidad(true); // qué joraca es esto?
-		remito.setEstado("Generado");
+		remito.setEstado("generado");
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 
-		// Falta agregar los ov_remitos
+		// Falta agregar los ov_remitos, primero encaro el cliente
 
 		// List<CotizacionNegocio> cotizacionesRemito = new
 		// ArrayList<CotizacionNegocio>();

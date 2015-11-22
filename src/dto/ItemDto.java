@@ -1,7 +1,5 @@
 package dto;
 
-import dto.*;
-
 public class ItemDto {
 	private RodamientoDto rodamiento;
 	private int cantidad;

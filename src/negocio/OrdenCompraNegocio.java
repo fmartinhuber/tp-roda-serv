@@ -1,25 +1,18 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import dto.*;
 
 @Entity
 @Table(name="OrdenCompra")
-public class OrdenCompraNegocio{
+public class OrdenCompraNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idOrdenCompra;
@@ -28,8 +21,6 @@ public class OrdenCompraNegocio{
 	private float descuento;
 	private String estado;
 
-	//@OneToMany(fetch=FetchType.EAGER, mappedBy="club", cascade=CascadeType.ALL)
-	//@Fetch(FetchMode.SUBSELECT)
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="orden_item")
 	private List <ItemOrdenCompraNegocio> items;
@@ -38,71 +29,59 @@ public class OrdenCompraNegocio{
 	@PrimaryKeyJoinColumn
 	private ProveedorNegocio proveedor;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	private List<CotizacionNegocio> cotizaciones;
+	@OneToMany (cascade=CascadeType.ALL)
+	@JoinColumn(name="orden_solicitud")
+	private List<SolicitudCompraNegocio> solicitudesCompra;
 	
-	public OrdenCompraNegocio(String formaPago, float total,
-			float descuento, List<ItemOrdenCompraNegocio> items,
-			ProveedorNegocio prov, List<CotizacionNegocio> cotizaciones) {
+		
+	public OrdenCompraNegocio(int idOrdenCompra, String formaPago, float total, float descuento, String estado,
+			List<ItemOrdenCompraNegocio> items, ProveedorNegocio proveedor,
+			List<SolicitudCompraNegocio> solicitudesCompra) {
 		super();
+		this.idOrdenCompra = idOrdenCompra;
 		this.formaPago = formaPago;
 		this.total = total;
 		this.descuento = descuento;
+		this.estado = estado;
 		this.items = items;
-		this.proveedor = prov;
-		this.cotizaciones = cotizaciones;
+		this.proveedor = proveedor;
+		this.solicitudesCompra = solicitudesCompra;
 	}
-	
+
 	public OrdenCompraNegocio(){
 		
+	}
+
+	public int getIdOrdenCompra() {
+		return idOrdenCompra;
+	}
+
+	public void setIdOrdenCompra(int idOrdenCompra) {
+		this.idOrdenCompra = idOrdenCompra;
 	}
 
 	public String getFormaPago() {
 		return formaPago;
 	}
-	
-	public ProveedorNegocio getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(ProveedorNegocio proveedor) {
-		this.proveedor = proveedor;
-	}
-
-	public List<CotizacionNegocio> getCotizaciones() {
-		return cotizaciones;
-	}
-
-	public void setCotizaciones(List<CotizacionNegocio> cotizaciones) {
-		this.cotizaciones = cotizaciones;
-	}
 
 	public void setFormaPago(String formaPago) {
 		this.formaPago = formaPago;
 	}
-	
+
 	public float getTotal() {
 		return total;
 	}
-	
+
 	public void setTotal(float total) {
 		this.total = total;
 	}
-	
+
 	public float getDescuento() {
 		return descuento;
 	}
-	
+
 	public void setDescuento(float descuento) {
 		this.descuento = descuento;
-	}
-	
-	public List<ItemOrdenCompraNegocio> getItems() {
-		return items;
-	}
-	
-	public void setItems(List<ItemOrdenCompraNegocio> items) {
-		this.items = items;
 	}
 
 	public String getEstado() {
@@ -113,12 +92,28 @@ public class OrdenCompraNegocio{
 		this.estado = estado;
 	}
 
-	public int getIdOrdenCompra() {
-		return idOrdenCompra;
+	public List<ItemOrdenCompraNegocio> getItems() {
+		return items;
 	}
 
-	public void setIdOrdenCompra(int idOrdenCompra) {
-		this.idOrdenCompra = idOrdenCompra;
+	public void setItems(List<ItemOrdenCompraNegocio> items) {
+		this.items = items;
+	}
+
+	public ProveedorNegocio getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorNegocio proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	public List<SolicitudCompraNegocio> getSolicitudesCompra() {
+		return solicitudesCompra;
+	}
+
+	public void setSolicitudesCompra(List<SolicitudCompraNegocio> solicitudesCompra) {
+		this.solicitudesCompra = solicitudesCompra;
 	}
 
 	public void aOrdenCompraNegocio(OrdenCompraDto miOrdenDto) {

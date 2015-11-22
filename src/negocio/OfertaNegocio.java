@@ -1,14 +1,14 @@
 package negocio;
 
 
-
+//TODO: no tiene ninguna Entity
 public class OfertaNegocio extends RodamientoNegocio{
 
 	private float descuento;
 	private int volumen;
 	private int stock;
 	
-		
+	
 	
 	public OfertaNegocio(float descuento, int volumen, int stock) {
 		super();

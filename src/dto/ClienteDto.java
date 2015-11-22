@@ -2,10 +2,6 @@ package dto;
 
 import java.io.Serializable;
 
-import negocio.ClienteNegocio;
-
-
-
 public class ClienteDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;

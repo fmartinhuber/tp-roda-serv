@@ -2,20 +2,12 @@ package negocio;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.*;
 
-import dao.CotizacionDAO;
+import javax.xml.bind.annotation.*;
+
+import dao.*;
+
 import dto.*;
 
 /**
@@ -114,6 +106,7 @@ public class CotizacionNegocio{
 			//Creo el item Dto
 			ItemCotizacionDto miItCotDto = new ItemCotizacionDto();
 			//Obtengo el itemNegocio iterado de la lista
+			@SuppressWarnings("unused")
 			ItemCotizacionNegocio miItCotNeg = this.getItems().get(i);
 			//Lo trasnformo
 			miItCotDto = this.getItems().get(i).aItemCotizacionDto();

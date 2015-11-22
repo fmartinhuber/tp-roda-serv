@@ -1,12 +1,16 @@
 package negocio;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="CC")
-public class CCNegocio {
+public class CCNegocio implements Serializable {
+
+	@Transient
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -14,8 +18,16 @@ public class CCNegocio {
 	private int idAdministracionCC;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_ov")
+	private List <OVNegocio> ovs;
+	
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_ordenes")
 	private List <OrdenCompraNegocio> ordenesP;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="cc_proveedores")
+	private List <ProveedorNegocio> proveedores;
 	
 	/**
 	 *  Actualizar stock propio. (RAMA)

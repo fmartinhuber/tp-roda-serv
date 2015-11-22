@@ -1,8 +1,10 @@
 package negocio;
 
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
+
+import dao.OVDAO;
 
 @Entity
 @Table(name="OV")
@@ -25,9 +27,9 @@ public class OVNegocio{
 	@JoinColumn(name="ov_remitos")
 	private List <RemitoNegocio> remitos;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ov_proveedores")
-	private List <ProveedorNegocio> proveedores;
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@JoinColumn(name="ov_proveedores")
+//	private List <ProveedorNegocio> proveedores;
 
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_cotizaciones")
@@ -75,13 +77,13 @@ public class OVNegocio{
 		this.remitos = remitos;
 	}
 
-	public List<ProveedorNegocio> getProveedores() {
-		return proveedores;
-	}
-
-	public void setProveedores(List<ProveedorNegocio> proveedores) {
-		this.proveedores = proveedores;
-	}
+//	public List<ProveedorNegocio> getProveedores() {
+//		return proveedores;
+//	}
+//
+//	public void setProveedores(List<ProveedorNegocio> proveedores) {
+//		this.proveedores = proveedores;
+//	}
 
 	public List<CotizacionNegocio> getCotizaciones() {
 		return cotizaciones;
@@ -105,6 +107,14 @@ public class OVNegocio{
 
 	public void setSolicitudes(List<SolicitudCompraNegocio> solicitudes) {
 		this.solicitudes = solicitudes;
+	}
+
+	public void persistirOV() {
+		OVDAO.getInstancia().persist(this);
+	}
+
+	public void updateOV() {
+		OVDAO.getInstancia().update(this);
 	}
 
 }
