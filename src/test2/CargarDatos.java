@@ -151,22 +151,42 @@ public class CargarDatos {
 				prov06.setRodamientos(listProv06);		prov06.updateProveedor();
 				prov07.setRodamientos(listProv07);		prov07.updateProveedor();
 				prov08.setRodamientos(listProv08);		prov08.updateProveedor();
-
+				
+		//Alta de OV
+				OVNegocio OV1 = new OVNegocio(); OV1.setCentroIndustrial("Complejo Industrial Campana"); OV1.persistirOV();
+				OVNegocio OV2 = new OVNegocio(); OV2.setCentroIndustrial("Polo Agroindustrial Lujan"); OV2.persistirOV();
+				OVNegocio OV3 = new OVNegocio(); OV3.setCentroIndustrial("Polo Petroquimico Bahia Blanca"); OV3.persistirOV();				
+				
 		// Alta de Clientes
 				
-				ClienteNegocio cli01 = new ClienteNegocio("Mecanica Industrial SRL", "compras@mecind.com.ar", "30-11111111-2");
-				ClienteNegocio cli02 = new ClienteNegocio("Maquinaria Industrial SA", "compras@mi.com.ar", "30-22222222-3");
-				ClienteNegocio cli03 = new ClienteNegocio("Isolda e Hijos SRL", "jose.rodriguez@isolda.com", "30-33333333-4");
-				ClienteNegocio cli04 = new ClienteNegocio("Cooperativa Industrial Campo Santo", "compras@camposanto.coop.ar", "30-44444444-5");
-				ClienteNegocio cli05 = new ClienteNegocio("Industrial Rosales SA", "roberto.fuentes@rosales.com.ar", "30-55555555-6");
-				ClienteNegocio cli06 = new ClienteNegocio("Tubos Norte SRL", "compras@tubosnorte.com", "30-66666666-7");
+				ClienteNegocio cli01 = new ClienteNegocio("Mecanica Industrial SRL", "compras@mecind.com.ar", "30-11111111-2"); cli01.persistirCliente();
+				ClienteNegocio cli02 = new ClienteNegocio("Maquinaria Industrial SA", "compras@mi.com.ar", "30-22222222-3"); cli02.persistirCliente();
+				ClienteNegocio cli03 = new ClienteNegocio("Isolda e Hijos SRL", "jose.rodriguez@isolda.com", "30-33333333-4"); cli03.persistirCliente();
+				ClienteNegocio cli04 = new ClienteNegocio("Cooperativa Industrial Campo Santo", "compras@camposanto.coop.ar", "30-44444444-5"); cli04.persistirCliente();
+				ClienteNegocio cli05 = new ClienteNegocio("Industrial Rosales SA", "roberto.fuentes@rosales.com.ar", "30-55555555-6"); cli05.persistirCliente();
+				ClienteNegocio cli06 = new ClienteNegocio("Tubos Norte SRL", "compras@tubosnorte.com", "30-66666666-7"); cli06.persistirCliente();
+				ClienteNegocio cli07 = new ClienteNegocio("Repuestos Bahia", "compras@tubosnorte.com", "30-66666667-7"); cli07.persistirCliente();
+				ClienteNegocio cli08 = new ClienteNegocio("Agro Negocios Lujar", "compras@tubosnorte.com", "30-66668666-7"); cli08.persistirCliente();
+				ClienteNegocio cli09 = new ClienteNegocio("Rodamientos Ingeniero White", "compras@tubosnorte.com", "30-67766666-7"); cli09.persistirCliente();
+				ClienteNegocio cli10 = new ClienteNegocio("Bahia Rodamientos", "compras@tubosnorte.com", "30-66699666-7"); cli10.persistirCliente();
+				ClienteNegocio cli11 = new ClienteNegocio("Agro Rodamientos", "compras@tubosnorte.com", "30-66662266-7"); cli11.persistirCliente();
+				ClienteNegocio cli12 = new ClienteNegocio("Peroti Rodamientos e Hijos", "compras@tubosnorte.com", "30-61236666-7"); cli12.persistirCliente();
+				ClienteNegocio cli13 = new ClienteNegocio("Rodamientos San Nicolas", "compras@tubosnorte.com", "30-66634566-7"); cli13.persistirCliente();
 				
-				cli01.persistirCliente();
-				cli02.persistirCliente();
-				cli03.persistirCliente();
-				cli04.persistirCliente();
-				cli05.persistirCliente();
-				cli06.persistirCliente();
+		// Asociamos Clientes a OV's
+				
+				ArrayList<ClienteNegocio> clientesOV01 = new ArrayList<ClienteNegocio>();
+				ArrayList<ClienteNegocio> clientesOV02 = new ArrayList<ClienteNegocio>();
+				ArrayList<ClienteNegocio> clientesOV03 = new ArrayList<ClienteNegocio>();
+				
+				clientesOV01.add(cli01); clientesOV01.add(cli02); clientesOV01.add(cli13); clientesOV01.add(cli10);
+				clientesOV02.add(cli03); clientesOV02.add(cli07); clientesOV02.add(cli08);
+				clientesOV03.add(cli04); clientesOV03.add(cli05); clientesOV03.add(cli06); clientesOV03.add(cli09); clientesOV03.add(cli11); clientesOV03.add(cli12);
+				
+				OV1.setClientes(clientesOV01); OV1.updateOV();
+				OV2.setClientes(clientesOV02); OV2.updateOV();
+				OV3.setClientes(clientesOV03); OV3.updateOV();
+				
 
 		// Alta de cotizaciones
 				// Seteo de fechas				
@@ -185,6 +205,7 @@ public class CargarDatos {
 				CotizacionNegocio cot06 = new CotizacionNegocio();	cot06.setCliente(cli03); 	cot06.setEstado("aprobada"); 	cot06.setFechaCreacion(day02); 	cot06.setFechaVigencia(day07);
 				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
 				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
+				
 				
 				// Alta de itemsCotizacion
 				List<ItemCotizacionNegocio> listItem01 = new ArrayList<ItemCotizacionNegocio>();
@@ -238,8 +259,19 @@ public class CargarDatos {
 				cot08.setItems(listItem08);		cot08.persistirCotizacion();
 				
 				
+		// Asociamos cotizaciones a OV'S
 				
+				ArrayList<CotizacionNegocio> cotizacionesOV1 = new ArrayList<CotizacionNegocio>();
+				ArrayList<CotizacionNegocio> cotizacionesOV2 = new ArrayList<CotizacionNegocio>();
+				ArrayList<CotizacionNegocio> cotizacionesOV3 = new ArrayList<CotizacionNegocio>();
 				
+				cotizacionesOV1.add(cot01); cotizacionesOV1.add(cot02); cotizacionesOV1.add(cot03);cotizacionesOV1.add(cot05);
+				cotizacionesOV2.add(cot06); cotizacionesOV2.add(cot08);
+				cotizacionesOV3.add(cot04); cotizacionesOV3.add(cot07);				
+				
+				OV1.setCotizaciones(cotizacionesOV1); OV1.updateOV();
+				OV2.setCotizaciones(cotizacionesOV2); OV2.updateOV();
+				OV3.setCotizaciones(cotizacionesOV3); OV3.updateOV();
 				
 				
 	}

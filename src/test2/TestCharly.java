@@ -32,9 +32,9 @@ public class TestCharly {
 		
 		//c.procesarCotizaciones(1);
 		
-		List<Integer> parametros = new ArrayList<Integer>();
-		parametros.add(1);
-		parametros.add(2);
+		//List<Integer> parametros = new ArrayList<Integer>();
+		//parametros.add(1);
+		//parametros.add(2);
 		//c.Prueba(parametros);
 		//c.GenerarFactura(parametros, 1);
 		

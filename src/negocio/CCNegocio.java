@@ -1,12 +1,16 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="CC")
-public class CCNegocio {
+public class CCNegocio implements Serializable {
+
+	@Transient
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

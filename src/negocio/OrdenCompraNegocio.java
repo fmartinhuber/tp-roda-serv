@@ -1,5 +1,6 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
@@ -8,8 +9,10 @@ import dto.*;
 
 @Entity
 @Table(name="OrdenCompra")
-public class OrdenCompraNegocio{
+public class OrdenCompraNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idOrdenCompra;
@@ -49,10 +52,54 @@ public class OrdenCompraNegocio{
 		
 	}
 
+	public int getIdOrdenCompra() {
+		return idOrdenCompra;
+	}
+
+	public void setIdOrdenCompra(int idOrdenCompra) {
+		this.idOrdenCompra = idOrdenCompra;
+	}
+
 	public String getFormaPago() {
 		return formaPago;
 	}
-	
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
+	}
+
+	public float getTotal() {
+		return total;
+	}
+
+	public void setTotal(float total) {
+		this.total = total;
+	}
+
+	public float getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(float descuento) {
+		this.descuento = descuento;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public List<ItemOrdenCompraNegocio> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemOrdenCompraNegocio> items) {
+		this.items = items;
+	}
+
 	public ProveedorNegocio getProveedor() {
 		return proveedor;
 	}
@@ -67,50 +114,6 @@ public class OrdenCompraNegocio{
 
 	public void setSolicitudesCompra(List<SolicitudCompraNegocio> solicitudesCompra) {
 		this.solicitudesCompra = solicitudesCompra;
-	}
-
-	public void setFormaPago(String formaPago) {
-		this.formaPago = formaPago;
-	}
-	
-	public float getTotal() {
-		return total;
-	}
-	
-	public void setTotal(float total) {
-		this.total = total;
-	}
-	
-	public float getDescuento() {
-		return descuento;
-	}
-	
-	public void setDescuento(float descuento) {
-		this.descuento = descuento;
-	}
-	
-	public List<ItemOrdenCompraNegocio> getItems() {
-		return items;
-	}
-	
-	public void setItems(List<ItemOrdenCompraNegocio> items) {
-		this.items = items;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public int getIdOrdenCompra() {
-		return idOrdenCompra;
-	}
-
-	public void setIdOrdenCompra(int idOrdenCompra) {
-		this.idOrdenCompra = idOrdenCompra;
 	}
 
 	public void aOrdenCompraNegocio(OrdenCompraDto miOrdenDto) {

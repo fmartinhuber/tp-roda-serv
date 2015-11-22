@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import dao.OVDAO;
+
 @Entity
 @Table(name="OV")
 public class OVNegocio{
@@ -105,6 +107,14 @@ public class OVNegocio{
 
 	public void setSolicitudes(List<SolicitudCompraNegocio> solicitudes) {
 		this.solicitudes = solicitudes;
+	}
+
+	public void persistirOV() {
+		OVDAO.getInstancia().persist(this);
+	}
+
+	public void updateOV() {
+		OVDAO.getInstancia().update(this);
 	}
 
 }
