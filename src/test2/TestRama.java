@@ -3,6 +3,7 @@ package test2;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import negocio.ClienteNegocio;
 import controlador.*;
 import dao.*;
 import dto.*;
@@ -20,8 +21,6 @@ public class TestRama {
 //		CargarDatos.getInstance().cargaDeDatos();
 //		System.out.println("Carga Finalizada");
 		
-		AdministracionCC cc = new AdministracionCC();
-		
 //		List<utils.ItemDto> listaItems = new ArrayList<utils.ItemDto>();	
 //		RodamientoDto roda1 = new RodamientoDto();
 //		RodamientoDto roda2 = new RodamientoDto();
@@ -36,16 +35,20 @@ public class TestRama {
 //		utils.ItemDto itemNeg2 = new utils.ItemDto(roda2, cantidad);
 //		listaItems.add(itemNeg1);
 //		listaItems.add(itemNeg2);
-				
+		
 //		cc.actualizarStock(listaItems, "suma");
 		
+		//TODO RAMA: Aca consultar el cliente de la base por CUIT, de esa forma viene bien y no se carga uno nuevo
+		
 		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
+		listaOrdenes = null;
+		
 		ClienteDto cliente = new ClienteDto();
 		cliente.setCUIT("30-11111111-2");
 		cliente.setMail("compras@mecind.com.ar");
 		cliente.setRazonSocial("Mecanica Industrial SRL");
 		
-		cc.crearRemito(listaOrdenes, cliente);
+		AdministracionCC.getInstancia().crearRemito(listaOrdenes, cliente);
 		System.out.println("Remito creado");
 		
 

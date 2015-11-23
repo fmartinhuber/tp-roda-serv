@@ -31,7 +31,6 @@ public class ClienteNegocio{
 	}
 	
 	public void aClienteNegocio(dto.ClienteDto clienteDto) {
-		
 		//Asigno los atributos simples
 		this.setCUIT(clienteDto.getCUIT());
 		this.setMail(clienteDto.getMail());

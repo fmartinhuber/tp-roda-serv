@@ -78,8 +78,7 @@ public class AdministracionCC implements IAdministracionCC {
 	// TODO: Rama
 	public void crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
 
-		ClienteNegocio cli = new ClienteNegocio();
-		cli.aClienteNegocio(cliente);
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
 
 		RemitoNegocio remito = new RemitoNegocio();
 		// TODO: chequear acá porque me genera un cliente y lo asocia como el tujes
@@ -103,7 +102,7 @@ public class AdministracionCC implements IAdministracionCC {
 		// orden.aOrdenCompraNegocio(listaOrdenes.get(i));
 		// }
 
-		remito.persistirRemito();
+		remito.mergearRemito();
 
 	}
 

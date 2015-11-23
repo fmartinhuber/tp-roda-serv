@@ -89,7 +89,11 @@ public class RemitoNegocio{
 	}
 
 	public void persistirRemito() {
-		RemitoDAO.getInstancia().merge(this);		
+		RemitoDAO.getInstancia().persist(this);		
+	}
+	
+	public void mergearRemito(){
+		RemitoDAO.getInstancia().merge(this);
 	}
 	
 	public void updateRemito() {
