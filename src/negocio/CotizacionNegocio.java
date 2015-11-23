@@ -63,7 +63,7 @@ public class CotizacionNegocio implements Serializable{
 	 */
 	public void aCotizacionNegocio (CotizacionDto miCotDto){
 		//Asigno los atributos simples
-		this.setIdCotizacion(miCotDto.getIdCotizacion());
+		this.setIdCotizacion(miCotDto.getNumeroCotizacion());
 		this.setEstado(miCotDto.getEstado());
 		this.setFechaCreacion(miCotDto.getFechaCreacion());
 		this.setFechaVigencia(miCotDto.getFechaVigencia());
@@ -99,7 +99,7 @@ public class CotizacionNegocio implements Serializable{
 		//Creo la salida del metodo
 		CotizacionDto miCotDto = new CotizacionDto();
 		//Asigno los atributos simples
-		miCotDto.setIdCotizacion(this.getIdCotizacion());
+		miCotDto.setNumeroCotizacion(this.getIdCotizacion());
 		miCotDto.setEstado(this.getEstado());
 		miCotDto.setFechaCreacion(this.getFechaCreacion());
 		miCotDto.setFechaVigencia(this.getFechaVigencia());

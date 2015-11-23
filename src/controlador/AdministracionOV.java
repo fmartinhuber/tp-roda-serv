@@ -191,18 +191,19 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		// Crear ItemsFactura
 		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
-<<<<<<< Upstream, based on origin/master
 		for(int i=0; i<cotis.size(); i++){
+			//TODO CARLOS: Revisa esto
 			//idsCoti.add(cotis.get(i).getIdCotizacion());
 			CotizacionNegocio coti = new CotizacionNegocio(); //buscarCotizacion(idsCoti.get(i).intValue());
 			coti.aCotizacionNegocio(cotis.get(i));
-			cotizacionesFactura.add(coti);
+			//TODO CARLOS: Revisa esto, rompe, mal merge parece
+			//cotizacionesFactura.add(coti);
 			ActualizarEstadoCotizacion(coti, "SOLICITADA");
 		}	
-		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
-=======
+		//TODO CARLOS: Revisa esto, rompe, mal merge parece
+		//List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
->>>>>>> 34addb2 hola
+		
 		for(int i=0; i<misObjects.size(); i++){
 			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
 			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
