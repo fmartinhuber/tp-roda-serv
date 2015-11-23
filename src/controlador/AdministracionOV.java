@@ -293,7 +293,14 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 		AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().add(clientenNegocio);
 		return;
 		*/		
-		ClienteDAO.getInstancia().persist(cliente);
+		
+		//ClienteDAO.getInstancia().persist(cliente);
+		
+		ClienteNegocio cli = new ClienteNegocio();
+		cli.setCUIT(cliente.getCUIT());
+		cli.setMail(cliente.getMail());
+		cli.setRazonSocial(cliente.getRazonSocial());
+		cli.persistirCliente();
 		
 	}
 
