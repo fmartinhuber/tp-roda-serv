@@ -3,11 +3,16 @@ package negocio;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import dao.*;
 
 @Entity
 @Table(name="Factura")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class FacturaNegocio{
 	
 	@Id 

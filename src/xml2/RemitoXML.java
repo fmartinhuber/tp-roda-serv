@@ -38,7 +38,7 @@ public class RemitoXML {
 	
 	
 	/*Este metodo recibe un RemitoNegocio y lo guarda en un XML, cuyo nombre sera devuelto*/
-	public String ordencompraTOxml(RemitoNegocio miRemNeg){
+	public String remitoTOxml(RemitoNegocio miRemNeg){
 		
 		//Creo el formato del nombre con la fecha actual
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd_HHmmss");

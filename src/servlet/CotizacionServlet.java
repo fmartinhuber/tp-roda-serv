@@ -1,5 +1,7 @@
 package servlet;
 
+import interfaces.IAdministracionOV;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,7 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dto.ItemDto;
+import utils.ItemDto;
 import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
@@ -97,10 +99,16 @@ public class CotizacionServlet extends HttpServlet {
 				item.setRodamiento(rodamiento);
 				item.setCantidad(Integer.valueOf(cantidad));
 				listaItems.add(item);
-				
-				//AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
-				
+					
 			}
+			
+			//TODO MARTIN
+			AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
+			
+			//IAdministracionOV miIOV;
+			//miIOV = null;
+			//miIOV.crearCotizacion(listaItems, cliente);
+			//IAdministracionOV.crearCotizacion(listaItems, cliente);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
 			dispatcher.forward(request,response);
@@ -139,7 +147,7 @@ public class CotizacionServlet extends HttpServlet {
 		
 		CotizacionDto cotizacion = new CotizacionDto();
 		
-		cotizacion.setIdCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
+		cotizacion.setNumeroCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
 	
 		
 		AdministracionOV.getInstancia().aprobarYCotizarCotizacion(cotizacion);	

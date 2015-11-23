@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
 import dto.CotizacionDto;
-import dto.ItemDto;
 import dto.RodamientoDto;
 
 /**
@@ -70,7 +69,7 @@ public class FacturaServlet extends HttpServlet {
 				JSONObject objeto = jObj.getJSONObject(i);
 				String codigo = objeto.getString("codigo");
 				CotizacionDto item = new CotizacionDto();
-				item.setIdCotizacion(Integer.valueOf(codigo));
+				item.setNumeroCotizacion(Integer.valueOf(codigo));
 				listaCotizaciones.add(item);
 				
 			}

@@ -30,7 +30,7 @@ public class ItemCotizacionNegocio{
 	//TODO
 	public void aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
 		
-		this.setIdItemCotizacion(miItCotDto.getIdItemCotizacion());
+		//this.setIdItemCotizacion(miItCotDto.getIdItemCotizacion());
 		this.setPrecio(miItCotDto.getPrecio());
 		this.setCantidad(miItCotDto.getCant());
 		RodamientoNegocio roda = new RodamientoNegocio();

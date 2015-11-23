@@ -3,12 +3,16 @@ package negocio;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import utils.ItemNegocio;
 
-
 @Entity
 @Table(name="Bulto")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class BultoNegocio {
 
 	@Id
