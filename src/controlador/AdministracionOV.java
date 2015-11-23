@@ -3,33 +3,31 @@ package controlador;
 import interfaces.IAdministracionOV;
 
 import java.rmi.RemoteException;
-
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
-
 import negocio.*;
-
 import utils.ItemDto;
-
 import dao.*;
-
 import dto.*;
 
 
 //Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
-public class AdministracionOV implements IAdministracionOV{
-
+public class AdministracionOV extends UnicastRemoteObject implements IAdministracionOV{
+	
+	private static final long serialVersionUID = 1L;
+	
 	public static AdministracionOV administracion; 
 	private static OVNegocio OficinaVentaNegocio;
 
-	public static AdministracionOV getInstancia(){
+	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){
 			administracion = new AdministracionOV();
 		}
 		return administracion;
 	}
 
-	public AdministracionOV(){
+	public AdministracionOV() throws RemoteException{
 //		this.getOficinaVentaNegocio().setClientes(new ArrayList <ClienteNegocio>());
 //		this.getOficinaVentaNegocio().setFacturas(new ArrayList <FacturaNegocio>());
 //		this.getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
@@ -288,24 +286,30 @@ public class AdministracionOV implements IAdministracionOV{
 //	}
 
 	@Override
-	public void altaCliente(ClienteDto cliente) throws RemoteException {
+	public void crearCliente(ClienteDto cliente) throws RemoteException {
+		
+		/*
 		ClienteNegocio clientenNegocio = new ClienteNegocio(cliente.getRazonSocial(), cliente.getMail(), cliente.getCUIT());
 		AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().add(clientenNegocio);
 		return;
+		*/		
+		ClienteDAO.getInstancia().persist(cliente);
+		
 	}
 
 	@Override
-	public void bajaCliente(ClienteDto cliente) throws RemoteException {
+	public void eliminarCliente(ClienteDto cliente) throws RemoteException {
 		// TODO Auto-generated method stub
 		//AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().remove(index);
-		return;
+		
+		ClienteDAO.getInstancia().delete(cliente);
+		
 	}
 
 	@Override
-	public void modificacionCliente(ClienteDto cliente)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return;
+	public void modificarCliente(ClienteDto cliente) throws RemoteException {
+
+		ClienteDAO.getInstancia().update(cliente);
 	}
 
 	public OVNegocio getOficinaVentaNegocio() {

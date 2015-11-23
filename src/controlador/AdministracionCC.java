@@ -165,14 +165,12 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	@Deprecated
-	public List<RodamientoDto> obtenerListaComparativaOpcional()
-			throws RemoteException {
+	public List<RodamientoDto> obtenerListaComparativaOpcional() throws RemoteException {
 		// TODO REVISAR.
 		return null;
 	}
 
-	public void actualizarListaComparativa(List<RodamientoDto> listado)
-			throws RemoteException {
+	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
 		// TODO REVISAR.
 		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio
 				.getListaPrincipal().iterator();
@@ -254,27 +252,23 @@ public class AdministracionCC implements IAdministracionCC {
 	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
 		this.casaCentralNegocio = casaCentralNegocio;
 	}
-
-	@Override
-	public void altaProveedor(ProveedorDto proveedor) throws RemoteException {
-		// TODO no se que onda esto, porque la lista de proveedores esta en la
+	
+	public void crearProveedor(ProveedorDto proveedor) throws RemoteException {
+/*		// TODO no se que onda esto, porque la lista de proveedores esta en la
 		// OV, no tendria que estar en la CC?
 		ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
 		// AdministracionCC.getInstancia().getCasaCentralNegocio();
 		return;
+		*/
+		ProveedorDAO.getInstancia().persist(proveedor);
+	}
+	
+	public void eliminarProveedor(ProveedorDto proveedor) throws RemoteException {
+		ProveedorDAO.getInstancia().delete(proveedor);
 	}
 
-	@Override
-	public void bajaProveedor(ProveedorDto proveedor) throws RemoteException {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public void modificacionProveedor(ProveedorDto proveedor)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return;
+	public void modificarProveedor(ProveedorDto proveedor) throws RemoteException {
+		ProveedorDAO.getInstancia().update(proveedor);
 	}
 
 }
