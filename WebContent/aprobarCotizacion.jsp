@@ -28,15 +28,15 @@
 			<tr>
 				<td>Nro cotizacion:</td>
 				<td>
-					<select name="cotizacionSeleccionada">
+					<!--  <select name="cotizacionSeleccionada">
 						<option value="${cotizacionSeleccionada}" selected>${cotizacionSeleccionada}</option>
 						<c:forEach items="${arrayCotizaciones}" var="cotizacion">
 							<c:if test="${cotizacion != selected}">
 								<option value="${cotizacion}">${cotizacion}</option>
 							</c:if>
 						</c:forEach>
-					</select>
-					<!--  <input type="TEXT" id="cotizacionSeleccionada" value="1">-->
+					</select>-->
+					<input type="TEXT" id="cotizacionSeleccionada" value="1">
 				</td>
 			</tr>
 			<!--<jsp:getProperty property="items" name="CotizacionDtoId" />-->

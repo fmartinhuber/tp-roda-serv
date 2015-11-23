@@ -23,6 +23,7 @@ import dto.ItemDto;
 import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
+import dto.CotizacionDto;
 import dto.RodamientoDto;
 
 /**
@@ -126,6 +127,8 @@ public class CotizacionServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/aprobarCotizacion.jsp");
 		dispatcher.forward(request,response);
+		
+		
 	
 	}
 	
@@ -134,18 +137,15 @@ public class CotizacionServlet extends HttpServlet {
 		ClienteNegocio clienteNegocio = new ClienteNegocio();
 		clienteNegocio.setCUIT(request.getParameter("cuit"));
 		
-		List <CotizacionNegocio> cotizaciones = AdministracionOV.getInstancia().obtenerCotizacionesDeCiente(clienteNegocio);
+		CotizacionDto cotizacion = new CotizacionDto();
 		
-		String [] arrayCotizaciones = new String [cotizaciones.size()];
+		cotizacion.setIdCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
+	
 		
-		for (int i = 0; i < arrayCotizaciones.length; i++) {
-			arrayCotizaciones[i] = String.valueOf(cotizaciones.get(i).getIdCotizacion());
-		}
-		request.setAttribute("arrayCotizaciones", arrayCotizaciones);
-		
+		AdministracionOV.getInstancia().aprobarYCotizarCotizacion(cotizacion);	
+	
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/aprobarCotizacion.jsp");
 		dispatcher.forward(request,response);
-	
 	}
 
 }
