@@ -186,7 +186,7 @@ public class AdministracionOV implements IAdministracionOV{
 		// Crear ItemsFactura
 		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
 		for(int i=0; i<cotis.size(); i++){
-			idsCoti.add(cotis.get(i).getIdCotizacion());
+			//idsCoti.add(cotis.get(i).getIdCotizacion());
 			CotizacionNegocio coti = new CotizacionNegocio(); //buscarCotizacion(idsCoti.get(i).intValue());
 			coti.aCotizacionNegocio(cotis.get(i));
 			cotizacionesFactura.add(coti);

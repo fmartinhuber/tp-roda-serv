@@ -19,7 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dto.ItemDto;
+import utils.ItemDto;
 import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.ClienteDto;
@@ -98,9 +98,11 @@ public class CotizacionServlet extends HttpServlet {
 				item.setCantidad(Integer.valueOf(cantidad));
 				listaItems.add(item);
 				
-				//AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
+				
 				
 			}
+			
+			AdministracionOV.getInstancia().crearCotizacion(listaItems, cliente);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cotizacion.jsp");
 			dispatcher.forward(request,response);
@@ -139,7 +141,7 @@ public class CotizacionServlet extends HttpServlet {
 		
 		CotizacionDto cotizacion = new CotizacionDto();
 		
-		cotizacion.setIdCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
+		//cotizacion.setIdCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
 	
 		
 		AdministracionOV.getInstancia().aprobarYCotizarCotizacion(cotizacion);	
