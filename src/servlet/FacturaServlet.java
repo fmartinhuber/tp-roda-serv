@@ -69,11 +69,8 @@ public class FacturaServlet extends HttpServlet {
 				JSONObject objeto = jObj.getJSONObject(i);
 				String codigo = objeto.getString("codigo");
 				CotizacionDto item = new CotizacionDto();
-<<<<<<< HEAD
 				//item.setIdCotizacion(Integer.valueOf(codigo));
-=======
 				item.setNumeroCotizacion(Integer.valueOf(codigo));
->>>>>>> refs/remotes/origin/master
 				listaCotizaciones.add(item);
 				
 			}
