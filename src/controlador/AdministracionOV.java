@@ -23,15 +23,17 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){
 			administracion = new AdministracionOV();
+			//OficinaVentaNegocio = new OVNegocio();
 		}
 		return administracion;
 	}
 
 	public AdministracionOV() throws RemoteException{
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 //		this.getOficinaVentaNegocio().setClientes(new ArrayList <ClienteNegocio>());
 //		this.getOficinaVentaNegocio().setFacturas(new ArrayList <FacturaNegocio>());
 //		this.getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
-//		this.getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
+//		//this.getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
 //		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
 //		this.getOficinaVentaNegocio().setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
 	}

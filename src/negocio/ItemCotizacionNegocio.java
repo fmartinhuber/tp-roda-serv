@@ -51,7 +51,7 @@ public class ItemCotizacionNegocio implements Serializable{
 		itemCotDTO.setCant(this.getCantidad());
 		itemCotDTO.setPrecio(this.getPrecio());
 		itemCotDTO.setRodamiento(this.getRodamiento().aRodamientoDto());
-		return null;
+		return itemCotDTO;
 	}
 
 	public RodamientoNegocio getRodamiento() {

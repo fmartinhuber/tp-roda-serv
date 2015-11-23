@@ -39,9 +39,8 @@ public class TestCharly {
 //		CargarDatos.getInstance().cargaDeDatos();
 //		System.out.println("Prueba Charly - Carga Finalizada");	
 		
-		// Seteamos la OV con la que trabajaremos
-		
-		admo.setOficinaVentaNegocio(admc.ObtenerOV(1));
+		// Seteamos la OV con la que trabajaremos	
+//		admo.setOficinaVentaNegocio(admc.ObtenerOV(1));
 		admo.pch_LevantaCotizaciones();
 		
 		
