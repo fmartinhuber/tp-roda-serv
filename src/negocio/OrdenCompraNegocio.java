@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import dto.*;
 
 @Entity
 @Table(name="OrdenCompra")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class OrdenCompraNegocio implements Serializable{
 
 	@Transient
