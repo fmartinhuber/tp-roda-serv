@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.xml.bind.*;
 
-import controlador.AdministracionCC;
 import negocio.*;
 
 /**

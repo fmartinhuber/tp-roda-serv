@@ -273,6 +273,20 @@ public class CargarDatos {
 				OV2.setCotizaciones(cotizacionesOV2); OV2.updateOV();
 				OV3.setCotizaciones(cotizacionesOV3); OV3.updateOV();
 				
+		// Alta Ordenes de Compra
+				
+				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("aprobado"); orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); orden01.persistirOrdenCompra();
+				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("pendiente"); orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); orden02.setTotal((float)5600.50); orden02.persistirOrdenCompra();
+				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("pendiente"); orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); orden03.persistirOrdenCompra();
+				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("aprobado"); orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); orden04.setTotal((float)9800.50); orden04.persistirOrdenCompra();
+				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("aprobado"); orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); orden05.persistirOrdenCompra();
+				
+				 // ¿por qué me duplica elementos?
+				
+				
+				
+				
+				
 				
 	}
 }

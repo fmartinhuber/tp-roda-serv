@@ -5,7 +5,6 @@ import java.util.*;
 
 import dao.*;
 import utils.*;
-import utils.ItemDto;
 import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;
@@ -79,29 +78,30 @@ public class AdministracionCC implements IAdministracionCC {
 	public void crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
 
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
-
 		RemitoNegocio remito = new RemitoNegocio();
-		// TODO: chequear acá porque me genera un cliente y lo asocia como el tujes
+		
 		remito.setCliente(cli);
 		remito.setComentarios("comentario 1");
-		remito.setConformidad(true); // qué joraca es esto?
+		remito.setConformidad(true); 
 		remito.setEstado("generado");
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 
-		// Falta agregar los ov_remitos, primero encaro el cliente
-
-		// List<CotizacionNegocio> cotizacionesRemito = new
-		// ArrayList<CotizacionNegocio>();
-		// List<ItemOrdenCompraNegocio> ordenCompraNegocio = new
-		// ArrayList<ItemOrdenCompraNegocio>();
-		// List<Integer> idsOrdenes = new ArrayList<Integer>();
-		// for(int i=0; i<listaOrdenes.size(); i++){
-		// idsOrdenes.add(listaOrdenes.get(i).getIdOrdenCompra());
-		// OrdenCompraNegocio orden = new OrdenCompraNegocio();
-		// orden.aOrdenCompraNegocio(listaOrdenes.get(i));
-		// }
-
+		// Falta agregar los ov_remitos
+		
+		List<OrdenCompraNegocio> listaOrdenCompraNegocio = new ArrayList<OrdenCompraNegocio>();
+		for(int i=0; i<listaOrdenes.size(); i++){
+			OrdenCompraNegocio orden = new OrdenCompraNegocio();
+			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
+			listaOrdenCompraNegocio.add(orden);
+		}
+		
+		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
+		
+		// tengo que entender bien funcionalmente esto
+		
+				
+		remito.setCotizaciones(listaCotizaciones);
 		remito.mergearRemito();
 
 	}
@@ -218,6 +218,7 @@ public class AdministracionCC implements IAdministracionCC {
 	public RodamientoDto buscarRodamientoDto(String codigo) {
 		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio
 				.getRodamientos().iterator(); iterador.hasNext();) {
+			@SuppressWarnings("unused")
 			RodamientoNegocio rodamiento = iterador.next();
 			// if(rodamiento.getCodigo().equals(codigo)){
 			// return rodamiento.aRodamientoDto();

@@ -2,6 +2,8 @@ package negocio;
 
 import javax.persistence.*;
 
+import dto.ItemOrdenCompraDto;
+
 @Entity
 @Table(name="ItemOrdenCompra")
 public class ItemOrdenCompraNegocio{
@@ -58,6 +60,18 @@ public class ItemOrdenCompraNegocio{
 
 	public void setMonto(float monto) {
 		this.monto = monto;
+	}
+
+	public void aItemOrdenCompraNegocio(ItemOrdenCompraDto itemDto) {
+
+		this.setCantidad(itemDto.getCantidad());
+		this.setMonto(itemDto.getMonto());
+		
+		RodamientoNegocio roda = new RodamientoNegocio();
+		roda.aRodamientoNegocio(itemDto.getRodamiento());
+		
+		this.setRodamiento(roda);
+		
 	}
 	
 	

@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import dao.OrdenCompraDAO;
 import dto.*;
 
 @Entity
@@ -127,12 +128,46 @@ public class OrdenCompraNegocio implements Serializable{
 		this.setEstado(miOrdenDto.getEstado());
 		this.setFormaPago(miOrdenDto.getFormaPago());
 		this.setTotal(miOrdenDto.getTotal());
+		
+		ProveedorNegocio proveedor = new ProveedorNegocio();
+		proveedor.aProveedorNegocio(miOrdenDto.getProveedor());
+		
 		List<ItemOrdenCompraNegocio> lista = new ArrayList<ItemOrdenCompraNegocio>();
-		// algun for
+		for(int i=0; i<miOrdenDto.getItems().size();i++){
+			ItemOrdenCompraNegocio itemNegocio = new ItemOrdenCompraNegocio();
+			ItemOrdenCompraDto itemDto = miOrdenDto.getItems().get(i);
+			itemNegocio.aItemOrdenCompraNegocio(itemDto);
+			lista.add(itemNegocio);
+		}
+		/*
+		List<SolicitudCompraNegocio> listaSolicitudes = new ArrayList<SolicitudCompraNegocio>();
+		for(int j=0; j<miOrdenDto.getItems().size();j++){
+			SolicitudCompraNegocio itemNegocio = new SolicitudCompraNegocio();
+			ItemOrdenCompraDto itemDto = miOrdenDto.getItems().get(j);
+			itemNegocio.aSolicitudCompraNegocio(itemDto);			
+			lista.add(itemNegocio);
+		}
+		*/
+		
+		this.setProveedor(proveedor);
 		this.setItems(lista);
-
 		
 	}
+
+	public void persistirOrdenCompra() {
+		OrdenCompraDAO.getInstancia().persist(this);
+	}
 	
+	public void deleteOrdenCompra() {
+		OrdenCompraDAO.getInstancia().delete(this);
+	}
+	
+	public void updateOrdenCompra() {
+		OrdenCompraDAO.getInstancia().update(this);
+	}
+	
+	public void mergeOrdenCompra() {
+		OrdenCompraDAO.getInstancia().merge(this);
+	}
 	
 }

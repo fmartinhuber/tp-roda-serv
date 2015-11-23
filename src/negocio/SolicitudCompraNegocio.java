@@ -51,5 +51,5 @@ public class SolicitudCompraNegocio {
 	public void setListaCotizaciones(List<CotizacionNegocio> listaCotizaciones) {
 		this.listaCotizaciones = listaCotizaciones;
 	}
-	
+		
 }
