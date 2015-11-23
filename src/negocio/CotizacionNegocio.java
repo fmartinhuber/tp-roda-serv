@@ -1,5 +1,6 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
@@ -21,16 +22,19 @@ import dto.*;
 @Table(name="Cotizacion")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class CotizacionNegocio{
+public class CotizacionNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCotizacion;
 	private String estado;
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER )
 	@JoinColumn(name="cotizacion_items")
 	private List<ItemCotizacionNegocio> items;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="cotizacion_cliente")
 	private ClienteNegocio cliente; 
 	private Date fechaCreacion;
@@ -59,6 +63,7 @@ public class CotizacionNegocio{
 	 */
 	public void aCotizacionNegocio (CotizacionDto miCotDto){
 		//Asigno los atributos simples
+		this.setIdCotizacion(miCotDto.getIdCotizacion());
 		this.setEstado(miCotDto.getEstado());
 		this.setFechaCreacion(miCotDto.getFechaCreacion());
 		this.setFechaVigencia(miCotDto.getFechaVigencia());
@@ -94,6 +99,7 @@ public class CotizacionNegocio{
 		//Creo la salida del metodo
 		CotizacionDto miCotDto = new CotizacionDto();
 		//Asigno los atributos simples
+		miCotDto.setIdCotizacion(this.getIdCotizacion());
 		miCotDto.setEstado(this.getEstado());
 		miCotDto.setFechaCreacion(this.getFechaCreacion());
 		miCotDto.setFechaVigencia(this.getFechaVigencia());

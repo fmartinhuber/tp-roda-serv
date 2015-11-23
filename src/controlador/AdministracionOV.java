@@ -169,22 +169,29 @@ public class AdministracionOV implements IAdministracionOV{
 	return null;
 	}
 	
-	
+	// Genera factura a partir de un listado de cotizaciones, para un cliente puntual
 	
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
-		ClienteNegocio cli = new ClienteNegocio();
-		cli.aClienteNegocio(cliente);
-		//Creo lista de ids de cotizaciones
-		List<Integer> idsCoti = new ArrayList<Integer>();
-		// Crear Factura y setear datos primarios
+		
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);// new ClienteNegocio();
+		//cli.aClienteNegocio(cliente);
+		//Creo lista de cotizaciones
+		List<CotizacionNegocio> cotiNegocio = new ArrayList<CotizacionNegocio>();
+		for(int i = 0; i < cotis.size(); i++){
+			CotizacionNegocio co = new CotizacionNegocio();
+			co.aCotizacionNegocio(cotis.get(i));
+			cotiNegocio.add(co);
+		}
 		FacturaNegocio factura = new FacturaNegocio();
 		factura.setCliente(cli);
 		factura.setEstado("generada");
 		Calendar c = new GregorianCalendar();
 		factura.setFecha(c.getTime());
-		List<CotizacionNegocio> cotizacionesFactura = new ArrayList<CotizacionNegocio>();
+		factura.setCotizacion(cotiNegocio);
+		
 		// Crear ItemsFactura
 		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
+<<<<<<< Upstream, based on origin/master
 		for(int i=0; i<cotis.size(); i++){
 			//idsCoti.add(cotis.get(i).getIdCotizacion());
 			CotizacionNegocio coti = new CotizacionNegocio(); //buscarCotizacion(idsCoti.get(i).intValue());
@@ -193,19 +200,55 @@ public class AdministracionOV implements IAdministracionOV{
 			ActualizarEstadoCotizacion(coti, "SOLICITADA");
 		}	
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
+=======
+		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
+>>>>>>> 34addb2 hola
 		for(int i=0; i<misObjects.size(); i++){
 			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
 			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
 			itFactura.setRodamiento(rodamiento);
-			itFactura.setCantidad((Integer)misObjects.get(i)[0]);
+			itFactura.setCantidad((Integer)misObjects.get(i)[1]);
 			Double sal = (Double)misObjects.get(i)[2];
 			itFactura.setSubtotal(sal.floatValue());
 			itemsFactura.add(itFactura);
 		}
+//		for(int i=0; i<cotiNegocio.size(); i++){
+//			cotiNegocio.get(i).setEstado("generada");
+//			cotiNegocio.get(i).actualizarCotizacion();
+//		}
 		factura.setItems(itemsFactura);
 		factura.persistirFactura();
 	}
 	
+	// Metodo de prueba Charly, borrar antes de la entrega
+	public void pch_LevantaCotizaciones(){
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesTodas(this.getOficinaVentaNegocio());
+		List<CotizacionDto> cotizacionesDTO = new ArrayList<CotizacionDto>();
+		for(int i = 0; i < cotizaciones.size(); i++){
+			System.out.println(cotizaciones.get(i).getIdCotizacion());
+			CotizacionDto cotiDTO = cotizaciones.get(i).aCotizacionDto();
+			cotizacionesDTO.add(cotiDTO);
+		}
+		//ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);
+		
+		generarFactura(cotizacionesDTO, null);
+//		for(int i = 0; i < cotizacionesDTO.size(); i++){
+//			System.out.println(cotizacionesDTO.get(i).getIdCotizacion());
+//		}
+//		
+//		//probamos nuevo metodo de busqueda en tabla
+//		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado(cotizaciones, this.getOficinaVentaNegocio(), "aprobada");
+//		for(int i=0; i<misObjects.size(); i++){
+//			int idRoda = (int)misObjects.get(i)[0];
+//			RodamientoNegocio roda = (RodamientoDAO.getInstancia().buscarRodamiento(idRoda));
+//			System.out.println(roda.getCodigo());
+//			Double sal2 = (Double) misObjects.get(i)[2];
+//			System.out.println(sal2);
+//			//int sal = (int)misObjects.get(i)[1];
+//			System.out.println(misObjects.get(i)[1]);
+//		}
+		
+	}
 	
 	
 	// Actualiza ESTADO de cotización
@@ -233,15 +276,15 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	// Prueba
-	@Deprecated
-	public void Prueba(List<Integer> coti){
-		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(coti);
-		for(int i=0; i<misObjects.size(); i++){
-			System.out.println(misObjects.get(i)[0]);
-			System.out.println(misObjects.get(i)[1]);
-			System.out.println(misObjects.get(i)[2]);
-		}
-	}
+//	@Deprecated
+//	public void Prueba(List<Integer> coti){
+//		List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(coti);
+//		for(int i=0; i<misObjects.size(); i++){
+//			System.out.println(misObjects.get(i)[0]);
+//			System.out.println(misObjects.get(i)[1]);
+//			System.out.println(misObjects.get(i)[2]);
+//		}
+//	}
 
 	@Override
 	public void altaCliente(ClienteDto cliente) throws RemoteException {

@@ -6,9 +6,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import negocio.OVNegocio;
 import negocio.ProveedorNegocio;
 import negocio.RodamientoNegocio;
+import controlador.AdministracionCC;
 import controlador.AdministracionOV;
+import dto.CotizacionDto;
 import dto.RodamientoDto;
 
 public class TestCharly {
@@ -20,23 +23,21 @@ public class TestCharly {
 
 	public static void main(String[] args) {
 		
-		AdministracionOV c = new AdministracionOV();
+		AdministracionOV admo = new AdministracionOV();
+		AdministracionCC admc = new AdministracionCC();
 		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
 		
-		System.out.println("Prueba Charly - Cargamos Datos");
-		CargarDatos.getInstance().cargaDeDatos();
-		System.out.println("Prueba Charly - Carga Finalizada");	
+//		System.out.println("Prueba Charly - Cargamos Datos");
+//		CargarDatos.getInstance().cargaDeDatos();
+//		System.out.println("Prueba Charly - Carga Finalizada");	
 		
+		// Seteamos la OV con la que trabajaremos
 		
-		//c.procesarCotizaciones(1);
+		admo.setOficinaVentaNegocio(admc.ObtenerOV(1));
+		admo.pch_LevantaCotizaciones();
 		
-		//List<Integer> parametros = new ArrayList<Integer>();
-		//parametros.add(1);
-		//parametros.add(2);
-		//c.Prueba(parametros);
-		//c.GenerarFactura(parametros, 1);
 		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");

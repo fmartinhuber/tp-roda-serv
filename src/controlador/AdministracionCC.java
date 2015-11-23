@@ -237,6 +237,11 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		return null;
 	}
+	
+	public OVNegocio ObtenerOV(int numeroOV){
+		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
+		return salida;
+	}
 
 	public AdministracionCC(CCNegocio casaCentralNegocio) {
 		this.casaCentralNegocio = casaCentralNegocio;

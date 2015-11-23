@@ -1,5 +1,7 @@
 package negocio;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import dto.*;
@@ -7,8 +9,11 @@ import dto.*;
 
 @Entity
 @Table(name="ItemCotizacion")
-public class ItemCotizacionNegocio{
+public class ItemCotizacionNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
+	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemCotizacion; 
@@ -21,6 +26,12 @@ public class ItemCotizacionNegocio{
 	public ItemCotizacionNegocio(RodamientoNegocio rodamiento, float precio) {
 		this.rodamiento = rodamiento;
 		this.precio = precio;
+	}
+	
+	public ItemCotizacionNegocio(RodamientoNegocio rodamiento, int cantidad) {
+		this.rodamiento = rodamiento;
+		this.cant = cantidad;
+		this.precio = cantidad*rodamiento.getMonto();
 	}
 
 	public ItemCotizacionNegocio(){
@@ -39,6 +50,11 @@ public class ItemCotizacionNegocio{
 	}
 	
 	public ItemCotizacionDto aItemCotizacionDto() {
+		ItemCotizacionDto itemCotDTO = new ItemCotizacionDto();
+		itemCotDTO.setIdItemCotizacion(this.getIdItemCotizacion());
+		itemCotDTO.setCant(this.getCantidad());
+		itemCotDTO.setPrecio(this.getPrecio());
+		itemCotDTO.setRodamiento(this.getRodamiento().aRodamientoDto());
 		return null;
 	}
 
