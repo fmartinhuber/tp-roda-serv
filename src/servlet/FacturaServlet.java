@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class FacturaServlet extends HttpServlet {
 
 	}
 	
-	private void crearFactura(HttpServletRequest request, HttpServletResponse response){
+	private void crearFactura(HttpServletRequest request, HttpServletResponse response) throws RemoteException{
 		
 		
 		ClienteDto cliente = new ClienteDto();
