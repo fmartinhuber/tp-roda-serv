@@ -22,7 +22,7 @@ public class CotizacionDAO extends HibernateDAO{
 			instancia = new CotizacionDAO();
 		return instancia;
 	}
-
+	
 	//Levanta las cotizaciones en un estado pasado por parametro
 	public List<CotizacionNegocio> obtenerCotizacionesAprobada(String estado){
 		Session s = HibernateUtil.getSessionFactory().openSession();
@@ -35,10 +35,9 @@ public class CotizacionDAO extends HibernateDAO{
 			CotizacionNegocio miCotizacion = new CotizacionNegocio();
 			cotizacionSalida.add(miCotizacion);
 		}
-		
-		return cotizacionSalida;
+		s.close();
+	return cotizacionSalida;
 	}
-	
 	
 	//Levantar las cotizaciones de un cliente en estado distinto de "solicitada"
 	@SuppressWarnings("unchecked")
@@ -52,7 +51,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "and cot.estado <> 'solicitada'").setParameter("clie", clie);
 		salida = q.list();
 		tr.commit();
-		se = null;
+		se.close();
 		return salida;
 	}
 	
@@ -60,7 +59,7 @@ public class CotizacionDAO extends HibernateDAO{
 	public CotizacionNegocio buscarCotizacion(int idCot){
 		Session se = HibernateUtil.getSessionFactory().openSession();
 		CotizacionNegocio salida = (CotizacionNegocio) se.get(CotizacionNegocio.class, idCot);
-		se = null;
+		se.close();
 		return salida;
 	}
 	
@@ -76,7 +75,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "where ovn = :ov ").setParameter("ov", ov);
 		salida = q.list();
 		trx.commit();
-		se = null;
+		se.close();
 		return salida;
 	}
 	
@@ -113,34 +112,33 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "group by ro.IdRodamiento ").setParameter("ov", ov).setParameter("estado", estado).setParameterList("ids", cotizaciones);
 		salida = q.list();
 		tr.commit();
-		se = null;
+		se.close();
 		return salida;
 	}
 	
 	// Levantar Rodamiento, cantidad y subtotal de los itemsCotización de un listado de cotizaciones 
 	// para una ov un estado determinado y para un cliente
-	
-		@SuppressWarnings("unchecked")
-		public List<Object[]> rodaPorItemsCotizacion_OV_Estado_x_Cliente(List<CotizacionNegocio> cotizaciones, 
-				OVNegocio ov, String estado, ClienteNegocio clie){
-			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
-			List<Object[]> salida;
-			Transaction tr = se.getTransaction();
-			tr.begin();
-			Query q = se.createQuery("Select ro.IdRodamiento, sum(itCot.cant), sum(itCot.precio)  "
-					+ "from OVNegocio ov join ov.cotizaciones cot join cot.cliente cli join cot.items itCot join itCot.rodamiento ro "
-					+ "where ov = :ov "
-					+ "and cot.estado = :estado "
-					+ "and cot in (:ids) "
-					+ "and cli = :cliente "
-					+ "group by ro.IdRodamiento ").setParameter("ov", ov).setParameter("estado", estado)
-					.setParameter("estado", clie)
-					.setParameterList("ids", cotizaciones);
-			salida = q.list();
-			tr.commit();
-			se = null;
-			return salida;
-		}
+	@SuppressWarnings("unchecked")
+	public List<Object[]> rodaPorItemsCotizacion_OV_Estado_x_Cliente(List<CotizacionNegocio> cotizaciones, 
+			OVNegocio ov, String estado, ClienteNegocio clie){
+		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<Object[]> salida;
+		Transaction tr = se.getTransaction();
+		tr.begin();
+		Query q = se.createQuery("Select ro.IdRodamiento, sum(itCot.cant), sum(itCot.precio)  "
+				+ "from OVNegocio ov join ov.cotizaciones cot join cot.cliente cli join cot.items itCot join itCot.rodamiento ro "
+				+ "where ov = :ov "
+				+ "and cot.estado = :estado "
+				+ "and cot in (:ids) "
+				+ "and cli = :cliente "
+				+ "group by ro.IdRodamiento ").setParameter("ov", ov).setParameter("estado", estado)
+				.setParameter("estado", clie)
+				.setParameterList("ids", cotizaciones);
+		salida = q.list();
+		tr.commit();
+		se.close();
+		return salida;
+	}
 	
 	// Levantar Rodamientos de Items Cotización de determinas cotizaciones para un proveedor dado
 	@SuppressWarnings("unchecked")
@@ -155,7 +153,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "group by ro.IdRodamiento").setParameter("ids", prove);
 		salida = q.list();
 		tr.commit();
-		se = null;
+		se.close();
 		return salida;
 	}
 	
@@ -175,5 +173,19 @@ public class CotizacionDAO extends HibernateDAO{
 		se = null;
 		return salida;
 	}
+
+	//Daro: Levanta el maximo ID de la tabla Cotizaciones, esto se realiza para devolver el id en las creaciones
+	public int obtenerMaximoIDCotizacion (){
+		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+		int salida = 0;
+		Transaction tr = se.getTransaction();
+		tr.begin();
+		Query q = se.createQuery("select max(c.idCotizacion) from CotizacionNegocio c");
+		salida = (int) q.uniqueResult();
+		tr.commit();
+		se.close();
+	return salida;
+	}
+
 
 }

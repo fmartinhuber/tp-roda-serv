@@ -17,42 +17,42 @@ public class BultoNegocio {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idBulto;
+		private int idBulto;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="bulto_itemRodamiento")
-	private List <ItemNegocio> itemRodamiento;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="bulto_cliente")
-	private ClienteNegocio cliente;
+		private List <ItemNegocio> itemRodamiento;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="bulto_remito")
-	private RemitoNegocio remito;
+		private RemitoNegocio remito;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="bulto_factura")
+		private FacturaNegocio factura;
 	
-	public BultoNegocio(List<ItemNegocio> itemRodamiento, ClienteNegocio cliente, RemitoNegocio remito) {
+	public BultoNegocio(List<ItemNegocio> itemRodamiento, RemitoNegocio remito, FacturaNegocio factura) {
 		super();
 		this.itemRodamiento = itemRodamiento;
-		this.cliente = cliente;
 		this.remito = remito;
+		this.factura = factura;
 	}
 	
 	public BultoNegocio() {
 		
 	}
-	
+
+	public int getIdBulto() {
+		return idBulto;
+	}
+
+	public void setIdBulto(int idBulto) {
+		this.idBulto = idBulto;
+	}
+
 	public List<ItemNegocio> getItemRodamiento() {
 		return itemRodamiento;
 	}
 
 	public void setItemRodamiento(List<ItemNegocio> itemRodamiento) {
 		this.itemRodamiento = itemRodamiento;
-	}
-
-	public ClienteNegocio getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteNegocio cliente) {
-		this.cliente = cliente;
 	}
 
 	public RemitoNegocio getRemito() {
@@ -62,6 +62,13 @@ public class BultoNegocio {
 	public void setRemito(RemitoNegocio remito) {
 		this.remito = remito;
 	}
-		
 
+	public FacturaNegocio getFactura() {
+		return factura;
+	}
+
+	public void setFactura(FacturaNegocio factura) {
+		this.factura = factura;
+	}
+	
 }

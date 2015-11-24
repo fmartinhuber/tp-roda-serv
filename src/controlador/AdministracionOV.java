@@ -23,19 +23,20 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){
 			administracion = new AdministracionOV();
-			//OficinaVentaNegocio = new OVNegocio();
+			OficinaVentaNegocio = new OVNegocio();
 		}
 		return administracion;
 	}
 
 	public AdministracionOV() throws RemoteException{
+		//Inicializo todos los array
+		OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
+		OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
+		OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
+		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
+		OficinaVentaNegocio.setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
+		//Obtengo la OV buscada
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
-//		this.getOficinaVentaNegocio().setClientes(new ArrayList <ClienteNegocio>());
-//		this.getOficinaVentaNegocio().setFacturas(new ArrayList <FacturaNegocio>());
-//		this.getOficinaVentaNegocio().setRemitos(new ArrayList <RemitoNegocio>());
-//		//this.getOficinaVentaNegocio().setProveedores(new ArrayList <ProveedorNegocio>());
-//		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList <CotizacionNegocio>());
-//		this.getOficinaVentaNegocio().setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
 	}
 	
 	public OVNegocio getOficinaVentaNegocio() {
@@ -47,7 +48,7 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	}
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public void crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
 		//Obtengo la lista comparativa
 		AdministracionCC admCC = new AdministracionCC();
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
@@ -98,62 +99,65 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 				}
 			}
 		}
-
+		
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
-		
 		//Persisto la Cotizacion
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
-		miCotNeg.persistirCotizacion();		
-
-		//Devuelvo la cotizacion
-		return;
+		miCotNeg.persistirCotizacion();
+	
+	//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
+	return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
 	}
 	
 	
 	
 	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarYCotizarCotizacion (CotizacionDto miCotDto)  throws RemoteException{		
+	public float aprobarYCotizarCotizacion (int idCotizacion)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
+		//Busco la cotizacion y la guardo en la variable
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
 		//Recorro la lista y voy sumando los costos
-		for (int i=0; i<miCotDto.getItems().size(); i++){
-			costoFinal = miCotDto.getItems().get(i).getPrecio() + costoFinal;
+		for (int i=0; i<miCotNeg.getItems().size(); i++){
+			costoFinal = miCotNeg.getItems().get(i).getPrecio() + costoFinal;
 		}
-		
 		//Cambio el estado a Aprobada
-		miCotDto.setEstado("Aprobada");
-		
-		//Transformo la CotizacionDto a CotizacionNegocio
-		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
-		cotizNegocio.aCotizacionNegocio(miCotDto);
+		miCotNeg.setEstado("Aprobada");
 		//Actualizo la CotizacionNegocio
-		cotizNegocio.actualizarCotizacion();
-		
+		miCotNeg.actualizarCotizacion();
 		//Devuelvo el costo final de la Cotizacion
-		return costoFinal;
+	return costoFinal;
 	}
 	
 	
 	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
-	public void rechazarCotizacion (CotizacionDto miCotDto){
+	public void rechazarCotizacion (int idCotizacion){
+		//Busco la cotizacion y la guardo en la variable
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
 		//Cambio el estado a Rechazada
-		miCotDto.setEstado("Rechazada");
-		//Hago merge de la Cotizacion para que cambie su estado a "Rechazada" en la BD
-		CotizacionNegocio cotizNegocio = new CotizacionNegocio();
-		cotizNegocio.aCotizacionNegocio(miCotDto);
+		miCotNeg.setEstado("Rechazada");
 		//Actualizo la CotizacionNegocio
-		cotizNegocio.mergearCotizacion();
-
+		miCotNeg.actualizarCotizacion();
+	return;
 	}
 	
 	
-	//TODO Daro
-	public BultoDto entregaPedidos(RemitoDto remito) throws RemoteException {
+	//Daro: Se realiza un bulto por cliente, junto a sus Remitos y Facturas
+	public BultoDto entregaPedidos(RemitoDto remito, FacturaDto factura) throws RemoteException {
+		//Creo el Bulto que voy a devolver
+		BultoDto miBulDto = new BultoDto();
+		//Asigno el Remito al Bulto
+		miBulDto.setRemito(remito);
+		//Asigno la Factura al Bulto
+		miBulDto.setFactura(factura);
+		//Cargo la lista de Rodamientos al Bulto
 		
-	return null;
+	return miBulDto;
 	}
 	
 	

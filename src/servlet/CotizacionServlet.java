@@ -150,8 +150,9 @@ public class CotizacionServlet extends HttpServlet {
 		//cotizacion.setIdCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
 		cotizacion.setNumeroCotizacion(Integer.valueOf(request.getParameter("cotizacionSeleccionada")));
 	
-		
-		AdministracionOV.getInstancia().aprobarYCotizarCotizacion(cotizacion);	
+		//TODO MARTIN: Cambie este metodo martin, ahora aprobarYCotizarCotizacion recibe el id cotizacion solo, ahi se encarga de buscarlo en la base
+		//y hacer todo lo que hace el metodo. Acordate que crearCotizacion te devuelve ya este idCotizacion, mostralo por pantalla y metelo aca
+		//AdministracionOV.getInstancia().aprobarYCotizarCotizacion(cotizacion);	
 	
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/aprobarCotizacion.jsp");
 		dispatcher.forward(request,response);
