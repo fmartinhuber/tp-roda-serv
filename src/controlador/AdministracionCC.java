@@ -60,32 +60,53 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	/*
-	 * No es necesario una lista de cotizaciónes Debera levantar todas las
-	 * cotizaciones que aun no fueron cargadas a una orden de compra Se requiere
-	 * un nuevo estado en la orden de compra y en la solicitud de cotización
-	 * Marcar solicitud de cotización como "En Adquisición" Marcar Orden de
-	 * compra como "Nueva" luego de su creación y previo a la entrega al
-	 * proveedor
+	 * No es necesario una lista de cotizaciónes 
+	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra 
+	 * Se requiere un nuevo estado en la orden de compra y en la solicitud de cotización
+	 * Marcar solicitud de cotización como "En Adquisición" 
+	 * Marcar Orden de compra como "Nueva" luego de su creación 
+	 * y previo a la entrega al proveedor
 	 */
 	
-	// TODO:
+	// TODO: 
 	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
+						
+		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
+		orden.setEstado("en adquisicion");
+				
+		if(formaDePago.equalsIgnoreCase("efectivo")){
+			orden.setDescuento(10);
+			orden.setFormaPago(formaDePago);
+			orden.setTotal(900);
+		}		
 		
-		OrdenCompraNegocio orden = new OrdenCompraNegocio();
-		orden.setDescuento(0); // acá es donde juega un papel importante el patrón strategy
-		orden.setEstado("pendiente");
-		orden.setFormaPago(formaDePago);
-		orden.setTotal(0); // meter el total de la factura
-		
-		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
-		for(int i=0; i<listaCotizaciones.size(); i++){
-			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
-			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
-			listaSolicitud.add(solicitud);
+		if(formaDePago.equalsIgnoreCase("tarjeta")){
+			orden.setDescuento(20);
+			orden.setFormaPago(formaDePago);
+			orden.setTotal(100);
 		}
+					
+//		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
+//		for(int i=0; i<listaCotizaciones.size(); i++){
+//			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
+//			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+//			listaSolicitud.add(solicitud);
+//		}
 		
-		orden.persistirOrdenCompra();
-		
+		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
+		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
+		for(int i=0; i<listaCotizaciones.size(); i++){
+			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
+			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
+			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
+			itemOrdenCompra.setCantidad(20);
+			itemOrdenCompra.setMonto(2000);
+			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
+			itemsOrdenCompra.add(itemOrdenCompra);
+		}
+				
+		orden.setItems(itemsOrdenCompra);
+		orden.persistirOrdenCompra();		
 	}
 
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX" //

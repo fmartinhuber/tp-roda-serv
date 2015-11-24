@@ -75,5 +75,6 @@ public class HibernateDAO{
 		session.update(obj);
 		session.getTransaction().commit();
 	}
+
 	
 }

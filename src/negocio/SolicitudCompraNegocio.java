@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import dao.SolicitudCompraDAO;
 import dto.SolicitudCompraDto;
 
 @Entity
@@ -58,6 +59,22 @@ public class SolicitudCompraNegocio {
 		
 		this.setEstado(solicitudCompraDto.getEstado());						
 		
+	}
+
+	public void persistirSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().persist(this);
+	}
+	
+	public void updateSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().update(this);
+	}
+	
+	public void deleteSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().delete(this);
+	}
+	
+	public void mergeSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().merge(this);
 	}
 		
 }

@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import negocio.ClienteNegocio;
+import negocio.SolicitudCompraNegocio;
 import controlador.*;
 import dao.*;
 import dto.*;
@@ -62,9 +63,18 @@ public class TestRama {
 		// CREAR ORDEN COMPRA
 		
 		String formaDePago = "efectivo";
-		List<SolicitudCompraDto> listaCotizaciones = new ArrayList<SolicitudCompraDto>();	
-				
-		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizaciones, formaDePago);
+		
+		List<SolicitudCompraDto> listaCotizacionesDto = new ArrayList<SolicitudCompraDto>();
+		SolicitudCompraDto aux = new SolicitudCompraDto();		
+		List<SolicitudCompraNegocio> listaCotizacionesNegocio = SolicitudCompraDAO.getInstancia().listarSolicitudesCompra();
+		for(negocio.SolicitudCompraNegocio s : listaCotizacionesNegocio){
+			aux = new SolicitudCompraDto();
+			aux.setEstado(s.getEstado());
+			aux.setNumeroSolicitudCompra(s.getId());			
+			listaCotizacionesDto.add(aux);
+		}
+						
+		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizacionesDto, formaDePago);
 		System.out.println("Orden de compra creada");
 		
 		// CREAR ORDEN COMPRA

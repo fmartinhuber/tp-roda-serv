@@ -2,6 +2,7 @@ package negocio;
 
 import javax.persistence.*;
 
+import dao.ItemOrdenCompraDAO;
 import dto.ItemOrdenCompraDto;
 
 @Entity
@@ -72,6 +73,22 @@ public class ItemOrdenCompraNegocio{
 		
 		this.setRodamiento(roda);
 		
+	}
+
+	public void persistirItemOrdenCompra() {
+		ItemOrdenCompraDAO.getInstancia().persist(this);
+	}
+	
+	public void updateItemOrdenCompra() {
+		ItemOrdenCompraDAO.getInstancia().update(this);
+	}
+	
+	public void deleteItemOrdenCompra() {
+		ItemOrdenCompraDAO.getInstancia().delete(this);
+	}
+	
+	public void mergeItemOrdenCompra() {
+		ItemOrdenCompraDAO.getInstancia().merge(this);
 	}
 	
 	
