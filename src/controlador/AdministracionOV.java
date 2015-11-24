@@ -306,9 +306,8 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 		
 	}
 
-	@Override
+	
 	public void eliminarCliente(ClienteDto cliente) throws RemoteException {
-		// TODO Auto-generated method stub
 		//AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().remove(index);
 		
 		ClienteDAO.getInstancia().delete(cliente);

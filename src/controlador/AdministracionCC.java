@@ -64,7 +64,6 @@ public class AdministracionCC implements IAdministracionCC {
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
 	public List<CotizacionDto> obtenerCotizacionesAprobadas()
 			throws RemoteException {
-		// TODO Auto-generated method stub
 		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia()
 				.obtenerCotizacionesAprobada("ACEPTADA");
 		List<CotizacionDto> cotizacionesDto = new ArrayList<CotizacionDto>();
