@@ -20,14 +20,14 @@ public class CargarDatos {
 		
 		// Alta de proveedores
 				
-				ProveedorNegocio prov01 = new ProveedorNegocio(); 	prov01.setNombre("BPB Solucines en Movimiento"); 	prov01.persistirProveedor();
-				ProveedorNegocio prov02 = new ProveedorNegocio(); 	prov02.setNombre("Blanco Rodamientos"); 			prov02.persistirProveedor();
-				ProveedorNegocio prov03 = new ProveedorNegocio(); 	prov03.setNombre("Giovagnoli SRL"); 				prov03.persistirProveedor();
-				ProveedorNegocio prov04 = new ProveedorNegocio(); 	prov04.setNombre("Ruleman SACIFIA"); 				prov04.persistirProveedor();
-				ProveedorNegocio prov05 = new ProveedorNegocio(); 	prov05.setNombre("BA Rodamientos"); 				prov05.persistirProveedor();
-				ProveedorNegocio prov06 = new ProveedorNegocio(); 	prov06.setNombre("Arodar SRL"); 					prov06.persistirProveedor();
-				ProveedorNegocio prov07 = new ProveedorNegocio(); 	prov07.setNombre("Rossi Rodamientos"); 				prov07.persistirProveedor();
-				ProveedorNegocio prov08 = new ProveedorNegocio(); 	prov08.setNombre("Alfa Rodamientos"); 				prov08.persistirProveedor();
+				ProveedorNegocio prov01 = new ProveedorNegocio(); 	prov01.setNombre("BPB Solucines en Movimiento"); 	prov01.setCUIT("20-11111111-1");       		prov01.persistirProveedor();
+				ProveedorNegocio prov02 = new ProveedorNegocio(); 	prov02.setNombre("Blanco Rodamientos"); 			prov02.setCUIT("20-11111111-2");       		prov02.persistirProveedor();
+				ProveedorNegocio prov03 = new ProveedorNegocio(); 	prov03.setNombre("Giovagnoli SRL"); 				prov03.setCUIT("20-11111111-3");       		prov03.persistirProveedor();
+				ProveedorNegocio prov04 = new ProveedorNegocio(); 	prov04.setNombre("Ruleman SACIFIA"); 				prov04.setCUIT("20-11111111-4");       		prov04.persistirProveedor();
+				ProveedorNegocio prov05 = new ProveedorNegocio(); 	prov05.setNombre("BA Rodamientos"); 				prov05.setCUIT("20-11111111-5");       		prov05.persistirProveedor();
+				ProveedorNegocio prov06 = new ProveedorNegocio(); 	prov06.setNombre("Arodar SRL"); 					prov06.setCUIT("20-11111111-6");       		prov06.persistirProveedor();
+				ProveedorNegocio prov07 = new ProveedorNegocio(); 	prov07.setNombre("Rossi Rodamientos"); 				prov07.setCUIT("20-11111111-7");       		prov07.persistirProveedor();
+				ProveedorNegocio prov08 = new ProveedorNegocio(); 	prov08.setNombre("Alfa Rodamientos"); 				prov08.setCUIT("20-11111111-8");       		prov08.persistirProveedor();
 
 		// Alta de Rodamientos
 			

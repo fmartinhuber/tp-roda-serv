@@ -21,6 +21,8 @@ public class TestRama {
 //		CargarDatos.getInstance().cargaDeDatos();
 //		System.out.println("Carga Finalizada");
 		
+		// ACTUALIZAR STOCK
+		
 //		List<utils.ItemDto> listaItems = new ArrayList<utils.ItemDto>();	
 //		RodamientoDto roda1 = new RodamientoDto();
 //		RodamientoDto roda2 = new RodamientoDto();
@@ -38,18 +40,34 @@ public class TestRama {
 		
 //		cc.actualizarStock(listaItems, "suma");
 		
+		// ACTUALIZAR STOCK
+		
+		// CREAR REMITO
+		
 		//TODO RAMA: Aca consultar el cliente de la base por CUIT, de esa forma viene bien y no se carga uno nuevo
 		
-		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
-		listaOrdenes = null;
+//		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
+//		listaOrdenes = null;
+//		
+//		ClienteDto cliente = new ClienteDto();
+//		cliente.setCUIT("30-11111111-2");
+//		cliente.setMail("compras@mecind.com.ar");
+//		cliente.setRazonSocial("Mecanica Industrial SRL");
+//		
+//		AdministracionCC.getInstancia().crearRemito(listaOrdenes, cliente);
+//		System.out.println("Remito creado");
 		
-		ClienteDto cliente = new ClienteDto();
-		cliente.setCUIT("30-11111111-2");
-		cliente.setMail("compras@mecind.com.ar");
-		cliente.setRazonSocial("Mecanica Industrial SRL");
+		// CREAR REMITO
 		
-		AdministracionCC.getInstancia().crearRemito(listaOrdenes, cliente);
-		System.out.println("Remito creado");
+		// CREAR ORDEN COMPRA
+		
+		String formaDePago = "efectivo";
+		List<SolicitudCompraDto> listaCotizaciones = new ArrayList<SolicitudCompraDto>();	
+				
+		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizaciones, formaDePago);
+		System.out.println("Orden de compra creada");
+		
+		// CREAR ORDEN COMPRA
 		
 
 	}

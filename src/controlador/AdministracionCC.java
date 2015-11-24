@@ -41,6 +41,23 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		return administracion;
 	}
+	
+	public OVNegocio ObtenerOV(int numeroOV){		
+		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
+		return salida;
+	}
+
+	public AdministracionCC(CCNegocio casaCentralNegocio) {
+		this.casaCentralNegocio = casaCentralNegocio;
+	}
+
+	public CCNegocio getCasaCentralNegocio() {
+		return casaCentralNegocio;
+	}
+
+	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
+		this.casaCentralNegocio = casaCentralNegocio;
+	}
 
 	/*
 	 * No es necesario una lista de cotizaciónes Debera levantar todas las
@@ -50,22 +67,33 @@ public class AdministracionCC implements IAdministracionCC {
 	 * compra como "Nueva" luego de su creación y previo a la entrega al
 	 * proveedor
 	 */
-	public List<OrdenCompraDto> crearOrden(
-			List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {
-		// TODO CARLOS (?)
-
-		return null;
-		// Levantar Cotizaciones en estado "APROBADAS"
-
+	
+	// TODO:
+	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
+		
+		OrdenCompraNegocio orden = new OrdenCompraNegocio();
+		orden.setDescuento(0); // acá es donde juega un papel importante el patrón strategy
+		orden.setEstado("pendiente");
+		orden.setFormaPago(formaDePago);
+		orden.setTotal(0); // meter el total de la factura
+		
+		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
+		for(int i=0; i<listaCotizaciones.size(); i++){
+			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
+			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+			listaSolicitud.add(solicitud);
+		}
+		
+		orden.persistirOrdenCompra();
+		
 	}
 
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX" //
 	// "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
-	public List<CotizacionDto> obtenerCotizacionesAprobadas()
-			throws RemoteException {
-		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia()
-				.obtenerCotizacionesAprobada("ACEPTADA");
+	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
+		
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");
 		List<CotizacionDto> cotizacionesDto = new ArrayList<CotizacionDto>();
 		for (int i = 0; i < cotizaciones.size(); i++) {
 			cotizacionesDto.add(cotizaciones.get(i).aCotizacionDto());
@@ -122,24 +150,17 @@ public class AdministracionCC implements IAdministracionCC {
 		for (int j = 0; j < listaRodamiento.size(); j++) {
 			RodamientoNegocio rodamiento = new RodamientoNegocio();
 			// la lista tiene que ser de negocio
-			rodamiento = rodamiento
-					.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento
-							.get(j));
+			rodamiento = rodamiento.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento.get(j));
 
-			if ((accion.equalsIgnoreCase("sumar"))
-					|| (accion.equalsIgnoreCase("suma"))) {
-				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento
-						.get(j)) + cantidad);
+			if ((accion.equalsIgnoreCase("sumar")) || (accion.equalsIgnoreCase("suma"))) {
+				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j)) + cantidad);
 				rodamiento.actualizarRodamiento();
 			}
-			if ((accion.equalsIgnoreCase("restar"))
-					|| (accion.equalsIgnoreCase("resta"))) {
-				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento
-						.get(j)) - cantidad);
+			if ((accion.equalsIgnoreCase("restar")) || (accion.equalsIgnoreCase("resta"))) {
+				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j)) - cantidad);
 				rodamiento.actualizarRodamiento();
 
-				// La validación que sigue es por si la cantidad pasa a ser un
-				// número negativo
+				// La validación que sigue es por si la cantidad pasa a ser un número negativo
 				int cantStock = rodamiento.buscarStock(listaRodamiento.get(j));
 				if (cantStock < 0) {
 					rodamiento.setStock(0);
@@ -154,8 +175,8 @@ public class AdministracionCC implements IAdministracionCC {
 	// Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y
 	// devuelve (RodamientoDto)
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio
-				.getListaPrincipal();
+		
+		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i = 0; i < rodasNegocio.size(); i++) {
 			rodasDto.add(rodasNegocio.get(i).aRodamientoDto());
@@ -163,16 +184,9 @@ public class AdministracionCC implements IAdministracionCC {
 		return rodasDto;
 	}
 
-	@Deprecated
-	public List<RodamientoDto> obtenerListaComparativaOpcional() throws RemoteException {
-		// TODO REVISAR.
-		return null;
-	}
-
 	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
 		// TODO REVISAR.
-		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio
-				.getListaPrincipal().iterator();
+		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
 		while (iterador.hasNext()) {
 			RodamientoNegocio roda = iterador.next();
 			this.agregarNuevoRodamiento(roda);
@@ -180,8 +194,8 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	private void agregarNuevoRodamiento(RodamientoNegocio rodamiento) {
-		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio
-				.getListaPrincipal().iterator();
+		
+		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
 		boolean encontradoP = false, actualizadoP = false;
 		while (iterador.hasNext() && !encontradoP) {
 			RodamientoNegocio rodamientoComp = iterador.next();
@@ -190,8 +204,7 @@ public class AdministracionCC implements IAdministracionCC {
 				// si es mas barato
 				if (rodamientoComp.getMonto() < rodamiento.getMonto()) {
 					actualizadoP = true;
-					casaCentralNegocio.getListaPrincipal().remove(
-							rodamientoComp);
+					casaCentralNegocio.getListaPrincipal().remove(rodamientoComp);
 					casaCentralNegocio.getListaPrincipal().add(rodamiento);
 					break;
 				}
@@ -215,8 +228,8 @@ public class AdministracionCC implements IAdministracionCC {
 
 	// TODO REVISAR
 	public RodamientoDto buscarRodamientoDto(String codigo) {
-		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio
-				.getRodamientos().iterator(); iterador.hasNext();) {
+		
+		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator(); iterador.hasNext();) {
 			@SuppressWarnings("unused")
 			RodamientoNegocio rodamiento = iterador.next();
 			// if(rodamiento.getCodigo().equals(codigo)){
@@ -227,48 +240,39 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	public RodamientoNegocio buscarRodamientoNegocio(String codigo) {
-		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio
-				.getRodamientos().iterator(); iterador.hasNext();) {
+		
+		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator(); iterador.hasNext();) {
 			RodamientoNegocio rodamiento = iterador.next();
 			if (rodamiento.getCodigo().equals(codigo))
 				return rodamiento;
 		}
 		return null;
-	}
-	
-	public OVNegocio ObtenerOV(int numeroOV){
-		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
-		return salida;
-	}
-
-	public AdministracionCC(CCNegocio casaCentralNegocio) {
-		this.casaCentralNegocio = casaCentralNegocio;
-	}
-
-	public CCNegocio getCasaCentralNegocio() {
-		return casaCentralNegocio;
-	}
-
-	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
-		this.casaCentralNegocio = casaCentralNegocio;
-	}
+	}	
 	
 	public void crearProveedor(ProveedorDto proveedor) throws RemoteException {
-/*		// TODO no se que onda esto, porque la lista de proveedores esta en la
-		// OV, no tendria que estar en la CC?
-		ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-		// AdministracionCC.getInstancia().getCasaCentralNegocio();
-		return;
-		*/
-		ProveedorDAO.getInstancia().persist(proveedor);
+
+		ProveedorNegocio pro = new ProveedorNegocio();
+		pro.setCUIT(proveedor.getCUIT());
+		pro.setNombre(proveedor.getNombre());
+		pro.persistirProveedor();				
 	}
 	
 	public void eliminarProveedor(ProveedorDto proveedor) throws RemoteException {
-		ProveedorDAO.getInstancia().delete(proveedor);
+		
+		ProveedorDAO.getInstancia().delete(proveedor.getCUIT());
 	}
 
 	public void modificarProveedor(ProveedorDto proveedor) throws RemoteException {
-		ProveedorDAO.getInstancia().update(proveedor);
+		
+		ProveedorNegocio pro = new ProveedorNegocio();
+		pro.setCUIT(proveedor.getCUIT());
+		pro.setNombre(proveedor.getNombre());
+		pro.updateProveedor();	
+	}
+	
+	@Deprecated
+	public List<RodamientoDto> obtenerListaComparativaOpcional() throws RemoteException {		
+		return null;
 	}
 
 }

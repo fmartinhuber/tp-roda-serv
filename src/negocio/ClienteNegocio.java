@@ -72,16 +72,28 @@ public class ClienteNegocio{
 		this.CUIT = CUIT;
 	}
 
-	public void persistirCliente(){
-		ClienteDAO.getInstancia().persist(this);
-	}
-
 	public int getIdCliente() {
 		return idCliente;
 	}
 
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public void updateCliente() {
+		ClienteDAO.getInstancia().update(this);		
+	}
+	
+	public void persistirCliente(){
+		ClienteDAO.getInstancia().persist(this);
+	}
+	
+	public void deleteCliente(){
+		ClienteDAO.getInstancia().delete(this);
+	}
+	
+	public void mergeCliente(){
+		ClienteDAO.getInstancia().merge(this);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import dto.SolicitudCompraDto;
+
 @Entity
 @Table(name="SolicitudCompra")
 public class SolicitudCompraNegocio {
@@ -50,6 +52,12 @@ public class SolicitudCompraNegocio {
 
 	public void setListaCotizaciones(List<CotizacionNegocio> listaCotizaciones) {
 		this.listaCotizaciones = listaCotizaciones;
+	}
+
+	public void aSolicitudCompraNegocio(SolicitudCompraDto solicitudCompraDto) {
+		
+		this.setEstado(solicitudCompraDto.getEstado());						
+		
 	}
 		
 }

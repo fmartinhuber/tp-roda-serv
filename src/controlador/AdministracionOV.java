@@ -38,26 +38,13 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 //		this.getOficinaVentaNegocio().setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
 	}
 	
-	
-	
-	//TODO REVISAR
-	public List<RodamientoDto> obtenerRodamientos(){
-		//Daro: Este es un metodo que solo sirve para hacer pruebas, borrar despues
-		@SuppressWarnings("unused")
-		List <RodamientoNegocio> listaRodamientos = RodamientoDAO.getInstancia().obtenerRodamientos();
-		List <RodamientoDto> listaRodaDto = new ArrayList <RodamientoDto>();
-//		for(int i=0;i<listaRodamientos.size();i++){
-//			RodamientoNegocio roda = listaRodamientos.get(i);
-//			//RodamientoDto rodaDto = roda.aRodamientoDto();
-//			listaRodaDto.add(rodaDto);
-//		}
-		return listaRodaDto;
+	public OVNegocio getOficinaVentaNegocio() {
+		return OficinaVentaNegocio;
 	}
-	
-	public List<RodamientoDto> obtenerRodamientos(String marca){
-		return null;
+
+	public void setOficinaVentaNegocio(OVNegocio oficinaVentaNegocio) {
+		OficinaVentaNegocio = oficinaVentaNegocio;
 	}
-	
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
 	public void crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
@@ -169,8 +156,8 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	return null;
 	}
 	
-	// Genera factura a partir de un listado de cotizaciones, para un cliente puntual
 	
+	// Genera factura a partir de un listado de cotizaciones, para un cliente puntual	
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);// new ClienteNegocio();
@@ -220,6 +207,7 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 		factura.setItems(itemsFactura);
 		factura.persistirFactura();
 	}
+	
 	
 	// Metodo de prueba Charly, borrar antes de la entrega
 	public void pch_LevantaCotizaciones(){
@@ -317,22 +305,16 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	@Override
 	public void modificarCliente(ClienteDto cliente) throws RemoteException {
 
-		ClienteDAO.getInstancia().update(cliente);
+		ClienteNegocio cli = new ClienteNegocio();
+		cli.setCUIT(cliente.getCUIT());
+		cli.setMail(cliente.getMail());
+		cli.setRazonSocial(cliente.getRazonSocial());
+		cli.updateCliente();
 	}
-
-	public OVNegocio getOficinaVentaNegocio() {
-		return OficinaVentaNegocio;
-	}
-
-	public void setOficinaVentaNegocio(OVNegocio oficinaVentaNegocio) {
-		OficinaVentaNegocio = oficinaVentaNegocio;
-	}
-
 
 	@Override
-	public List<CotizacionDto> obtenerCotizacionesAprobadas()
-			throws RemoteException {
-		// TODO Auto-generated method stub
+	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
+		
 		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");
 		List<CotizacionDto> cotizacionesDto = new ArrayList<CotizacionDto>();
 		for(int i=0; i<cotizaciones.size(); i++){
@@ -342,24 +324,22 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	}
 
 	@Override
-	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas)
-			throws RemoteException {
+	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<SolicitudCompraDto> obtenerSolicitudesPendientes()
-			throws RemoteException {
+	public List<SolicitudCompraDto> obtenerSolicitudesPendientes() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void crearOrdenCompra(List<SolicitudCompraDto> solicitudesPendientes)
-			throws RemoteException {
+	public void crearOrdenCompra(List<SolicitudCompraDto> solicitudesPendientes) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
