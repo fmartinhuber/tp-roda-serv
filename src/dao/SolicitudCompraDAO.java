@@ -29,4 +29,14 @@ public class SolicitudCompraDAO extends HibernateDAO{
 		return solicitudes ;
 	}
 
+	public List<SolicitudCompraNegocio> listarSolicitudesCompraAprobadas() {
+
+		Session s = HibernateUtil.getSessionFactory().openSession();				
+		@SuppressWarnings("unchecked")
+		List<SolicitudCompraNegocio> solicitudes = s.createQuery("from SolicitudCompraNegocio s where s.estado = 'aprobada'").list();
+		
+		return solicitudes ;
+		
+	}
+
 }

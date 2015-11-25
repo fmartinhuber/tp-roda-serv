@@ -73,9 +73,13 @@ public class AdministracionCC implements IAdministracionCC {
 						
 		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
 		orden.setEstado("en adquisicion");
+		
+		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
+		float monto=200;
+		monto = estrategia.calcularTotal(formaDePago, monto);
 				
 		if(formaDePago.equalsIgnoreCase("efectivo")){
-			orden.setDescuento(10);
+			orden.setDescuento(monto);
 			orden.setFormaPago(formaDePago);
 			orden.setTotal(900);
 		}		

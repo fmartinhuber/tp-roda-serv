@@ -66,11 +66,11 @@ public class TestRama {
 		
 		List<SolicitudCompraDto> listaCotizacionesDto = new ArrayList<SolicitudCompraDto>();
 		SolicitudCompraDto aux = new SolicitudCompraDto();		
-		List<SolicitudCompraNegocio> listaCotizacionesNegocio = SolicitudCompraDAO.getInstancia().listarSolicitudesCompra();
-		for(negocio.SolicitudCompraNegocio s : listaCotizacionesNegocio){
+		List<SolicitudCompraNegocio> listaCotizacionesNegocioAprobadas = SolicitudCompraDAO.getInstancia().listarSolicitudesCompraAprobadas();
+		for(negocio.SolicitudCompraNegocio s : listaCotizacionesNegocioAprobadas){
 			aux = new SolicitudCompraDto();
 			aux.setEstado(s.getEstado());
-			aux.setNumeroSolicitudCompra(s.getId());			
+			aux.setNumeroSolicitudCompra(s.getId());								
 			listaCotizacionesDto.add(aux);
 		}
 						
