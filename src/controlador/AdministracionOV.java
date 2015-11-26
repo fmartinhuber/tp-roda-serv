@@ -148,14 +148,24 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	
 	
 	//Daro: Se realiza un bulto por cliente, junto a sus Remitos y Facturas
-	public BultoDto entregaPedidos(RemitoDto remito, FacturaDto factura) throws RemoteException {
+	public BultoDto entregaPedidos(int idRemito, int idFactura) throws RemoteException {
 		//Creo el Bulto que voy a devolver
 		BultoDto miBulDto = new BultoDto();
-		//Asigno el Remito al Bulto
-		miBulDto.setRemito(remito);
-		//Asigno la Factura al Bulto
-		miBulDto.setFactura(factura);
-		//Cargo la lista de Rodamientos al Bulto
+		//Busco el Remito en la Base de Datos
+		RemitoNegocio miRemNeg = new RemitoNegocio();
+		miRemNeg = RemitoDAO.getinstancia().buscarRemito(idRemito);
+		//Busco la Factura en la Base de Datos
+		FacturaNegocio miFacNeg = new FacturaNegocio();
+		miFacNeg = FacturaDAO.getInstancia().buscarFactura(idFactura);
+		
+		//Transformo RemitoNegocio a RemitoDto
+		RemitoDto miRemDto = new RemitoDto();
+		miRemDto = miRemNeg.aRemitoDto();
+		//Trasnformo FacturaNegocio a FacturaDto
+		FacturaDto miFacDto = new FacturaDto();
+		miFacDto = miFacNeg.aFacturaDto();
+		
+		
 		
 	return miBulDto;
 	}
@@ -201,7 +211,7 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 			itFactura.setRodamiento(rodamiento);
 			itFactura.setCantidad((Integer)misObjects.get(i)[1]);
 			Double sal = (Double)misObjects.get(i)[2];
-			itFactura.setSubtotal(sal.floatValue());
+			itFactura.setPrecio(sal.floatValue());
 			itemsFactura.add(itFactura);
 		}
 //		for(int i=0; i<cotiNegocio.size(); i++){

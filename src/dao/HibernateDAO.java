@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import hbt.HibernateUtil;
+import negocio.RemitoNegocio;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -75,6 +76,5 @@ public class HibernateDAO{
 		session.update(obj);
 		session.getTransaction().commit();
 	}
-
 	
 }
