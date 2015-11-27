@@ -18,11 +18,12 @@ public class TestRama {
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
 		
-		System.out.println("Cargamos Datos");
-		CargarDatos.getInstance().cargaDeDatos();
-		System.out.println("Carga Finalizada");
+//		System.out.println("Cargamos Datos");
+//		CargarDatos.getInstance().cargaDeDatos();
+//		System.out.println("Carga Finalizada");
 				
 		// CREAR ORDEN COMPRA
+		// TODO:
 		
 //		String formaDePago = "efectivo";
 //		
@@ -39,7 +40,7 @@ public class TestRama {
 //		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizacionesDto, formaDePago);
 //		System.out.println("Orden de compra creada");
 		
-		// CREAR ORDEN COMPRA
+
 		
 
 		
@@ -47,18 +48,17 @@ public class TestRama {
 		
 		//TODO RAMA: Aca consultar el cliente de la base por CUIT, de esa forma viene bien y no se carga uno nuevo
 		
-//		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
-//		listaOrdenes = null;
-//		
-//		ClienteDto cliente = new ClienteDto();
-//		cliente.setCUIT("30-11111111-2");
-//		cliente.setMail("compras@mecind.com.ar");
-//		cliente.setRazonSocial("Mecanica Industrial SRL");
-//		
-//		AdministracionCC.getInstancia().crearRemito(listaOrdenes, cliente);
-//		System.out.println("Remito creado");
+		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
+		listaOrdenes = null;
 		
-		// CREAR REMITO
+		ClienteDto cliente = new ClienteDto();
+		cliente.setCUIT("30-11111111-2");
+		cliente.setMail("compras@mecind.com.ar");
+		cliente.setRazonSocial("Mecanica Industrial SRL");
+		
+		AdministracionCC.getInstancia().crearRemito(listaOrdenes, cliente);
+		System.out.println("Remito creado");
+		
 		
 		
 	}

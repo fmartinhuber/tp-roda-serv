@@ -135,25 +135,25 @@ public class AdministracionCC implements IAdministracionCC {
 		remito.setCliente(cli);
 		remito.setComentarios("comentario 1");
 		remito.setConformidad(true); 
-		remito.setEstado("generado");
+		remito.setEstado("generado");	
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 
 		// Falta agregar los ov_remitos
 		
-		List<OrdenCompraNegocio> listaOrdenCompraNegocio = new ArrayList<OrdenCompraNegocio>();
-		for(int i=0; i<listaOrdenes.size(); i++){
-			OrdenCompraNegocio orden = new OrdenCompraNegocio();
-			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
-			listaOrdenCompraNegocio.add(orden);
-		}
-		
-		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
+//		List<OrdenCompraNegocio> listaOrdenCompraNegocio = new ArrayList<OrdenCompraNegocio>();
+//		for(int i=0; i<listaOrdenes.size(); i++){
+//			OrdenCompraNegocio orden = new OrdenCompraNegocio();
+//			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
+//			listaOrdenCompraNegocio.add(orden);
+//		}
+//		
+//		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
 		
 		// tengo que entender bien funcionalmente esto
 		
 				
-		remito.setCotizaciones(listaCotizaciones);
+//		remito.setCotizaciones(listaCotizaciones);
 		remito.mergearRemito();
 
 	}

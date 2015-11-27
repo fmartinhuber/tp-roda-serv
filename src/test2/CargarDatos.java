@@ -302,6 +302,25 @@ public class CargarDatos {
 				ItemOrdenCompraNegocio itemOrdenCompra06 = new ItemOrdenCompraNegocio(); itemOrdenCompra06.setCantidad(45); itemOrdenCompra06.setMonto(2000); itemOrdenCompra06.persistirItemOrdenCompra();
 				ItemOrdenCompraNegocio itemOrdenCompra07 = new ItemOrdenCompraNegocio(); itemOrdenCompra07.setCantidad(35); itemOrdenCompra07.setMonto(5000); itemOrdenCompra07.persistirItemOrdenCompra();
 				
+		// Alta de Remitos
+				
+				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setCliente(cli13); remito01.setComentarios("comentario 1"); remito01.setConformidad(true);	remito01.setCotizaciones(cotizacionesOV3);	remito01.setEstado("generado");	remito01.setFecha(day10);	remito01.persistirRemito();
+				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setCliente(cli02); remito02.setComentarios("comentario 2"); remito02.setConformidad(true);	remito02.setCotizaciones(cotizacionesOV1);	remito02.setEstado("generado");	remito02.setFecha(day05);	remito02.persistirRemito();
+				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setCliente(cli05); remito03.setComentarios("comentario 3"); remito03.setConformidad(false);	remito03.setCotizaciones(cotizacionesOV2);	remito03.setEstado("generado");	remito03.setFecha(day07);	remito03.persistirRemito();
+				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setCliente(cli01); remito04.setComentarios("comentario 4"); remito04.setConformidad(false);	remito04.setCotizaciones(cotizacionesOV2);	remito04.setEstado("generado");	remito04.setFecha(day03);	remito04.persistirRemito();
+				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setCliente(cli07); remito05.setComentarios("comentario 5"); remito05.setConformidad(true);	remito05.setCotizaciones(cotizacionesOV1);	remito05.setEstado("generado");	remito05.setFecha(day04);	remito05.persistirRemito();
+				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setCliente(cli12); remito06.setComentarios("comentario 6"); remito06.setConformidad(false);	remito06.setCotizaciones(cotizacionesOV3);	remito06.setEstado("generado");	remito06.setFecha(day05);	remito06.persistirRemito();
+				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setCliente(cli04); remito07.setComentarios("comentario 7"); remito07.setConformidad(true);	remito07.setCotizaciones(cotizacionesOV3);	remito07.setEstado("generado");	remito07.setFecha(day01);	remito07.persistirRemito();
+
+		// Alta de Facturas
+				
+				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("generadao"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
+				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("generadao"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
+				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("generadao"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
+				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("generadao"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
+				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("generadao"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
+				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("generadao"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
+
 				
 				
 	}
