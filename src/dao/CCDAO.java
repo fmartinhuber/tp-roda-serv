@@ -19,10 +19,11 @@ public class CCDAO extends HibernateDAO{
 		return instancia;
 	}
 	
-	public void guardarLista(List rodamiento){
+	public void guardarLista(List<?> rodamiento){
 		instancia.persistList(rodamiento);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List <RodamientoNegocio> obtenerListaComparativaPrincipal(){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		return s.createQuery("from CCBean").list();

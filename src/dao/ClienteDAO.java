@@ -32,8 +32,17 @@ public class ClienteDAO extends HibernateDAO {
 		
 		Session se = HibernateUtil.getSessionFactory().openSession();
 		ClienteNegocio salida = (ClienteNegocio) se.get(ClienteNegocio.class, idCli);
-		se = null;
+		se.close();
 		return salida;
+	}
+	
+	public ClienteNegocio buscarClientePorCUIT(String cuit){
+		Session se = HibernateUtil.getSessionFactory().openSession();
+		org.hibernate.Query query = se.createQuery("from ClienteNegocio c where c.CUIT = :nombrePar");
+		query.setParameter("nombrePar", cuit);
+		ClienteNegocio cliNeg = (ClienteNegocio) query.uniqueResult();
+		se.close();
+	return cliNeg;
 	}
 	
 }

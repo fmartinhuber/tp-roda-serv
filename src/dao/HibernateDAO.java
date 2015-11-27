@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import hbt.HibernateUtil;
+import negocio.RemitoNegocio;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,7 +48,14 @@ public class HibernateDAO{
 	public void merge(Object obj) {
 		Session session = getSession();
 		session.beginTransaction();
-		session.merge(obj);
+		session.merge(obj);		
+		session.getTransaction().commit();
+	}
+	
+	public void delete(Object obj) {
+		Session session = getSession();
+		session.beginTransaction();
+		session.delete(obj);		
 		session.getTransaction().commit();
 	}
 	

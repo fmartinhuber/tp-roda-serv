@@ -7,7 +7,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import utils.ItemNegocio;
+import dao.BultoDAO;
+
 
 @Entity
 @Table(name="Bulto")
@@ -17,42 +18,43 @@ public class BultoNegocio {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idBulto;
+		private int idBulto;
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="bulto_itemRodamiento")
-	private List <ItemNegocio> itemRodamiento;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="bulto_cliente")
-	private ClienteNegocio cliente;
+	@JoinColumn(name="bulto_itemBulto")
+		private List <ItemBultoNegocio> itemBulto;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="bulto_remito")
-	private RemitoNegocio remito;
-	
-	public BultoNegocio(List<ItemNegocio> itemRodamiento, ClienteNegocio cliente, RemitoNegocio remito) {
-		super();
-		this.itemRodamiento = itemRodamiento;
-		this.cliente = cliente;
+		private RemitoNegocio remito;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="bulto_factura")
+		private FacturaNegocio factura;
+		
+	public BultoNegocio(int idBulto, List<ItemBultoNegocio> itemBulto,
+			RemitoNegocio remito, FacturaNegocio factura) {
+		this.idBulto = idBulto;
+		this.itemBulto = itemBulto;
 		this.remito = remito;
+		this.factura = factura;
 	}
-	
+
 	public BultoNegocio() {
 		
 	}
-	
-	public List<ItemNegocio> getItemRodamiento() {
-		return itemRodamiento;
+
+	public int getIdBulto() {
+		return idBulto;
 	}
 
-	public void setItemRodamiento(List<ItemNegocio> itemRodamiento) {
-		this.itemRodamiento = itemRodamiento;
+	public void setIdBulto(int idBulto) {
+		this.idBulto = idBulto;
 	}
 
-	public ClienteNegocio getCliente() {
-		return cliente;
+	public List<ItemBultoNegocio> getItemBulto() {
+		return itemBulto;
 	}
 
-	public void setCliente(ClienteNegocio cliente) {
-		this.cliente = cliente;
+	public void setItemBulto(List<ItemBultoNegocio> itemBulto) {
+		this.itemBulto = itemBulto;
 	}
 
 	public RemitoNegocio getRemito() {
@@ -62,6 +64,17 @@ public class BultoNegocio {
 	public void setRemito(RemitoNegocio remito) {
 		this.remito = remito;
 	}
-		
 
+	public FacturaNegocio getFactura() {
+		return factura;
+	}
+
+	public void setFactura(FacturaNegocio factura) {
+		this.factura = factura;
+	}
+	
+	public void persistirBulto(){
+		BultoDAO.getinstancia().persist(this);
+	}
+	
 }

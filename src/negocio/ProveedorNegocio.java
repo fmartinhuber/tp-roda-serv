@@ -35,10 +35,16 @@ public class ProveedorNegocio{
 		
 	}
 	
-	public ProveedorNegocio aProveedorNegocio(ProveedorDto proveedor){
-		ProveedorNegocio prove = new ProveedorNegocio();
-		prove.setNombre(proveedor.getNombre());
-		return prove;
+	public void aProveedorNegocio(ProveedorDto proveedor){
+		this.setNombre(proveedor.getNombre());
+		this.setCUIT(proveedor.getCUIT());
+	}
+	
+	public ProveedorDto aProveedorDto() {
+		ProveedorDto prov = new ProveedorDto();
+		prov.setNombre(this.getNombre());
+		prov.setCUIT(this.getCUIT());
+	return prov;
 	}
 
 	public String getNombre() {
@@ -55,12 +61,6 @@ public class ProveedorNegocio{
 	
 	public void setRodamientos(List<RodamientoNegocio> regulares) {
 		rodamientos = regulares;
-	}
-
-	public ProveedorDto aProveedorDto() {
-		ProveedorDto prov = new ProveedorDto();
-		prov.setNombre(this.getNombre());
-		return prov;
 	}
 	
 	public void persistirProveedor(){

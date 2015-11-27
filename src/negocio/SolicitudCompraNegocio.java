@@ -4,6 +4,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import dao.SolicitudCompraDAO;
+import dto.SolicitudCompraDto;
+
 @Entity
 @Table(name="SolicitudCompra")
 public class SolicitudCompraNegocio {
@@ -51,5 +54,27 @@ public class SolicitudCompraNegocio {
 	public void setListaCotizaciones(List<CotizacionNegocio> listaCotizaciones) {
 		this.listaCotizaciones = listaCotizaciones;
 	}
+
+	public void aSolicitudCompraNegocio(SolicitudCompraDto solicitudCompraDto) {
+		
+		this.setEstado(solicitudCompraDto.getEstado());						
+		
+	}
+
+	public void persistirSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().persist(this);
+	}
 	
+	public void updateSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().update(this);
+	}
+	
+	public void deleteSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().delete(this);
+	}
+	
+	public void mergeSolicitudCompra() {
+		SolicitudCompraDAO.getInstancia().merge(this);
+	}
+		
 }

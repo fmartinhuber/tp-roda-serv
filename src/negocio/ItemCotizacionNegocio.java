@@ -1,5 +1,7 @@
 package negocio;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import dto.*;
@@ -7,8 +9,11 @@ import dto.*;
 
 @Entity
 @Table(name="ItemCotizacion")
-public class ItemCotizacionNegocio{
+public class ItemCotizacionNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
+	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idItemCotizacion; 
@@ -22,15 +27,18 @@ public class ItemCotizacionNegocio{
 		this.rodamiento = rodamiento;
 		this.precio = precio;
 	}
+	
+	public ItemCotizacionNegocio(RodamientoNegocio rodamiento, int cantidad) {
+		this.rodamiento = rodamiento;
+		this.cant = cantidad;
+		this.precio = cantidad*rodamiento.getMonto();
+	}
 
 	public ItemCotizacionNegocio(){
 		
 	}
 	
-	//TODO
 	public void aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
-		
-		//this.setIdItemCotizacion(miItCotDto.getIdItemCotizacion());
 		this.setPrecio(miItCotDto.getPrecio());
 		this.setCantidad(miItCotDto.getCant());
 		RodamientoNegocio roda = new RodamientoNegocio();
@@ -39,7 +47,11 @@ public class ItemCotizacionNegocio{
 	}
 	
 	public ItemCotizacionDto aItemCotizacionDto() {
-		return null;
+		ItemCotizacionDto itemCotDTO = new ItemCotizacionDto();
+		itemCotDTO.setCant(this.getCantidad());
+		itemCotDTO.setPrecio(this.getPrecio());
+		itemCotDTO.setRodamiento(this.getRodamiento().aRodamientoDto());
+		return itemCotDTO;
 	}
 
 	public RodamientoNegocio getRodamiento() {

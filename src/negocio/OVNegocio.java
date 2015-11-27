@@ -27,10 +27,6 @@ public class OVNegocio{
 	@JoinColumn(name="ov_remitos")
 	private List <RemitoNegocio> remitos;
 
-//	@OneToMany(cascade=CascadeType.ALL)
-//	@JoinColumn(name="ov_proveedores")
-//	private List <ProveedorNegocio> proveedores;
-
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_cotizaciones")
 	private List <CotizacionNegocio> cotizaciones;
@@ -38,6 +34,10 @@ public class OVNegocio{
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="ov_solicitudes")
 	private List <SolicitudCompraNegocio> solicitudes;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="ov_bultos")
+	private List <BultoNegocio> bultos;
 	
 	private String centroIndustrial;
 
@@ -77,14 +77,6 @@ public class OVNegocio{
 		this.remitos = remitos;
 	}
 
-//	public List<ProveedorNegocio> getProveedores() {
-//		return proveedores;
-//	}
-//
-//	public void setProveedores(List<ProveedorNegocio> proveedores) {
-//		this.proveedores = proveedores;
-//	}
-
 	public List<CotizacionNegocio> getCotizaciones() {
 		return cotizaciones;
 	}
@@ -115,6 +107,14 @@ public class OVNegocio{
 
 	public void updateOV() {
 		OVDAO.getInstancia().update(this);
+	}
+
+	public List<BultoNegocio> getBultos() {
+		return bultos;
+	}
+
+	public void setBultos(List<BultoNegocio> bultos) {
+		this.bultos = bultos;
 	}
 
 }

@@ -5,6 +5,9 @@ import java.util.*;
 import javax.persistence.*;
 
 import dao.*;
+import dto.ClienteDto;
+import dto.CotizacionDto;
+import dto.RemitoDto;
 
 @Entity
 @Table(name="Remito")
@@ -38,6 +41,57 @@ public class RemitoNegocio{
 	
 	public RemitoNegocio(){
 		
+	}
+	
+	public void aRemitoNegocio(RemitoDto miRemDto){
+		//Asigno los atributos simples
+		this.setEstado(miRemDto.getEstado());
+		this.setComentarios(miRemDto.getComentarios());
+		this.setFecha(miRemDto.getFecha());
+		this.setConformidad(miRemDto.getConformidad());
+		//Asigno los atributos de Clase unica, con el metodo de esa clase
+		ClienteNegocio miCliNegocio = new ClienteNegocio();
+		miCliNegocio.aClienteNegocio(miRemDto.getCliente());
+		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
+		List<CotizacionNegocio> listaCotNeg = new ArrayList<CotizacionNegocio>();
+		for (int i=0; i < miRemDto.getCotizaciones().size(); i++){
+			//Creo la Cotizacion Negocio
+			CotizacionNegocio miCotNeg = new CotizacionNegocio();
+			//Lo transformo
+			miCotNeg.aCotizacionNegocio(miRemDto.getCotizaciones().get(i));
+			//Agrego la Cotizacion a la lista de negocio
+			listaCotNeg.add(miCotNeg);
+		}
+		//Asigno los objetos a la salida
+		this.setCliente(miCliNegocio);
+		this.setCotizaciones(listaCotNeg);
+	}
+	
+	public RemitoDto aRemitoDto() {
+		//Creo la salida del metodo
+		RemitoDto miRemDto = new RemitoDto();
+		//Asigno los atributos simples
+		miRemDto.setEstado(this.getEstado());
+		miRemDto.setComentarios(this.getComentarios());
+		miRemDto.setFecha(this.getFecha());
+		miRemDto.setConformidad(this.getConformidad());
+		//Asigno los atributos de Clase unica, con el metodo de esa clase
+		ClienteDto miCliDto = new ClienteDto();
+		miCliDto = this.getCliente().aClienteDto();
+		//Asigno los atributos de Listas de Clase, con el metodo de esa clase
+		List<CotizacionDto> listaCotDto = new ArrayList<CotizacionDto>();
+		for (int i=0; i < this.getCotizaciones().size(); i++){
+			//Creo la Cotizacion Negocio
+			CotizacionDto miCotDto = new CotizacionDto();
+			//Lo transformo
+			miCotDto = this.getCotizaciones().get(i).aCotizacionDto();
+			//Agrego la Cotizacion a la lista de negocio
+			listaCotDto.add(miCotDto);
+		}
+		//Asigno los objetos a la salida
+		miRemDto.setCliente(miCliDto);
+		miRemDto.setCotizaciones(listaCotDto);
+	return miRemDto;
 	}
 
 	public String getEstado() {
@@ -80,7 +134,7 @@ public class RemitoNegocio{
 		this.fecha = fecha;
 	}
 
-	public boolean isConformidad() {
+	public boolean getConformidad() {
 		return conformidad;
 	}
 
@@ -89,12 +143,17 @@ public class RemitoNegocio{
 	}
 
 	public void persistirRemito() {
-		RemitoDAO.getInstancia().merge(this);		
+		RemitoDAO.getInstancia().persist(this);		
+	}
+	
+	public void mergearRemito(){
+		RemitoDAO.getInstancia().merge(this);
 	}
 	
 	public void updateRemito() {
 		RemitoDAO.getInstancia().update(this);		
 	}
+
 	
 
 }

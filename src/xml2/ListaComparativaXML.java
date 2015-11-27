@@ -1,8 +1,6 @@
 package xml2;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.xml.bind.*;
 
