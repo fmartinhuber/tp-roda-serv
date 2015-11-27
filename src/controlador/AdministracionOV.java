@@ -338,15 +338,16 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	}
 
 	@Override
-	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {	
 	}
 
 	@Override
 	public List<SolicitudCompraDto> obtenerSolicitudesPendientes() throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void crearOrdenCompra(List<SolicitudCompraDto> solicitudesPendientes) throws RemoteException {		
 	}
 
 	
