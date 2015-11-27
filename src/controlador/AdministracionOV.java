@@ -148,9 +148,9 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	
 	
 	//Daro: Se realiza un bulto por cliente, junto a sus Remitos y Facturas
-	public BultoDto entregaPedidos(int idRemito, int idFactura) throws RemoteException {
-		//Creo el Bulto que voy a devolver
-		BultoDto miBulDto = new BultoDto();
+	public void entregaPedidos(int idRemito, int idFactura) throws RemoteException {
+		//Creo el objeto que voy a persistir
+		BultoNegocio miBultoNeg = new BultoNegocio();		
 		//Busco el Remito en la Base de Datos
 		RemitoNegocio miRemNeg = new RemitoNegocio();
 		miRemNeg = RemitoDAO.getinstancia().buscarRemito(idRemito);
@@ -158,16 +158,27 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 		FacturaNegocio miFacNeg = new FacturaNegocio();
 		miFacNeg = FacturaDAO.getInstancia().buscarFactura(idFactura);
 		
-		//Transformo RemitoNegocio a RemitoDto
-		RemitoDto miRemDto = new RemitoDto();
-		miRemDto = miRemNeg.aRemitoDto();
-		//Trasnformo FacturaNegocio a FacturaDto
-		FacturaDto miFacDto = new FacturaDto();
-		miFacDto = miFacNeg.aFacturaDto();
+		//Creo los itemDto desde la FacturaDto (ItemFacturaDto)
+		List<ItemBultoNegocio> miListaItBulNeg = new ArrayList<ItemBultoNegocio>();
+		for(int i=0; i < miFacNeg.getItems().size(); i++){
+			//Transformo cada ItemFacturaDto en ItemBultoNegocio
+			ItemBultoNegocio miItBulNeg = new ItemBultoNegocio();
+			//Asigno los rodamientos y cantidad
+			miItBulNeg.setRodamiento(miFacNeg.getItems().get(i).getRodamiento());
+			miItBulNeg.setCantidad(miFacNeg.getItems().get(i).getCantidad());
+			//Agrego el item a la lista
+			miListaItBulNeg.add(miItBulNeg);
+		}
 		
+		//Asigno todos los objetos generados al BultoNegocio
+		miBultoNeg.setFactura(miFacNeg);
+		miBultoNeg.setRemito(miRemNeg);
+		miBultoNeg.setItemBulto(miListaItBulNeg);
 		
+		//Persisto el objeto generado
+		miBultoNeg.persistirBulto();
 		
-	return miBulDto;
+	return;
 	}
 	
 	

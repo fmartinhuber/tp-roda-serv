@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import utils.ItemNegocio;
+import dao.BultoDAO;
 
 @Entity
 @Table(name="Bulto")
@@ -19,22 +19,23 @@ public class BultoNegocio {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 		private int idBulto;
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="bulto_itemRodamiento")
-		private List <ItemNegocio> itemRodamiento;
+	@JoinColumn(name="bulto_itemBulto")
+		private List <ItemBultoNegocio> itemBulto;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="bulto_remito")
 		private RemitoNegocio remito;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="bulto_factura")
 		private FacturaNegocio factura;
-	
-	public BultoNegocio(List<ItemNegocio> itemRodamiento, RemitoNegocio remito, FacturaNegocio factura) {
-		super();
-		this.itemRodamiento = itemRodamiento;
+		
+	public BultoNegocio(int idBulto, List<ItemBultoNegocio> itemBulto,
+			RemitoNegocio remito, FacturaNegocio factura) {
+		this.idBulto = idBulto;
+		this.itemBulto = itemBulto;
 		this.remito = remito;
 		this.factura = factura;
 	}
-	
+
 	public BultoNegocio() {
 		
 	}
@@ -47,12 +48,12 @@ public class BultoNegocio {
 		this.idBulto = idBulto;
 	}
 
-	public List<ItemNegocio> getItemRodamiento() {
-		return itemRodamiento;
+	public List<ItemBultoNegocio> getItemBulto() {
+		return itemBulto;
 	}
 
-	public void setItemRodamiento(List<ItemNegocio> itemRodamiento) {
-		this.itemRodamiento = itemRodamiento;
+	public void setItemBulto(List<ItemBultoNegocio> itemBulto) {
+		this.itemBulto = itemBulto;
 	}
 
 	public RemitoNegocio getRemito() {
@@ -69,6 +70,10 @@ public class BultoNegocio {
 
 	public void setFactura(FacturaNegocio factura) {
 		this.factura = factura;
+	}
+	
+	public void persistirBulto(){
+		BultoDAO.getinstancia().persist(this);
 	}
 	
 }

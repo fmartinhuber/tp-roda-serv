@@ -17,7 +17,6 @@ public class CotizacionDAO extends HibernateDAO{
 	}
 	
 	public static CotizacionDAO getinstancia(){
-		
 		if (instancia == null) 
 			instancia = new CotizacionDAO();
 		return instancia;
