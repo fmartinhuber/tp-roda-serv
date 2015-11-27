@@ -55,7 +55,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * y previo a la entrega al proveedor
 	 */
 	
-	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
+	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
 						
 		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
 		orden.setEstado("en adquisicion");
@@ -96,7 +96,9 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 				
 		orden.setItems(itemsOrdenCompra);
-		orden.persistirOrdenCompra();		
+		orden.persistirOrdenCompra();
+		
+		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
 	}
 
 	public void levantarXml(){
@@ -131,35 +133,40 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	// TODO: Rama
-	public void crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
+	
+	/* Atributos de un remito
+	 *  Fecha: fecha de la emisión del remito
+	 *  Referencia: se identifica el contenido del remito
+	 * 	Cliente: indica quien es el receptor del remito. Si no está dado de alta, se puede crear 
+	 * 	Sucursal: por defecto trae la casa central y se puede cambiar a una orden de venta
+	 * 	Domicilio: domicilio de la Sucursal seleccionada
+	 * 	Depósito: se especifica de donde se extraen los productos
+	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
+	 *  El remito modifica el stock de los artículos despachados
+	 */
+	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
 
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
 		RemitoNegocio remito = new RemitoNegocio();
 		
-		remito.setCliente(cli);
-		remito.setComentarios("comentario 1");
-		remito.setConformidad(true); 
-		remito.setEstado("generado");	
+		remito.setCliente(cli);					// es el cliente pasado por parámetro
+		remito.setComentarios(null);			// este campo está al pedo
+		remito.setConformidad(true); 			// este campo está al pedo
+		remito.setEstado("Finalizado"); 		// es con el unico estado que se puede cargar un remito, no es editable desde el Sistema	
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
-
-		// Falta agregar los ov_remitos
-		
-		List<OrdenCompraNegocio> listaOrdenCompraNegocio = new ArrayList<OrdenCompraNegocio>();
-		for(int i=0; i<listaOrdenes.size(); i++){
-			OrdenCompraNegocio orden = new OrdenCompraNegocio();
-			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
-			listaOrdenCompraNegocio.add(orden);
-		}
 		
 		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
+		for(int i=0; i<listaOrdenes.size(); i++){
+			CotizacionNegocio cotizacion = new CotizacionNegocio();
+			listaCotizaciones.add(cotizacion);
+		}
 		
-		// tengo que entender bien funcionalmente esto
 		
-				
-		remito.setCotizaciones(listaCotizaciones);
-		remito.mergearRemito();
-
+//		remito.setCotizaciones(listaCotizaciones);		// si descomento esto, rompe. VER BIEN
+		remito.mergeRemito();
+		
+		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}
 
 	public void actualizarStock(List<ItemDto> listaItems, String accion) {

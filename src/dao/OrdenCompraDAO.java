@@ -1,5 +1,13 @@
 package dao;
 
+import hbt.HibernateUtil;
+
+import java.util.List;
+
+import negocio.OrdenCompraNegocio;
+
+import org.hibernate.Session;
+
 public class OrdenCompraDAO extends HibernateDAO{
 	private static OrdenCompraDAO instancia;
 
@@ -11,6 +19,25 @@ public class OrdenCompraDAO extends HibernateDAO{
 		if (instancia == null) 
 			instancia = new OrdenCompraDAO();
 		return instancia;
+	}
+
+	public List<OrdenCompraNegocio> obtenerOrdenCompra() {
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		@SuppressWarnings("unchecked")
+		List<OrdenCompraNegocio> salida = s.createQuery("from OrdenCompraNegocio o").list();
+		
+		s.close();
+		return salida;
+	}
+
+	public int obtenerMaximoIDOrdenCompra() {
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		int resultado = (int) s.createQuery("select max(o.idOrdenCompra) from OrdenCompraNegocio o").uniqueResult();
+		
+		s.clear();
+		return resultado;
 	}
 	
 	

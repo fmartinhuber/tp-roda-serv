@@ -142,16 +142,20 @@ public class RemitoNegocio{
 		this.conformidad = conformidad;
 	}
 
-	public void persistirRemito() {
+	public void persistRemito() {
 		RemitoDAO.getInstancia().persist(this);		
 	}
 	
-	public void mergearRemito(){
+	public void mergeRemito(){
 		RemitoDAO.getInstancia().merge(this);
 	}
 	
 	public void updateRemito() {
 		RemitoDAO.getInstancia().update(this);		
+	}
+	
+	public void deleteRemito() {
+		RemitoDAO.getInstancia().delete(this);		
 	}
 
 	

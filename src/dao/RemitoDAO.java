@@ -1,6 +1,8 @@
 package dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import hbt.HibernateUtil;
 import negocio.RemitoNegocio;
@@ -24,6 +26,15 @@ public class RemitoDAO extends HibernateDAO{
 		RemitoNegocio salida = (RemitoNegocio) se.get(RemitoNegocio.class, idRemito);
 		se.close();
 	return salida;
+	}
+
+	public int obtenerMaximoIDRemito() {
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		int resultado = (int) s.createQuery("select max(r.idRemito) from RemitoNegocio r").uniqueResult();
+		
+		s.clear();
+		return resultado;		
 	}
 	
 	

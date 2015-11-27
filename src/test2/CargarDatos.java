@@ -304,13 +304,13 @@ public class CargarDatos {
 				
 		// Alta de Remitos
 				
-				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setCliente(cli13); remito01.setComentarios("comentario 1"); remito01.setConformidad(true);	remito01.setCotizaciones(cotizacionesOV3);	remito01.setEstado("generado");	remito01.setFecha(day10);	remito01.persistirRemito();
-				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setCliente(cli02); remito02.setComentarios("comentario 2"); remito02.setConformidad(true);	remito02.setCotizaciones(cotizacionesOV1);	remito02.setEstado("generado");	remito02.setFecha(day05);	remito02.persistirRemito();
-				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setCliente(cli05); remito03.setComentarios("comentario 3"); remito03.setConformidad(false);	remito03.setCotizaciones(cotizacionesOV2);	remito03.setEstado("generado");	remito03.setFecha(day07);	remito03.persistirRemito();
-				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setCliente(cli01); remito04.setComentarios("comentario 4"); remito04.setConformidad(false);	remito04.setCotizaciones(cotizacionesOV2);	remito04.setEstado("generado");	remito04.setFecha(day03);	remito04.persistirRemito();
-				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setCliente(cli07); remito05.setComentarios("comentario 5"); remito05.setConformidad(true);	remito05.setCotizaciones(cotizacionesOV1);	remito05.setEstado("generado");	remito05.setFecha(day04);	remito05.persistirRemito();
-				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setCliente(cli12); remito06.setComentarios("comentario 6"); remito06.setConformidad(false);	remito06.setCotizaciones(cotizacionesOV3);	remito06.setEstado("generado");	remito06.setFecha(day05);	remito06.persistirRemito();
-				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setCliente(cli04); remito07.setComentarios("comentario 7"); remito07.setConformidad(true);	remito07.setCotizaciones(cotizacionesOV3);	remito07.setEstado("generado");	remito07.setFecha(day01);	remito07.persistirRemito();
+				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setCliente(cli01); remito01.setComentarios(null); remito01.setConformidad(true);	remito01.setCotizaciones(cotizacionesOV1);	remito01.setEstado("Finalizado");	remito01.setFecha(day01);	remito01.persistRemito();
+				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setCliente(cli02); remito02.setComentarios(null); remito02.setConformidad(true);	remito02.setCotizaciones(cotizacionesOV1);	remito02.setEstado("Finalizado");	remito02.setFecha(day02);	remito02.persistRemito();
+				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setCliente(cli03); remito03.setComentarios(null); remito03.setConformidad(true);	remito03.setCotizaciones(cotizacionesOV2);	remito03.setEstado("Finalizado");	remito03.setFecha(day03);	remito03.persistRemito();
+				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setCliente(cli04); remito04.setComentarios(null); remito04.setConformidad(true);	remito04.setCotizaciones(cotizacionesOV2);	remito04.setEstado("Finalizado");	remito04.setFecha(day04);	remito04.persistRemito();
+				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setCliente(cli05); remito05.setComentarios(null); remito05.setConformidad(true);	remito05.setCotizaciones(cotizacionesOV3);	remito05.setEstado("Finalizado");	remito05.setFecha(day05);	remito05.persistRemito();
+				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setCliente(cli06); remito06.setComentarios(null); remito06.setConformidad(true);	remito06.setCotizaciones(cotizacionesOV3);	remito06.setEstado("Finalizado");	remito06.setFecha(day06);	remito06.persistRemito();
+				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setCliente(cli07); remito07.setComentarios(null); remito07.setConformidad(true);	remito07.setCotizaciones(cotizacionesOV3);	remito07.setEstado("Finalizado");	remito07.setFecha(day07);	remito07.persistRemito();
 
 		// Alta de Facturas
 				

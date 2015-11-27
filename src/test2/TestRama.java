@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import negocio.ClienteNegocio;
+import negocio.OrdenCompraNegocio;
 import negocio.SolicitudCompraNegocio;
 import controlador.*;
 import dao.*;
@@ -48,15 +49,25 @@ public class TestRama {
 		
 		//TODO RAMA: Aca consultar el cliente de la base por CUIT, de esa forma viene bien y no se carga uno nuevo
 		
-		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
-		listaOrdenes = null;
+		List<OrdenCompraDto> listaOrdenesDto = new ArrayList<OrdenCompraDto>();
+		OrdenCompraDto aux = new OrdenCompraDto();
+		List<OrdenCompraNegocio> listaOrdenes = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		for(negocio.OrdenCompraNegocio o : listaOrdenes){
+			aux = new OrdenCompraDto();
+			aux.setDescuento(o.getDescuento());
+			aux.setEstado(o.getEstado());
+			aux.setFormaPago(o.getFormaPago());
+			aux.setTotal(o.getTotal());
+			aux.setNumeroOrdenCompra(o.getIdOrdenCompra());
+			listaOrdenesDto.add(aux);
+		}
 		
 		ClienteDto cliente = new ClienteDto();
 		cliente.setCUIT("30-11111111-2");
 		cliente.setMail("compras@mecind.com.ar");
 		cliente.setRazonSocial("Mecanica Industrial SRL");
 		
-		AdministracionCC.getInstancia().crearRemito(listaOrdenes, cliente);
+		AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, cliente);
 		System.out.println("Remito creado");
 		
 		
