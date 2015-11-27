@@ -1,5 +1,6 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
@@ -11,8 +12,11 @@ import dto.RemitoDto;
 
 @Entity
 @Table(name="Remito")
-public class RemitoNegocio{
+public class RemitoNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
+	
 	@Id 
 	@GeneratedValue (strategy=GenerationType.AUTO)
 	private int idRemito;

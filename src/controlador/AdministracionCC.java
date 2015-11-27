@@ -161,9 +161,8 @@ public class AdministracionCC implements IAdministracionCC {
 			CotizacionNegocio cotizacion = new CotizacionNegocio();
 			listaCotizaciones.add(cotizacion);
 		}
-		
-		
-//		remito.setCotizaciones(listaCotizaciones);		// si descomento esto, rompe. VER BIEN
+				
+		//remito.setCotizaciones(listaCotizaciones);		// si descomento esto, rompe. VER BIEN
 		remito.mergeRemito();
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
@@ -209,7 +208,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	// Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y
-	// devuelve (RodamientoDto)
+	// devuFelve (RodamientoDto)
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
 		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
