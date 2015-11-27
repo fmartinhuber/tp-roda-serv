@@ -13,9 +13,7 @@ import dto.*;
 
 
 //Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
-public class AdministracionOV extends UnicastRemoteObject implements IAdministracionOV{
-	
-	private static final long serialVersionUID = 1L;
+public class AdministracionOV implements IAdministracionOV{
 	
 	public static AdministracionOV administracion; 
 	private static OVNegocio OficinaVentaNegocio;
