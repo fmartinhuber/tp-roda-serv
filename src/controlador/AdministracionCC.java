@@ -55,6 +55,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * y previo a la entrega al proveedor
 	 */
 	
+	//TODO rama
 	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
 						
 		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
@@ -132,7 +133,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return cotizacionesDto;
 	}
 
-	// TODO: Rama
 	
 	/* Atributos de un remito
 	 *  Fecha: fecha de la emisión del remito
@@ -260,18 +260,6 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 
-	// TODO REVISAR
-	public RodamientoDto buscarRodamientoDto(String codigo) {
-		
-		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator(); iterador.hasNext();) {
-			@SuppressWarnings("unused")
-			RodamientoNegocio rodamiento = iterador.next();
-			// if(rodamiento.getCodigo().equals(codigo)){
-			// return rodamiento.aRodamientoDto();
-			// }
-		}
-		return null;
-	}
 
 	public RodamientoNegocio buscarRodamientoNegocio(String codigo) {
 		

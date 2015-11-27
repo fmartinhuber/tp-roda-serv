@@ -8,6 +8,7 @@ import java.util.*;
 
 import negocio.*;
 import utils.ItemDto;
+import xml2.CotizacionXML;
 import dao.*;
 import dto.*;
 
@@ -106,9 +107,9 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
 		miCotNeg.persistirCotizacion();
-	
-	//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
-	return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
+		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
+		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
+		return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
 	}
 	
 	
@@ -130,7 +131,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Actualizo la CotizacionNegocio
 		miCotNeg.actualizarCotizacion();
 		//Devuelvo el costo final de la Cotizacion
-	return costoFinal;
+		return costoFinal;
 	}
 	
 	
