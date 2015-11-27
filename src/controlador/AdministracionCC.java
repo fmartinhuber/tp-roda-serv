@@ -33,10 +33,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return administracion;
 	}
 	
-	public OVNegocio ObtenerOV(int numeroOV){		
-		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
-		return salida;
-	}
 
 	public AdministracionCC(CCNegocio casaCentralNegocio) {
 		this.casaCentralNegocio = casaCentralNegocio;
@@ -59,7 +55,6 @@ public class AdministracionCC implements IAdministracionCC {
 	 * y previo a la entrega al proveedor
 	 */
 	
-	// TODO: 
 	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
 						
 		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
@@ -122,59 +117,6 @@ public class AdministracionCC implements IAdministracionCC {
 		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
 		return salida;
 	}
-	/*
-	 * No es necesario una lista de cotizaciónes 
-	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra 
-	 * Se requiere un nuevo estado en la orden de compra y en la solicitud de cotización
-	 * Marcar solicitud de cotización como "En Adquisición" 
-	 * Marcar Orden de compra como "Nueva" luego de su creación 
-	 * y previo a la entrega al proveedor
-	 */
-	
-	// TODO: 
-	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
-						
-		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
-		orden.setEstado("en adquisicion");
-		
-		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
-		float monto=200;
-		monto = estrategia.calcularTotal(formaDePago, monto);
-				
-		if(formaDePago.equalsIgnoreCase("efectivo")){
-			orden.setDescuento(monto);
-			orden.setFormaPago(formaDePago);
-			orden.setTotal(900);
-		}		
-		
-		if(formaDePago.equalsIgnoreCase("tarjeta")){
-			orden.setDescuento(20);
-			orden.setFormaPago(formaDePago);
-			orden.setTotal(100);
-		}
-					
-//		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
-//		for(int i=0; i<listaCotizaciones.size(); i++){
-//			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
-//			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
-//			listaSolicitud.add(solicitud);
-//		}
-		
-		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
-		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
-		for(int i=0; i<listaCotizaciones.size(); i++){
-			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
-			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
-			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
-			itemOrdenCompra.setCantidad(20);
-			itemOrdenCompra.setMonto(2000);
-			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
-			itemsOrdenCompra.add(itemOrdenCompra);
-		}
-				
-		orden.setItems(itemsOrdenCompra);
-		orden.persistirOrdenCompra();		
-	}
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX" //
 	// "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
@@ -197,17 +139,12 @@ public class AdministracionCC implements IAdministracionCC {
 		remito.setCliente(cli);
 		remito.setComentarios("comentario 1");
 		remito.setConformidad(true); 
-<<<<<<< HEAD
-		remito.setEstado("generado");
-=======
 		remito.setEstado("generado");	
->>>>>>> refs/remotes/origin/master
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 
 		// Falta agregar los ov_remitos
 		
-<<<<<<< HEAD
 		List<OrdenCompraNegocio> listaOrdenCompraNegocio = new ArrayList<OrdenCompraNegocio>();
 		for(int i=0; i<listaOrdenes.size(); i++){
 			OrdenCompraNegocio orden = new OrdenCompraNegocio();
@@ -221,21 +158,6 @@ public class AdministracionCC implements IAdministracionCC {
 		
 				
 		remito.setCotizaciones(listaCotizaciones);
-=======
-//		List<OrdenCompraNegocio> listaOrdenCompraNegocio = new ArrayList<OrdenCompraNegocio>();
-//		for(int i=0; i<listaOrdenes.size(); i++){
-//			OrdenCompraNegocio orden = new OrdenCompraNegocio();
-//			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
-//			listaOrdenCompraNegocio.add(orden);
-//		}
-//		
-//		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
-		
-		// tengo que entender bien funcionalmente esto
-		
-				
-//		remito.setCotizaciones(listaCotizaciones);
->>>>>>> refs/remotes/origin/master
 		remito.mergearRemito();
 
 	}
@@ -282,10 +204,6 @@ public class AdministracionCC implements IAdministracionCC {
 	// Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y
 	// devuelve (RodamientoDto)
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-<<<<<<< HEAD
-=======
-		
->>>>>>> refs/remotes/origin/master
 		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i = 0; i < rodasNegocio.size(); i++) {
@@ -378,23 +296,11 @@ public class AdministracionCC implements IAdministracionCC {
 		pro.setCUIT(proveedor.getCUIT());
 		pro.setNombre(proveedor.getNombre());
 		pro.updateProveedor();	
-<<<<<<< HEAD
 	}
 	
 	@Deprecated
 	public List<RodamientoDto> obtenerListaComparativaOpcional() throws RemoteException {		
 		return null;
-=======
->>>>>>> refs/remotes/origin/master
 	}
-<<<<<<< HEAD
-
-=======
-	
-	@Deprecated
-	public List<RodamientoDto> obtenerListaComparativaOpcional() throws RemoteException {		
-		return null;
-	}
->>>>>>> refs/remotes/origin/master
 
 }

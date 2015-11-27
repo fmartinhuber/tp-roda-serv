@@ -215,15 +215,8 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 			ActualizarEstadoCotizacion(coti, "SOLICITADA");
 		}
 		//TODO CARLOS: Revisa esto, rompe, mal merge parece
-<<<<<<< HEAD
 		//List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
-		
-=======
-		//List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
-		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
-		
->>>>>>> refs/remotes/origin/master
 		for(int i=0; i<misObjects.size(); i++){
 			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
 			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
@@ -372,6 +365,6 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	public void crearOrdenCompra(List<SolicitudCompraDto> solicitudesPendientes) throws RemoteException {		
 	}
 
-	
+
 
 }

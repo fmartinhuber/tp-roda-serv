@@ -8,10 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import dao.BultoDAO;
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/master
 
 @Entity
 @Table(name="Bulto")
