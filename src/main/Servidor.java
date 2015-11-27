@@ -34,10 +34,12 @@ public class Servidor {
 	public void iniciar() {
     	try {
     		LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-    		IAdministracionOV Server = AdministracionOV.getInstancia();
-    		IAdministracionOV stub = (IAdministracionOV) UnicastRemoteObject.exportObject(Server, 0);
-            Naming.rebind ("//localhost/SistemaRodamiento", stub);
-            System.out.println("Servidor corriendo. Fijado en //localhost/SistemaRodamiento");
+    		IAdministracionOV ServerOV = AdministracionOV.getInstancia();
+    		IAdministracionCC ServerCC = AdministracionCC.getInstancia();
+    		IAdministracionOV stubOV = (IAdministracionOV) UnicastRemoteObject.exportObject(ServerOV, 0);
+    		IAdministracionCC stubCC = (IAdministracionCC) UnicastRemoteObject.exportObject(ServerCC, 0);
+            Naming.rebind ("//localhost/SistemaRodamientoOV", stubOV);
+            Naming.rebind ("//localhost/SistemaRodamientoCC", stubCC);
             verVinculos();
 		} catch (Exception e) {
 			System.out.println("ERROR: Error al ejecutar el servidor, compruebe que el mismo no este ya ejecutandose");
