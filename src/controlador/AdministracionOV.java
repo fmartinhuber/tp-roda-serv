@@ -21,9 +21,11 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 	private static OVNegocio OficinaVentaNegocio;
 
 	public static AdministracionOV getInstancia() throws RemoteException{
-		if(administracion == null){
-			administracion = new AdministracionOV();
+		if(administracion == null){	
+			//Creo la OficinaVentaNegocio
 			OficinaVentaNegocio = new OVNegocio();
+			//Inicializo la OV
+			administracion = new AdministracionOV();
 		}
 		return administracion;
 	}
@@ -211,7 +213,7 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 			//TODO CARLOS: Revisa esto, rompe, mal merge parece
 			//cotizacionesFactura.add(coti);
 			ActualizarEstadoCotizacion(coti, "SOLICITADA");
-		}	
+		}
 		//TODO CARLOS: Revisa esto, rompe, mal merge parece
 		//List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
@@ -243,9 +245,12 @@ public class AdministracionOV extends UnicastRemoteObject implements IAdministra
 			CotizacionDto cotiDTO = cotizaciones.get(i).aCotizacionDto();
 			cotizacionesDTO.add(cotiDTO);
 		}
-		//ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);
+		ClienteNegocio cli = new ClienteNegocio();
+		cli = ClienteDAO.getInstancia().buscarCliente(1);
+		ClienteDto cliDTO = new ClienteDto();
+		cliDTO = cli.aClienteDto();
 		
-		generarFactura(cotizacionesDTO, null);
+		generarFactura(cotizacionesDTO, cliDTO);
 //		for(int i = 0; i < cotizacionesDTO.size(); i++){
 //			System.out.println(cotizacionesDTO.get(i).getIdCotizacion());
 //		}

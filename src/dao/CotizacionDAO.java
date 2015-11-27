@@ -34,7 +34,7 @@ public class CotizacionDAO extends HibernateDAO{
 			CotizacionNegocio miCotizacion = new CotizacionNegocio();
 			cotizacionSalida.add(miCotizacion);
 		}
-		s.close();
+		s = null;
 	return cotizacionSalida;
 	}
 	
@@ -50,7 +50,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "and cot.estado <> 'solicitada'").setParameter("clie", clie);
 		salida = q.list();
 		tr.commit();
-		se.close();
+		se = null;
 		return salida;
 	}
 	
@@ -58,7 +58,7 @@ public class CotizacionDAO extends HibernateDAO{
 	public CotizacionNegocio buscarCotizacion(int idCot){
 		Session se = HibernateUtil.getSessionFactory().openSession();
 		CotizacionNegocio salida = (CotizacionNegocio) se.get(CotizacionNegocio.class, idCot);
-		se.close();
+		se = null;
 		return salida;
 	}
 	
@@ -74,7 +74,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "where ovn = :ov ").setParameter("ov", ov);
 		salida = q.list();
 		trx.commit();
-		se.close();
+		se = null;
 		return salida;
 	}
 	
@@ -111,7 +111,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "group by ro.IdRodamiento ").setParameter("ov", ov).setParameter("estado", estado).setParameterList("ids", cotizaciones);
 		salida = q.list();
 		tr.commit();
-		se.close();
+		se = null;
 		return salida;
 	}
 	
@@ -135,7 +135,7 @@ public class CotizacionDAO extends HibernateDAO{
 				.setParameterList("ids", cotizaciones);
 		salida = q.list();
 		tr.commit();
-		se.close();
+		se = null;
 		return salida;
 	}
 	
@@ -152,7 +152,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "group by ro.IdRodamiento").setParameter("ids", prove);
 		salida = q.list();
 		tr.commit();
-		se.close();
+		se = null;
 		return salida;
 	}
 	
@@ -182,7 +182,7 @@ public class CotizacionDAO extends HibernateDAO{
 		Query q = se.createQuery("select max(c.idCotizacion) from CotizacionNegocio c");
 		salida = (int) q.uniqueResult();
 		tr.commit();
-		se.close();
+		se = null;
 	return salida;
 	}
 

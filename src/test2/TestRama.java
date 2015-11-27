@@ -17,10 +17,10 @@ public class TestRama {
 		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");
-			
-//		System.out.println("Cargamos Datos");
-//		CargarDatos.getInstance().cargaDeDatos();
-//		System.out.println("Carga Finalizada");
+		
+		System.out.println("Cargamos Datos");
+		CargarDatos.getInstance().cargaDeDatos();
+		System.out.println("Carga Finalizada");
 				
 		// CREAR ORDEN COMPRA
 		

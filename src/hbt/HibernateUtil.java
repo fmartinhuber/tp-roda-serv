@@ -13,10 +13,12 @@ public class HibernateUtil {
 	        	 
 	        	 config.addAnnotatedClass(controlador.AdministracionOV.class);
 	        	 config.addAnnotatedClass(controlador.AdministracionCC.class);
+	        	 config.addAnnotatedClass(negocio.BultoNegocio.class);
 	             config.addAnnotatedClass(negocio.ClienteNegocio.class);
 	        	 config.addAnnotatedClass(negocio.CotizacionNegocio.class);
 	        	 config.addAnnotatedClass(negocio.FacturaNegocio.class);
 	        	 config.addAnnotatedClass(negocio.ItemCotizacionNegocio.class);
+	        	 config.addAnnotatedClass(negocio.ItemBultoNegocio.class);
 	        	 config.addAnnotatedClass(negocio.ItemFacturaNegocio.class);
 	        	 config.addAnnotatedClass(negocio.ItemOrdenCompraNegocio.class);
 	        	 config.addAnnotatedClass(negocio.OrdenCompraNegocio.class);
