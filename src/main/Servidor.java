@@ -33,10 +33,17 @@ public class Servidor {
 	
 	public void iniciar() {
     	try {
+<<<<<<< HEAD
     		LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
     		IAdministracionOV Server = AdministracionOV.getInstancia();
     		IAdministracionOV stub = (IAdministracionOV) UnicastRemoteObject.exportObject(Server, 0);
             Naming.rebind ("//localhost/SistemaRodamiento", stub);
+=======
+    		LocateRegistry.createRegistry(1099);
+    		//IAdministracionOV Server = new AdministracionOV();
+    		IAdministracionOV Server = AdministracionOV.getInstancia();
+            Naming.rebind ("//localhost/SistemaRodamiento", Server);
+>>>>>>> refs/remotes/origin/master
             System.out.println("Servidor corriendo. Fijado en //localhost/SistemaRodamiento");
             verVinculos();
 		} catch (Exception e) {
