@@ -23,6 +23,7 @@ public class CotizacionDAO extends HibernateDAO{
 	}
 	
 	//Levanta las cotizaciones en un estado pasado por parametro
+	@Deprecated
 	public List<CotizacionNegocio> obtenerCotizacionesAprobada(String estado){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		

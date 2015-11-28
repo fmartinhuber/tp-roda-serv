@@ -117,8 +117,11 @@ public class AdministracionCC implements IAdministracionCC {
 	
 	public void pchBorrarAlTerminar(){
 		List<SolicitudCompraNegocio> solCompra = SolicitudCompraDAO.getInstancia().solicitudCompraXestado("Nueva");
+		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
 		for(int i = 0; i < solCompra.size(); i++){
 			System.out.println(solCompra.get(i).getEstado());
+			SolicitudCompraDto scDTO = solCompra.get(i).aSolicitudCompraDTO();
+			solCompraDTO.add(scDTO);
 		}
 	}
 	
@@ -144,6 +147,7 @@ public class AdministracionCC implements IAdministracionCC {
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX" //
 	// "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
+	@Deprecated
 	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
 		
 		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");

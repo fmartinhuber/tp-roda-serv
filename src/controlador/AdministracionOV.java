@@ -304,7 +304,7 @@ public class AdministracionOV implements IAdministracionOV{
 	@Override
 	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
 		
-		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesXovYestado(this.getOficinaVentaNegocio(), "Aceptada");
 		List<CotizacionDto> cotizacionesDto = new ArrayList<CotizacionDto>();
 		for(int i=0; i<cotizaciones.size(); i++){
 			cotizacionesDto.add(cotizaciones.get(i).aCotizacionDto());

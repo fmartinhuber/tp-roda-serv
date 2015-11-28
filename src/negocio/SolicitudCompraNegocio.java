@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import dao.SolicitudCompraDAO;
+import dto.CotizacionDto;
 import dto.SolicitudCompraDto;
 
 @Entity
@@ -59,6 +60,19 @@ public class SolicitudCompraNegocio {
 		
 		this.setEstado(solicitudCompraDto.getEstado());						
 		
+	}
+	
+	public SolicitudCompraDto aSolicitudCompraDTO() {
+		SolicitudCompraDto scDTO = new SolicitudCompraDto();
+		scDTO.setEstado(this.getEstado());
+		scDTO.setNumeroSolicitudCompra(this.getId());
+		List<CotizacionDto> cotSol = new ArrayList<CotizacionDto>();
+		for(int i = 0; i < this.getListaCotizaciones().size(); i++){
+			CotizacionDto cotDto = this.getListaCotizaciones().get(i).aCotizacionDto();
+			cotSol.add(cotDto);
+		}
+		scDTO.setListaCotizaciones(cotSol);
+		return scDTO;
 	}
 
 	public void persistirSolicitudCompra() {
