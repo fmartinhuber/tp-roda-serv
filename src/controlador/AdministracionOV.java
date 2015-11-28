@@ -142,16 +142,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
-	
-	public void aprobarYCotizarCotizacion(int idCotizacion) throws RemoteException{
 		
-		CotizacionNegocio cotizacion = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
-		cotizacion.setEstado("Aprobada");
-		cotizacion.actualizarCotizacion();
-		
-	}
-	
-	
 	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
 	public void rechazarCotizacion (int idCotizacion){
 		//Busco la cotizacion y la guardo en la variable
