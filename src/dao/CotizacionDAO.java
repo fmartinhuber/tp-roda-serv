@@ -155,7 +155,7 @@ public class CotizacionDAO extends HibernateDAO{
 		se = null;
 		return salida;
 	}
-	
+	 
 	// Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
 	@SuppressWarnings("unchecked")
 	public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
