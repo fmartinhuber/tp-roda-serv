@@ -371,7 +371,7 @@ public class AdministracionOV implements IAdministracionOV{
 
 	@Override
 	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {	
-	}
+	} 
 
 	@Override
 	public List<SolicitudCompraDto> obtenerSolicitudesPendientes() throws RemoteException {
