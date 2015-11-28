@@ -1,5 +1,6 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
@@ -9,8 +10,11 @@ import dto.*;
 
 @Entity
 @Table(name="Proveedor")
-public class ProveedorNegocio{
+public class ProveedorNegocio implements Serializable{
 
+	@Transient
+	private static final long serialVersionUID = 1L;
+	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int IdProveedor;
@@ -35,12 +39,14 @@ public class ProveedorNegocio{
 	}
 	
 	public void aProveedorNegocio(ProveedorDto proveedor){
+		this.setIdProveedor(proveedor.getNroProveedor());
 		this.setNombre(proveedor.getNombre());
 		this.setCUIT(proveedor.getCUIT());
 	}
 	
 	public ProveedorDto aProveedorDto() {
 		ProveedorDto prov = new ProveedorDto();
+		prov.setNroProveedor(this.getIdProveedor());
 		prov.setNombre(this.getNombre());
 		prov.setCUIT(this.getCUIT());
 	return prov;
