@@ -8,6 +8,7 @@ import utils.*;
 import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;
+import estrategia.EstrategiaFormaPago;
 import interfaces.*;
 
 public class AdministracionCC implements IAdministracionCC {
@@ -149,24 +150,27 @@ public class AdministracionCC implements IAdministracionCC {
 	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
 	 *  El remito modifica el stock de los artículos despachados
 	 */
-	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
+	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
 
-		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
+		//ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
 		RemitoNegocio remito = new RemitoNegocio();
+		//Obtener el proov de la base
+		//TODO
 		
-		remito.setCliente(cli);					// es el cliente pasado por parámetro
+		//remito.setCliente(cli);				// es el cliente pasado por parámetro
 		remito.setComentarios(null);			// este campo está al pedo
-		remito.setConformidad(true); 			// este campo está al pedo
-		remito.setEstado("Finalizado"); 		// es con el unico estado que se puede cargar un remito, no es editable desde el Sistema	
+		//remito.setConformidad(true); 			// este campo está al pedo
+		remito.setEstado("Recibido"); 			// es con el unico estado que se puede cargar un remito, no es editable desde el Sistema	
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 		
 		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
 		for(int i=0; i<listaOrdenes.size(); i++){
+			//TODO Ver esto
 			CotizacionNegocio cotizacion = new CotizacionNegocio();
 			listaCotizaciones.add(cotizacion);
 		}
-				
+			
 		//remito.setCotizaciones(listaCotizaciones);		// si descomento esto, rompe. VER BIEN
 		remito.mergeRemito();
 		

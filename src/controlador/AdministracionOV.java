@@ -5,6 +5,9 @@ import interfaces.IAdministracionOV;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import org.hibernate.dialect.IngresDialect;
+import org.hibernate.mapping.Array;
+
 import negocio.*;
 import utils.ItemDto;
 import xml2.CotizacionXML;
@@ -198,7 +201,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	//Carlos: Genera factura a partir de un listado de cotizaciones, para un cliente puntual	
-	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
+	public int generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
 		ClienteNegocio cli = new ClienteNegocio();
 		cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
@@ -210,7 +213,7 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
 		factura.setCliente(cli);
-		factura.setEstado("generada");
+		factura.setEstado("Generada");
 		Calendar c = new GregorianCalendar();
 		factura.setFecha(c.getTime());
 		factura.setCotizacion(cotiNegocio);
@@ -219,22 +222,31 @@ public class AdministracionOV implements IAdministracionOV{
 		// Obtenemos una lista de objetos conformado por un rodamiento, la cantidad de este rodamiento y el subtotal de esos rodamientos
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
 		
+		Double totalFactura = 0.0;
+		
 		for(int i=0; i<misObjects.size(); i++){
 			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
 			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
 			itFactura.setRodamiento(rodamiento);
-			itFactura.setCantidad((Integer)misObjects.get(i)[1]);
+			itFactura.setCantidad(Integer.valueOf(misObjects.get(i)[1].toString()));
 			Double sal = (Double)misObjects.get(i)[2];
 			itFactura.setPrecio(sal.floatValue());
 			itemsFactura.add(itFactura);
+			//Acumulo el total de la factura
+			totalFactura = totalFactura + sal;
 		}
+		
 		factura.setItems(itemsFactura);
+		factura.setTotal(totalFactura.floatValue());
+		//factura.setDescuento(strategy);
 		factura.persistirFactura();
-//		OJO DESCOMENTAR ESTO!!		
-//		for(int i=0; i<cotiNegocio.size(); i++){
-//		cotiNegocio.get(i).setEstado("generada");
-//		cotiNegocio.get(i).actualizarCotizacion();
-//	}
+		
+		for(int i=0; i<cotiNegocio.size(); i++){
+			cotiNegocio.get(i).setEstado("Generada");
+			cotiNegocio.get(i).actualizarCotizacion();
+		}
+		
+	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
 	}
 	
 	

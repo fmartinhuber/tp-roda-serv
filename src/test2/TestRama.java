@@ -16,8 +16,8 @@ public class TestRama {
 		
 		//AdministracionOV c = new AdministracionOV();
 		
-		System.out.println("===================================================================================");
-		System.out.println("===================================================================================");
+//		System.out.println("===================================================================================");
+//		System.out.println("===================================================================================");
 		
 //		System.out.println("Cargamos Datos");
 //		CargarDatos.getInstance().cargaDeDatos();
@@ -67,7 +67,8 @@ public class TestRama {
 		cliente.setMail("compras@mecind.com.ar");
 		cliente.setRazonSocial("Mecanica Industrial SRL");
 		
-		AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, cliente);
+		//Agregar proveedor
+		//AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, null);
 		System.out.println("Remito creado");
 		
 		

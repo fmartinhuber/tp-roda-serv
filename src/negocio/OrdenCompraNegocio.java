@@ -153,6 +153,11 @@ public class OrdenCompraNegocio implements Serializable{
 		this.setItems(lista);
 		
 	}
+	
+	public OrdenCompraDto aOrdenCompraDto() {
+		// TODO CARLOS // TODO RAMA
+		return null;
+	}
 
 	public void persistirOrdenCompra() {
 		OrdenCompraDAO.getInstancia().persist(this);
@@ -169,5 +174,7 @@ public class OrdenCompraNegocio implements Serializable{
 	public void mergeOrdenCompra() {
 		OrdenCompraDAO.getInstancia().merge(this);
 	}
+
+	
 	
 }
