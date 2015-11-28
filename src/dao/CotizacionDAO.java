@@ -172,7 +172,7 @@ public class CotizacionDAO extends HibernateDAO{
 		se = null;
 		return salida;
 	}
-
+	
 	//Daro: Levanta el maximo ID de la tabla Cotizaciones, esto se realiza para devolver el id en las creaciones
 	public int obtenerMaximoIDCotizacion (){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
