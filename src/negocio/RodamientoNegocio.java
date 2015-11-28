@@ -3,7 +3,6 @@ package negocio;
 import javax.persistence.*;
 
 import dao.*;
-
 import dto.*;
 
 
@@ -21,7 +20,7 @@ public class RodamientoNegocio{
 	private String caracteristica;
 	private float monto;
 	private String marca;
-	@ManyToOne
+	@ManyToOne (cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="IdProveedor") //Aqui va el nombre del campo clave de la tabla relacionada
 	private ProveedorNegocio proveedor;
 	//private float costo;

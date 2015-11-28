@@ -3,7 +3,6 @@ package controlador;
 import interfaces.IAdministracionOV;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 import negocio.*;
@@ -12,8 +11,6 @@ import xml2.CotizacionXML;
 import dao.*;
 import dto.*;
 
-
-//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
 public class AdministracionOV implements IAdministracionOV{
 	
 	public static AdministracionOV administracion; 
@@ -49,23 +46,23 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto clienteDto) throws RemoteException {
 		//Obtengo la lista comparativa
-		AdministracionCC admCC = new AdministracionCC();
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
-		listaCompa = admCC.obtenerListaComparativa();
+		listaCompa = AdministracionCC.getInstancia().obtenerListaComparativa();
 		
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
 
 		//Seteo los valores correspondientes a la Cotizacion
-		miCotDto.setCliente(cliente);		//Seteo Cliente
-		miCotDto.setEstado("Pendiente"); 	//Todas se crean pendientes hasta ser aprobadas
+		ClienteNegocio miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT(clienteDto.getCUIT());
+		miCotDto.setCliente(miCliNeg.aClienteDto());	//Seteo Cliente buscado desde la BD
+		miCotDto.setEstado("Pendiente"); 				//Todas se crean pendientes hasta ser aprobadas
 		Date actual = new Date();
-		miCotDto.setFechaCreacion(actual); 	//Se crea con la fecha actual
+		miCotDto.setFechaCreacion(actual); 				//Se crea con la fecha actual
 		Calendar c = Calendar.getInstance();
 		c.setTime(actual);
-		c.add(Calendar.DATE, 30); 			//Se agregan 30 dias a la fecha actual para la vigencia
+		c.add(Calendar.DATE, 30); 						//Se agregan 30 dias a la fecha actual para la vigencia
 		Date vigencia = new Date();
 		vigencia = c.getTime();
 		miCotDto.setFechaVigencia(vigencia);
@@ -106,8 +103,11 @@ public class AdministracionOV implements IAdministracionOV{
 		//Persisto la Cotizacion
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
-		miCotNeg.persistirCotizacion();
+		miCotNeg.mergearCotizacion();;
+		
+		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
+		
 		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
 		return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
 	}
@@ -129,7 +129,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Cambio el estado a Aprobada
 		miCotNeg.setEstado("Aprobada");
 		//Actualizo la CotizacionNegocio
-		miCotNeg.actualizarCotizacion();
+		miCotNeg.mergearCotizacion();
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
@@ -143,7 +143,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Cambio el estado a Rechazada
 		miCotNeg.setEstado("Rechazada");
 		//Actualizo la CotizacionNegocio
-		miCotNeg.actualizarCotizacion();
+		miCotNeg.mergearCotizacion();
 	return;
 	}
 	
@@ -186,7 +186,11 @@ public class AdministracionOV implements IAdministracionOV{
 	// Genera factura a partir de un listado de cotizaciones, para un cliente puntual	
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
-		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);// new ClienteNegocio();
+		/*Daro: Carlos, no usamos mas el metodo buscarCliente por ID, el mismo depende de la carga de la BD
+		para ver que ID le corresponde, ahora lo hacemos buscando por CUIT, te cambio esta linea*/
+		//ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);// new ClienteNegocio();
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT("30-11111111-2");
+		
 		//cli.aClienteNegocio(cliente);
 		//Creo lista de cotizaciones
 		List<CotizacionNegocio> cotiNegocio = new ArrayList<CotizacionNegocio>();
@@ -244,7 +248,12 @@ public class AdministracionOV implements IAdministracionOV{
 			cotizacionesDTO.add(cotiDTO);
 		}
 		ClienteNegocio cli = new ClienteNegocio();
-		cli = ClienteDAO.getInstancia().buscarCliente(1);
+		
+		/*Daro: Carlos, no usamos mas el metodo buscarCliente por ID, el mismo depende de la carga de la BD
+		para ver que ID le corresponde, ahora lo hacemos buscando por CUIT, te cambio esta linea*/
+		//cli = ClienteDAO.getInstancia().buscarCliente(1);
+		cli = ClienteDAO.getInstancia().buscarClientePorCUIT("30-11111111-2");
+		
 		ClienteDto cliDTO = new ClienteDto();
 		cliDTO = cli.aClienteDto();
 		

@@ -113,6 +113,7 @@ public class CargarDatos {
 				RodamientoNegocio roda80 = new RodamientoNegocio(); roda80.setTipo("Rodamientos Rigidos de bolas"); roda80.setCodigo("6313 NR"); roda80.setStock(10); roda80.setOrigen("Israel"); roda80.setMonto((float) 471.54); roda80.setCaracteristica("6313 NR . . . . . . . . . . . URB       Rodamiento"); roda80.setMarca("URB"); roda80.setProveedor(prov08);roda80.persistirRodamiento(); 
 
 		// Asociamos rodamientos a proveedores
+				
 				ArrayList<RodamientoNegocio> listProv01 = new ArrayList<RodamientoNegocio>(); 
 				ArrayList<RodamientoNegocio> listProv02 = new ArrayList<RodamientoNegocio>(); 
 				ArrayList<RodamientoNegocio> listProv03 = new ArrayList<RodamientoNegocio>(); 
@@ -153,9 +154,20 @@ public class CargarDatos {
 				prov08.setRodamientos(listProv08);		prov08.updateProveedor();
 				
 		//Alta de OV
+				
 				OVNegocio OV1 = new OVNegocio(); OV1.setCentroIndustrial("Complejo Industrial Campana"); OV1.persistirOV();
 				OVNegocio OV2 = new OVNegocio(); OV2.setCentroIndustrial("Polo Agroindustrial Lujan"); OV2.persistirOV();
-				OVNegocio OV3 = new OVNegocio(); OV3.setCentroIndustrial("Polo Petroquimico Bahia Blanca"); OV3.persistirOV();				
+				OVNegocio OV3 = new OVNegocio(); OV3.setCentroIndustrial("Polo Petroquimico Bahia Blanca"); OV3.persistirOV();
+				
+		//Alta de CC
+				//Creo la CCUnica
+				CCNegocio CCUnica = new CCNegocio(); CCUnica.setNombre("Casa Matriz"); 
+				//Asingo las OV
+				List<OVNegocio> miListaOVNeg = new ArrayList<OVNegocio>();
+				miListaOVNeg.add(OV1); miListaOVNeg.add(OV2); miListaOVNeg.add(OV3);
+				CCUnica.setOvs(miListaOVNeg);
+				//Persisto la CCUnica
+				CCUnica.persistirCC();
 				
 		// Alta de Clientes
 				
@@ -197,14 +209,14 @@ public class CargarDatos {
 				Calendar cal05 = GregorianCalendar.getInstance();	cal05.add(Calendar.DAY_OF_YEAR, -31);	Date day05 = cal05.getTime();	cal05.add(Calendar.MONTH, 1); 	Date day10 = cal05.getTime();
 		
 				// Seteo de Clientes y fechas en cotizaciones
-				CotizacionNegocio cot01 = new CotizacionNegocio();	cot01.setCliente(cli01); 	cot01.setEstado("pendiente"); 	cot01.setFechaCreacion(day01); 	cot01.setFechaVigencia(day06);
-				CotizacionNegocio cot02 = new CotizacionNegocio();	cot02.setCliente(cli02); 	cot02.setEstado("aprobada"); 	cot02.setFechaCreacion(day02); 	cot02.setFechaVigencia(day07);
-				CotizacionNegocio cot03 = new CotizacionNegocio();	cot03.setCliente(cli01); 	cot03.setEstado("aprobada"); 	cot03.setFechaCreacion(day03); 	cot03.setFechaVigencia(day08);
-				CotizacionNegocio cot04 = new CotizacionNegocio();	cot04.setCliente(cli04); 	cot04.setEstado("aprobada"); 	cot04.setFechaCreacion(day04); 	cot04.setFechaVigencia(day09);
-				CotizacionNegocio cot05 = new CotizacionNegocio();	cot05.setCliente(cli01); 	cot05.setEstado("aprobada"); 	cot05.setFechaCreacion(day01); 	cot05.setFechaVigencia(day06);
-				CotizacionNegocio cot06 = new CotizacionNegocio();	cot06.setCliente(cli03); 	cot06.setEstado("aprobada"); 	cot06.setFechaCreacion(day02); 	cot06.setFechaVigencia(day07);
-				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
-				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
+				CotizacionNegocio cot01 = new CotizacionNegocio();	cot01.setCliente(cli01); 	cot01.setEstado("Pendiente"); 	cot01.setFechaCreacion(day01); 	cot01.setFechaVigencia(day06);
+				CotizacionNegocio cot02 = new CotizacionNegocio();	cot02.setCliente(cli02); 	cot02.setEstado("Aprobada"); 	cot02.setFechaCreacion(day02); 	cot02.setFechaVigencia(day07);
+				CotizacionNegocio cot03 = new CotizacionNegocio();	cot03.setCliente(cli01); 	cot03.setEstado("Aprobada"); 	cot03.setFechaCreacion(day03); 	cot03.setFechaVigencia(day08);
+				CotizacionNegocio cot04 = new CotizacionNegocio();	cot04.setCliente(cli04); 	cot04.setEstado("Aprobada"); 	cot04.setFechaCreacion(day04); 	cot04.setFechaVigencia(day09);
+				CotizacionNegocio cot05 = new CotizacionNegocio();	cot05.setCliente(cli01); 	cot05.setEstado("Aprobada"); 	cot05.setFechaCreacion(day01); 	cot05.setFechaVigencia(day06);
+				CotizacionNegocio cot06 = new CotizacionNegocio();	cot06.setCliente(cli03); 	cot06.setEstado("Aprobada"); 	cot06.setFechaCreacion(day02); 	cot06.setFechaVigencia(day07);
+				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("Pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
+				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("Aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
 				
 				
 				// Alta de itemsCotizacion
@@ -275,22 +287,22 @@ public class CargarDatos {
 				
 		// Alta Ordenes de Compra
 				
-				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("en adquisicion"); 	orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); orden01.persistirOrdenCompra();
-				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("en adquisicion"); 	orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); 	orden02.setTotal((float)5600.50); orden02.persistirOrdenCompra();
-				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("en adquisicion"); 	orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); orden03.persistirOrdenCompra();
-				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("en adquisicion"); 	orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); 	orden04.setTotal((float)9800.50); orden04.persistirOrdenCompra();
-				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("en adquisicion"); 	orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); orden05.persistirOrdenCompra();
+				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("En adquisicion"); 	orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); orden01.persistirOrdenCompra();
+				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("En adquisicion"); 	orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); 	orden02.setTotal((float)5600.50); orden02.persistirOrdenCompra();
+				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("En adquisicion"); 	orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); orden03.persistirOrdenCompra();
+				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("En adquisicion"); 	orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); 	orden04.setTotal((float)9800.50); orden04.persistirOrdenCompra();
+				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("En adquisicion"); 	orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); orden05.persistirOrdenCompra();
 				
 				 // ¿por qué me duplica elementos?, pasa lo mismo en cotizaciones
 				
 		// Alta Solicitud Compra
 								
-				SolicitudCompraNegocio solicitudCompraNegocio01 = new SolicitudCompraNegocio(); solicitudCompraNegocio01.setEstado("pendiente"); 	solicitudCompraNegocio01.persistirSolicitudCompra();
-				SolicitudCompraNegocio solicitudCompraNegocio02 = new SolicitudCompraNegocio(); solicitudCompraNegocio02.setEstado("pendiente"); 	solicitudCompraNegocio02.persistirSolicitudCompra();
-				SolicitudCompraNegocio solicitudCompraNegocio03 = new SolicitudCompraNegocio(); solicitudCompraNegocio03.setEstado("aprobada"); 	solicitudCompraNegocio03.persistirSolicitudCompra();
-				SolicitudCompraNegocio solicitudCompraNegocio04 = new SolicitudCompraNegocio(); solicitudCompraNegocio04.setEstado("pendiente"); 	solicitudCompraNegocio04.persistirSolicitudCompra();
-				SolicitudCompraNegocio solicitudCompraNegocio05 = new SolicitudCompraNegocio(); solicitudCompraNegocio05.setEstado("aprobada"); 	solicitudCompraNegocio05.persistirSolicitudCompra();
-				SolicitudCompraNegocio solicitudCompraNegocio06 = new SolicitudCompraNegocio(); solicitudCompraNegocio06.setEstado("aprobada"); 	solicitudCompraNegocio06.persistirSolicitudCompra();
+				SolicitudCompraNegocio solicitudCompraNegocio01 = new SolicitudCompraNegocio(); solicitudCompraNegocio01.setEstado("Pendiente"); 	solicitudCompraNegocio01.persistirSolicitudCompra();
+				SolicitudCompraNegocio solicitudCompraNegocio02 = new SolicitudCompraNegocio(); solicitudCompraNegocio02.setEstado("Pendiente"); 	solicitudCompraNegocio02.persistirSolicitudCompra();
+				SolicitudCompraNegocio solicitudCompraNegocio03 = new SolicitudCompraNegocio(); solicitudCompraNegocio03.setEstado("Aprobada"); 	solicitudCompraNegocio03.persistirSolicitudCompra();
+				SolicitudCompraNegocio solicitudCompraNegocio04 = new SolicitudCompraNegocio(); solicitudCompraNegocio04.setEstado("Pendiente"); 	solicitudCompraNegocio04.persistirSolicitudCompra();
+				SolicitudCompraNegocio solicitudCompraNegocio05 = new SolicitudCompraNegocio(); solicitudCompraNegocio05.setEstado("Aprobada"); 	solicitudCompraNegocio05.persistirSolicitudCompra();
+				SolicitudCompraNegocio solicitudCompraNegocio06 = new SolicitudCompraNegocio(); solicitudCompraNegocio06.setEstado("Aprobada"); 	solicitudCompraNegocio06.persistirSolicitudCompra();
 				
 		// Alta ItemOrdenCompra
 				
@@ -314,12 +326,12 @@ public class CargarDatos {
 
 		// Alta de Facturas
 				
-				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("generadao"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
-				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("generadao"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
-				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("generadao"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
-				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("generadao"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
-				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("generadao"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
-				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("generadao"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
+				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("Generado"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
+				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("Generado"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
+				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("Generado"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
+				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("Generado"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
+				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("Generado"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
+				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("Generado"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
 
 				
 				

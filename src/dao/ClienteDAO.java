@@ -28,13 +28,15 @@ public class ClienteDAO extends HibernateDAO {
 		return clientes;
 	}
 	
-	public ClienteNegocio buscarCliente(int idCli){
-		
-		Session se = HibernateUtil.getSessionFactory().openSession();
-		ClienteNegocio salida = (ClienteNegocio) se.get(ClienteNegocio.class, idCli);
-		se.close();
-		return salida;
-	}
+	/*Daro: Este metodo hay que borrarlo, los clientes no se deben buscar por id ya que se desconoce el mismo
+	al momento ejecucion (depende de la carga de la base de datos). Se busca unicamente Clientes por CUIT
+	como se realiza en el metodo de abajo... Lo dejo comentado para que se enteren, BORRAR*/
+//	public ClienteNegocio buscarCliente(int idCli){
+//		Session se = HibernateUtil.getSessionFactory().openSession();
+//		ClienteNegocio salida = (ClienteNegocio) se.get(ClienteNegocio.class, idCli);
+//		se.close();
+//		return salida;
+//	}
 	
 	public ClienteNegocio buscarClientePorCUIT(String cuit){
 		Session se = HibernateUtil.getSessionFactory().openSession();

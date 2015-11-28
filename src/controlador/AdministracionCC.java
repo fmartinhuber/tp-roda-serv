@@ -13,39 +13,44 @@ import interfaces.*;
 public class AdministracionCC implements IAdministracionCC {
 
 	public static AdministracionCC administracion;
-
-	private CCNegocio casaCentralNegocio = new CCNegocio();
+	private static CCNegocio casaCentralNegocio;
 	
-
-	public AdministracionCC()  {
-		super();
-		casaCentralNegocio.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
-		casaCentralNegocio.setRodamientos(new ArrayList<RodamientoNegocio>());
-		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
-		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
-
-	}
-
 	public static AdministracionCC getInstancia() {
 		if (administracion == null) {
+			//Creo la CasaCentral
+			casaCentralNegocio = new CCNegocio();
+			//Inicializo la CC
 			administracion = new AdministracionCC();
 		}
 		return administracion;
 	}
 	
-
-	public AdministracionCC(CCNegocio casaCentralNegocio) {
-		this.casaCentralNegocio = casaCentralNegocio;
+	public AdministracionCC()  {
+		//Inicializo todos los array
+		casaCentralNegocio.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
+		casaCentralNegocio.setRodamientos(new ArrayList<RodamientoNegocio>());
+		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
+		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
+		//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
+		levantarXml();
 	}
 
-	public CCNegocio getCasaCentralNegocio() {
+	public static AdministracionCC getAdministracion() {
+		return administracion;
+	}
+
+	public static void setAdministracion(AdministracionCC administracion) {
+		AdministracionCC.administracion = administracion;
+	}
+
+	public static CCNegocio getCasaCentralNegocio() {
 		return casaCentralNegocio;
 	}
 
-	public void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
-		this.casaCentralNegocio = casaCentralNegocio;
+	public static void setCasaCentralNegocio(CCNegocio casaCentralNegocio) {
+		AdministracionCC.casaCentralNegocio = casaCentralNegocio;
 	}
-
+	
 	/*
 	 * No es necesario una lista de cotizaciónes 
 	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra 
@@ -54,7 +59,6 @@ public class AdministracionCC implements IAdministracionCC {
 	 * Marcar Orden de compra como "Nueva" luego de su creación 
 	 * y previo a la entrega al proveedor
 	 */
-	
 	//TODO rama
 	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
 						
@@ -76,7 +80,7 @@ public class AdministracionCC implements IAdministracionCC {
 			orden.setFormaPago(formaDePago);
 			orden.setTotal(100);
 		}
-					
+		
 //		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
 //		for(int i=0; i<listaCotizaciones.size(); i++){
 //			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
@@ -95,17 +99,17 @@ public class AdministracionCC implements IAdministracionCC {
 			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
 			itemsOrdenCompra.add(itemOrdenCompra);
 		}
-				
+		
 		orden.setItems(itemsOrdenCompra);
 		orden.persistirOrdenCompra();
 		
 		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
 	}
-
-	public void levantarXml(){
-		/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
-		IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
-		
+	
+	
+	/*Esto ahora va a levantar un XML que "nos da el proveedor" (Ver clase test.CargarDatosListaComparativa)
+	IMPORTANTE: Si no tenes el "RodamientosProveedores.xml podes ejecutarlo desde TestDaro para generarlo*/
+	public void levantarXml(){		
 		//Levanto el XML RodamientosProveedores
 		ItemNegocioList miItemNegocioList = new ItemNegocioList();
 		miItemNegocioList = ListaComparativaXML.getInstancia().xmlTOitemlist("RodamientosProveedores.xml");
@@ -115,6 +119,7 @@ public class AdministracionCC implements IAdministracionCC {
 			casaCentralNegocio.getListaPrincipal().add(miItemNegocioList.getMisItemsNegocio().get(i).getRodamiento());
 		}
 	}
+	
 	
 	public OVNegocio ObtenerOV(int numeroOV){		
 		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);

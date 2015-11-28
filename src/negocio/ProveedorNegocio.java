@@ -5,7 +5,6 @@ import java.util.*;
 import javax.persistence.*;
 
 import dao.*;
-
 import dto.*;
 
 @Entity
