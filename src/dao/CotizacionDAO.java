@@ -139,7 +139,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "and cot in (:ids) "
 				+ "and cli = :cliente "
 				+ "group by ro.IdRodamiento ").setParameter("ov", ov).setParameter("estado", estado)
-				.setParameter("estado", clie)
+				.setParameter("cliente", clie)
 				.setParameterList("ids", cotizaciones);
 		salida = q.list();
 		tr.commit();
