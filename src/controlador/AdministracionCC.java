@@ -73,9 +73,11 @@ public class AdministracionCC implements IAdministracionCC {
 		//Obtner los proveedores de todos los rodamientos de las solicitudCompraNegocio
 		List<ProveedorNegocio> proveedores = new ArrayList<ProveedorNegocio>();
 		proveedores = SolicitudCompraDAO.getInstancia().proveedoresDeSolicitudCompra(solCompraNeg);
-		
-		//Creamos OrdenCompra
-		OrdenCompraNegocio OCN = new OrdenCompraNegocio();
+		for (int i = 0; i < proveedores.size(); i++) {
+			// Creamos la OC para este proveedor
+			OrdenCompraNegocio OCN = new OrdenCompraNegocio();
+			OCN.setProveedor(proveedores.get(i));
+		}
 		
 //		
 //		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
@@ -123,6 +125,12 @@ public class AdministracionCC implements IAdministracionCC {
 			SolicitudCompraDto scDTO = solCompra.get(i).aSolicitudCompraDTO();
 			solCompraDTO.add(scDTO);
 		}
+		try {
+			crearOrdenCompra(solCompraDTO);
+		} catch (Exception e) {
+			System.out.println("Error al generar Ordeners de Compra");
+		}
+		
 	}
 	
 	

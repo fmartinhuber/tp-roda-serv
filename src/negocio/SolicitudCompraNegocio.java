@@ -16,7 +16,7 @@ public class SolicitudCompraNegocio {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idSolicitudCompra;
 	private String estado;
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="solicitud_cotizacion")
 	private List <CotizacionNegocio> listaCotizaciones;
 	
