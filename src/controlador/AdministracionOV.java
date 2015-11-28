@@ -124,7 +124,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarYCotizarCotizacion2(int idCotizacion)  throws RemoteException{		
+	public float aprobarYCotizarCotizacion(int idCotizacion)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
