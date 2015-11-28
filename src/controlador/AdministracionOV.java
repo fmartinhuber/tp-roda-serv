@@ -18,10 +18,11 @@ public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){	
-			//Creo la OficinaVentaNegocio
-			OficinaVentaNegocio = new OVNegocio();
-			//Inicializo la OV
+//			//Creo la OficinaVentaNegocio
+//			OficinaVentaNegocio = new OVNegocio();
+//			//Inicializo la OV
 			administracion = new AdministracionOV();
+			
 		}
 		return administracion;
 	}
@@ -29,14 +30,17 @@ public class AdministracionOV implements IAdministracionOV{
 	public AdministracionOV() throws RemoteException{
 		//Obtengo la OV buscada o inicalizo una nueva
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		if(this.getOficinaVentaNegocio()== null){
+			OficinaVentaNegocio = new OVNegocio();
+			//Inicializo todos los array
+			OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
+			OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
+			OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
+			OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
+			OficinaVentaNegocio.setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
 		
-		//Inicializo todos los array
-		OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
-		OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
-		OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
-		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
-		OficinaVentaNegocio.setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
-		
+		}
+			
 	}
 	
 	public OVNegocio getOficinaVentaNegocio() {
@@ -229,18 +233,18 @@ public class AdministracionOV implements IAdministracionOV{
 	// Metodo de prueba Charly, borrar antes de la entrega
 	public void pch_LevantaCotizaciones(){
 		
-		List<RodamientoNegocio> rodas = RodamientoDAO.getInstancia().obtenerRodamientos();
-		List<RodamientoDto> rodasDTO = new ArrayList<RodamientoDto>();
-		for(int i = 0; i<rodas.size(); i++){
-			RodamientoDto ro = rodas.get(i).aRodamientoDto();
-			rodasDTO.add(ro);
-			//System.out.println(rodas.get(i).getProveedor().getNombre());
-		}
+//		List<RodamientoNegocio> rodas = RodamientoDAO.getInstancia().obtenerRodamientos();
+//		List<RodamientoDto> rodasDTO = new ArrayList<RodamientoDto>();
+//		for(int i = 0; i<rodas.size(); i++){
+//			RodamientoDto ro = rodas.get(i).aRodamientoDto();
+//			rodasDTO.add(ro);
+//			//System.out.println(rodas.get(i).getProveedor().getNombre());
+//		}
 		
 		
 		//Levantamos cotizaciones (suspendida por ahora para probar rodamientos)
-		/*
-		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesTodas(this.getOficinaVentaNegocio());
+		
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesXovYestado(this.getOficinaVentaNegocio(), "Aprobada");
 		List<CotizacionDto> cotizacionesDTO = new ArrayList<CotizacionDto>();
 		for(int i = 0; i < cotizaciones.size(); i++){
 			System.out.println(cotizaciones.get(i).getIdCotizacion());
@@ -252,7 +256,6 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		generarFactura(cotizacionesDTO, cliDto);
 		
-		*/
 //		for(int i = 0; i < cotizacionesDTO.size(); i++){
 //			System.out.println(cotizacionesDTO.get(i).getIdCotizacion());
 //		}

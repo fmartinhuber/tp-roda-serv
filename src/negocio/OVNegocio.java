@@ -15,27 +15,27 @@ public class OVNegocio{
 	@Column(name="idOV")
 	private int idAdministracionOV;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ov_clientes")
 	private List <ClienteNegocio> clientes;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ov_facturas")
 	private List <FacturaNegocio> facturas;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ov_remitos")
 	private List <RemitoNegocio> remitos;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ov_cotizaciones")
 	private List <CotizacionNegocio> cotizaciones;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ov_solicitudes")
 	private List <SolicitudCompraNegocio> solicitudes;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="ov_bultos")
 	private List <BultoNegocio> bultos;
 	

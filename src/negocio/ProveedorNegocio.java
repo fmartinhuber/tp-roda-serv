@@ -42,6 +42,13 @@ public class ProveedorNegocio implements Serializable{
 		this.setIdProveedor(proveedor.getNroProveedor());
 		this.setNombre(proveedor.getNombre());
 		this.setCUIT(proveedor.getCUIT());
+//		List<RodamientoNegocio> rodas = new ArrayList<RodamientoNegocio>();
+//		for(int i = 0; i < proveedor.getRodamientos().size(); i++){
+//			RodamientoNegocio ro = new RodamientoNegocio();
+//			ro.aRodamientoNegocio(proveedor.getRodamientos().get(i));
+//			rodas.add(ro);
+//		}
+//		this.setRodamientos(rodas);
 	}
 	
 	public ProveedorDto aProveedorDto() {
@@ -49,6 +56,12 @@ public class ProveedorNegocio implements Serializable{
 		prov.setNroProveedor(this.getIdProveedor());
 		prov.setNombre(this.getNombre());
 		prov.setCUIT(this.getCUIT());
+//		List<RodamientoDto> rodas = new ArrayList<RodamientoDto>();
+//		for(int i = 0; i < this.getRodamientos().size(); i++){
+//			RodamientoDto ro = this.getRodamientos().get(i).aRodamientoDto();
+//			rodas.add(ro);
+//		}
+//		prov.setRodamientos(rodas);
 	return prov;
 	}
 
