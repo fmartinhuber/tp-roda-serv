@@ -7,6 +7,7 @@ import org.hibernate.mapping.Array;
 
 import negocio.*;
 import controlador.*;
+import dao.ClienteDAO;
 import dto.*;
 import utils.*;
 import xml2.*;
@@ -26,47 +27,44 @@ public class TestDaro {
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
 		
-//		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
-//		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
-//		//Creo Rodamientos
-//		RodamientoDto rodaUno = new RodamientoDto();
-//		RodamientoDto rodaDos = new RodamientoDto();
-//		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
-//		rodaUno.setCodigo("22310");
-//		rodaUno.setOrigen("Japon");
-//		rodaUno.setMarca("ZKL");
-//		rodaDos.setCodigo("6200F");
-//		rodaDos.setOrigen("Francia");
-//		rodaDos.setMarca("SNR");
-//		//Agrego el rodamiento y su cantidad a la lista de items
-//		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
-//		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
-//		//Agrego los items a la lista
-//		listaUtils.add(itemNegUno);
-//		listaUtils.add(itemNegDos);
-//		
-//		//Creo un Cliente
-//		ClienteDto miClienteDto = new ClienteDto();
-//		//Solamente le asigno los valores: CUIT y Razon Social, va a ser por cual lo busque
-//		miClienteDto.setCUIT("20345850090");
-//		miClienteDto.setRazonSocial("Nieto SRL");
-//		
-//		//Creo una cotizacionDTO, que va a ser lo que me devuelva el metodo
-//		CotizacionDto miCotDto = new CotizacionDto();
-//		//Llamo al metodo para que me genere la Cotizacion
-//		AdministracionOV miAdminOV = new AdministracionOV();
-//		miCotDto = miAdminOV.crearCotizacion(listaUtils, miClienteDto);
-//		
-//		//miCotDto es la Cotizacion pendiente, la misma no se guarda en la Base de Datos porque no tiene items
-//		
-//		
-//		//Analizar los resultados de la cotizacion
-//		
-//		
-//		//Aprobamos la Cotizacion junto a la lista de items
-//		float totalCotizacion;
-//		totalCotizacion = miAdminOV.aprobarCotizacion(miCotDto);
-
+		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
+		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
+		//Creo Rodamientos
+		RodamientoDto rodaUno = new RodamientoDto();
+		RodamientoDto rodaDos = new RodamientoDto();
+		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
+		rodaUno.setCodigo("20210");
+		rodaUno.setOrigen("Suecia");
+		rodaUno.setMarca("SKF");
+		rodaDos.setCodigo("22207");
+		rodaDos.setOrigen("Argentina");
+		rodaDos.setMarca("IMP");
+		//Agrego el rodamiento y su cantidad a la lista de items
+		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
+		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
+		//Agrego los items a la lista
+		listaUtils.add(itemNegUno);
+		listaUtils.add(itemNegDos);
+		
+		//Creo un Cliente
+		ClienteDto miClienteDto = new ClienteDto();
+		ClienteNegocio miCliNeg = new ClienteNegocio();
+		//Obtengo el Cliente de la BD
+		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
+		miClienteDto = miCliNeg.aClienteDto();
+		
+		//Llamo al metodo para que me genere la Cotizacion
+		int idMaximoCot = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
+		
+		//miCotDto es la Cotizacion pendiente, la misma no se guarda en la Base de Datos porque no tiene items
+		
+		//Analizar los resultados de la cotizacion
+		
+		//Aprobamos la Cotizacion junto a la lista de items
+		float totalCotizacion;
+		//totalCotizacion = AdministracionOV.getInstancia().aprobarYCotizarCotizacion(idMaximoCot);
+		//System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
+		
 		
 		
 		/*----------------------------------------------------------------------------------------------------*/

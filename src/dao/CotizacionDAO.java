@@ -38,7 +38,8 @@ public class CotizacionDAO extends HibernateDAO{
 	return cotizacionSalida;
 	}
 	
-	//Levantar las cotizaciones de un cliente en estado distinto de "solicitada"
+	// Levantar las cotizaciones de un cliente en estado distinto de "solicitada"
+	// Se usa???
 	@SuppressWarnings("unchecked")
 	public List<CotizacionNegocio> obtenerCotizacionesDeCiente(ClienteNegocio clie){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -62,11 +63,13 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 	
-	//Levantar todas las cotizaciones de una OV
+	// Carlos: Levantar todas las cotizaciones de una OV y en un estado pasado por parametro
+	// Se usa para Factura (cotizaciones asociadas a una factura)
 	@SuppressWarnings("unchecked")
-	public List<CotizacionNegocio> cotizacionesTodas (OVNegocio ov){
+	public List<CotizacionNegocio> cotizacionesXovYestado (OVNegocio ov, String estado){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
 		List<CotizacionNegocio> salida = new ArrayList<CotizacionNegocio>();
+		List<CotizacionNegocio> sali2 = new ArrayList<CotizacionNegocio>();
 		Transaction trx = se.getTransaction();
 		trx.begin();
 		Query q = se.createQuery("select cotis "
@@ -75,7 +78,11 @@ public class CotizacionDAO extends HibernateDAO{
 		salida = q.list();
 		trx.commit();
 		se = null;
-		return salida;
+		for(int i = 0; i < salida.size(); i++){
+			if (salida.get(i).getEstado().compareTo(estado) == 0)
+				sali2.add(salida.get(i));
+		}
+		return sali2;
 	}
 	
 	// Levantar Items Cotización de determinas cotizaciones
@@ -96,7 +103,7 @@ public class CotizacionDAO extends HibernateDAO{
 //	}
 	
 	// Levantar Rodamiento, cantidad y subtotal de los itemsCotización de un listado de cotizaciones para una ov un estado determinado
-	
+	// Creo que no se usa!!
 	@SuppressWarnings("unchecked")
 	public List<Object[]> rodaPorItemsCotizacion_OV_Estado(List<CotizacionNegocio> cotizaciones, OVNegocio ov, String estado){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -115,8 +122,9 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 	
-	// Levantar Rodamiento, cantidad y subtotal de los itemsCotización de un listado de cotizaciones 
+	// Carlos: Levantar Rodamiento, cantidad y subtotal de los itemsCotización de un listado de cotizaciones 
 	// para una ov un estado determinado y para un cliente
+	// Se usa para generar los itemsFactura!!
 	@SuppressWarnings("unchecked")
 	public List<Object[]> rodaPorItemsCotizacion_OV_Estado_x_Cliente(List<CotizacionNegocio> cotizaciones, 
 			OVNegocio ov, String estado, ClienteNegocio clie){
@@ -131,7 +139,7 @@ public class CotizacionDAO extends HibernateDAO{
 				+ "and cot in (:ids) "
 				+ "and cli = :cliente "
 				+ "group by ro.IdRodamiento ").setParameter("ov", ov).setParameter("estado", estado)
-				.setParameter("estado", clie)
+				.setParameter("cliente", clie)
 				.setParameterList("ids", cotizaciones);
 		salida = q.list();
 		tr.commit();
@@ -139,6 +147,7 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 	
+	// Se usa????
 	// Levantar Rodamientos de Items Cotización de determinas cotizaciones para un proveedor dado
 	@SuppressWarnings("unchecked")
 	public List<Object[]> rodamientoDeItemsCotizacionAgrupadosPorRodamiento(ProveedorNegocio prove){
@@ -155,8 +164,8 @@ public class CotizacionDAO extends HibernateDAO{
 		se = null;
 		return salida;
 	}
-	
-	// Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
+	 
+	// Carlos: Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
 	@SuppressWarnings("unchecked")
 	public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -172,7 +181,7 @@ public class CotizacionDAO extends HibernateDAO{
 		se = null;
 		return salida;
 	}
-
+	
 	//Daro: Levanta el maximo ID de la tabla Cotizaciones, esto se realiza para devolver el id en las creaciones
 	public int obtenerMaximoIDCotizacion (){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -184,6 +193,16 @@ public class CotizacionDAO extends HibernateDAO{
 		tr.commit();
 		se = null;
 	return salida;
+	}
+
+	public CotizacionNegocio buscarCotizacion2(int idCotizacion) {
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		@SuppressWarnings("unchecked")
+		CotizacionNegocio salida = (CotizacionNegocio) s.createQuery("from CotizacionNegocio c where c = " +idCotizacion).list();
+		
+		s.close();
+		return salida;
 	}
 
 

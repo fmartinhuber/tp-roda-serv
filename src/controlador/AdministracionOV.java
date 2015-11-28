@@ -3,7 +3,6 @@ package controlador;
 import interfaces.IAdministracionOV;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 import negocio.*;
@@ -12,8 +11,6 @@ import xml2.CotizacionXML;
 import dao.*;
 import dto.*;
 
-
-//Daro 25/10: Se genera una OVnegocio unica, cuando realmente deberia ser una lista. Trabajarlo con listas es muy complejo
 public class AdministracionOV implements IAdministracionOV{
 	
 	public static AdministracionOV administracion; 
@@ -21,23 +18,29 @@ public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){	
-			//Creo la OficinaVentaNegocio
-			OficinaVentaNegocio = new OVNegocio();
-			//Inicializo la OV
+//			//Creo la OficinaVentaNegocio
+//			OficinaVentaNegocio = new OVNegocio();
+//			//Inicializo la OV
 			administracion = new AdministracionOV();
+			
 		}
 		return administracion;
 	}
 
 	public AdministracionOV() throws RemoteException{
-		//Inicializo todos los array
-		OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
-		OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
-		OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
-		OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
-		OficinaVentaNegocio.setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
-		//Obtengo la OV buscada
+		//Obtengo la OV buscada o inicalizo una nueva
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		if(this.getOficinaVentaNegocio()== null){
+			OficinaVentaNegocio = new OVNegocio();
+			//Inicializo todos los array
+			OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
+			OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
+			OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
+			OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
+			OficinaVentaNegocio.setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
+		
+		}
+			
 	}
 	
 	public OVNegocio getOficinaVentaNegocio() {
@@ -49,23 +52,23 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto cliente) throws RemoteException {
+	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto clienteDto) throws RemoteException {
 		//Obtengo la lista comparativa
-		AdministracionCC admCC = new AdministracionCC();
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
-		listaCompa = admCC.obtenerListaComparativa();
+		listaCompa = AdministracionCC.getInstancia().obtenerListaComparativa();
 		
 		//Declaro la cotizacion que voy a devolver
 		CotizacionDto miCotDto = new CotizacionDto();
 
 		//Seteo los valores correspondientes a la Cotizacion
-		miCotDto.setCliente(cliente);		//Seteo Cliente
-		miCotDto.setEstado("Pendiente"); 	//Todas se crean pendientes hasta ser aprobadas
+		ClienteNegocio miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT(clienteDto.getCUIT());
+		miCotDto.setCliente(miCliNeg.aClienteDto());	//Seteo Cliente buscado desde la BD
+		miCotDto.setEstado("Pendiente"); 				//Todas se crean pendientes hasta ser aprobadas
 		Date actual = new Date();
-		miCotDto.setFechaCreacion(actual); 	//Se crea con la fecha actual
+		miCotDto.setFechaCreacion(actual); 				//Se crea con la fecha actual
 		Calendar c = Calendar.getInstance();
 		c.setTime(actual);
-		c.add(Calendar.DATE, 30); 			//Se agregan 30 dias a la fecha actual para la vigencia
+		c.add(Calendar.DATE, 30); 						//Se agregan 30 dias a la fecha actual para la vigencia
 		Date vigencia = new Date();
 		vigencia = c.getTime();
 		miCotDto.setFechaVigencia(vigencia);
@@ -106,8 +109,11 @@ public class AdministracionOV implements IAdministracionOV{
 		//Persisto la Cotizacion
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
-		miCotNeg.persistirCotizacion();
+		miCotNeg.mergearCotizacion();;
+		
+		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
+		
 		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
 		return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
 	}
@@ -115,7 +121,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarYCotizarCotizacion (int idCotizacion)  throws RemoteException{		
+	public float aprobarYCotizarCotizacion2(int idCotizacion)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
@@ -129,9 +135,17 @@ public class AdministracionOV implements IAdministracionOV{
 		//Cambio el estado a Aprobada
 		miCotNeg.setEstado("Aprobada");
 		//Actualizo la CotizacionNegocio
-		miCotNeg.actualizarCotizacion();
+		miCotNeg.mergearCotizacion();
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
+	}
+	
+	public void aprobarYCotizarCotizacion(int idCotizacion) throws RemoteException{
+		
+		CotizacionNegocio cotizacion = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
+		cotizacion.setEstado("Aprobada");
+		cotizacion.actualizarCotizacion();
+		
 	}
 	
 	
@@ -143,7 +157,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Cambio el estado a Rechazada
 		miCotNeg.setEstado("Rechazada");
 		//Actualizo la CotizacionNegocio
-		miCotNeg.actualizarCotizacion();
+		miCotNeg.mergearCotizacion();
 	return;
 	}
 	
@@ -183,39 +197,28 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	
-	// Genera factura a partir de un listado de cotizaciones, para un cliente puntual	
+	//Carlos: Genera factura a partir de un listado de cotizaciones, para un cliente puntual	
 	public void generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
-		ClienteNegocio cli = ClienteDAO.getInstancia().buscarCliente(1);// new ClienteNegocio();
-		//cli.aClienteNegocio(cliente);
-		//Creo lista de cotizaciones
-		List<CotizacionNegocio> cotiNegocio = new ArrayList<CotizacionNegocio>();
+		ClienteNegocio cli = new ClienteNegocio();
+		cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
+		List<CotizacionNegocio> cotiNegocio = new ArrayList<CotizacionNegocio>(); 	//Creamos lista de cotizacionNegocio para contener las cot transformadas recibidas
 		for(int i = 0; i < cotis.size(); i++){
 			CotizacionNegocio co = new CotizacionNegocio();
-			co.aCotizacionNegocio(cotis.get(i));
+			co.aCotizacionNegocio(cotis.get(i));	//convertimos a negocio cada una de las cotizacionesDTO
 			cotiNegocio.add(co);
 		}
-		FacturaNegocio factura = new FacturaNegocio();
+		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
 		factura.setCliente(cli);
 		factura.setEstado("generada");
 		Calendar c = new GregorianCalendar();
 		factura.setFecha(c.getTime());
 		factura.setCotizacion(cotiNegocio);
 		
-		// Crear ItemsFactura
-		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();
-		for(int i=0; i<cotis.size(); i++){
-			//TODO CARLOS: Revisa esto
-			//idsCoti.add(cotis.get(i).getIdCotizacion());
-			CotizacionNegocio coti = new CotizacionNegocio(); //buscarCotizacion(idsCoti.get(i).intValue());
-			coti.aCotizacionNegocio(cotis.get(i));
-			//TODO CARLOS: Revisa esto, rompe, mal merge parece
-			//cotizacionesFactura.add(coti);
-			ActualizarEstadoCotizacion(coti, "SOLICITADA");
-		}
-		//TODO CARLOS: Revisa esto, rompe, mal merge parece
-		//List<Object[]> misObjects = CotizacionDAO.getinstancia().itemsCotizacionAgrupadosPorRodamiento(idsCoti);
+		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();	// Crear ItemsFactura
+		// Obtenemos una lista de objetos conformado por un rodamiento, la cantidad de este rodamiento y el subtotal de esos rodamientos
 		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "aprobada", cli);
+		
 		for(int i=0; i<misObjects.size(); i++){
 			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
 			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
@@ -225,30 +228,42 @@ public class AdministracionOV implements IAdministracionOV{
 			itFactura.setPrecio(sal.floatValue());
 			itemsFactura.add(itFactura);
 		}
-//		for(int i=0; i<cotiNegocio.size(); i++){
-//			cotiNegocio.get(i).setEstado("generada");
-//			cotiNegocio.get(i).actualizarCotizacion();
-//		}
 		factura.setItems(itemsFactura);
 		factura.persistirFactura();
+//		OJO DESCOMENTAR ESTO!!		
+//		for(int i=0; i<cotiNegocio.size(); i++){
+//		cotiNegocio.get(i).setEstado("generada");
+//		cotiNegocio.get(i).actualizarCotizacion();
+//	}
 	}
 	
 	
 	// Metodo de prueba Charly, borrar antes de la entrega
 	public void pch_LevantaCotizaciones(){
-		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesTodas(this.getOficinaVentaNegocio());
+		
+//		List<RodamientoNegocio> rodas = RodamientoDAO.getInstancia().obtenerRodamientos();
+//		List<RodamientoDto> rodasDTO = new ArrayList<RodamientoDto>();
+//		for(int i = 0; i<rodas.size(); i++){
+//			RodamientoDto ro = rodas.get(i).aRodamientoDto();
+//			rodasDTO.add(ro);
+//			//System.out.println(rodas.get(i).getProveedor().getNombre());
+//		}
+		
+		
+		//Levantamos cotizaciones (suspendida por ahora para probar rodamientos)
+		
+		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesXovYestado(this.getOficinaVentaNegocio(), "Aprobada");
 		List<CotizacionDto> cotizacionesDTO = new ArrayList<CotizacionDto>();
 		for(int i = 0; i < cotizaciones.size(); i++){
 			System.out.println(cotizaciones.get(i).getIdCotizacion());
 			CotizacionDto cotiDTO = cotizaciones.get(i).aCotizacionDto();
 			cotizacionesDTO.add(cotiDTO);
 		}
-		ClienteNegocio cli = new ClienteNegocio();
-		cli = ClienteDAO.getInstancia().buscarCliente(1);
-		ClienteDto cliDTO = new ClienteDto();
-		cliDTO = cli.aClienteDto();
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT("30-11111111-2");
+		ClienteDto cliDto = cli.aClienteDto();
 		
-		generarFactura(cotizacionesDTO, cliDTO);
+		generarFactura(cotizacionesDTO, cliDto);
+		
 //		for(int i = 0; i < cotizacionesDTO.size(); i++){
 //			System.out.println(cotizacionesDTO.get(i).getIdCotizacion());
 //		}

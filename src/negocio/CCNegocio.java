@@ -1,21 +1,19 @@
 package negocio;
 
-import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
 
+import dao.CCDAO;
+
 @Entity
 @Table(name="CC")
-public class CCNegocio implements Serializable {
-
-	@Transient
-	private static final long serialVersionUID = 1L;
-
+public class CCNegocio{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idCC")
 	private int idAdministracionCC;
+	private String Nombre;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_ov")
@@ -28,25 +26,15 @@ public class CCNegocio implements Serializable {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="cc_proveedores")
 	private List <ProveedorNegocio> proveedores;
-	
-	/**
-	 *  Actualizar stock propio. (RAMA)
-	 *  Se utiliza para manejar el stock interno.
-	 */
+
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List <RodamientoNegocio> rodamientos;
 	
-	/**
-	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
-	 */
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List <RodamientoNegocio> listaPrincipal;
 	
-	/**
-	 * Rodamientos con stock del proveedor. (DARO-MARTIN)
-	 */
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List <RodamientoNegocio> listaOpcional;
@@ -56,6 +44,9 @@ public class CCNegocio implements Serializable {
 		
 	}
 
+	public void persistirCC(){
+		CCDAO.getInstancia().persist(this);
+	}
 
 	public int getIdAdministracionCC() {
 		return idAdministracionCC;
@@ -104,6 +95,36 @@ public class CCNegocio implements Serializable {
 
 	public void setListaOpcional(List<RodamientoNegocio> listaOpcional) {
 		this.listaOpcional = listaOpcional;
+	}
+
+
+	public String getNombre() {
+		return Nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		Nombre = nombre;
+	}
+
+
+	public List<OVNegocio> getOvs() {
+		return ovs;
+	}
+
+
+	public void setOvs(List<OVNegocio> ovs) {
+		this.ovs = ovs;
+	}
+
+
+	public List<ProveedorNegocio> getProveedores() {
+		return proveedores;
+	}
+
+
+	public void setProveedores(List<ProveedorNegocio> proveedores) {
+		this.proveedores = proveedores;
 	}
 	
 }

@@ -11,7 +11,7 @@ import dto.*;
 public class ClienteNegocio{
 
 	
-	@Id 
+	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCliente;
 	private String razonSocial;
@@ -35,7 +35,7 @@ public class ClienteNegocio{
 		this.setCUIT(clienteDto.getCUIT());
 		this.setMail(clienteDto.getMail());
 		this.setRazonSocial(clienteDto.getRazonSocial());
-	
+		this.setIdCliente(clienteDto.getNumeroCliente());
 	}
 	
 	public ClienteDto aClienteDto() {
@@ -45,6 +45,7 @@ public class ClienteNegocio{
 		miCliDto.setCUIT(this.getCUIT());
 		miCliDto.setMail(this.getMail());
 		miCliDto.setRazonSocial(this.getRazonSocial());
+		miCliDto.setNumeroCliente(this.getIdCliente());
 	return miCliDto;
 	}	
 	

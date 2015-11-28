@@ -31,12 +31,12 @@ public class CotizacionNegocio implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCotizacion;
 	private String estado;
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER )
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="cotizacion_items")
 	private List<ItemCotizacionNegocio> items;
 	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="cotizacion_cliente")
-	private ClienteNegocio cliente; 
+	private ClienteNegocio cliente;
 	private Date fechaCreacion;
 	private Date fechaVigencia;
 

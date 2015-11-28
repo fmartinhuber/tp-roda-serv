@@ -1,14 +1,5 @@
 package dao;
 
-import hbt.HibernateUtil;
-
-import java.util.List;
-
-import negocio.RodamientoNegocio;
-
-import org.hibernate.Session;
-
-
 public class CCDAO extends HibernateDAO{
 
 	private static ClienteDAO instancia;
@@ -19,13 +10,4 @@ public class CCDAO extends HibernateDAO{
 		return instancia;
 	}
 	
-	public void guardarLista(List<?> rodamiento){
-		instancia.persistList(rodamiento);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List <RodamientoNegocio> obtenerListaComparativaPrincipal(){
-		Session s = HibernateUtil.getSessionFactory().openSession();
-		return s.createQuery("from CCBean").list();
-	}
 }
