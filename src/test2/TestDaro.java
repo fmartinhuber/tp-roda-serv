@@ -62,8 +62,13 @@ public class TestDaro {
 		
 		//Aprobamos la Cotizacion junto a la lista de items
 		float totalCotizacion;
+<<<<<<< HEAD
 		//totalCotizacion = AdministracionOV.getInstancia().aprobarYCotizarCotizacion(idMaximoCot);
 		//System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
+=======
+		totalCotizacion = AdministracionOV.getInstancia().aprobarYCotizarCotizacion(idMaximoCot);
+		System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
+>>>>>>> refs/remotes/origin/master
 		
 		
 		
