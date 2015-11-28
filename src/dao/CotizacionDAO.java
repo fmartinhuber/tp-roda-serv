@@ -165,22 +165,22 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 	 
-	// Carlos: Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
-	@SuppressWarnings("unchecked")
-	public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
-		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
-		List<ProveedorNegocio> salida;
-		Transaction tr = se.getTransaction();
-		tr.begin();
-		Query q = se.createQuery("Select prov "
-				+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
-				+ "where cot in (:ids) "
-				+ "group by prov ").setParameterList("ids", cotizaciones);
-		salida = q.list();
-		tr.commit();
-		se = null;
-		return salida;
-	}
+//	// Carlos: Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
+//	@SuppressWarnings("unchecked")
+//	public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
+//		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+//		List<ProveedorNegocio> salida;
+//		Transaction tr = se.getTransaction();
+//		tr.begin();
+//		Query q = se.createQuery("Select prov "
+//				+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
+//				+ "where cot in (:ids) "
+//				+ "group by prov ").setParameterList("ids", cotizaciones);
+//		salida = q.list();
+//		tr.commit();
+//		se = null;
+//		return salida;
+//	}
 	
 	//Daro: Levanta el maximo ID de la tabla Cotizaciones, esto se realiza para devolver el id en las creaciones
 	public int obtenerMaximoIDCotizacion (){
