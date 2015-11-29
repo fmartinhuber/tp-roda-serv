@@ -206,5 +206,57 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 
-
+	// Carlos; Levanto los clientes de una colección de cotizaciones pasadas por parametro de una ov
+	// Lo uso para el masivo de generar factura
+	@SuppressWarnings("unchecked")
+	public List<ClienteNegocio> clientesDeListadoCotizacionXovYestado (List<CotizacionNegocio> cotizaciones, String estado, OVNegocio ov){
+		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<ClienteNegocio> salida = new ArrayList<ClienteNegocio>();
+		List<String> cuitClientes;
+		Transaction tr = se.getTransaction();
+		tr.begin();
+		Query q = se.createQuery("Select cli.CUIT  "
+				+ "from OVNegocio ov "
+				+ "join ov.cotizaciones cot "
+				+ "join cot.cliente cli "
+				+ "where ov = :ov "
+				+ "and cot.estado = :estado "
+				+ "and cot in (:ids) "
+				+ "group by cli.CUIT ").setParameter("ov", ov).setParameter("estado", estado)
+				.setParameterList("ids", cotizaciones);
+		cuitClientes = q.list();
+		tr.commit();
+		se = null;
+		// Busco cada uno de los proveedores por el ID devueltos
+		for (int i = 0; i < cuitClientes.size(); i++) {
+			ClienteNegocio cliente = ClienteDAO.getInstancia().buscarClientePorCUIT(cuitClientes.get(i));
+			salida.add(cliente);
+		}
+		return salida;
+	}
+	
+	// Carlos; Levanto las cotizaciones de un cliente pasadas por parametro de una ov yb una colecciones de cotizaciones predeterminada
+	// Lo uso para el masivo de generar factura
+		@SuppressWarnings("unchecked")
+		public List<CotizacionNegocio> cotizacionXovYestadoYcliente (List<CotizacionNegocio> cotizaciones, String estado, 
+				OVNegocio ov, ClienteNegocio clie){
+			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+			List<CotizacionNegocio> salida = new ArrayList<CotizacionNegocio>();
+			Transaction tr = se.getTransaction();
+			tr.begin();
+			Query q = se.createQuery("Select cot  "
+					+ "from OVNegocio ov "
+					+ "join ov.cotizaciones cot "
+					+ "join cot.cliente cli "
+					+ "where ov = :ov "
+					+ "and cot.estado = :estado "
+					+ "and cli = :cli "
+					+ "and cot in (:ids) ").setParameter("ov", ov).setParameter("estado", estado).setParameter("cli", clie)
+					.setParameterList("ids", cotizaciones);
+			salida = q.list();
+			tr.commit();
+			se = null;
+			return salida;
+		}
+	
 }
