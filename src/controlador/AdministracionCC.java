@@ -8,7 +8,6 @@ import utils.*;
 import xml2.ListaComparativaXML;
 import negocio.*;
 import dto.*;
-import estrategia.EstrategiaFormaPago;
 import interfaces.*;
 
 public class AdministracionCC implements IAdministracionCC {
@@ -60,7 +59,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * Marcar Orden de compra como "Nueva" luego de su creación 
 	 * y previo a la entrega al proveedor
 	 */
-	//TODO rama
+	
 	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
 		
 		//Conventirmos SolicitudesCompraDTO a Negocio
@@ -179,26 +178,25 @@ public class AdministracionCC implements IAdministracionCC {
 	 */
 	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
 
-		//ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
-		RemitoNegocio remito = new RemitoNegocio();
-		//Obtener el proov de la base
-		//TODO
-		
-		//remito.setCliente(cli);				// es el cliente pasado por parámetro
-		remito.setComentarios(null);			// este campo está al pedo
-		//remito.setConformidad(true); 			// este campo está al pedo
-		remito.setEstado("Recibido"); 			// es con el unico estado que se puede cargar un remito, no es editable desde el Sistema	
-		Calendar c = new GregorianCalendar();
-		remito.setFecha(c.getTime());
-		
-		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
+		// Convertimos OrdenCompraDTO a Negocio
+		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
 		for(int i=0; i<listaOrdenes.size(); i++){
-			//TODO Ver esto
-			CotizacionNegocio cotizacion = new CotizacionNegocio();
-			listaCotizaciones.add(cotizacion);
+			OrdenCompraNegocio orden = new OrdenCompraNegocio();
+			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
+			ordenes.add(orden);
 		}
+		
+		// Buscamos el proveedor por el CUIT
+		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+		RemitoNegocio remito = new RemitoNegocio();
+		
+		remito.setProveedor(proov);
+		remito.setComentarios(null);
+		remito.setEstado("Recibido");
+		Calendar c = new GregorianCalendar();
+		remito.setFecha(c.getTime());		
 			
-		//remito.setCotizaciones(listaCotizaciones);		// si descomento esto, rompe. VER BIEN
+		//remito.setOrdenesDeCompra(ordenes);
 		remito.mergeRemito();
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();

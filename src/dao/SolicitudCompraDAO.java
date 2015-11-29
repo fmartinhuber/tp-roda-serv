@@ -2,10 +2,8 @@ package dao;
 
 import hbt.HibernateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import negocio.CotizacionNegocio;
 import negocio.ProveedorNegocio;
 import negocio.SolicitudCompraNegocio;
 

@@ -138,20 +138,10 @@ public class OrdenCompraNegocio implements Serializable{
 			ItemOrdenCompraDto itemDto = miOrdenDto.getItems().get(i);
 			itemNegocio.aItemOrdenCompraNegocio(itemDto);
 			lista.add(itemNegocio);
-		}
-		/*
-		List<SolicitudCompraNegocio> listaSolicitudes = new ArrayList<SolicitudCompraNegocio>();
-		for(int j=0; j<miOrdenDto.getItems().size();j++){
-			SolicitudCompraNegocio itemNegocio = new SolicitudCompraNegocio();
-			ItemOrdenCompraDto itemDto = miOrdenDto.getItems().get(j);
-			itemNegocio.aSolicitudCompraNegocio(itemDto);			
-			lista.add(itemNegocio);
-		}
-		*/
+		}		
 		
 		this.setProveedor(proveedor);
-		this.setItems(lista);
-		
+		this.setItems(lista);		
 	}
 	
 	public OrdenCompraDto aOrdenCompraDto() {

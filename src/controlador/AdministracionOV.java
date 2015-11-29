@@ -5,9 +5,6 @@ import interfaces.IAdministracionOV;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import org.hibernate.dialect.IngresDialect;
-import org.hibernate.mapping.Array;
-
 import negocio.*;
 import utils.ItemDto;
 import xml2.CotizacionXML;
@@ -242,6 +239,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	// Actualiza ESTADO de cotización
+	@SuppressWarnings("unused")
 	private boolean ActualizarEstadoCotizacion (CotizacionNegocio cotizacion, String estadoNuevo){
 		//CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
 		Boolean salida = true;

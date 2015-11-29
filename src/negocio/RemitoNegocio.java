@@ -6,8 +6,6 @@ import java.util.*;
 import javax.persistence.*;
 
 import dao.*;
-import dto.ClienteDto;
-import dto.CotizacionDto;
 import dto.OrdenCompraDto;
 import dto.RemitoDto;
 
@@ -27,20 +25,26 @@ public class RemitoNegocio implements Serializable{
 	private List <OrdenCompraNegocio> ordenesDeCompra;
 	private Date fecha;
 	private String comentarios;
+	@OneToOne (cascade=CascadeType.ALL)
+	@JoinColumn(name="remito_proveedor")
+	private ProveedorNegocio proveedor;
 	
-	public RemitoNegocio(int idRemito, String estado, List<OrdenCompraNegocio> ordenesDeCompra, 
-			Date fecha, String comentarios) {
+	public RemitoNegocio(){}
+	
+	public RemitoNegocio(int idRemito, String estado,
+			List<OrdenCompraNegocio> ordenesDeCompra, Date fecha,
+			String comentarios, ProveedorNegocio proveedor) {
+		super();
 		this.idRemito = idRemito;
 		this.estado = estado;
 		this.ordenesDeCompra = ordenesDeCompra;
 		this.fecha = fecha;
 		this.comentarios = comentarios;
+		this.proveedor = proveedor;
 	}
 
-	public RemitoNegocio(){
-		
-	}
-	
+
+
 	public void aRemitoNegocio(RemitoDto miRemDto){
 		//Asigno los atributos simples
 		this.setEstado(miRemDto.getEstado());
@@ -138,4 +142,14 @@ public class RemitoNegocio implements Serializable{
 		this.ordenesDeCompra = ordenesDeCompra;
 	}
 
+	public ProveedorNegocio getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorNegocio proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	
+	
 }

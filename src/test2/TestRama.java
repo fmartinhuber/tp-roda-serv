@@ -3,9 +3,7 @@ package test2;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import negocio.ClienteNegocio;
-import negocio.OrdenCompraNegocio;
-import negocio.SolicitudCompraNegocio;
+import negocio.*;
 import controlador.*;
 import dao.*;
 import dto.*;
@@ -13,18 +11,12 @@ import dto.*;
 public class TestRama {
 
 	public static void main(String[] args) throws RemoteException{
-		
-		//AdministracionOV c = new AdministracionOV();
-		
-//		System.out.println("===================================================================================");
-//		System.out.println("===================================================================================");
-		
+	
 //		System.out.println("Cargamos Datos");
 //		CargarDatos.getInstance().cargaDeDatos();
 //		System.out.println("Carga Finalizada");
 				
 		// CREAR ORDEN COMPRA
-		// TODO:
 		
 //		String formaDePago = "efectivo";
 //		
@@ -42,12 +34,8 @@ public class TestRama {
 //		System.out.println("Orden de compra creada");
 		
 
-		
-
-		
-		// CREAR REMITO
-		
-		//TODO RAMA: Aca consultar el cliente de la base por CUIT, de esa forma viene bien y no se carga uno nuevo
+				
+		// CREAR REMITO		
 		
 		List<OrdenCompraDto> listaOrdenesDto = new ArrayList<OrdenCompraDto>();
 		OrdenCompraDto aux = new OrdenCompraDto();
@@ -62,13 +50,11 @@ public class TestRama {
 			listaOrdenesDto.add(aux);
 		}
 		
-		ClienteDto cliente = new ClienteDto();
-		cliente.setCUIT("30-11111111-2");
-		cliente.setMail("compras@mecind.com.ar");
-		cliente.setRazonSocial("Mecanica Industrial SRL");
+		ProveedorDto proveedor = new ProveedorDto();
+		proveedor.setCUIT(null);
+		proveedor.setNombre(null);		
 		
-		//Agregar proveedor
-		//AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, null);
+		AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, proveedor);
 		System.out.println("Remito creado");
 		
 		
