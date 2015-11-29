@@ -186,9 +186,15 @@ public class AdministracionOV implements IAdministracionOV{
 		miBultoNeg.persistirBulto();
 		
 		//Una vez hecho el Bulto, se debe descontar del stock los Rodamientos que salieron
+		ArrayList<ItemDto> misItemsDto = new ArrayList<ItemDto>();
 		for (int i=0; i < miListaItBulNeg.size(); i++){
-			
+			//Formo la Lista de Items para luego actualizar stock
+			misItemsDto.get(i).setRodamiento(miListaItBulNeg.get(i).getRodamiento().aRodamientoDto());
+			misItemsDto.get(i).setCantidad(miListaItBulNeg.get(i).getCantidad());
 		}
+		
+		//Descuento el Stock con la Lista de Items generada
+		AdministracionCC.getInstancia().actualizarStock(misItemsDto, "restar");
 		
 		//Creo el BultoXML
 		BultoXML.getInstancia().bultoTOxml(miBultoNeg);
