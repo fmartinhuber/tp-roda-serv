@@ -139,7 +139,7 @@ public class OrdenCompraNegocio implements Serializable{
 			itemNegocio.aItemOrdenCompraNegocio(itemDto);
 			lista.add(itemNegocio);
 		}		
-		
+				
 		this.setProveedor(proveedor);
 		this.setItems(lista);		
 	}
