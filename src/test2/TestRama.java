@@ -37,9 +37,26 @@ public class TestRama {
 				
 		// CREAR REMITO		
 		
+		ProveedorDto proveedor = new ProveedorDto();
+		proveedor.setCUIT("20-11111111-1");
+		proveedor.setNombre("BPB Solucines en Movimiento");	
+		
 		List<OrdenCompraDto> listaOrdenesDto = new ArrayList<OrdenCompraDto>();
-		OrdenCompraDto aux = new OrdenCompraDto();
 		List<OrdenCompraNegocio> listaOrdenes = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		OrdenCompraDto aux = new OrdenCompraDto();
+								
+		List<ItemOrdenCompraDto> listaItemsDto = new ArrayList<ItemOrdenCompraDto>();
+		List<ItemOrdenCompraNegocio> listaItemsNegocio = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
+		ItemOrdenCompraDto aux2 = new ItemOrdenCompraDto();
+				
+		for(negocio.ItemOrdenCompraNegocio i : listaItemsNegocio ){
+			aux2 = new ItemOrdenCompraDto();
+			aux2.setCantidad(i.getCantidad());
+			aux2.setMonto(i.getMonto());	
+			aux2.setRodamiento(i.getRodamiento().aRodamientoDto());
+			listaItemsDto.add(aux2);
+		}
+		
 		for(negocio.OrdenCompraNegocio o : listaOrdenes){
 			aux = new OrdenCompraDto();
 			aux.setDescuento(o.getDescuento());
@@ -47,12 +64,12 @@ public class TestRama {
 			aux.setFormaPago(o.getFormaPago());
 			aux.setTotal(o.getTotal());
 			aux.setNumeroOrdenCompra(o.getIdOrdenCompra());
+			aux.setProveedor(proveedor);
+			
+			aux.setItems(listaItemsDto);
+			
 			listaOrdenesDto.add(aux);
-		}
-		
-		ProveedorDto proveedor = new ProveedorDto();
-		proveedor.setCUIT(null);
-		proveedor.setNombre(null);		
+		}				
 		
 		AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, proveedor);
 		System.out.println("Remito creado");

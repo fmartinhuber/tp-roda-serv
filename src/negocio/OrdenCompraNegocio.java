@@ -133,20 +133,40 @@ public class OrdenCompraNegocio implements Serializable{
 		proveedor.aProveedorNegocio(miOrdenDto.getProveedor());
 		
 		List<ItemOrdenCompraNegocio> lista = new ArrayList<ItemOrdenCompraNegocio>();
-		for(int i=0; i<miOrdenDto.getItems().size();i++){
+		for(int i=0; i<miOrdenDto.getItems().size(); i++){
 			ItemOrdenCompraNegocio itemNegocio = new ItemOrdenCompraNegocio();
 			ItemOrdenCompraDto itemDto = miOrdenDto.getItems().get(i);
 			itemNegocio.aItemOrdenCompraNegocio(itemDto);
 			lista.add(itemNegocio);
 		}		
-		
+				
 		this.setProveedor(proveedor);
 		this.setItems(lista);		
 	}
 	
 	public OrdenCompraDto aOrdenCompraDto() {
-		// TODO CARLOS // TODO RAMA
-		return null;
+		
+		OrdenCompraDto ordenDto = new OrdenCompraDto();
+		
+		ordenDto.setDescuento(this.getDescuento());
+		ordenDto.setEstado(this.getEstado());
+		ordenDto.setFormaPago(this.getFormaPago());
+		ordenDto.setTotal(this.getTotal());
+		
+		ProveedorDto proveedorDto = new ProveedorDto();
+		proveedorDto = this.getProveedor().aProveedorDto();
+		
+		List<ItemOrdenCompraDto> listaItemDto = new ArrayList<ItemOrdenCompraDto>();
+		for(int i=0; i<this.getItems().size(); i++){
+			ItemOrdenCompraDto itemDto = new ItemOrdenCompraDto();
+			itemDto = this.getItems().get(i).aItemOrdenCompraDto();
+			listaItemDto.add(itemDto);
+		}
+		
+		ordenDto.setProveedor(proveedorDto);
+		ordenDto.setItems(listaItemDto);
+		
+		return ordenDto;		
 	}
 
 	public void persistirOrdenCompra() {

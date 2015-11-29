@@ -213,27 +213,39 @@ public class AdministracionCC implements IAdministracionCC {
 	 *  El remito modifica el stock de los artículos despachados
 	 */
 	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
-
+			
+		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+		RemitoNegocio remito = new RemitoNegocio();
+		
+		remito.setProveedor(proov);
+		remito.setComentarios("Satisfecho");
+		remito.setEstado("Recibido");
+		Calendar c = new GregorianCalendar();
+		remito.setFecha(c.getTime());	
+		
 		// Convertimos OrdenCompraDTO a Negocio
 		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
 		for(int i=0; i<listaOrdenes.size(); i++){
 			OrdenCompraNegocio orden = new OrdenCompraNegocio();
 			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
 			ordenes.add(orden);
-		}
+		}		
 		
-		// Buscamos el proveedor por el CUIT
-		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
-		RemitoNegocio remito = new RemitoNegocio();
-		
-		remito.setProveedor(proov);
-		remito.setComentarios(null);
-		remito.setEstado("Recibido");
-		Calendar c = new GregorianCalendar();
-		remito.setFecha(c.getTime());		
-			
 		//remito.setOrdenesDeCompra(ordenes);
 		remito.mergeRemito();
+		
+//		List<ItemOrdenCompraNegocio> miListita = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra(); 
+//		
+//		// Aumentar el stock que ingresaron
+//		ArrayList<ItemDto> items = new ArrayList<ItemDto>();
+//		for(int i=0; i<miListita.size(); i++){
+//			items.get(i).setCantidad(miListita.get(i).getCantidad());
+//			items.get(i).setRodamiento(miListita.get(i).getRodamiento().aRodamientoDto());
+//			//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
+//			//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());			
+//		}
+//			
+//		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}

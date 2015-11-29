@@ -26,6 +26,11 @@ public class ItemOrdenCompraNegocio{
 		this.cantidad = cant;
 	}
 	
+	public ItemOrdenCompraNegocio(RodamientoNegocio roda, int cant) {
+		this.rodamiento = roda;
+		this.cantidad = cant;
+	}
+	
 	public ItemOrdenCompraNegocio(){
 		
 	}
@@ -89,6 +94,17 @@ public class ItemOrdenCompraNegocio{
 	
 	public void mergeItemOrdenCompra() {
 		ItemOrdenCompraDAO.getInstancia().merge(this);
+	}
+
+	public ItemOrdenCompraDto aItemOrdenCompraDto() {
+		
+		ItemOrdenCompraDto itemOrdenDto = new ItemOrdenCompraDto();
+		
+		itemOrdenDto.setCantidad(this.getCantidad());
+		itemOrdenDto.setMonto(this.getMonto());
+		itemOrdenDto.setRodamiento(this.getRodamiento().aRodamientoDto());
+		
+		return itemOrdenDto;
 	}
 	
 	
