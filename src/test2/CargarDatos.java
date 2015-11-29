@@ -274,7 +274,47 @@ public class CargarDatos {
 				List<ItemCotizacionNegocio> listItem08 = new ArrayList<ItemCotizacionNegocio>();
 				ItemCotizacionNegocio itCot0801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot0801);
 				ItemCotizacionNegocio itCot0802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot0802);
+
+			// Alta de itemsCotizacion para las cotizaciones con solicitud de Compra
+				List<ItemCotizacionNegocio> listItem11 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot1101);
+				ItemCotizacionNegocio itCot1102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot1102);
+				ItemCotizacionNegocio itCot1103 = new ItemCotizacionNegocio(roda72, 7);		listItem01.add(itCot1103);	
+				ItemCotizacionNegocio itCot1104 = new ItemCotizacionNegocio(roda12, 91);	listItem01.add(itCot1104);
+				ItemCotizacionNegocio itCot1105 = new ItemCotizacionNegocio(roda33, 14);	listItem01.add(itCot1105);
 				
+				List<ItemCotizacionNegocio> listItem12 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1201 = new ItemCotizacionNegocio(roda29, 5);		listItem02.add(itCot1201);
+				ItemCotizacionNegocio itCot1202 = new ItemCotizacionNegocio(roda37, 13);	listItem02.add(itCot1202);
+				ItemCotizacionNegocio itCot1203 = new ItemCotizacionNegocio(roda79, 14);	listItem02.add(itCot1203);
+				
+				List<ItemCotizacionNegocio> listItem13 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1301 = new ItemCotizacionNegocio(roda42, 15);	listItem03.add(itCot1301);
+				ItemCotizacionNegocio itCot1302 = new ItemCotizacionNegocio(roda66, 31);	listItem03.add(itCot1302);
+				
+				List<ItemCotizacionNegocio> listItem14 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1401 = new ItemCotizacionNegocio(roda01, 15);	listItem04.add(itCot1401);
+				ItemCotizacionNegocio itCot1402 = new ItemCotizacionNegocio(roda09, 22);	listItem04.add(itCot1402);
+				
+				List<ItemCotizacionNegocio> listItem15 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1501 = new ItemCotizacionNegocio(roda21, 15);	listItem05.add(itCot1501);
+				ItemCotizacionNegocio itCot1502 = new ItemCotizacionNegocio(roda39, 12);	listItem05.add(itCot1502);
+				ItemCotizacionNegocio itCot1503 = new ItemCotizacionNegocio(roda55, 22);	listItem05.add(itCot1503);
+				ItemCotizacionNegocio itCot1504 = new ItemCotizacionNegocio(roda67, 19);	listItem05.add(itCot1504);
+				
+				List<ItemCotizacionNegocio> listItem16 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1601 = new ItemCotizacionNegocio(roda22, 90);	listItem06.add(itCot1601);
+				ItemCotizacionNegocio itCot1602 = new ItemCotizacionNegocio(roda39, 14);	listItem01.add(itCot1602);
+				ItemCotizacionNegocio itCot1603 = new ItemCotizacionNegocio(roda10, 10);	listItem06.add(itCot1603);
+				
+				List<ItemCotizacionNegocio> listItem17 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1701 = new ItemCotizacionNegocio(roda78, 22);	listItem07.add(itCot1701);
+				ItemCotizacionNegocio itCot1702 = new ItemCotizacionNegocio(roda65, 14);	listItem07.add(itCot1702);
+				ItemCotizacionNegocio itCot1703 = new ItemCotizacionNegocio(roda51, 17);	listItem07.add(itCot1703);
+				
+				List<ItemCotizacionNegocio> listItem18 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot1801);
+				ItemCotizacionNegocio itCot1802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot1802);
 				
 				// Asociamos Lista de Items Cotizaciones a Cotizaciones y persistimos
 				cot01.setItems(listItem01);		cot01.persistirCotizacion();
@@ -287,14 +327,14 @@ public class CargarDatos {
 				cot08.setItems(listItem08);		cot08.persistirCotizacion();
 				
 				// Asociamos Lista de Items Cotizaciones a Cotizaciones usadas en las solicitudCompra y persistimos
-				cot11.setItems(listItem01);		cot11.persistirCotizacion();
-				cot12.setItems(listItem02);		cot12.persistirCotizacion();
-				cot13.setItems(listItem03);		cot13.persistirCotizacion();
-				cot14.setItems(listItem04);		cot14.persistirCotizacion();
-				cot15.setItems(listItem05);		cot15.persistirCotizacion();
-				cot16.setItems(listItem06);		cot16.persistirCotizacion();
-				cot17.setItems(listItem07);		cot17.persistirCotizacion();
-				cot18.setItems(listItem08);		cot18.persistirCotizacion();
+				cot11.setItems(listItem11);		cot11.persistirCotizacion();
+				cot12.setItems(listItem12);		cot12.persistirCotizacion();
+				cot13.setItems(listItem13);		cot13.persistirCotizacion();
+				cot14.setItems(listItem14);		cot14.persistirCotizacion();
+				cot15.setItems(listItem15);		cot15.persistirCotizacion();
+				cot16.setItems(listItem16);		cot16.persistirCotizacion();
+				cot17.setItems(listItem17);		cot17.persistirCotizacion();
+				cot18.setItems(listItem18);		cot18.persistirCotizacion();
 				
 				
 		// Asociamos cotizaciones a OV'S
