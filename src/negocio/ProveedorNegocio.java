@@ -38,10 +38,12 @@ public class ProveedorNegocio implements Serializable{
 		
 	}
 	
-	public void aProveedorNegocio(ProveedorDto proveedor){
-		this.setIdProveedor(proveedor.getNroProveedor());
-		this.setNombre(proveedor.getNombre());
-		this.setCUIT(proveedor.getCUIT());
+	public void aProveedorNegocio(dto.ProveedorDto proveedorDto){
+		
+		this.setCUIT(proveedorDto.getCUIT());
+		this.setNombre(proveedorDto.getNombre());
+		this.setIdProveedor(proveedorDto.getNroProveedor());		
+		
 //		List<RodamientoNegocio> rodas = new ArrayList<RodamientoNegocio>();
 //		for(int i = 0; i < proveedor.getRodamientos().size(); i++){
 //			RodamientoNegocio ro = new RodamientoNegocio();

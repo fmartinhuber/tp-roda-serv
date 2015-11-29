@@ -354,18 +354,7 @@ public class CargarDatos {
 				
 				OV1.setCotizaciones(cotizacionesOV1); OV1.updateOV();
 				OV2.setCotizaciones(cotizacionesOV2); OV2.updateOV();
-				OV3.setCotizaciones(cotizacionesOV3); OV3.updateOV();		
-				
-				
-		// Alta Ordenes de Compra
-				
-				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("En adquisicion"); 	orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); orden01.persistirOrdenCompra();
-				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("En adquisicion"); 	orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); 	orden02.setTotal((float)5600.50); orden02.persistirOrdenCompra();
-				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("En adquisicion"); 	orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); orden03.persistirOrdenCompra();
-				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("En adquisicion"); 	orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); 	orden04.setTotal((float)9800.50); orden04.persistirOrdenCompra();
-				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("En adquisicion"); 	orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); orden05.persistirOrdenCompra();
-				
-				 // ¿por qué me duplica elementos?, pasa lo mismo en cotizaciones
+				OV3.setCotizaciones(cotizacionesOV3); OV3.updateOV();											
 				
 		// Alta Solicitud Compra
 								
@@ -409,15 +398,48 @@ public class CargarDatos {
 				OV2.setSolicitudes(solCompraOV2); 	OV2.updateOV();
 				OV3.setSolicitudes(solCompraOV3); 	OV3.updateOV();
 				
+		// Alta Ordenes de Compra
+				
+				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("En adquisicion"); 	orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); 
+				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("En adquisicion"); 	orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); 	orden02.setTotal((float)5600.50); 
+				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("En adquisicion"); 	orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); 
+				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("En adquisicion"); 	orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); 	orden04.setTotal((float)9800.50); 
+				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("En adquisicion"); 	orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); 	
+				
 		// Alta ItemOrdenCompra
 				
-				ItemOrdenCompraNegocio itemOrdenCompra01 = new ItemOrdenCompraNegocio(); itemOrdenCompra01.setCantidad(20); itemOrdenCompra01.setMonto(9000); itemOrdenCompra01.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra02 = new ItemOrdenCompraNegocio(); itemOrdenCompra02.setCantidad(35); itemOrdenCompra02.setMonto(4000); itemOrdenCompra02.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra03 = new ItemOrdenCompraNegocio(); itemOrdenCompra03.setCantidad(15); itemOrdenCompra03.setMonto(3500); itemOrdenCompra03.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra04 = new ItemOrdenCompraNegocio(); itemOrdenCompra04.setCantidad(10); itemOrdenCompra04.setMonto(7500); itemOrdenCompra04.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra05 = new ItemOrdenCompraNegocio(); itemOrdenCompra05.setCantidad(50); itemOrdenCompra05.setMonto(5500); itemOrdenCompra05.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra06 = new ItemOrdenCompraNegocio(); itemOrdenCompra06.setCantidad(45); itemOrdenCompra06.setMonto(2000); itemOrdenCompra06.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra07 = new ItemOrdenCompraNegocio(); itemOrdenCompra07.setCantidad(35); itemOrdenCompra07.setMonto(5000); itemOrdenCompra07.persistirItemOrdenCompra();
+				List<ItemOrdenCompraNegocio> listaOrden01 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden101 = new ItemOrdenCompraNegocio(roda28, 25);	listaOrden01.add(itemOrden101);
+				ItemOrdenCompraNegocio itemOrden102 = new ItemOrdenCompraNegocio(roda33, 3);	listaOrden01.add(itemOrden102);
+				ItemOrdenCompraNegocio itemOrden103 = new ItemOrdenCompraNegocio(roda72, 7);	listaOrden01.add(itemOrden103);
+				
+				List<ItemOrdenCompraNegocio> listaOrden02 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden201 = new ItemOrdenCompraNegocio(roda29, 5);	listaOrden02.add(itemOrden201);
+				ItemOrdenCompraNegocio itemOrden202 = new ItemOrdenCompraNegocio(roda37, 13);	listaOrden02.add(itemOrden202);
+				ItemOrdenCompraNegocio itemOrden203 = new ItemOrdenCompraNegocio(roda79, 14);	listaOrden02.add(itemOrden203);
+				
+				List<ItemOrdenCompraNegocio> listaOrden03 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden301 = new ItemOrdenCompraNegocio(roda42, 6);	listaOrden03.add(itemOrden301);
+				ItemOrdenCompraNegocio itemOrden302 = new ItemOrdenCompraNegocio(roda66, 31);	listaOrden03.add(itemOrden302);
+				
+				List<ItemOrdenCompraNegocio> listaOrden04 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden401 = new ItemOrdenCompraNegocio(roda21, 15);	listaOrden04.add(itemOrden401);
+				ItemOrdenCompraNegocio itemOrden402 = new ItemOrdenCompraNegocio(roda39, 12);	listaOrden04.add(itemOrden402);
+				ItemOrdenCompraNegocio itemOrden403 = new ItemOrdenCompraNegocio(roda55, 22);	listaOrden04.add(itemOrden403);
+				ItemOrdenCompraNegocio itemOrden404 = new ItemOrdenCompraNegocio(roda67, 19);	listaOrden04.add(itemOrden404);		
+				
+				List<ItemOrdenCompraNegocio> listaOrden05 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden501 = new ItemOrdenCompraNegocio(roda22, 11);	listaOrden04.add(itemOrden501);
+				ItemOrdenCompraNegocio itemOrden502 = new ItemOrdenCompraNegocio(roda29, 21);	listaOrden04.add(itemOrden502);
+				ItemOrdenCompraNegocio itemOrden503 = new ItemOrdenCompraNegocio(roda54, 14);	listaOrden04.add(itemOrden503);
+				ItemOrdenCompraNegocio itemOrden504 = new ItemOrdenCompraNegocio(roda57, 16);	listaOrden04.add(itemOrden504);		
+				
+
+				orden01.setItems(listaOrden01); 	orden01.persistirOrdenCompra();
+				orden02.setItems(listaOrden02); 	orden02.persistirOrdenCompra();
+				orden03.setItems(listaOrden03); 	orden03.persistirOrdenCompra();
+				orden04.setItems(listaOrden04); 	orden04.persistirOrdenCompra();
+				orden05.setItems(listaOrden05); 	orden05.persistirOrdenCompra();
 				
 //		// Alta de Remitos
 //				

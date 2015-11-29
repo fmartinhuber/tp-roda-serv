@@ -146,7 +146,6 @@ public class AdministracionCC implements IAdministracionCC {
 //			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
 //			itemOrdenCompra.setCantidad(20);
 //			itemOrdenCompra.setMonto(2000);
-//			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
 //			itemsOrdenCompra.add(itemOrdenCompra);
 //		}
 //		
@@ -217,27 +216,35 @@ public class AdministracionCC implements IAdministracionCC {
 	 *  El remito modifica el stock de los artículos despachados
 	 */
 	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
-
+			
+		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+		RemitoNegocio remito = new RemitoNegocio();
+		
+		remito.setProveedor(proov);
+		remito.setComentarios("Satisfecho");
+		remito.setEstado("Recibido");
+		Calendar c = new GregorianCalendar();
+		remito.setFecha(c.getTime());	
+		
 		// Convertimos OrdenCompraDTO a Negocio
 		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
 		for(int i=0; i<listaOrdenes.size(); i++){
 			OrdenCompraNegocio orden = new OrdenCompraNegocio();
 			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
 			ordenes.add(orden);
-		}
+		}		
 		
-		// Buscamos el proveedor por el CUIT
-		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
-		RemitoNegocio remito = new RemitoNegocio();
-		
-		remito.setProveedor(proov);
-		remito.setComentarios(null);
-		remito.setEstado("Recibido");
-		Calendar c = new GregorianCalendar();
-		remito.setFecha(c.getTime());		
-			
 		//remito.setOrdenesDeCompra(ordenes);
-		remito.mergeRemito();
+		remito.mergeRemito();		
+		
+		// Aumentar el stock que ingresaron
+		ArrayList<ItemDto> items = new ArrayList<ItemDto>();
+		for(int i=0; i<items.size(); i++){
+			items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
+			items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());			
+		}			
+			
+		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}
@@ -284,7 +291,7 @@ public class AdministracionCC implements IAdministracionCC {
 	// Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y
 	// devuFelve (RodamientoDto)
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
+		List<RodamientoNegocio> rodasNegocio = AdministracionCC.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i = 0; i < rodasNegocio.size(); i++) {
 			rodasDto.add(rodasNegocio.get(i).aRodamientoDto());
@@ -294,7 +301,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
 		// TODO REVISAR.
-		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
+		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
 		while (iterador.hasNext()) {
 			RodamientoNegocio roda = iterador.next();
 			this.agregarNuevoRodamiento(roda);
@@ -303,7 +310,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 	private void agregarNuevoRodamiento(RodamientoNegocio rodamiento) {
 		
-		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
+		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
 		boolean encontradoP = false, actualizadoP = false;
 		while (iterador.hasNext() && !encontradoP) {
 			RodamientoNegocio rodamientoComp = iterador.next();
@@ -319,14 +326,14 @@ public class AdministracionCC implements IAdministracionCC {
 			}
 		}
 		if (encontradoP && !actualizadoP) {
-			this.casaCentralNegocio.getListaPrincipal().add(rodamiento);
+			AdministracionCC.casaCentralNegocio.getListaPrincipal().add(rodamiento);
 		}
 		if (!encontradoP && !actualizadoP) {
-			iterador = this.casaCentralNegocio.getListaOpcional().iterator();
+			iterador = AdministracionCC.casaCentralNegocio.getListaOpcional().iterator();
 			while (iterador.hasNext() && !encontradoP) {
 				RodamientoNegocio rodamientoComp = iterador.next();
 				if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
-					this.casaCentralNegocio.getListaOpcional().add(rodamiento);
+					AdministracionCC.casaCentralNegocio.getListaOpcional().add(rodamiento);
 					actualizadoP = true;
 					break;
 				}
@@ -373,7 +380,6 @@ public class AdministracionCC implements IAdministracionCC {
 
 	@Deprecated
 	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
