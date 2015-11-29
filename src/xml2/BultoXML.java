@@ -35,7 +35,7 @@ public class BultoXML {
 	
 	
 	/*Este metodo recibe un BultoNegocio y lo guarda en un XML, cuyo nombre sera devuelto*/
-	public String bultoTOxml(BultoXML miBulNeg){
+	public String bultoTOxml(BultoNegocio miBulNeg){
 		
 		//Creo el formato del nombre con la fecha actual
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd_HHmmss");

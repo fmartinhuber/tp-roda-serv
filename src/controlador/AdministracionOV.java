@@ -7,6 +7,7 @@ import java.util.*;
 
 import negocio.*;
 import utils.ItemDto;
+import xml2.BultoXML;
 import xml2.CotizacionXML;
 import dao.*;
 import dto.*;
@@ -184,6 +185,13 @@ public class AdministracionOV implements IAdministracionOV{
 		//Persisto el objeto generado
 		miBultoNeg.persistirBulto();
 		
+		//Una vez hecho el Bulto, se debe descontar del stock los Rodamientos que salieron
+		for (int i=0; i < miListaItBulNeg.size(); i++){
+			
+		}
+		
+		//Creo el BultoXML
+		BultoXML.getInstancia().bultoTOxml(miBultoNeg);
 	return;
 	}
 	
