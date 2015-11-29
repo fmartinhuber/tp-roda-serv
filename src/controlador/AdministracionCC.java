@@ -114,6 +114,10 @@ public class AdministracionCC implements IAdministracionCC {
 			solCompraNeg.get(k).setEstado("Adquisición");
 		}
 		
+		for (int i = 0; i < ordenes.size(); i++) {
+			ordenes.get(i).mergeOrdenCompra();
+		}
+		
 //		
 //		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
 //		orden.setEstado("en adquisicion");
