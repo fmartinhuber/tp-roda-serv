@@ -39,6 +39,7 @@ public class ItemCotizacionNegocio implements Serializable{
 	}
 	
 	public void aItemCotizacionNegocio(ItemCotizacionDto miItCotDto) {
+		this.setIdItemCotizacion(miItCotDto.getNroRegistro());
 		this.setPrecio(miItCotDto.getPrecio());
 		this.setCantidad(miItCotDto.getCant());
 		RodamientoNegocio roda = new RodamientoNegocio();
@@ -51,6 +52,7 @@ public class ItemCotizacionNegocio implements Serializable{
 		itemCotDTO.setCant(this.getCantidad());
 		itemCotDTO.setPrecio(this.getPrecio());
 		itemCotDTO.setRodamiento(this.getRodamiento().aRodamientoDto());
+		itemCotDTO.setNroRegistro(this.getIdItemCotizacion());
 		return itemCotDTO;
 	}
 
