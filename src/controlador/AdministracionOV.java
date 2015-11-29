@@ -248,6 +248,7 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 
+	@SuppressWarnings("unused")
 	private int generarFactura2(List<CotizacionNegocio> cotis, ClienteNegocio cliente){
 		
 		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
