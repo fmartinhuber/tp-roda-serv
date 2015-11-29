@@ -69,6 +69,10 @@ public class AdministracionCC implements IAdministracionCC {
 			solCompra.aSolicitudCompraNegocio(listaCotizaciones.get(i));
 			solCompraNeg.add(solCompra);
 		}
+		Double total = 0.0;
+		Double descuentos = 0.0;
+		//Creo Array de OC para persistir todo junto al final, por que rompe al persistir indivudual
+		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>(); 
 		//Obtner los proveedores de todos los rodamientos de las solicitudCompraNegocio
 		List<ProveedorNegocio> proveedores = new ArrayList<ProveedorNegocio>();
 		proveedores = SolicitudCompraDAO.getInstancia().proveedoresDeSolicitudCompra(solCompraNeg);
@@ -78,11 +82,11 @@ public class AdministracionCC implements IAdministracionCC {
 			OCN.setProveedor(proveedores.get(i));
 			OCN.setFormaPago("Contado");
 			OCN.setEstado("Nueva");
-			Double total = 0.0;
-			Double descuentos = 0.0;		
+			total = 0.0;
+			descuentos = 0.0;		
 			//Generamos los ItemsOC
 			List<ItemOrdenCompraNegocio> itemsOC = new ArrayList<ItemOrdenCompraNegocio>();
-			//Levanto todos los rodamientos de las cotizaciones para el proveedor get(i)
+			//Levanto todos los rodamientos de las cotizaciones para el proveedor i
 			List<Object[]> misObjects = SolicitudCompraDAO.getInstancia().rodamientoYcantidadXsolicitudCompraYproveedor(solCompraNeg, "Nueva", proveedores.get(i));
 			for (int j = 0; j < misObjects.size(); j++) {
 				ItemOrdenCompraNegocio iOC = new ItemOrdenCompraNegocio();
@@ -102,13 +106,12 @@ public class AdministracionCC implements IAdministracionCC {
 	
 			// Asignamos las solicitudes de compra que dieron origen a la OC
 			OCN.setSolicitudesCompra(solCompraNeg);
-			OCN.mergeOrdenCompra();
+			ordenes.add(OCN);
 			
 		}
 		// Actualizamos estado de las Solicitudes de compra
 		for (int k = 0; k < solCompraNeg.size(); k++) {
 			solCompraNeg.get(k).setEstado("Adquisición");
-			solCompraNeg.get(k).mergeSolicitudCompra();
 		}
 		
 //		
