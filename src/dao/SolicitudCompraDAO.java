@@ -2,6 +2,7 @@ package dao;
 
 import hbt.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import negocio.ProveedorNegocio;
@@ -46,18 +47,31 @@ public class SolicitudCompraDAO extends HibernateDAO{
 		@SuppressWarnings("unchecked")
 		public List<ProveedorNegocio> proveedoresDeSolicitudCompra(List<SolicitudCompraNegocio> solCotis){
 			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
-			List<ProveedorNegocio> salida;
+			List<ProveedorNegocio> salida = new ArrayList<ProveedorNegocio>();
+			List<String> cuitProveedor;
 			Transaction tr = se.getTransaction();
 			tr.begin();
-			Query q = se.createQuery("Select prov "
-					+ "from SolicitudCompraNegocio scn left join listaCotizaciones cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
-					+ "where scn in (:ids) "
-					+ "group by prov ").setParameterList("ids", solCotis);
-			salida = q.list();
+			Query q = se.createQuery("Select prov.CUIT "
+					+ "from CotizacionNegocio cot "
+					+ "join cot.items itCot "
+					+ "join itCot.rodamiento ro "
+					+ "join ro.proveedor prov "
+					+ "where cot in "
+					+ "				(select lcot "
+					+ "				from SolicitudCompraNegocio scn left join scn.listaCotizaciones lcot "
+					+ "				where scn in (:ids)) "
+					+ "group by prov.CUIT ").setParameterList("ids", solCotis);
+			cuitProveedor = q.list();
 			tr.commit();
 			se = null;
+			// Busco cada uno de los proveedores por el ID devueltos
+			for (int i = 0; i < cuitProveedor.size(); i++) {
+				ProveedorNegocio prov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(cuitProveedor.get(i));
+				salida.add(prov);
+			}
 			return salida;
 		}
+		
 		
 	// Carlos: NECESARIO PARA PRUEBAS
 	// 	       Levanta las solicitudes en un estado determinado

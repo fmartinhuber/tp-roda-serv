@@ -57,9 +57,15 @@ public class SolicitudCompraNegocio {
 	}
 
 	public void aSolicitudCompraNegocio(SolicitudCompraDto solicitudCompraDto) {
-		
+		this.setId(solicitudCompraDto.getNumeroSolicitudCompra());
 		this.setEstado(solicitudCompraDto.getEstado());						
-		
+		List<CotizacionNegocio> cotisNego = new ArrayList<CotizacionNegocio>();
+		for (int i = 0; i < solicitudCompraDto.getListaCotizaciones().size(); i++) {
+			CotizacionNegocio coti = new CotizacionNegocio();
+			coti.aCotizacionNegocio(solicitudCompraDto.getListaCotizaciones().get(i));
+			cotisNego.add(coti);
+		}
+		this.setListaCotizaciones(cotisNego);
 	}
 	
 	public SolicitudCompraDto aSolicitudCompraDTO() {
