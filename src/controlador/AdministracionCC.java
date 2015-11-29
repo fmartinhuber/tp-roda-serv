@@ -76,6 +76,39 @@ public class AdministracionCC implements IAdministracionCC {
 			// Creamos la OC para este proveedor
 			OrdenCompraNegocio OCN = new OrdenCompraNegocio();
 			OCN.setProveedor(proveedores.get(i));
+			OCN.setFormaPago("Contado");
+			OCN.setEstado("Nueva");
+			Double total = 0.0;
+			Double descuentos = 0.0;		
+			//Generamos los ItemsOC
+			List<ItemOrdenCompraNegocio> itemsOC = new ArrayList<ItemOrdenCompraNegocio>();
+			//Levanto todos los rodamientos de las cotizaciones para el proveedor get(i)
+			List<Object[]> misObjects = SolicitudCompraDAO.getInstancia().rodamientoYcantidadXsolicitudCompraYproveedor(solCompraNeg, "Nueva", proveedores.get(i));
+			for (int j = 0; j < misObjects.size(); j++) {
+				ItemOrdenCompraNegocio iOC = new ItemOrdenCompraNegocio();
+				RodamientoNegocio ro = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(j)[0]);
+				iOC.setRodamiento(ro);
+				iOC.setCantidad(Integer.valueOf(misObjects.get(j)[1].toString()));
+				// Calculo el precio segun la estrategía que tenga el proveedor
+				iOC.setMonto(ro.getValorStrategy(proveedores.get(j),iOC.getCantidad(), OCN.getFormaPago()));
+				total = total + iOC.getMonto();
+				itemsOC.add(iOC);
+			}
+			OCN.setTotal(total.floatValue());
+			descuentos = total*0.05;
+			OCN.setDescuento(descuentos.floatValue());
+			// Asiganmos los itemsOC QUE CREAMOS
+			OCN.setItems(itemsOC);
+	
+			// Asignamos las solicitudes de compra que dieron origen a la OC
+			OCN.setSolicitudesCompra(solCompraNeg);
+			OCN.mergeOrdenCompra();
+			
+		}
+		// Actualizamos estado de las Solicitudes de compra
+		for (int k = 0; k < solCompraNeg.size(); k++) {
+			solCompraNeg.get(k).setEstado("Adquisición");
+			solCompraNeg.get(k).mergeSolicitudCompra();
 		}
 		
 //		

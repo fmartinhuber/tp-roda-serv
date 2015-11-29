@@ -106,6 +106,7 @@ public class CotizacionDAO extends HibernateDAO{
 	// Levantar Rodamiento, cantidad y subtotal de los itemsCotización de un listado de cotizaciones para una ov un estado determinado
 	// Creo que no se usa!!
 	@SuppressWarnings("unchecked")
+	@Deprecated
 	public List<Object[]> rodaPorItemsCotizacion_OV_Estado(List<CotizacionNegocio> cotizaciones, OVNegocio ov, String estado){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
 		List<Object[]> salida;

@@ -235,6 +235,7 @@ public class CargarDatos {
 				
 				
 				// Alta de itemsCotizacion
+				
 				List<ItemCotizacionNegocio> listItem01 = new ArrayList<ItemCotizacionNegocio>();
 				ItemCotizacionNegocio itCot0101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot0101);
 				ItemCotizacionNegocio itCot0102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot0102);
@@ -276,45 +277,46 @@ public class CargarDatos {
 				ItemCotizacionNegocio itCot0802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot0802);
 
 			// Alta de itemsCotizacion para las cotizaciones con solicitud de Compra
+				
 				List<ItemCotizacionNegocio> listItem11 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot1101);
-				ItemCotizacionNegocio itCot1102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot1102);
-				ItemCotizacionNegocio itCot1103 = new ItemCotizacionNegocio(roda72, 7);		listItem01.add(itCot1103);	
-				ItemCotizacionNegocio itCot1104 = new ItemCotizacionNegocio(roda12, 91);	listItem01.add(itCot1104);
-				ItemCotizacionNegocio itCot1105 = new ItemCotizacionNegocio(roda33, 14);	listItem01.add(itCot1105);
+				ItemCotizacionNegocio itCot1101 = new ItemCotizacionNegocio(roda28, 25);	listItem11.add(itCot1101);
+				ItemCotizacionNegocio itCot1102 = new ItemCotizacionNegocio(roda33, 3);		listItem11.add(itCot1102);
+				ItemCotizacionNegocio itCot1103 = new ItemCotizacionNegocio(roda72, 7);		listItem11.add(itCot1103);	
+				ItemCotizacionNegocio itCot1104 = new ItemCotizacionNegocio(roda12, 91);	listItem11.add(itCot1104);
+				ItemCotizacionNegocio itCot1105 = new ItemCotizacionNegocio(roda33, 14);	listItem11.add(itCot1105);
 				
 				List<ItemCotizacionNegocio> listItem12 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1201 = new ItemCotizacionNegocio(roda29, 5);		listItem02.add(itCot1201);
-				ItemCotizacionNegocio itCot1202 = new ItemCotizacionNegocio(roda37, 13);	listItem02.add(itCot1202);
-				ItemCotizacionNegocio itCot1203 = new ItemCotizacionNegocio(roda79, 14);	listItem02.add(itCot1203);
+				ItemCotizacionNegocio itCot1201 = new ItemCotizacionNegocio(roda29, 5);		listItem12.add(itCot1201);
+				ItemCotizacionNegocio itCot1202 = new ItemCotizacionNegocio(roda37, 13);	listItem12.add(itCot1202);
+				ItemCotizacionNegocio itCot1203 = new ItemCotizacionNegocio(roda79, 14);	listItem12.add(itCot1203);
 				
 				List<ItemCotizacionNegocio> listItem13 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1301 = new ItemCotizacionNegocio(roda42, 15);	listItem03.add(itCot1301);
-				ItemCotizacionNegocio itCot1302 = new ItemCotizacionNegocio(roda66, 31);	listItem03.add(itCot1302);
+				ItemCotizacionNegocio itCot1301 = new ItemCotizacionNegocio(roda42, 15);	listItem13.add(itCot1301);
+				ItemCotizacionNegocio itCot1302 = new ItemCotizacionNegocio(roda66, 31);	listItem13.add(itCot1302);
 				
 				List<ItemCotizacionNegocio> listItem14 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1401 = new ItemCotizacionNegocio(roda01, 15);	listItem04.add(itCot1401);
-				ItemCotizacionNegocio itCot1402 = new ItemCotizacionNegocio(roda09, 22);	listItem04.add(itCot1402);
+				ItemCotizacionNegocio itCot1401 = new ItemCotizacionNegocio(roda01, 15);	listItem14.add(itCot1401);
+				ItemCotizacionNegocio itCot1402 = new ItemCotizacionNegocio(roda09, 22);	listItem14.add(itCot1402);
 				
 				List<ItemCotizacionNegocio> listItem15 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1501 = new ItemCotizacionNegocio(roda21, 15);	listItem05.add(itCot1501);
-				ItemCotizacionNegocio itCot1502 = new ItemCotizacionNegocio(roda39, 12);	listItem05.add(itCot1502);
-				ItemCotizacionNegocio itCot1503 = new ItemCotizacionNegocio(roda55, 22);	listItem05.add(itCot1503);
-				ItemCotizacionNegocio itCot1504 = new ItemCotizacionNegocio(roda67, 19);	listItem05.add(itCot1504);
+				ItemCotizacionNegocio itCot1501 = new ItemCotizacionNegocio(roda21, 15);	listItem15.add(itCot1501);
+				ItemCotizacionNegocio itCot1502 = new ItemCotizacionNegocio(roda39, 12);	listItem15.add(itCot1502);
+				ItemCotizacionNegocio itCot1503 = new ItemCotizacionNegocio(roda55, 22);	listItem15.add(itCot1503);
+				ItemCotizacionNegocio itCot1504 = new ItemCotizacionNegocio(roda67, 19);	listItem15.add(itCot1504);
 				
 				List<ItemCotizacionNegocio> listItem16 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1601 = new ItemCotizacionNegocio(roda22, 90);	listItem06.add(itCot1601);
-				ItemCotizacionNegocio itCot1602 = new ItemCotizacionNegocio(roda39, 14);	listItem01.add(itCot1602);
-				ItemCotizacionNegocio itCot1603 = new ItemCotizacionNegocio(roda10, 10);	listItem06.add(itCot1603);
-				
+				ItemCotizacionNegocio itCot1601 = new ItemCotizacionNegocio(roda22, 90);	listItem16.add(itCot1601);
+				ItemCotizacionNegocio itCot1602 = new ItemCotizacionNegocio(roda39, 14);	listItem16.add(itCot1602);
+				ItemCotizacionNegocio itCot1603 = new ItemCotizacionNegocio(roda10, 10);	listItem16.add(itCot1603);
+			
 				List<ItemCotizacionNegocio> listItem17 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1701 = new ItemCotizacionNegocio(roda78, 22);	listItem07.add(itCot1701);
-				ItemCotizacionNegocio itCot1702 = new ItemCotizacionNegocio(roda65, 14);	listItem07.add(itCot1702);
-				ItemCotizacionNegocio itCot1703 = new ItemCotizacionNegocio(roda51, 17);	listItem07.add(itCot1703);
+				ItemCotizacionNegocio itCot1701 = new ItemCotizacionNegocio(roda78, 22);	listItem17.add(itCot1701);
+				ItemCotizacionNegocio itCot1702 = new ItemCotizacionNegocio(roda65, 14);	listItem17.add(itCot1702);
+				ItemCotizacionNegocio itCot1703 = new ItemCotizacionNegocio(roda51, 17);	listItem17.add(itCot1703);
 				
 				List<ItemCotizacionNegocio> listItem18 = new ArrayList<ItemCotizacionNegocio>();
-				ItemCotizacionNegocio itCot1801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot1801);
-				ItemCotizacionNegocio itCot1802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot1802);
+				ItemCotizacionNegocio itCot1801 = new ItemCotizacionNegocio(roda19, 13);	listItem18.add(itCot1801);
+				ItemCotizacionNegocio itCot1802 = new ItemCotizacionNegocio(roda77, 13);	listItem18.add(itCot1802);
 				
 				// Asociamos Lista de Items Cotizaciones a Cotizaciones y persistimos
 				cot01.setItems(listItem01);		cot01.persistirCotizacion();

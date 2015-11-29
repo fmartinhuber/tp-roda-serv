@@ -5,6 +5,9 @@ import hbt.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.ClienteNegocio;
+import negocio.CotizacionNegocio;
+import negocio.OVNegocio;
 import negocio.ProveedorNegocio;
 import negocio.SolicitudCompraNegocio;
 
@@ -89,4 +92,33 @@ public class SolicitudCompraDAO extends HibernateDAO{
 			return salida;
 		}
 
+	// Carlos: Levantar Rodamiento, cantidad y subtotal de las cotizaciones de un listado de solicitudes de compra y proveedor
+	// Se usa para generar los itemsOrdenCompra
+		@SuppressWarnings("unchecked")
+		public List<Object[]> rodamientoYcantidadXsolicitudCompraYproveedor(List<SolicitudCompraNegocio> cotizaciones, 
+				String estado, ProveedorNegocio prove){
+			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+			List<Object[]> salida;
+			Transaction tr = se.getTransaction();
+			tr.begin();
+			Query q = se.createQuery("Select ro.IdRodamiento, sum(itCot.cant)  "
+					+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor pro "
+					+ "where pro = :pr "
+					+ "and cot in "
+					+ "				(select lcot "
+					+ "				from SolicitudCompraNegocio scn left join scn.listaCotizaciones lcot "
+					+ "				where scn.estado like :estado "
+					+ "				and scn in (:ids)) "
+//					+ "and cot.estado = :estado "
+//					+ "and cot in (:ids) "
+//					+ "and cli = :cliente "
+					+ "group by ro.IdRodamiento ").setParameter("pr", prove).setParameter("estado", estado)
+					.setParameterList("ids", cotizaciones);
+			salida = q.list();
+			tr.commit();
+			se = null;
+			return salida;
+		}
+		
+		
 }
