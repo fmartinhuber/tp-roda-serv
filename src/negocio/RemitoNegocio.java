@@ -20,7 +20,7 @@ public class RemitoNegocio implements Serializable{
 	@GeneratedValue (strategy=GenerationType.AUTO)
 	private int idRemito;
 	private String estado;
-	@OneToMany
+	@OneToMany (cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="remito_orden")
 	private List <OrdenCompraNegocio> ordenesDeCompra;
 	private Date fecha;

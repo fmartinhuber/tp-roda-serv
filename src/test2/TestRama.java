@@ -11,30 +11,7 @@ import dto.*;
 public class TestRama {
 
 	public static void main(String[] args) throws RemoteException{
-	
-//		System.out.println("Cargamos Datos");
-//		CargarDatos.getInstance().cargaDeDatos();
-//		System.out.println("Carga Finalizada");
-				
-		// CREAR ORDEN COMPRA
-		
-//		String formaDePago = "efectivo";
-//		
-//		List<SolicitudCompraDto> listaCotizacionesDto = new ArrayList<SolicitudCompraDto>();
-//		SolicitudCompraDto aux = new SolicitudCompraDto();		
-//		List<SolicitudCompraNegocio> listaCotizacionesNegocioAprobadas = SolicitudCompraDAO.getInstancia().listarSolicitudesCompraAprobadas();
-//		for(negocio.SolicitudCompraNegocio s : listaCotizacionesNegocioAprobadas){
-//			aux = new SolicitudCompraDto();
-//			aux.setEstado(s.getEstado());
-//			aux.setNumeroSolicitudCompra(s.getId());								
-//			listaCotizacionesDto.add(aux);
-//		}
-//						
-//		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizacionesDto, formaDePago);
-//		System.out.println("Orden de compra creada");
-		
-
-				
+					
 		// CREAR REMITO		
 		
 		ProveedorDto proveedor = new ProveedorDto();
@@ -74,7 +51,24 @@ public class TestRama {
 		AdministracionCC.getInstancia().crearRemito(listaOrdenesDto, proveedor);
 		System.out.println("Remito creado");
 		
+		/*********************************************/
 		
+		// CREAR ORDEN COMPRA
+		
+//		String formaDePago = "efectivo";
+//		
+//		List<SolicitudCompraDto> listaCotizacionesDto = new ArrayList<SolicitudCompraDto>();
+//		SolicitudCompraDto aux = new SolicitudCompraDto();		
+//		List<SolicitudCompraNegocio> listaCotizacionesNegocioAprobadas = SolicitudCompraDAO.getInstancia().listarSolicitudesCompraAprobadas();
+//		for(negocio.SolicitudCompraNegocio s : listaCotizacionesNegocioAprobadas){
+//			aux = new SolicitudCompraDto();
+//			aux.setEstado(s.getEstado());
+//			aux.setNumeroSolicitudCompra(s.getId());								
+//			listaCotizacionesDto.add(aux);
+//		}
+//						
+//		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizacionesDto, formaDePago);
+//		System.out.println("Orden de compra creada");
 		
 	}
 
