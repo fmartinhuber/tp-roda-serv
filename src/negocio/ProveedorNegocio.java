@@ -19,20 +19,7 @@ public class ProveedorNegocio implements Serializable{
 	private int IdProveedor;
 	private String nombre;
 	private String CUIT;
-//	@OneToMany(mappedBy = "proveedor")
-//	private List<RodamientoNegocio> rodamientos;
-	
-	
-	
-//	public ProveedorNegocio(int idProveedor, String nombre, String CUIT,
-//			List<RodamientoNegocio> rodamientos) {
-//		super();
-//		IdProveedor = idProveedor;
-//		this.nombre = nombre;
-//		this.CUIT = CUIT;
-//		this.rodamientos = rodamientos;
-//	}
-	
+
 	
 
 	public ProveedorNegocio(){
@@ -67,14 +54,6 @@ public class ProveedorNegocio implements Serializable{
 		this.nombre = nombre;
 	}
 	
-//	public List<RodamientoNegocio> getRodamientos() {
-//		return rodamientos;
-//	}
-//	
-//	public void setRodamientos(List<RodamientoNegocio> regulares) {
-//		rodamientos = regulares;
-//	}	
-
 	public int getIdProveedor() {
 		return IdProveedor;
 	}

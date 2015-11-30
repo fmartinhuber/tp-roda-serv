@@ -441,24 +441,24 @@ public class CargarDatos {
 				orden04.setItems(listaOrden04); 	orden04.persistirOrdenCompra();
 				orden05.setItems(listaOrden05); 	orden05.persistirOrdenCompra();
 				
-//		// Alta de Remitos
-//				
-//				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setCliente(cli01); remito01.setComentarios(null); remito01.setConformidad(true);	remito01.setCotizaciones(cotizacionesOV1);	remito01.setEstado("Finalizado");	remito01.setFecha(day01);	remito01.persistRemito();
-//				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setCliente(cli02); remito02.setComentarios(null); remito02.setConformidad(true);	remito02.setCotizaciones(cotizacionesOV1);	remito02.setEstado("Finalizado");	remito02.setFecha(day02);	remito02.persistRemito();
-//				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setCliente(cli03); remito03.setComentarios(null); remito03.setConformidad(true);	remito03.setCotizaciones(cotizacionesOV2);	remito03.setEstado("Finalizado");	remito03.setFecha(day03);	remito03.persistRemito();
-//				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setCliente(cli04); remito04.setComentarios(null); remito04.setConformidad(true);	remito04.setCotizaciones(cotizacionesOV2);	remito04.setEstado("Finalizado");	remito04.setFecha(day04);	remito04.persistRemito();
-//				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setCliente(cli05); remito05.setComentarios(null); remito05.setConformidad(true);	remito05.setCotizaciones(cotizacionesOV3);	remito05.setEstado("Finalizado");	remito05.setFecha(day05);	remito05.persistRemito();
-//				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setCliente(cli06); remito06.setComentarios(null); remito06.setConformidad(true);	remito06.setCotizaciones(cotizacionesOV3);	remito06.setEstado("Finalizado");	remito06.setFecha(day06);	remito06.persistRemito();
-//				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setCliente(cli07); remito07.setComentarios(null); remito07.setConformidad(true);	remito07.setCotizaciones(cotizacionesOV3);	remito07.setEstado("Finalizado");	remito07.setFecha(day07);	remito07.persistRemito();
-//
-//		// Alta de Facturas
-//				
-//				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("Generado"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
-//				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("Generado"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
-//				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("Generado"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
-//				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("Generado"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
-//				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("Generado"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
-//				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("Generado"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
+		// Alta de Remitos
+				
+				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setComentarios(null); remito01.setEstado("Finalizado");	remito01.setFecha(day01);	remito01.persistRemito();
+				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setComentarios(null); remito02.setEstado("Finalizado");	remito02.setFecha(day02);	remito02.persistRemito();
+				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setComentarios(null); remito03.setEstado("Finalizado");	remito03.setFecha(day03);	remito03.persistRemito();
+				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setComentarios(null); remito04.setEstado("Finalizado");	remito04.setFecha(day04);	remito04.persistRemito();
+				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setComentarios(null); remito05.setEstado("Finalizado");	remito05.setFecha(day05);	remito05.persistRemito();
+				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setComentarios(null); remito06.setEstado("Finalizado");	remito06.setFecha(day06);	remito06.persistRemito();
+				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setComentarios(null); remito07.setEstado("Finalizado");	remito07.setFecha(day07);	remito07.persistRemito();
+
+		// Alta de Facturas
+				
+				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("Generado"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
+				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("Generado"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
+				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("Generado"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
+				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("Generado"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
+				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("Generado"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
+				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("Generado"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
 
 				
 				
