@@ -6,7 +6,6 @@ import java.util.*;
 import dao.*;
 import utils.*;
 import xml2.ListaComparativaXML;
-import xml2.OrdenCompraXML;
 import xml2.RemitoXML;
 import negocio.*;
 import dto.*;
@@ -368,17 +367,15 @@ public class AdministracionCC implements IAdministracionCC {
 		pro.persistirProveedor();				
 	}
 	
-	public void eliminarProveedor(ProveedorDto proveedor) throws RemoteException {
-		
-		ProveedorDAO.getInstancia().delete(proveedor.getCUIT());
+	public void eliminarProveedor(ProveedorDto proveedor) throws RemoteException {			
+		ProveedorNegocio provee = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+		provee.deleteProveedor();
 	}
 
-	public void modificarProveedor(ProveedorDto proveedor) throws RemoteException {
-		
-		ProveedorNegocio pro = new ProveedorNegocio();
-		pro.setCUIT(proveedor.getCUIT());
-		pro.setNombre(proveedor.getNombre());
-		pro.updateProveedor();	
+	public void modificarProveedor(ProveedorDto proveedor) throws RemoteException {				
+		ProveedorNegocio provee = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+		provee.setNombre(proveedor.getNombre());
+		provee.updateProveedor();
 	}
 	
 	@Deprecated

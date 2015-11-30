@@ -339,41 +339,23 @@ public class AdministracionOV implements IAdministracionOV{
 		return cotizacionDao.obtenerCotizacionesDeCiente(clie);
 	}
 	
-
-	@Override
 	public void crearCliente(ClienteDto cliente) throws RemoteException {
-		
-		/*
-		ClienteNegocio clientenNegocio = new ClienteNegocio(cliente.getRazonSocial(), cliente.getMail(), cliente.getCUIT());
-		AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().add(clientenNegocio);
-		return;
-		*/		
-		
-		//ClienteDAO.getInstancia().persist(cliente);
-		
 		ClienteNegocio cli = new ClienteNegocio();
 		cli.setCUIT(cliente.getCUIT());
 		cli.setMail(cliente.getMail());
 		cli.setRazonSocial(cliente.getRazonSocial());
-		cli.persistirCliente();
-		
+		cli.persistirCliente();	
 	}
-
 	
 	public void eliminarCliente(ClienteDto cliente) throws RemoteException {
-		//AdministracionOV.getInstancia().getOficinaVentaNegocio().getClientes().remove(index);
-		
-		ClienteDAO.getInstancia().delete(cliente);
-		
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());		
+		cli.deleteCliente();		
 	}
 
-	@Override
 	public void modificarCliente(ClienteDto cliente) throws RemoteException {
-
-		ClienteNegocio cli = new ClienteNegocio();
-		cli.setCUIT(cliente.getCUIT());
+		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
 		cli.setMail(cliente.getMail());
-		cli.setRazonSocial(cliente.getRazonSocial());
+		cli.setRazonSocial(cliente.getMail());
 		cli.updateCliente();
 	}
 

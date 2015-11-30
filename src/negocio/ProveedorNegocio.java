@@ -1,7 +1,6 @@
 package negocio;
 
 import java.io.Serializable;
-import java.util.*;
 
 import javax.persistence.*;
 
@@ -74,16 +73,7 @@ public class ProveedorNegocio implements Serializable{
 //	
 //	public void setRodamientos(List<RodamientoNegocio> regulares) {
 //		rodamientos = regulares;
-//	}
-	
-	public void persistirProveedor(){
-		ProveedorDAO.getInstancia().persist(this);
-	}
-	
-	public boolean updateProveedor(){
-		ProveedorDAO.getInstancia().update(this);
-		return false;
-	}
+//	}	
 
 	public int getIdProveedor() {
 		return IdProveedor;
@@ -99,6 +89,23 @@ public class ProveedorNegocio implements Serializable{
 
 	public void setCUIT(String CUIT) {
 		this.CUIT = CUIT;
+	}
+
+	public void deleteProveedor() {
+		ProveedorDAO.getInstancia().delete(this);
+	}
+	
+	public void mergeProveedor() {
+		ProveedorDAO.getInstancia().merge(this);
+	}
+	
+	public void persistirProveedor(){
+		ProveedorDAO.getInstancia().persist(this);
+	}
+	
+	public boolean updateProveedor(){
+		ProveedorDAO.getInstancia().update(this);
+		return false;
 	}
 	
 }
