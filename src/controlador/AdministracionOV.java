@@ -480,7 +480,7 @@ public class AdministracionOV implements IAdministracionOV{
 			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
 			itemOrdenCompra.setCantidad(20);
 			itemOrdenCompra.setMonto(2000);
-			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
+			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar.
 			itemsOrdenCompra.add(itemOrdenCompra);
 		}
 		
