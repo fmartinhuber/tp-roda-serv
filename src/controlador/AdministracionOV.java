@@ -118,6 +118,8 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
 		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
+		this.getOficinaVentaNegocio().mergeOV();
+		
 		//Obtengo la OV para ser persistida posteriormente
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 		
