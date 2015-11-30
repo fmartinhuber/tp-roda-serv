@@ -21,6 +21,14 @@ public class FacturaDAO extends HibernateDAO{
 		se.close();
 	return salida;
 	}
+
+	public int obtenerMaximoIDFactura() {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		int resultado = (int) s.createQuery("select max(f.idFactura) from FacturaNegocio f").uniqueResult();
+		
+		s.clear();
+		return resultado;	
+	}
 	
 	
 }

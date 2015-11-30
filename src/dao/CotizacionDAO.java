@@ -23,6 +23,7 @@ public class CotizacionDAO extends HibernateDAO{
 	}
 	
 	//Levanta las cotizaciones en un estado pasado por parametro
+	@Deprecated
 	public List<CotizacionNegocio> obtenerCotizacionesAprobada(String estado){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
@@ -105,6 +106,7 @@ public class CotizacionDAO extends HibernateDAO{
 	// Levantar Rodamiento, cantidad y subtotal de los itemsCotización de un listado de cotizaciones para una ov un estado determinado
 	// Creo que no se usa!!
 	@SuppressWarnings("unchecked")
+	@Deprecated
 	public List<Object[]> rodaPorItemsCotizacion_OV_Estado(List<CotizacionNegocio> cotizaciones, OVNegocio ov, String estado){
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
 		List<Object[]> salida;
@@ -165,22 +167,22 @@ public class CotizacionDAO extends HibernateDAO{
 		return salida;
 	}
 	 
-	// Carlos: Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
-	@SuppressWarnings("unchecked")
-	public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
-		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
-		List<ProveedorNegocio> salida;
-		Transaction tr = se.getTransaction();
-		tr.begin();
-		Query q = se.createQuery("Select prov "
-				+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
-				+ "where cot in (:ids) "
-				+ "group by prov ").setParameterList("ids", cotizaciones);
-		salida = q.list();
-		tr.commit();
-		se = null;
-		return salida;
-	}
+//	// Carlos: Levantar proveedores de los rodamiento de los Items Cotización de determinas cotizaciones
+//	@SuppressWarnings("unchecked")
+//	public List<ProveedorNegocio> proveedorDeItemsCotizacion(List<CotizacionNegocio> cotizaciones){
+//		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+//		List<ProveedorNegocio> salida;
+//		Transaction tr = se.getTransaction();
+//		tr.begin();
+//		Query q = se.createQuery("Select prov "
+//				+ "from CotizacionNegocio cot join cot.items itCot join itCot.rodamiento ro join ro.proveedor prov "
+//				+ "where cot in (:ids) "
+//				+ "group by prov ").setParameterList("ids", cotizaciones);
+//		salida = q.list();
+//		tr.commit();
+//		se = null;
+//		return salida;
+//	}
 	
 	//Daro: Levanta el maximo ID de la tabla Cotizaciones, esto se realiza para devolver el id en las creaciones
 	public int obtenerMaximoIDCotizacion (){
@@ -198,12 +200,63 @@ public class CotizacionDAO extends HibernateDAO{
 	public CotizacionNegocio buscarCotizacion2(int idCotizacion) {
 		
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		@SuppressWarnings("unchecked")
 		CotizacionNegocio salida = (CotizacionNegocio) s.createQuery("from CotizacionNegocio c where c = " +idCotizacion).list();
 		
 		s.close();
 		return salida;
 	}
 
-
+	// Carlos; Levanto los clientes de una colección de cotizaciones pasadas por parametro de una ov
+	// Lo uso para el masivo de generar factura
+	@SuppressWarnings("unchecked")
+	public List<ClienteNegocio> clientesDeListadoCotizacionXovYestado (List<CotizacionNegocio> cotizaciones, String estado, OVNegocio ov){
+		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<ClienteNegocio> salida = new ArrayList<ClienteNegocio>();
+		List<String> cuitClientes;
+		Transaction tr = se.getTransaction();
+		tr.begin();
+		Query q = se.createQuery("Select cli.CUIT  "
+				+ "from OVNegocio ov "
+				+ "join ov.cotizaciones cot "
+				+ "join cot.cliente cli "
+				+ "where ov = :ov "
+				+ "and cot.estado = :estado "
+				+ "and cot in (:ids) "
+				+ "group by cli.CUIT ").setParameter("ov", ov).setParameter("estado", estado)
+				.setParameterList("ids", cotizaciones);
+		cuitClientes = q.list();
+		tr.commit();
+		se = null;
+		// Busco cada uno de los proveedores por el ID devueltos
+		for (int i = 0; i < cuitClientes.size(); i++) {
+			ClienteNegocio cliente = ClienteDAO.getInstancia().buscarClientePorCUIT(cuitClientes.get(i));
+			salida.add(cliente);
+		}
+		return salida;
+	}
+	
+	// Carlos; Levanto las cotizaciones de un cliente pasadas por parametro de una ov yb una colecciones de cotizaciones predeterminada
+	// Lo uso para el masivo de generar factura
+		@SuppressWarnings("unchecked")
+		public List<CotizacionNegocio> cotizacionXovYestadoYcliente (List<CotizacionNegocio> cotizaciones, String estado, 
+				OVNegocio ov, ClienteNegocio clie){
+			Session se = HibernateUtil.getSessionFactory().getCurrentSession();
+			List<CotizacionNegocio> salida = new ArrayList<CotizacionNegocio>();
+			Transaction tr = se.getTransaction();
+			tr.begin();
+			Query q = se.createQuery("Select cot  "
+					+ "from OVNegocio ov "
+					+ "join ov.cotizaciones cot "
+					+ "join cot.cliente cli "
+					+ "where ov = :ov "
+					+ "and cot.estado = :estado "
+					+ "and cli = :cli "
+					+ "and cot in (:ids) ").setParameter("ov", ov).setParameter("estado", estado).setParameter("cli", clie)
+					.setParameterList("ids", cotizaciones);
+			salida = q.list();
+			tr.commit();
+			se = null;
+			return salida;
+		}
+	
 }

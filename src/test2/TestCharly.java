@@ -38,7 +38,8 @@ public class TestCharly {
 		// Seteamos la OV con la que trabajaremos	
 //		admo.setOficinaVentaNegocio(admc.ObtenerOV(1));
 		admo.pch_LevantaCotizaciones();
-		
+
+//		admc.pchBorrarAlTerminar();
 		
 		System.out.println("===================================================================================");
 		System.out.println("===================================================================================");

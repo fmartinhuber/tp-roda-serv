@@ -117,6 +117,10 @@ public class OVNegocio{
 	public void updateOV() {
 		OVDAO.getInstancia().update(this);
 	}
+	
+	public void mergeOV() {
+		OVDAO.getInstancia().merge(this);
+	}
 
 	public List<BultoNegocio> getBultos() {
 		return bultos;

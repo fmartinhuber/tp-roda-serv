@@ -162,5 +162,14 @@ public class RodamientoNegocio{
 	public int buscarStock(RodamientoNegocio r) {
 		return RodamientoDAO.getInstancia().buscarStock(r);
 	}
+
+
+	public float getValorStrategy(ProveedorNegocio proveedorNegocio, int cantidad, String formaDePago) {
+		// TODO Aqui deberíamos aplicar la estrategia de precio del proveedor a nosotros como empresa
+		
+		// Estrategía Actual: PrecioUnitario por Cantidad!!!
+		
+		return (this.getMonto()*cantidad);
+	}
 	
 }

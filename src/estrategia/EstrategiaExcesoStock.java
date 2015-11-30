@@ -1,8 +1,8 @@
-package negocio;
+package estrategia;
 
 import interfaces.IPagoEstrategia;
 
-public class EstrategiaVolumenVenta implements IPagoEstrategia{
+public class EstrategiaExcesoStock implements IPagoEstrategia{
 
 	@Override
 	public void pago(float monto) {

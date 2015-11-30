@@ -224,8 +224,18 @@ public class CargarDatos {
 				CotizacionNegocio cot07 = new CotizacionNegocio();	cot07.setCliente(cli05); 	cot07.setEstado("Pendiente"); 	cot07.setFechaCreacion(day02); 	cot07.setFechaVigencia(day07);
 				CotizacionNegocio cot08 = new CotizacionNegocio();	cot08.setCliente(cli03); 	cot08.setEstado("Aprobada"); 	cot08.setFechaCreacion(day05); 	cot08.setFechaVigencia(day10);
 				
+				CotizacionNegocio cot11 = new CotizacionNegocio();	cot11.setCliente(cli01); 	cot11.setEstado("Solicitada"); 	cot11.setFechaCreacion(day01); 	cot11.setFechaVigencia(day06);
+				CotizacionNegocio cot12 = new CotizacionNegocio();	cot12.setCliente(cli02); 	cot12.setEstado("Solicitada"); 	cot12.setFechaCreacion(day02); 	cot12.setFechaVigencia(day07);
+				CotizacionNegocio cot13 = new CotizacionNegocio();	cot13.setCliente(cli01); 	cot13.setEstado("Solicitada"); 	cot13.setFechaCreacion(day03); 	cot13.setFechaVigencia(day08);
+				CotizacionNegocio cot14 = new CotizacionNegocio();	cot14.setCliente(cli04); 	cot14.setEstado("Solicitada"); 	cot14.setFechaCreacion(day04); 	cot14.setFechaVigencia(day09);
+				CotizacionNegocio cot15 = new CotizacionNegocio();	cot15.setCliente(cli01); 	cot15.setEstado("Solicitada"); 	cot15.setFechaCreacion(day01); 	cot15.setFechaVigencia(day06);
+				CotizacionNegocio cot16 = new CotizacionNegocio();	cot16.setCliente(cli03); 	cot16.setEstado("Solicitada"); 	cot16.setFechaCreacion(day02); 	cot16.setFechaVigencia(day07);
+				CotizacionNegocio cot17 = new CotizacionNegocio();	cot17.setCliente(cli05); 	cot17.setEstado("Solicitada"); 	cot17.setFechaCreacion(day02); 	cot17.setFechaVigencia(day07);
+				CotizacionNegocio cot18 = new CotizacionNegocio();	cot18.setCliente(cli03); 	cot18.setEstado("Solicitada"); 	cot18.setFechaCreacion(day05); 	cot18.setFechaVigencia(day10);
+				
 				
 				// Alta de itemsCotizacion
+				
 				List<ItemCotizacionNegocio> listItem01 = new ArrayList<ItemCotizacionNegocio>();
 				ItemCotizacionNegocio itCot0101 = new ItemCotizacionNegocio(roda28, 25);	listItem01.add(itCot0101);
 				ItemCotizacionNegocio itCot0102 = new ItemCotizacionNegocio(roda33, 3);		listItem01.add(itCot0102);
@@ -265,6 +275,48 @@ public class CargarDatos {
 				List<ItemCotizacionNegocio> listItem08 = new ArrayList<ItemCotizacionNegocio>();
 				ItemCotizacionNegocio itCot0801 = new ItemCotizacionNegocio(roda19, 13);	listItem08.add(itCot0801);
 				ItemCotizacionNegocio itCot0802 = new ItemCotizacionNegocio(roda77, 13);	listItem08.add(itCot0802);
+
+			// Alta de itemsCotizacion para las cotizaciones con solicitud de Compra
+				
+				List<ItemCotizacionNegocio> listItem11 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1101 = new ItemCotizacionNegocio(roda28, 25);	listItem11.add(itCot1101);
+				ItemCotizacionNegocio itCot1102 = new ItemCotizacionNegocio(roda33, 3);		listItem11.add(itCot1102);
+				ItemCotizacionNegocio itCot1103 = new ItemCotizacionNegocio(roda72, 7);		listItem11.add(itCot1103);	
+				ItemCotizacionNegocio itCot1104 = new ItemCotizacionNegocio(roda12, 91);	listItem11.add(itCot1104);
+				ItemCotizacionNegocio itCot1105 = new ItemCotizacionNegocio(roda33, 14);	listItem11.add(itCot1105);
+				
+				List<ItemCotizacionNegocio> listItem12 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1201 = new ItemCotizacionNegocio(roda29, 5);		listItem12.add(itCot1201);
+				ItemCotizacionNegocio itCot1202 = new ItemCotizacionNegocio(roda37, 13);	listItem12.add(itCot1202);
+				ItemCotizacionNegocio itCot1203 = new ItemCotizacionNegocio(roda79, 14);	listItem12.add(itCot1203);
+				
+				List<ItemCotizacionNegocio> listItem13 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1301 = new ItemCotizacionNegocio(roda42, 15);	listItem13.add(itCot1301);
+				ItemCotizacionNegocio itCot1302 = new ItemCotizacionNegocio(roda66, 31);	listItem13.add(itCot1302);
+				
+				List<ItemCotizacionNegocio> listItem14 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1401 = new ItemCotizacionNegocio(roda01, 15);	listItem14.add(itCot1401);
+				ItemCotizacionNegocio itCot1402 = new ItemCotizacionNegocio(roda09, 22);	listItem14.add(itCot1402);
+				
+				List<ItemCotizacionNegocio> listItem15 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1501 = new ItemCotizacionNegocio(roda21, 15);	listItem15.add(itCot1501);
+				ItemCotizacionNegocio itCot1502 = new ItemCotizacionNegocio(roda39, 12);	listItem15.add(itCot1502);
+				ItemCotizacionNegocio itCot1503 = new ItemCotizacionNegocio(roda55, 22);	listItem15.add(itCot1503);
+				ItemCotizacionNegocio itCot1504 = new ItemCotizacionNegocio(roda67, 19);	listItem15.add(itCot1504);
+				
+				List<ItemCotizacionNegocio> listItem16 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1601 = new ItemCotizacionNegocio(roda22, 90);	listItem16.add(itCot1601);
+				ItemCotizacionNegocio itCot1602 = new ItemCotizacionNegocio(roda39, 14);	listItem16.add(itCot1602);
+				ItemCotizacionNegocio itCot1603 = new ItemCotizacionNegocio(roda10, 10);	listItem16.add(itCot1603);
+			
+				List<ItemCotizacionNegocio> listItem17 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1701 = new ItemCotizacionNegocio(roda78, 22);	listItem17.add(itCot1701);
+				ItemCotizacionNegocio itCot1702 = new ItemCotizacionNegocio(roda65, 14);	listItem17.add(itCot1702);
+				ItemCotizacionNegocio itCot1703 = new ItemCotizacionNegocio(roda51, 17);	listItem17.add(itCot1703);
+				
+				List<ItemCotizacionNegocio> listItem18 = new ArrayList<ItemCotizacionNegocio>();
+				ItemCotizacionNegocio itCot1801 = new ItemCotizacionNegocio(roda19, 13);	listItem18.add(itCot1801);
+				ItemCotizacionNegocio itCot1802 = new ItemCotizacionNegocio(roda77, 13);	listItem18.add(itCot1802);
 				
 				// Asociamos Lista de Items Cotizaciones a Cotizaciones y persistimos
 				cot01.setItems(listItem01);		cot01.persistirCotizacion();
@@ -276,6 +328,16 @@ public class CargarDatos {
 				cot07.setItems(listItem07);		cot07.persistirCotizacion();
 				cot08.setItems(listItem08);		cot08.persistirCotizacion();
 				
+				// Asociamos Lista de Items Cotizaciones a Cotizaciones usadas en las solicitudCompra y persistimos
+				cot11.setItems(listItem11);		cot11.persistirCotizacion();
+				cot12.setItems(listItem12);		cot12.persistirCotizacion();
+				cot13.setItems(listItem13);		cot13.persistirCotizacion();
+				cot14.setItems(listItem14);		cot14.persistirCotizacion();
+				cot15.setItems(listItem15);		cot15.persistirCotizacion();
+				cot16.setItems(listItem16);		cot16.persistirCotizacion();
+				cot17.setItems(listItem17);		cot17.persistirCotizacion();
+				cot18.setItems(listItem18);		cot18.persistirCotizacion();
+				
 				
 		// Asociamos cotizaciones a OV'S
 				
@@ -284,22 +346,15 @@ public class CargarDatos {
 				ArrayList<CotizacionNegocio> cotizacionesOV3 = new ArrayList<CotizacionNegocio>();
 				
 				cotizacionesOV1.add(cot01); cotizacionesOV1.add(cot02); cotizacionesOV1.add(cot03);cotizacionesOV1.add(cot05);
+				cotizacionesOV1.add(cot11); cotizacionesOV1.add(cot12); cotizacionesOV1.add(cot13);cotizacionesOV1.add(cot15);
 				cotizacionesOV2.add(cot06); cotizacionesOV2.add(cot08);
+				cotizacionesOV2.add(cot16); cotizacionesOV2.add(cot18);
 				cotizacionesOV3.add(cot04); cotizacionesOV3.add(cot07);				
+				cotizacionesOV3.add(cot14); cotizacionesOV3.add(cot17);				
 				
 				OV1.setCotizaciones(cotizacionesOV1); OV1.updateOV();
 				OV2.setCotizaciones(cotizacionesOV2); OV2.updateOV();
-				OV3.setCotizaciones(cotizacionesOV3); OV3.updateOV();
-				
-		// Alta Ordenes de Compra
-				
-				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("En adquisicion"); 	orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); orden01.persistirOrdenCompra();
-				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("En adquisicion"); 	orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); 	orden02.setTotal((float)5600.50); orden02.persistirOrdenCompra();
-				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("En adquisicion"); 	orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); orden03.persistirOrdenCompra();
-				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("En adquisicion"); 	orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); 	orden04.setTotal((float)9800.50); orden04.persistirOrdenCompra();
-				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("En adquisicion"); 	orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); orden05.persistirOrdenCompra();
-				
-				 // ¿por qué me duplica elementos?, pasa lo mismo en cotizaciones
+				OV3.setCotizaciones(cotizacionesOV3); OV3.updateOV();											
 				
 		// Alta Solicitud Compra
 								
@@ -309,35 +364,101 @@ public class CargarDatos {
 				SolicitudCompraNegocio solicitudCompraNegocio04 = new SolicitudCompraNegocio(); solicitudCompraNegocio04.setEstado("Pendiente"); 	solicitudCompraNegocio04.persistirSolicitudCompra();
 				SolicitudCompraNegocio solicitudCompraNegocio05 = new SolicitudCompraNegocio(); solicitudCompraNegocio05.setEstado("Aprobada"); 	solicitudCompraNegocio05.persistirSolicitudCompra();
 				SolicitudCompraNegocio solicitudCompraNegocio06 = new SolicitudCompraNegocio(); solicitudCompraNegocio06.setEstado("Aprobada"); 	solicitudCompraNegocio06.persistirSolicitudCompra();
+
+		// Alta SolicitudCompra con sus relaciones
+				
+				List<CotizacionNegocio> Cotis11 = new ArrayList<CotizacionNegocio>();	Cotis11.add(cot11);
+				List<CotizacionNegocio> Cotis12 = new ArrayList<CotizacionNegocio>();	Cotis12.add(cot12);	Cotis12.add(cot13);
+				List<CotizacionNegocio> Cotis13 = new ArrayList<CotizacionNegocio>();	Cotis13.add(cot15);
+				List<CotizacionNegocio> Cotis14 = new ArrayList<CotizacionNegocio>();	Cotis14.add(cot16);
+				List<CotizacionNegocio> Cotis15 = new ArrayList<CotizacionNegocio>();	Cotis15.add(cot18);
+				List<CotizacionNegocio> Cotis16 = new ArrayList<CotizacionNegocio>();	Cotis16.add(cot14);	Cotis16.add(cot17);
+				
+				SolicitudCompraNegocio solicitudCompraNegocio11 = new SolicitudCompraNegocio(); solicitudCompraNegocio11.setEstado("Nueva");	solicitudCompraNegocio11.setListaCotizaciones(Cotis11); 	
+				SolicitudCompraNegocio solicitudCompraNegocio12 = new SolicitudCompraNegocio(); solicitudCompraNegocio12.setEstado("Nueva"); 	solicitudCompraNegocio12.setListaCotizaciones(Cotis12);
+				SolicitudCompraNegocio solicitudCompraNegocio13 = new SolicitudCompraNegocio(); solicitudCompraNegocio13.setEstado("Nueva"); 	solicitudCompraNegocio13.setListaCotizaciones(Cotis13);
+				SolicitudCompraNegocio solicitudCompraNegocio14 = new SolicitudCompraNegocio(); solicitudCompraNegocio14.setEstado("Nueva"); 	solicitudCompraNegocio14.setListaCotizaciones(Cotis14);
+				SolicitudCompraNegocio solicitudCompraNegocio15 = new SolicitudCompraNegocio(); solicitudCompraNegocio15.setEstado("Nueva"); 	solicitudCompraNegocio15.setListaCotizaciones(Cotis15);
+				SolicitudCompraNegocio solicitudCompraNegocio16 = new SolicitudCompraNegocio(); solicitudCompraNegocio16.setEstado("Nueva"); 	solicitudCompraNegocio16.setListaCotizaciones(Cotis16);
+				
+				solicitudCompraNegocio11.persistirSolicitudCompra();
+				solicitudCompraNegocio12.persistirSolicitudCompra();
+				solicitudCompraNegocio13.persistirSolicitudCompra();
+				solicitudCompraNegocio14.persistirSolicitudCompra();
+				solicitudCompraNegocio15.persistirSolicitudCompra();
+				solicitudCompraNegocio16.persistirSolicitudCompra();
+				
+		// Asociamos las Solicitudes a las OV
+				
+				List<SolicitudCompraNegocio> solCompraOV1 = new ArrayList<SolicitudCompraNegocio>();	solCompraOV1.add(solicitudCompraNegocio11);	solCompraOV1.add(solicitudCompraNegocio12);	solCompraOV1.add(solicitudCompraNegocio13);	
+				List<SolicitudCompraNegocio> solCompraOV2 = new ArrayList<SolicitudCompraNegocio>();	solCompraOV2.add(solicitudCompraNegocio14);	solCompraOV2.add(solicitudCompraNegocio15);
+				List<SolicitudCompraNegocio> solCompraOV3 = new ArrayList<SolicitudCompraNegocio>();	solCompraOV3.add(solicitudCompraNegocio16);
+				
+				OV1.setSolicitudes(solCompraOV1);	OV1.updateOV();
+				OV2.setSolicitudes(solCompraOV2); 	OV2.updateOV();
+				OV3.setSolicitudes(solCompraOV3); 	OV3.updateOV();
+				
+		// Alta Ordenes de Compra
+				
+				OrdenCompraNegocio orden01 = new OrdenCompraNegocio(); orden01.setDescuento((float)1000.50); orden01.setEstado("En adquisicion"); 	orden01.setFormaPago("efectivo"); orden01.setProveedor(prov01); orden01.setTotal((float)5000.50); 
+				OrdenCompraNegocio orden02 = new OrdenCompraNegocio(); orden02.setDescuento((float)1650.50); orden02.setEstado("En adquisicion"); 	orden02.setFormaPago("tarjeta"); orden02.setProveedor(prov02); 	orden02.setTotal((float)5600.50); 
+				OrdenCompraNegocio orden03 = new OrdenCompraNegocio(); orden03.setDescuento((float)2300.50); orden03.setEstado("En adquisicion"); 	orden03.setFormaPago("efectivo"); orden03.setProveedor(prov01); orden03.setTotal((float)7640.50); 
+				OrdenCompraNegocio orden04 = new OrdenCompraNegocio(); orden04.setDescuento((float)1100.50); orden04.setEstado("En adquisicion"); 	orden04.setFormaPago("tarjeta"); orden04.setProveedor(prov03); 	orden04.setTotal((float)9800.50); 
+				OrdenCompraNegocio orden05 = new OrdenCompraNegocio(); orden05.setDescuento((float)3100.50); orden05.setEstado("En adquisicion"); 	orden05.setFormaPago("efectivo"); orden05.setProveedor(prov04); orden05.setTotal((float)9100.50); 	
 				
 		// Alta ItemOrdenCompra
 				
-				ItemOrdenCompraNegocio itemOrdenCompra01 = new ItemOrdenCompraNegocio(); itemOrdenCompra01.setCantidad(20); itemOrdenCompra01.setMonto(9000); itemOrdenCompra01.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra02 = new ItemOrdenCompraNegocio(); itemOrdenCompra02.setCantidad(35); itemOrdenCompra02.setMonto(4000); itemOrdenCompra02.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra03 = new ItemOrdenCompraNegocio(); itemOrdenCompra03.setCantidad(15); itemOrdenCompra03.setMonto(3500); itemOrdenCompra03.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra04 = new ItemOrdenCompraNegocio(); itemOrdenCompra04.setCantidad(10); itemOrdenCompra04.setMonto(7500); itemOrdenCompra04.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra05 = new ItemOrdenCompraNegocio(); itemOrdenCompra05.setCantidad(50); itemOrdenCompra05.setMonto(5500); itemOrdenCompra05.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra06 = new ItemOrdenCompraNegocio(); itemOrdenCompra06.setCantidad(45); itemOrdenCompra06.setMonto(2000); itemOrdenCompra06.persistirItemOrdenCompra();
-				ItemOrdenCompraNegocio itemOrdenCompra07 = new ItemOrdenCompraNegocio(); itemOrdenCompra07.setCantidad(35); itemOrdenCompra07.setMonto(5000); itemOrdenCompra07.persistirItemOrdenCompra();
+				List<ItemOrdenCompraNegocio> listaOrden01 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden101 = new ItemOrdenCompraNegocio(roda28, 25);	listaOrden01.add(itemOrden101);
+				ItemOrdenCompraNegocio itemOrden102 = new ItemOrdenCompraNegocio(roda33, 3);	listaOrden01.add(itemOrden102);
+				ItemOrdenCompraNegocio itemOrden103 = new ItemOrdenCompraNegocio(roda72, 7);	listaOrden01.add(itemOrden103);
 				
-		// Alta de Remitos
+				List<ItemOrdenCompraNegocio> listaOrden02 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden201 = new ItemOrdenCompraNegocio(roda29, 5);	listaOrden02.add(itemOrden201);
+				ItemOrdenCompraNegocio itemOrden202 = new ItemOrdenCompraNegocio(roda37, 13);	listaOrden02.add(itemOrden202);
+				ItemOrdenCompraNegocio itemOrden203 = new ItemOrdenCompraNegocio(roda79, 14);	listaOrden02.add(itemOrden203);
 				
-				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setCliente(cli01); remito01.setComentarios(null); remito01.setConformidad(true);	remito01.setCotizaciones(cotizacionesOV1);	remito01.setEstado("Finalizado");	remito01.setFecha(day01);	remito01.persistRemito();
-				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setCliente(cli02); remito02.setComentarios(null); remito02.setConformidad(true);	remito02.setCotizaciones(cotizacionesOV1);	remito02.setEstado("Finalizado");	remito02.setFecha(day02);	remito02.persistRemito();
-				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setCliente(cli03); remito03.setComentarios(null); remito03.setConformidad(true);	remito03.setCotizaciones(cotizacionesOV2);	remito03.setEstado("Finalizado");	remito03.setFecha(day03);	remito03.persistRemito();
-				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setCliente(cli04); remito04.setComentarios(null); remito04.setConformidad(true);	remito04.setCotizaciones(cotizacionesOV2);	remito04.setEstado("Finalizado");	remito04.setFecha(day04);	remito04.persistRemito();
-				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setCliente(cli05); remito05.setComentarios(null); remito05.setConformidad(true);	remito05.setCotizaciones(cotizacionesOV3);	remito05.setEstado("Finalizado");	remito05.setFecha(day05);	remito05.persistRemito();
-				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setCliente(cli06); remito06.setComentarios(null); remito06.setConformidad(true);	remito06.setCotizaciones(cotizacionesOV3);	remito06.setEstado("Finalizado");	remito06.setFecha(day06);	remito06.persistRemito();
-				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setCliente(cli07); remito07.setComentarios(null); remito07.setConformidad(true);	remito07.setCotizaciones(cotizacionesOV3);	remito07.setEstado("Finalizado");	remito07.setFecha(day07);	remito07.persistRemito();
+				List<ItemOrdenCompraNegocio> listaOrden03 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden301 = new ItemOrdenCompraNegocio(roda42, 6);	listaOrden03.add(itemOrden301);
+				ItemOrdenCompraNegocio itemOrden302 = new ItemOrdenCompraNegocio(roda66, 31);	listaOrden03.add(itemOrden302);
+				
+				List<ItemOrdenCompraNegocio> listaOrden04 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden401 = new ItemOrdenCompraNegocio(roda21, 15);	listaOrden04.add(itemOrden401);
+				ItemOrdenCompraNegocio itemOrden402 = new ItemOrdenCompraNegocio(roda39, 12);	listaOrden04.add(itemOrden402);
+				ItemOrdenCompraNegocio itemOrden403 = new ItemOrdenCompraNegocio(roda55, 22);	listaOrden04.add(itemOrden403);
+				ItemOrdenCompraNegocio itemOrden404 = new ItemOrdenCompraNegocio(roda67, 19);	listaOrden04.add(itemOrden404);		
+				
+				List<ItemOrdenCompraNegocio> listaOrden05 = new ArrayList<ItemOrdenCompraNegocio>();
+				ItemOrdenCompraNegocio itemOrden501 = new ItemOrdenCompraNegocio(roda22, 11);	listaOrden04.add(itemOrden501);
+				ItemOrdenCompraNegocio itemOrden502 = new ItemOrdenCompraNegocio(roda29, 21);	listaOrden04.add(itemOrden502);
+				ItemOrdenCompraNegocio itemOrden503 = new ItemOrdenCompraNegocio(roda54, 14);	listaOrden04.add(itemOrden503);
+				ItemOrdenCompraNegocio itemOrden504 = new ItemOrdenCompraNegocio(roda57, 16);	listaOrden04.add(itemOrden504);		
+				
 
-		// Alta de Facturas
+				orden01.setItems(listaOrden01); 	orden01.persistirOrdenCompra();
+				orden02.setItems(listaOrden02); 	orden02.persistirOrdenCompra();
+				orden03.setItems(listaOrden03); 	orden03.persistirOrdenCompra();
+				orden04.setItems(listaOrden04); 	orden04.persistirOrdenCompra();
+				orden05.setItems(listaOrden05); 	orden05.persistirOrdenCompra();
 				
-				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("Generado"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
-				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("Generado"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
-				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("Generado"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
-				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("Generado"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
-				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("Generado"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
-				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("Generado"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
+//		// Alta de Remitos
+//				
+//				RemitoNegocio remito01 = new RemitoNegocio(); remito01.setCliente(cli01); remito01.setComentarios(null); remito01.setConformidad(true);	remito01.setCotizaciones(cotizacionesOV1);	remito01.setEstado("Finalizado");	remito01.setFecha(day01);	remito01.persistRemito();
+//				RemitoNegocio remito02 = new RemitoNegocio(); remito02.setCliente(cli02); remito02.setComentarios(null); remito02.setConformidad(true);	remito02.setCotizaciones(cotizacionesOV1);	remito02.setEstado("Finalizado");	remito02.setFecha(day02);	remito02.persistRemito();
+//				RemitoNegocio remito03 = new RemitoNegocio(); remito03.setCliente(cli03); remito03.setComentarios(null); remito03.setConformidad(true);	remito03.setCotizaciones(cotizacionesOV2);	remito03.setEstado("Finalizado");	remito03.setFecha(day03);	remito03.persistRemito();
+//				RemitoNegocio remito04 = new RemitoNegocio(); remito04.setCliente(cli04); remito04.setComentarios(null); remito04.setConformidad(true);	remito04.setCotizaciones(cotizacionesOV2);	remito04.setEstado("Finalizado");	remito04.setFecha(day04);	remito04.persistRemito();
+//				RemitoNegocio remito05 = new RemitoNegocio(); remito05.setCliente(cli05); remito05.setComentarios(null); remito05.setConformidad(true);	remito05.setCotizaciones(cotizacionesOV3);	remito05.setEstado("Finalizado");	remito05.setFecha(day05);	remito05.persistRemito();
+//				RemitoNegocio remito06 = new RemitoNegocio(); remito06.setCliente(cli06); remito06.setComentarios(null); remito06.setConformidad(true);	remito06.setCotizaciones(cotizacionesOV3);	remito06.setEstado("Finalizado");	remito06.setFecha(day06);	remito06.persistRemito();
+//				RemitoNegocio remito07 = new RemitoNegocio(); remito07.setCliente(cli07); remito07.setComentarios(null); remito07.setConformidad(true);	remito07.setCotizaciones(cotizacionesOV3);	remito07.setEstado("Finalizado");	remito07.setFecha(day07);	remito07.persistRemito();
+//
+//		// Alta de Facturas
+//				
+//				FacturaNegocio fact01 = new FacturaNegocio(); fact01.setCliente(cli13); fact01.setCotizacion(cotizacionesOV3); fact01.setDescuento(200); fact01.setEstado("Generado"); fact01.setFecha(day10); fact01.setItems(null);	fact01.setTotal(1000); fact01.persistirFactura();
+//				FacturaNegocio fact02 = new FacturaNegocio(); fact02.setCliente(cli08); fact02.setCotizacion(cotizacionesOV2); fact02.setDescuento(300); fact02.setEstado("Generado"); fact02.setFecha(day09); fact02.setItems(null);	fact02.setTotal(1100); fact02.persistirFactura();
+//				FacturaNegocio fact03 = new FacturaNegocio(); fact03.setCliente(cli03); fact03.setCotizacion(cotizacionesOV1); fact03.setDescuento(400); fact03.setEstado("Generado"); fact03.setFecha(day07); fact03.setItems(null);	fact03.setTotal(1200); fact03.persistirFactura();
+//				FacturaNegocio fact04 = new FacturaNegocio(); fact04.setCliente(cli05); fact04.setCotizacion(cotizacionesOV3); fact04.setDescuento(500); fact04.setEstado("Generado"); fact04.setFecha(day06); fact04.setItems(null);	fact04.setTotal(1300); fact04.persistirFactura();
+//				FacturaNegocio fact05 = new FacturaNegocio(); fact05.setCliente(cli11); fact05.setCotizacion(cotizacionesOV2); fact05.setDescuento(600); fact05.setEstado("Generado"); fact05.setFecha(day01); fact05.setItems(null);	fact05.setTotal(1400); fact05.persistirFactura();
+//				FacturaNegocio fact06 = new FacturaNegocio(); fact06.setCliente(cli01); fact06.setCotizacion(cotizacionesOV1); fact06.setDescuento(700); fact06.setEstado("Generado"); fact06.setFecha(day03); fact06.setItems(null);	fact06.setTotal(1500); fact06.persistirFactura();
 
 				
 				

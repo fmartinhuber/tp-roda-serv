@@ -32,7 +32,7 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
-		levantarXml();
+		//levantarXml();
 	}
 
 	public static AdministracionCC getAdministracion() {
@@ -59,51 +59,116 @@ public class AdministracionCC implements IAdministracionCC {
 	 * Marcar Orden de compra como "Nueva" luego de su creación 
 	 * y previo a la entrega al proveedor
 	 */
-	//TODO rama
-	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {	
-						
-		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
-		orden.setEstado("en adquisicion");
+	
+	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
 		
-		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
-		float monto=200;
-		monto = estrategia.calcularTotal(formaDePago, monto);
-				
-		if(formaDePago.equalsIgnoreCase("efectivo")){
-			orden.setDescuento(monto);
-			orden.setFormaPago(formaDePago);
-			orden.setTotal(900);
-		}		
-		
-		if(formaDePago.equalsIgnoreCase("tarjeta")){
-			orden.setDescuento(20);
-			orden.setFormaPago(formaDePago);
-			orden.setTotal(100);
+		//Conventirmos SolicitudesCompraDTO a Negocio
+		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
+		for(int i = 0; i < listaCotizaciones.size(); i++){
+			SolicitudCompraNegocio solCompra = new SolicitudCompraNegocio();
+			solCompra.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+			solCompraNeg.add(solCompra);
+		}
+		Double total = 0.0;
+		Double descuentos = 0.0;
+		//Creo Array de OC para persistir todo junto al final, por que rompe al persistir indivudual
+		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>(); 
+		//Obtner los proveedores de todos los rodamientos de las solicitudCompraNegocio
+		List<ProveedorNegocio> proveedores = new ArrayList<ProveedorNegocio>();
+		proveedores = SolicitudCompraDAO.getInstancia().proveedoresDeSolicitudCompra(solCompraNeg);
+		for (int i = 0; i < proveedores.size(); i++) {
+			// Creamos la OC para este proveedor
+			OrdenCompraNegocio OCN = new OrdenCompraNegocio();
+			OCN.setProveedor(proveedores.get(i));
+			OCN.setFormaPago("Contado");
+			OCN.setEstado("Nueva");
+			total = 0.0;
+			descuentos = 0.0;		
+			//Generamos los ItemsOC
+			List<ItemOrdenCompraNegocio> itemsOC = new ArrayList<ItemOrdenCompraNegocio>();
+			//Levanto todos los rodamientos de las cotizaciones para el proveedor i
+			List<Object[]> misObjects = SolicitudCompraDAO.getInstancia().rodamientoYcantidadXsolicitudCompraYproveedor(solCompraNeg, "Nueva", proveedores.get(i));
+			for (int j = 0; j < misObjects.size(); j++) {
+				ItemOrdenCompraNegocio iOC = new ItemOrdenCompraNegocio();
+				RodamientoNegocio ro = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(j)[0]);
+				iOC.setRodamiento(ro);
+				iOC.setCantidad(Integer.valueOf(misObjects.get(j)[1].toString()));
+				// Calculo el precio segun la estrategía que tenga el proveedor
+				iOC.setMonto(ro.getValorStrategy(proveedores.get(j),iOC.getCantidad(), OCN.getFormaPago()));
+				total = total + iOC.getMonto();
+				itemsOC.add(iOC);
+			}
+			OCN.setTotal(total.floatValue());
+			descuentos = total*0.05;
+			OCN.setDescuento(descuentos.floatValue());
+			// Asiganmos los itemsOC QUE CREAMOS
+			OCN.setItems(itemsOC);
+	
+			// Asignamos las solicitudes de compra que dieron origen a la OC
+			OCN.setSolicitudesCompra(solCompraNeg);
+			ordenes.add(OCN);
+			
+		}
+		// Actualizamos estado de las Solicitudes de compra
+		for (int k = 0; k < solCompraNeg.size(); k++) {
+			solCompraNeg.get(k).setEstado("Adquisición");
 		}
 		
-//		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
-//		for(int i=0; i<listaCotizaciones.size(); i++){
-//			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
-//			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
-//			listaSolicitud.add(solicitud);
+		for (int i = 0; i < ordenes.size(); i++) {
+			ordenes.get(i).mergeOrdenCompra();
+		}
+		
+//		
+//		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
+//		orden.setEstado("en adquisicion");
+//		
+//		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
+//		float monto=200;
+//		monto = estrategia.calcularTotal(formaDePago, monto);
+//				
+//		if(formaDePago.equalsIgnoreCase("efectivo")){
+//			orden.setDescuento(monto);
+//			orden.setFormaPago(formaDePago);
+//			orden.setTotal(900);
+//		}		
+//		
+//		if(formaDePago.equalsIgnoreCase("tarjeta")){
+//			orden.setDescuento(20);
+//			orden.setFormaPago(formaDePago);
+//			orden.setTotal(100);
 //		}
-		
-		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
-		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
-		for(int i=0; i<listaCotizaciones.size(); i++){
-			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
-			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
-			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
-			itemOrdenCompra.setCantidad(20);
-			itemOrdenCompra.setMonto(2000);
-			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
-			itemsOrdenCompra.add(itemOrdenCompra);
+//		
+//		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
+//		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
+//		for(int i=0; i<listaCotizaciones.size(); i++){
+//			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
+//			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
+//			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
+//			itemOrdenCompra.setCantidad(20);
+//			itemOrdenCompra.setMonto(2000);
+//			itemsOrdenCompra.add(itemOrdenCompra);
+//		}
+//		
+//		orden.setItems(itemsOrdenCompra);
+//		orden.persistirOrdenCompra();
+//		
+//		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
+	}
+	
+	public void pchBorrarAlTerminar(){
+		List<SolicitudCompraNegocio> solCompra = SolicitudCompraDAO.getInstancia().solicitudCompraXestado("Nueva");
+		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
+		for(int i = 0; i < solCompra.size(); i++){
+			System.out.println(solCompra.get(i).getEstado());
+			SolicitudCompraDto scDTO = solCompra.get(i).aSolicitudCompraDTO();
+			solCompraDTO.add(scDTO);
+		}
+		try {
+			crearOrdenCompra(solCompraDTO);
+		} catch (Exception e) {
+			System.out.println("Error al generar Ordeners de Compra");
 		}
 		
-		orden.setItems(itemsOrdenCompra);
-		orden.persistirOrdenCompra();
-		
-		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
 	}
 	
 	
@@ -128,6 +193,7 @@ public class AdministracionCC implements IAdministracionCC {
 	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX" //
 	// "APROBADA"
 	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
+	@Deprecated
 	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
 		
 		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");
@@ -149,26 +215,36 @@ public class AdministracionCC implements IAdministracionCC {
 	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
 	 *  El remito modifica el stock de los artículos despachados
 	 */
-	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ClienteDto cliente) throws RemoteException {
-
-		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
+	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
+			
+		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
 		RemitoNegocio remito = new RemitoNegocio();
 		
-		remito.setCliente(cli);					// es el cliente pasado por parámetro
-		remito.setComentarios(null);			// este campo está al pedo
-		remito.setConformidad(true); 			// este campo está al pedo
-		remito.setEstado("Finalizado"); 		// es con el unico estado que se puede cargar un remito, no es editable desde el Sistema	
+		remito.setProveedor(proov);
+		remito.setComentarios("Satisfecho");
+		remito.setEstado("Recibido");
 		Calendar c = new GregorianCalendar();
-		remito.setFecha(c.getTime());
+		remito.setFecha(c.getTime());	
 		
-		List<CotizacionNegocio> listaCotizaciones = new ArrayList<CotizacionNegocio>();
+		// Convertimos OrdenCompraDTO a Negocio
+		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
 		for(int i=0; i<listaOrdenes.size(); i++){
-			CotizacionNegocio cotizacion = new CotizacionNegocio();
-			listaCotizaciones.add(cotizacion);
-		}
-				
-		//remito.setCotizaciones(listaCotizaciones);		// si descomento esto, rompe. VER BIEN
-		remito.mergeRemito();
+			OrdenCompraNegocio orden = new OrdenCompraNegocio();
+			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
+			ordenes.add(orden);
+		}		
+		
+		//remito.setOrdenesDeCompra(ordenes);
+		remito.mergeRemito();		
+		
+		// Aumentar el stock que ingresaron
+		ArrayList<ItemDto> items = new ArrayList<ItemDto>();
+		for(int i=0; i<items.size(); i++){
+			items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
+			items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());			
+		}			
+			
+		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}
@@ -215,7 +291,7 @@ public class AdministracionCC implements IAdministracionCC {
 	// Daro: Obtiene la lista comparativa (RodamientoNegocio), la transforma y
 	// devuFelve (RodamientoDto)
 	public List<RodamientoDto> obtenerListaComparativa() throws RemoteException {
-		List<RodamientoNegocio> rodasNegocio = this.casaCentralNegocio.getListaPrincipal();
+		List<RodamientoNegocio> rodasNegocio = AdministracionCC.casaCentralNegocio.getListaPrincipal();
 		List<RodamientoDto> rodasDto = new ArrayList<RodamientoDto>();
 		for (int i = 0; i < rodasNegocio.size(); i++) {
 			rodasDto.add(rodasNegocio.get(i).aRodamientoDto());
@@ -225,7 +301,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
 		// TODO REVISAR.
-		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
+		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
 		while (iterador.hasNext()) {
 			RodamientoNegocio roda = iterador.next();
 			this.agregarNuevoRodamiento(roda);
@@ -234,7 +310,7 @@ public class AdministracionCC implements IAdministracionCC {
 
 	private void agregarNuevoRodamiento(RodamientoNegocio rodamiento) {
 		
-		Iterator<RodamientoNegocio> iterador = this.casaCentralNegocio.getListaPrincipal().iterator();
+		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
 		boolean encontradoP = false, actualizadoP = false;
 		while (iterador.hasNext() && !encontradoP) {
 			RodamientoNegocio rodamientoComp = iterador.next();
@@ -250,14 +326,14 @@ public class AdministracionCC implements IAdministracionCC {
 			}
 		}
 		if (encontradoP && !actualizadoP) {
-			this.casaCentralNegocio.getListaPrincipal().add(rodamiento);
+			AdministracionCC.casaCentralNegocio.getListaPrincipal().add(rodamiento);
 		}
 		if (!encontradoP && !actualizadoP) {
-			iterador = this.casaCentralNegocio.getListaOpcional().iterator();
+			iterador = AdministracionCC.casaCentralNegocio.getListaOpcional().iterator();
 			while (iterador.hasNext() && !encontradoP) {
 				RodamientoNegocio rodamientoComp = iterador.next();
 				if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
-					this.casaCentralNegocio.getListaOpcional().add(rodamiento);
+					AdministracionCC.casaCentralNegocio.getListaOpcional().add(rodamiento);
 					actualizadoP = true;
 					break;
 				}
@@ -300,6 +376,11 @@ public class AdministracionCC implements IAdministracionCC {
 	@Deprecated
 	public List<RodamientoDto> obtenerListaComparativaOpcional() throws RemoteException {		
 		return null;
+	}
+
+	@Deprecated
+	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {
+		return 0;
 	}
 
 }
