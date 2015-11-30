@@ -251,31 +251,21 @@ public class AdministracionCC implements IAdministracionCC {
 			}
 		}
 		
-		
-		
-		
-//		// Convertimos OrdenCompraDTO a Negocio
-//		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
-//		for(int i=0; i<listaOrdenes.size(); i++){
-//			OrdenCompraNegocio orden = new OrdenCompraNegocio();
-//			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
-//			ordenes.add(orden);
-//		}		
-		
 		remito.setOrdenesDeCompra(ordenes);
-		remito.mergeRemito();		
+		remito.mergeRemito();				
 		
 		// Aumentar el stock que ingresaron
-		ArrayList<ItemDto> items = new ArrayList<ItemDto>();
-		for(int i=0; i<items.size(); i++){
-			items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
-			items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());			
-		}			
+		List<ItemDto> items = new ArrayList<ItemDto>();
+		for(int i=0; i<ordenes.size(); i++){
+			//items.get(i).setCantidad(listaOrdenes.get(i).getItems().get(i).getCantidad());
+			//items.get(i).setRodamiento(listaOrdenes.get(i).getItems().get(i).getRodamiento());
+			//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());
+			//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());					
+		}				
 			
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
-		//Creo XML del Remito
-		RemitoXML.getInstancia().remitoTOxml(remito);
+		//RemitoXML.getInstancia().remitoTOxml(remito);
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}
