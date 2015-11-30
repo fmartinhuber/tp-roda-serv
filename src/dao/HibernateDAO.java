@@ -47,7 +47,7 @@ public class HibernateDAO{
 	public void merge(Object obj) {
 		Session session = getSession();
 		session.beginTransaction();
-		session.merge(obj);		
+		session.merge(obj);
 		session.getTransaction().commit();
 	}
 	

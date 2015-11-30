@@ -118,11 +118,11 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
 		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
-		this.getOficinaVentaNegocio().mergeOV();
-
+		//Obtengo la OV para ser persistida posteriormente
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
-		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList<CotizacionNegocio>());
 		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
 		return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
 	}
