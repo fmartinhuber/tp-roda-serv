@@ -62,6 +62,16 @@ public class AdministracionCC implements IAdministracionCC {
 	 * y previo a la entrega al proveedor
 	 */
 	
+	// Carlos: Requerido para el cliente we
+	@Override
+	public int crearOrdenCompraXid(List<String> idsCotis, String formaDePago) throws RemoteException {
+		// TODO Auto-generated method stub
+		List<SolicitudCompraDto> solCotisDTO = new ArrayList<SolicitudCompraDto>();
+		int salida = this.crearOrdenCompra(solCotisDTO, formaDePago);
+		return salida;
+	}
+
+	
 	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
 		
 		//Conventirmos SolicitudesCompraDTO a Negocio
@@ -349,5 +359,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
+	
 
 }
