@@ -266,7 +266,13 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	@SuppressWarnings("unchecked")
 	public List <CotizacionDto> obtenerCotizaciones(){
-		return (List<CotizacionDto>) CotizacionDAO.getinstancia().obtenerCotizaciones();
+		List <CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizaciones();
+		List <CotizacionDto> listCotizacionDto = new ArrayList <CotizacionDto> ();
+		for(int i=0;i<cotizaciones.size();i++){
+			CotizacionDto cotizacionDto = cotizaciones.get(i).aCotizacionDto();
+			listCotizacionDto.add(cotizacionDto);
+		}
+		return listCotizacionDto;
 	}
 	
 
