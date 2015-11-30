@@ -114,11 +114,12 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
-		//Persisto la Cotizacion
+		//Persisto la Cotizacion desde la OV
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
-		miCotNeg.mergearCotizacion();
-		
+		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
+		this.getOficinaVentaNegocio().mergeOV();
+
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		
