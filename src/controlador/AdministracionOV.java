@@ -12,6 +12,7 @@ import xml2.CotizacionXML;
 import xml2.FacturaXML;
 import dao.*;
 import dto.*;
+import estrategia.EstrategiaFormaPago;
 
 public class AdministracionOV implements IAdministracionOV{
 	
@@ -434,8 +435,60 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 
-	@Override
-	public void crearOrdenCompra(List<SolicitudCompraDto> solicitudesPendientes) throws RemoteException {		
+	/*
+	 * No es necesario una lista de cotizaciónes 
+	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra 
+	 * Se requiere un nuevo estado en la orden de compra y en la solicitud de cotización
+	 * Marcar solicitud de cotización como "En Adquisición" 
+	 * Marcar Orden de compra como "Nueva" luego de su creación 
+	 * y previo a la entrega al proveedor
+	 */
+	//TODO rama
+	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
+						
+		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
+		orden.setEstado("en adquisicion");
+		
+//		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
+//		float monto=200;
+//		monto = estrategia.calcularTotal(formaDePago, monto);
+//				
+//		if(formaDePago.equalsIgnoreCase("efectivo")){
+//			orden.setDescuento(monto);
+//			orden.setFormaPago(formaDePago);
+//			orden.setTotal(900);
+//		}		
+//		
+//		if(formaDePago.equalsIgnoreCase("tarjeta")){
+//			orden.setDescuento(20);
+//			orden.setFormaPago(formaDePago);
+//			orden.setTotal(100);
+//		}
+		
+//		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
+//		for(int i=0; i<listaCotizaciones.size(); i++){
+//			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
+//			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+//			listaSolicitud.add(solicitud);
+//		}
+		
+		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
+		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
+		for(int i=0; i<listaCotizaciones.size(); i++){
+			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
+			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
+			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
+			itemOrdenCompra.setCantidad(20);
+			itemOrdenCompra.setMonto(2000);
+			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar esta garcha
+			itemsOrdenCompra.add(itemOrdenCompra);
+		}
+		
+		orden.setItems(itemsOrdenCompra);
+		orden.persistirOrdenCompra();
+		
+		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
 	}
+	
 	
 }
