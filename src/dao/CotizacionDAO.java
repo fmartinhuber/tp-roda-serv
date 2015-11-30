@@ -205,6 +205,15 @@ public class CotizacionDAO extends HibernateDAO{
 		s.close();
 		return salida;
 	}
+	
+	public CotizacionNegocio obtenerCotizaciones() {
+		
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		CotizacionNegocio salida = (CotizacionNegocio) s.createQuery("from CotizacionNegocio c").list();
+		
+		s.close();
+		return salida;
+	}
 
 	// Carlos; Levanto los clientes de una colección de cotizaciones pasadas por parametro de una ov
 	// Lo uso para el masivo de generar factura

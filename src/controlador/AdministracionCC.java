@@ -6,6 +6,8 @@ import java.util.*;
 import dao.*;
 import utils.*;
 import xml2.ListaComparativaXML;
+import xml2.OrdenCompraXML;
+import xml2.RemitoXML;
 import negocio.*;
 import dto.*;
 import interfaces.*;
@@ -32,7 +34,7 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
-		//levantarXml();
+		levantarXml();
 	}
 
 	public static AdministracionCC getAdministracion() {
@@ -117,6 +119,9 @@ public class AdministracionCC implements IAdministracionCC {
 		for (int i = 0; i < ordenes.size(); i++) {
 			ordenes.get(i).mergeOrdenCompra();
 		}
+		
+		//Creo el XML de Orden de Compra
+		//OrdenCompraXML.getInstancia().ordencompraTOxml(OCN);
 		
 //		
 //		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
@@ -245,6 +250,9 @@ public class AdministracionCC implements IAdministracionCC {
 		}			
 			
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
+		
+		//Creo XML del Remito
+		RemitoXML.getInstancia().remitoTOxml(remito);
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}

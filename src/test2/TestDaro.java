@@ -22,51 +22,51 @@ public class TestDaro {
 
 	public static void main(String[] args)  throws RemoteException {
 		/*----------------------------------------------------------------------------------------------------*/
-		/*----------------------------------------------------------------------------------------------------*/
-						/*Pruebas de Cotizaciones, diferentes estados y su actualizacion en la BD*/
-		/*----------------------------------------------------------------------------------------------------*/
-		/*----------------------------------------------------------------------------------------------------*/
-		
-		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
-		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
-		//Creo Rodamientos
-		RodamientoDto rodaUno = new RodamientoDto();
-		RodamientoDto rodaDos = new RodamientoDto();
-		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
-		rodaUno.setCodigo("20210");
-		rodaUno.setOrigen("Suecia");
-		rodaUno.setMarca("SKF");
-		rodaDos.setCodigo("22207");
-		rodaDos.setOrigen("Argentina");
-		rodaDos.setMarca("IMP");
-		//Agrego el rodamiento y su cantidad a la lista de items
-		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
-		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
-		//Agrego los items a la lista
-		listaUtils.add(itemNegUno);
-		listaUtils.add(itemNegDos);
-		
-		//Creo un Cliente
-		ClienteDto miClienteDto = new ClienteDto();
-		ClienteNegocio miCliNeg = new ClienteNegocio();
-		//Obtengo el Cliente de la BD
-		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
-		miClienteDto = miCliNeg.aClienteDto();
-		
-		//Llamo al metodo para que me genere la Cotizacion
-		int idMaximoCot = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
-		
-		//miCotDto es la Cotizacion pendiente, la misma no se guarda en la Base de Datos porque no tiene items
-		
-		//Analizar los resultados de la cotizacion
-		
-		//Aprobamos la Cotizacion junto a la lista de items
-		float totalCotizacion;
-		//totalCotizacion = AdministracionOV.getInstancia().aprobarYCotizarCotizacion(idMaximoCot);
-		//System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
-		
-		
-		
+//		/*----------------------------------------------------------------------------------------------------*/
+//						/*Pruebas de Cotizaciones, diferentes estados y su actualizacion en la BD*/
+//		/*----------------------------------------------------------------------------------------------------*/
+//		/*----------------------------------------------------------------------------------------------------*/
+//		
+//		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
+//		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
+//		//Creo Rodamientos
+//		RodamientoDto rodaUno = new RodamientoDto();
+//		RodamientoDto rodaDos = new RodamientoDto();
+//		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
+//		rodaUno.setCodigo("20210");
+//		rodaUno.setOrigen("Suecia");
+//		rodaUno.setMarca("SKF");
+//		rodaDos.setCodigo("22207");
+//		rodaDos.setOrigen("Argentina");
+//		rodaDos.setMarca("IMP");
+//		//Agrego el rodamiento y su cantidad a la lista de items
+//		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
+//		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
+//		//Agrego los items a la lista
+//		listaUtils.add(itemNegUno);
+//		listaUtils.add(itemNegDos);
+//		
+//		//Creo un Cliente
+//		ClienteDto miClienteDto = new ClienteDto();
+//		ClienteNegocio miCliNeg = new ClienteNegocio();
+//		//Obtengo el Cliente de la BD
+//		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
+//		miClienteDto = miCliNeg.aClienteDto();
+//		
+//		//Llamo al metodo para que me genere la Cotizacion
+//		int idMaximoCot = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
+//		
+//		//miCotDto es la Cotizacion pendiente, la misma no se guarda en la Base de Datos porque no tiene items
+//		
+//		//Analizar los resultados de la cotizacion
+//		
+//		//Aprobamos la Cotizacion junto a la lista de items
+//		float totalCotizacion;
+//		//totalCotizacion = AdministracionOV.getInstancia().aprobarYCotizarCotizacion(idMaximoCot);
+//		//System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
+//		
+//		
+//		
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
 					/*Pruebas de funcionamiento de Cotizaciones a XML y de XML a Cotizaciones*/
@@ -114,12 +114,12 @@ public class TestDaro {
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
 		
-//		//Realizo la carga de la lista comparativa, generando su XML
-//		CargarDatosListaComparativa cargaDeDatosAutomatica = new CargarDatosListaComparativa();
-//		cargaDeDatosAutomatica.cargarListaComparativa();
-//		/*Obtengo la instancia de Administracion CC, lo que hace esto es crear el objeto, y ahi dentro generar la lista
-//		comparativa con todos los Rodamientos obtenidos del XML*/
-//		AdministracionCC.getInstancia();
+		//Realizo la carga de la lista comparativa, generando su XML
+		CargarDatosListaComparativa cargaDeDatosAutomatica = new CargarDatosListaComparativa();
+		cargaDeDatosAutomatica.cargarListaComparativa();
+		/*Obtengo la instancia de Administracion CC, lo que hace esto es crear el objeto, y ahi dentro generar la lista
+		comparativa con todos los Rodamientos obtenidos del XML*/
+		AdministracionCC.getInstancia();
 		
 		
 		

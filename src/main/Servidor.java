@@ -7,6 +7,7 @@ import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
 
+import test2.CargarDatos_EjecutarPrimero;
 import controlador.*;
 
 public class Servidor {

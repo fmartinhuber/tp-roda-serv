@@ -9,6 +9,7 @@ import negocio.*;
 import utils.ItemDto;
 import xml2.BultoXML;
 import xml2.CotizacionXML;
+import xml2.FacturaXML;
 import dao.*;
 import dto.*;
 
@@ -95,9 +96,15 @@ public class AdministracionOV implements IAdministracionOV{
 				if (codComp.equals(codItem) && orgComp.equals(orgItem) && marComp.equals(marItem)){
 					//Creo item
 					ItemCotizacionDto itemCotDto = new ItemCotizacionDto();
+					
+					//Busco el rodamiento en la Base de Datos para asignarlo con todos sus campos
+					RodamientoNegocio miRodaNeg = new RodamientoNegocio();
+					miRodaNeg.aRodamientoNegocio(listaCompa.get(j));
+					miRodaNeg = RodamientoDAO.getInstancia().buscarRodamientoPorCodigoMarcaOrigen(miRodaNeg);
+					itemCotDto.setRodamiento(miRodaNeg.aRodamientoDto());
+					
 					//Seteo sus valores
 					itemCotDto.setCant(listaItems.get(j).getCantidad());
-					itemCotDto.setRodamiento(listaCompa.get(j));
 					itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
 					//Agrego el item a la lista de items
 					listaItemCotDto.add(itemCotDto);
@@ -107,11 +114,12 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
-		//Persisto la Cotizacion
+		//Persisto la Cotizacion desde la OV
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
-		miCotNeg.mergearCotizacion();;
-		
+		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
+		this.getOficinaVentaNegocio().mergeOV();
+
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		
@@ -137,6 +145,8 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.setEstado("Aprobada");
 		//Actualizo la CotizacionNegocio
 		miCotNeg.mergearCotizacion();
+		//Genero el XML de Cotizacion Aprobada
+		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
@@ -243,8 +253,15 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().getFacturas().add(factura);
 		this.getOficinaVentaNegocio().mergeOV();
 		//factura.setDescuento(strategy);
+		
+		//Genero el XML de Factura
+		FacturaXML.getInstancia().cotizacionTOxml(factura);
 
 	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
+	}
+	
+	public List <CotizacionNegocio> obtenerCotizaciones(){
+		return (List<CotizacionNegocio>) CotizacionDAO.getinstancia().obtenerCotizaciones();
 	}
 	
 
