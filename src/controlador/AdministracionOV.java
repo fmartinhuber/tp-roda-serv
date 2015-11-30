@@ -75,7 +75,7 @@ public class AdministracionOV implements IAdministracionOV{
 		vigencia = c.getTime();
 		miCotDto.setFechaVigencia(vigencia);
 		miCotDto.setItems(new ArrayList<ItemCotizacionDto>());	//Creo Items Cotizacion vacios
-
+		
 		//Creo la lista de items que voy a utilizar para ir cargandolos
 		List<ItemCotizacionDto> listaItemCotDto = new ArrayList<ItemCotizacionDto>();
 
@@ -122,7 +122,7 @@ public class AdministracionOV implements IAdministracionOV{
 
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
-		
+		this.getOficinaVentaNegocio().setCotizaciones(new ArrayList<CotizacionNegocio>());
 		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
 		return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
 	}
@@ -260,8 +260,9 @@ public class AdministracionOV implements IAdministracionOV{
 	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
 	}
 	
-	public List <CotizacionNegocio> obtenerCotizaciones(){
-		return (List<CotizacionNegocio>) CotizacionDAO.getinstancia().obtenerCotizaciones();
+	@SuppressWarnings("unchecked")
+	public List <CotizacionDto> obtenerCotizaciones(){
+		return (List<CotizacionDto>) CotizacionDAO.getinstancia().obtenerCotizaciones();
 	}
 	
 
