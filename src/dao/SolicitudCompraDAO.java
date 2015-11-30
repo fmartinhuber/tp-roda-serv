@@ -120,5 +120,11 @@ public class SolicitudCompraDAO extends HibernateDAO{
 			return salida;
 		}
 		
-		
+		// Levantar Solicitudes de Compra segun id recibido
+		public SolicitudCompraNegocio buscarSolicitudCompra(int idCot){
+			Session se = HibernateUtil.getSessionFactory().openSession();
+			SolicitudCompraNegocio salida = (SolicitudCompraNegocio) se.get(SolicitudCompraNegocio.class, idCot);
+			se = null;
+			return salida;
+		}
 }
