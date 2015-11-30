@@ -141,6 +141,7 @@ public class AdministracionCC implements IAdministracionCC {
 //			orden.setFormaPago(formaDePago);
 //			orden.setTotal(100);
 //		}
+		
 //		
 //		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
 //		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
@@ -256,11 +257,11 @@ public class AdministracionCC implements IAdministracionCC {
 		
 		// Aumentar el stock que ingresaron
 		List<ItemDto> items = new ArrayList<ItemDto>();
-		for(int i=0; i<ordenes.size(); i++){
-			//items.get(i).setCantidad(listaOrdenes.get(i).getItems().get(i).getCantidad());
-			//items.get(i).setRodamiento(listaOrdenes.get(i).getItems().get(i).getRodamiento());
-			//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());
-			//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());					
+		for(int i=0; i<listaOrdenes.size(); i++){
+			items.get(i).setCantidad(listaOrdenes.get(i).getItems().get(i).getCantidad());
+			items.get(i).setRodamiento(listaOrdenes.get(i).getItems().get(i).getRodamiento());
+			//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
+			//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());							
 		}				
 			
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
