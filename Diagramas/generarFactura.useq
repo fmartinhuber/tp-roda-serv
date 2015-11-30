@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true">  
+  <object id="1" language="java" name="interfaces.IAdministracionOV" project="tp-roda-repo" 
+    file="/tp-roda-repo/src/interfaces/IAdministracionOV.java" binary="false" label="iAdministracionOV" type="interface" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="160" y="0"/>    
+    <execution id="2">      
+      <position height="649" width="187" x="5" y="147"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="controlador.AdministracionOV" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/controlador/AdministracionOV.java" binary="false" label="administracionOV" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="387" y="0"/>    
+    <execution id="4">      
+      <position height="595" width="182" x="196" y="174"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="27" width="7" x="284" y="228"/>    
+    </execution>    
+    <execution id="19">      
+      <position height="27" width="7" x="284" y="321"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="27" width="7" x="284" y="410"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="27" width="7" x="284" y="525"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="27" width="7" x="284" y="603"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="27" width="7" x="284" y="688"/>    
+    </execution>  
+  </object>  
+  <object id="24" language="java" name="negocio.FacturaNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/FacturaNegocio.java" binary="false" label="facturaNegocio" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="869" y="0"/>    
+    <execution id="11">      
+      <position height="89" width="160" x="382" y="375"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="81" width="160" x="382" y="661"/>    
+    </execution>  
+  </object>  
+  <object id="27" language="java" name="negocio.ItemFacturaNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/ItemFacturaNegocio.java" binary="false" label="itemFacturaNegocio" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="1424" y="0"/>    
+    <execution id="15">      
+      <position height="81" width="199" x="546" y="576"/>    
+    </execution>  
+  </object>  
+  <object id="29" language="java" name="negocio.ClienteNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/ClienteNegocio.java" binary="false" label="clienteNegocio" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="659" y="0"/>    
+    <execution id="7">      
+      <position height="81" width="157" x="382" y="201"/>    
+    </execution>  
+  </object>  
+  <object id="31" language="java" name="negocio.CotizacionNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/CotizacionNegocio.java" binary="false" label="cotizacionNegocio" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="761" y="0"/>    
+    <execution id="9">      
+      <position height="81" width="186" x="543" y="294"/>    
+    </execution>  
+  </object>  
+  <object id="33" language="java" name="dao.CotizacionDAO" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/dao/CotizacionDAO.java" binary="false" label="cotizacionDAO" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="997" y="0"/>    
+    <execution id="13">      
+      <position height="89" width="154" x="897" y="490"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="generarFactura(java.util.List&lt;dto.CotizacionDto&gt;,dto.ClienteDto):int" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="aClienteNegocio(dto.ClienteDto):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="aCotizacionNegocio(dto.CotizacionDto):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="FacturaNegocio()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" 
+    operation="rodaPorItemsCotizacion_OV_Estado_x_Cliente(java.util.List&lt;negocio.CotizacionNegocio&gt;,negocio.OVNegocio,java.lang.String,negocio.ClienteNegocio):java.util.List&lt;Object[]&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="ItemFacturaNegocio()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" operation="setItems(java.util.List&lt;negocio.ItemFacturaNegocio&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="25" asynchronous="true">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="26" asynchronous="true">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="28" asynchronous="true">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="30" asynchronous="true">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="32" asynchronous="true">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="34" asynchronous="true">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>
+</sequence-diagram>
