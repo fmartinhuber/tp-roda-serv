@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true">  
+  <object id="1" language="java" name="interfaces.IAdministracionOV" project="tp-roda-repo" 
+    file="/tp-roda-repo/src/interfaces/IAdministracionOV.java" binary="false" label="iAdministracionOV" type="interface" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="112" y="0"/>    
+    <execution id="2">      
+      <position height="390" width="187" x="5" y="125"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="controlador.AdministracionOV" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/controlador/AdministracionOV.java" binary="false" label="administracionOV" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="427" y="0"/>    
+    <execution id="4">      
+      <position height="336" width="182" x="196" y="152"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="27" width="7" x="284" y="206"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="27" width="7" x="284" y="407"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="negocio.SolicitudCompraNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/SolicitudCompraNegocio.java" binary="false" label="solicitudCompraNegocio" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="669" y="0"/>    
+    <execution id="9">      
+      <position height="184" width="240" x="572" y="277"/>    
+    </execution>    
+    <execution id="16">      
+      <position height="27" width="7" x="689" y="347"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="negocio.CotizacionNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/CotizacionNegocio.java" binary="false" label="cotizacionNegocio" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="789" y="0"/>    
+    <execution id="7">      
+      <position height="81" width="186" x="382" y="179"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="87" width="186" x="382" y="314"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="crearSolicitudCompra(java.util.List&lt;dto.CotizacionDto&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="aCotizacionNegocio(dto.CotizacionDto):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="SolicitudCompraNegocio()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="13" operation="setItems(java.util.List&lt;negocio.ItemCotizacionNegocio&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" asynchronous="true">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="18" asynchronous="true">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="19" asynchronous="true">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>
+</sequence-diagram>
