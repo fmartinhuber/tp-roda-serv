@@ -26,8 +26,9 @@ public class EstrategiaFormaPago implements IPagoEstrategia{
 
 	@Override
 	public void pago(float monto) {		
-		
 	}
+	
+	
 	
 	public float calcularTotal(String formaPago, float monto){
 		float total=0;

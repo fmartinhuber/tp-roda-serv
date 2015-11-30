@@ -1,6 +1,7 @@
 package controlador;
 
 import interfaces.IAdministracionOV;
+import interfaces.IPagoEstrategia;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -449,6 +450,7 @@ public class AdministracionOV implements IAdministracionOV{
 		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
 		orden.setEstado("en adquisicion");
 		
+//		IPagoEstrategia estrategia;
 //		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
 //		float monto=200;
 //		monto = estrategia.calcularTotal(formaDePago, monto);
