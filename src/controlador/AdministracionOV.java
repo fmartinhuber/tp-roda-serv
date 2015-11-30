@@ -9,6 +9,7 @@ import negocio.*;
 import utils.ItemDto;
 import xml2.BultoXML;
 import xml2.CotizacionXML;
+import xml2.FacturaXML;
 import dao.*;
 import dto.*;
 
@@ -137,6 +138,8 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.setEstado("Aprobada");
 		//Actualizo la CotizacionNegocio
 		miCotNeg.mergearCotizacion();
+		//Genero el XML de Cotizacion Aprobada
+		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		//Devuelvo el costo final de la Cotizacion
 		return costoFinal;
 	}
@@ -243,6 +246,9 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().getFacturas().add(factura);
 		this.getOficinaVentaNegocio().mergeOV();
 		//factura.setDescuento(strategy);
+		
+		//Genero el XML de Factura
+		FacturaXML.getInstancia().cotizacionTOxml(factura);
 
 	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
 	}
