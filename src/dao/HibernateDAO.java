@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 
 import hbt.HibernateUtil;
-import negocio.ProveedorNegocio;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -75,16 +74,6 @@ public class HibernateDAO{
 		session.beginTransaction();
 		session.update(obj);
 		session.getTransaction().commit();
-	}
-
-	public ProveedorNegocio buscarProveedorPorCUIT(String cuit) {
-		
-		Session se = HibernateUtil.getSessionFactory().openSession();
-		org.hibernate.Query query = se.createQuery("from ProveedorNegocio p where p.CUIT = :nombrePar");
-		query.setParameter("nombrePar", cuit);
-		ProveedorNegocio proveedor = (ProveedorNegocio) query.uniqueResult();
-		se.close();
-		return proveedor ;		
 	}
 	
 }
