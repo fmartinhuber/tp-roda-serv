@@ -65,7 +65,6 @@ public class AdministracionCC implements IAdministracionCC {
 	// Carlos: Requerido para el cliente we
 	@Override
 	public int crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
-		// TODO Auto-generated method stub
 		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
 		for (int i = 0; i < idsSolCompra.size(); i++) {
 			int idSolCot = Integer.getInteger(idsSolCompra.get(i));
@@ -325,7 +324,6 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
-		// TODO REVISAR.
 		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
 		while (iterador.hasNext()) {
 			RodamientoNegocio roda = iterador.next();
