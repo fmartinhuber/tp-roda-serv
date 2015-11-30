@@ -17,27 +17,50 @@
     </execution>    
     <execution id="6">      
       <position height="63" width="0" x="0" y="123"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="21" width="125" x="137" y="236"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="100" width="0" x="0" y="286"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="84" width="0" x="0" y="397"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="21" width="0" x="0" y="439"/>    
     </execution>  
   </object>  
-  <object id="9" language="java" name="negocio.ProveedorNegocio" project="tp-roda-serv" 
+  <object id="18" language="java" name="negocio.OrdenCompraNegocio" project="tp-roda-serv" 
+    file="/tp-roda-serv/src/negocio/OrdenCompraNegocio.java" binary="false" label="ordenCompraNegocio" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="307"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="21" width="7" x="337" y="344"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="negocio.ProveedorNegocio" project="tp-roda-serv" 
     file="/tp-roda-serv/src/negocio/ProveedorNegocio.java" binary="false" label="proveedorNegocio" type="class" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="8">      
       <position height="21" width="0" x="0" y="144"/>    
     </execution>    
-    <execution id="10">      
-      <position height="109" width="0" x="0" y="161"/>    
+    <execution id="20">      
+      <position height="159" width="0" x="0" y="161"/>    
     </execution>    
-    <execution id="13">      
-      <position height="21" width="7" x="327" y="207"/>    
+    <execution id="23">      
+      <position height="63" width="7" x="327" y="215"/>    
     </execution>  
   </object>  
-  <object id="14" language="java" name="dao.ProveedorDAO" project="tp-roda-serv" 
+  <object id="25" language="java" name="dao.ProveedorDAO" project="tp-roda-serv" 
     file="/tp-roda-serv/src/dao/ProveedorDAO.java" binary="false" label="proveedorDAO" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
-    <execution id="12">      
-      <position height="67" width="0" x="0" y="182"/>    
+    <execution id="22">      
+      <position height="117" width="0" x="0" y="182"/>    
     </execution>  
   </object>  
   <message id="3" operation="crearRemito(java.util.List&lt;dto.OrdenCompraDto&gt;,dto.ProveedorDto):int" 
@@ -49,12 +72,29 @@
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="8"/>  
   </message>  
-  <message id="11" operation="buscarProveedorPorCUIT(java.lang.String):negocio.ProveedorNegocio" asynchronous="false">    
+  <message id="11" operation="OrdenCompraNegocio()" asynchronous="false">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="12"/>  
   </message>  
-  <message id="15" operation="getCUIT():java.lang.String" asynchronous="false">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
+  <message id="13" operation="aOrdenCompraNegocio(dto.OrdenCompraDto):void" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="16" operation="actualizarStock(java.util.List&lt;utils.ItemDto&gt;,java.lang.String):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="21" operation="buscarProveedorPorCUIT(java.lang.String):negocio.ProveedorNegocio" asynchronous="false">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="24" asynchronous="false">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="26" operation="getCUIT():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
   </message>
 </sequence-diagram>
