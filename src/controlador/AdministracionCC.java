@@ -6,6 +6,7 @@ import java.util.*;
 import dao.*;
 import utils.*;
 import xml2.ListaComparativaXML;
+import xml2.OrdenCompraXML;
 import xml2.RemitoXML;
 import negocio.*;
 import dto.*;
@@ -61,13 +62,31 @@ public class AdministracionCC implements IAdministracionCC {
 	 * y previo a la entrega al proveedor
 	 */
 	
-	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
+	// Carlos: Requerido para el cliente we
+	@Override
+	public int crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
+		// TODO Auto-generated method stub
+		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
+		for (int i = 0; i < idsSolCompra.size(); i++) {
+			int idSolCot = Integer.getInteger(idsSolCompra.get(i));
+			SolicitudCompraNegocio solNegocio = SolicitudCompraDAO.getInstancia().buscarSolicitudCompra(idSolCot);
+			SolicitudCompraDto solDto = solNegocio.aSolicitudCompraDTO();
+			solCompraDTO.add(solDto);
+		}
+		int salida = this.crearOrdenCompra(solCompraDTO, formaDePago);
+		return salida;
+	}
+
+	
+	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
 		
 		//Conventirmos SolicitudesCompraDTO a Negocio
 		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
 		for(int i = 0; i < listaCotizaciones.size(); i++){
 			SolicitudCompraNegocio solCompra = new SolicitudCompraNegocio();
-			solCompra.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+			//solCompra.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+			//busco las solicitudes de compra que coincidan con el numero de la solicitud DTO
+			solCompra = SolicitudCompraDAO.getInstancia().buscarSolicitudCompra(listaCotizaciones.get(i).getNumeroSolicitudCompra());
 			solCompraNeg.add(solCompra);
 		}
 		Double total = 0.0;
@@ -81,7 +100,7 @@ public class AdministracionCC implements IAdministracionCC {
 			// Creamos la OC para este proveedor
 			OrdenCompraNegocio OCN = new OrdenCompraNegocio();
 			OCN.setProveedor(proveedores.get(i));
-			OCN.setFormaPago("Contado");
+			OCN.setFormaPago(formaPago);
 			OCN.setEstado("Nueva");
 			total = 0.0;
 			descuentos = 0.0;		
@@ -117,63 +136,13 @@ public class AdministracionCC implements IAdministracionCC {
 		
 		for (int i = 0; i < ordenes.size(); i++) {
 			ordenes.get(i).mergeOrdenCompra();
+			OrdenCompraXML.getInstancia().ordencompraTOxml(ordenes.get(i));
 		}
 		
 		//Creo el XML de Orden de Compra
-		//OrdenCompraXML.getInstancia().ordencompraTOxml(OCN);
 		
-//		
-//		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
-//		orden.setEstado("en adquisicion");
-//		
-//		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
-//		float monto=200;
-//		monto = estrategia.calcularTotal(formaDePago, monto);
-//				
-//		if(formaDePago.equalsIgnoreCase("efectivo")){
-//			orden.setDescuento(monto);
-//			orden.setFormaPago(formaDePago);
-//			orden.setTotal(900);
-//		}		
-//		
-//		if(formaDePago.equalsIgnoreCase("tarjeta")){
-//			orden.setDescuento(20);
-//			orden.setFormaPago(formaDePago);
-//			orden.setTotal(100);
-//		}
 		
-//		
-//		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
-//		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
-//		for(int i=0; i<listaCotizaciones.size(); i++){
-//			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
-//			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
-//			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
-//			itemOrdenCompra.setCantidad(20);
-//			itemOrdenCompra.setMonto(2000);
-//			itemsOrdenCompra.add(itemOrdenCompra);
-//		}
-//		
-//		orden.setItems(itemsOrdenCompra);
-//		orden.persistirOrdenCompra();
-//		
 		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
-	}
-	
-	public void pchBorrarAlTerminar(){
-		List<SolicitudCompraNegocio> solCompra = SolicitudCompraDAO.getInstancia().solicitudCompraXestado("Nueva");
-		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
-		for(int i = 0; i < solCompra.size(); i++){
-			System.out.println(solCompra.get(i).getEstado());
-			SolicitudCompraDto scDTO = solCompra.get(i).aSolicitudCompraDTO();
-			solCompraDTO.add(scDTO);
-		}
-		try {
-			crearOrdenCompra(solCompraDTO);
-		} catch (Exception e) {
-			System.out.println("Error al generar Ordeners de Compra");
-		}
-		
 	}
 	
 	
@@ -437,9 +406,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	@Deprecated
-	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaDePago) throws RemoteException {
-		return 0;
-	}
+	
 
 }

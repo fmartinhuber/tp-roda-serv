@@ -219,11 +219,15 @@ public class AdministracionOV implements IAdministracionOV{
 	public int generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
 		ClienteNegocio cli = new ClienteNegocio();
-		cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
+		//cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
+		//Buscamos al cliente por el cuit que vino en el dto
+		cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
 		List<CotizacionNegocio> cotiNegocio = new ArrayList<CotizacionNegocio>(); 	//Creamos lista de cotizacionNegocio para contener las cot transformadas recibidas
 		for(int i = 0; i < cotis.size(); i++){
 			CotizacionNegocio co = new CotizacionNegocio();
-			co.aCotizacionNegocio(cotis.get(i));	//convertimos a negocio cada una de las cotizacionesDTO
+			//co.aCotizacionNegocio(cotis.get(i));	//convertimos a negocio cada una de las cotizacionesDTO
+			//Buscamos la cotizacion cuyo id coincida con el pasado en la cotización dto
+			co = CotizacionDAO.getinstancia().buscarCotizacion(cotis.get(i).getNumeroCotizacion());
 			cotiNegocio.add(co);
 		}
 		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
@@ -436,61 +440,5 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 
-	/*
-	 * No es necesario una lista de cotizaciónes 
-	 * Debera levantar todas las cotizaciones que aun no fueron cargadas a una orden de compra 
-	 * Se requiere un nuevo estado en la orden de compra y en la solicitud de cotización
-	 * Marcar solicitud de cotización como "En Adquisición" 
-	 * Marcar Orden de compra como "Nueva" luego de su creación 
-	 * y previo a la entrega al proveedor
-	 */
-	//TODO rama
-	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
-						
-		OrdenCompraNegocio orden = new OrdenCompraNegocio();		
-		orden.setEstado("en adquisicion");
-		
-//		IPagoEstrategia estrategia;
-//		EstrategiaFormaPago estrategia = new EstrategiaFormaPago();
-//		float monto=200;
-//		monto = estrategia.calcularTotal(formaDePago, monto);
-//				
-//		if(formaDePago.equalsIgnoreCase("efectivo")){
-//			orden.setDescuento(monto);
-//			orden.setFormaPago(formaDePago);
-//			orden.setTotal(900);
-//		}		
-//		
-//		if(formaDePago.equalsIgnoreCase("tarjeta")){
-//			orden.setDescuento(20);
-//			orden.setFormaPago(formaDePago);
-//			orden.setTotal(100);
-//		}
-		
-//		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
-//		for(int i=0; i<listaCotizaciones.size(); i++){
-//			SolicitudCompraNegocio solicitud = new SolicitudCompraNegocio();
-//			solicitud.aSolicitudCompraNegocio(listaCotizaciones.get(i));
-//			listaSolicitud.add(solicitud);
-//		}
-		
-		List<ItemOrdenCompraNegocio> itemsOrdenCompra = new ArrayList<ItemOrdenCompraNegocio>();
-		//itemsOrdenCompra = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
-		for(int i=0; i<listaCotizaciones.size(); i++){
-			ItemOrdenCompraNegocio itemOrdenCompra = new ItemOrdenCompraNegocio();
-			//itemOrdenCompra.setCantidad(itemsOrdenCompra.get(i).getCantidad());
-			//itemOrdenCompra.setMonto(itemsOrdenCompra.get(i).getMonto());
-			itemOrdenCompra.setCantidad(20);
-			itemOrdenCompra.setMonto(2000);
-			// TODO: Rama, meter el select a la base de datos, hice esto rápido para solucionar.
-			itemsOrdenCompra.add(itemOrdenCompra);
-		}
-		
-		orden.setItems(itemsOrdenCompra);
-		orden.persistirOrdenCompra();
-		
-		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
-	}
-	
 	
 }
