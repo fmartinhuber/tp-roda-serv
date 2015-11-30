@@ -61,7 +61,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * y previo a la entrega al proveedor
 	 */
 	
-	public void crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
+	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones) throws RemoteException {	
 		
 		//Conventirmos SolicitudesCompraDTO a Negocio
 		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
@@ -156,7 +156,7 @@ public class AdministracionCC implements IAdministracionCC {
 //		orden.setItems(itemsOrdenCompra);
 //		orden.persistirOrdenCompra();
 //		
-//		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
+		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
 	}
 	
 	public void pchBorrarAlTerminar(){
@@ -228,17 +228,41 @@ public class AdministracionCC implements IAdministracionCC {
 		remito.setComentarios("Satisfecho");
 		remito.setEstado("Recibido");
 		Calendar c = new GregorianCalendar();
-		remito.setFecha(c.getTime());	
+		remito.setFecha(c.getTime());
 		
-		// Convertimos OrdenCompraDTO a Negocio
+		//Obtenemos todas las Ordenes de Compra de la Base
+		List<OrdenCompraNegocio> ordCompNeg = new ArrayList<OrdenCompraNegocio>();
+		ordCompNeg = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		
+		//Declaramos el vector de ordenes a ser guardado en el Remito
 		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
-		for(int i=0; i<listaOrdenes.size(); i++){
-			OrdenCompraNegocio orden = new OrdenCompraNegocio();
-			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
-			ordenes.add(orden);
-		}		
+		//Comparamos si coincide la Orden de Compra con la pasada por parametro
+		//Por cada una de la Base
+		for (int i=0; i<ordCompNeg.size(); i++){
+			//Por cada una del parametro
+			for (int j=0; j<listaOrdenes.size(); j++){
+				//Comparamos si sus ID coinciden
+				if (ordCompNeg.get(i).getIdOrdenCompra() == listaOrdenes.get(j).getNumeroOrdenCompra()){
+					//Si coinciden, nos quedamos con el obtenido en la BD
+					OrdenCompraNegocio ordenCompNeg = new OrdenCompraNegocio();
+					ordenCompNeg = ordCompNeg.get(i);
+					ordenes.add(ordenCompNeg);
+				}
+			}
+		}
 		
-		//remito.setOrdenesDeCompra(ordenes);
+		
+		
+		
+//		// Convertimos OrdenCompraDTO a Negocio
+//		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
+//		for(int i=0; i<listaOrdenes.size(); i++){
+//			OrdenCompraNegocio orden = new OrdenCompraNegocio();
+//			orden.aOrdenCompraNegocio(listaOrdenes.get(i));
+//			ordenes.add(orden);
+//		}		
+		
+		remito.setOrdenesDeCompra(ordenes);
 		remito.mergeRemito();		
 		
 		// Aumentar el stock que ingresaron

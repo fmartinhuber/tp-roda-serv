@@ -19,8 +19,6 @@ public class ItemOrdenCompraNegocio{
 	private RodamientoNegocio rodamiento;
 	
 	public ItemOrdenCompraNegocio(RodamientoNegocio roda, float monto, int cant) {
-		super();
-		//this.ordenPedido = ordenPedido;
 		this.rodamiento = roda;
 		this.monto = monto;
 		this.cantidad = cant;
@@ -33,16 +31,7 @@ public class ItemOrdenCompraNegocio{
 	
 	public ItemOrdenCompraNegocio(){
 		
-	}
-
-	/*public CotizacionNegocio getOrdenPedido() {
-		return ordenPedido;
-	}
-
-	public void setOrdenPedido(CotizacionNegocio ordenPedido) {
-		this.ordenPedido = ordenPedido;
-	}*/
-	
+	}	
 	
 	public float getMonto() {
 		return monto;
@@ -68,16 +57,22 @@ public class ItemOrdenCompraNegocio{
 		this.monto = monto;
 	}
 
-	public void aItemOrdenCompraNegocio(ItemOrdenCompraDto itemDto) {
-
+	public void aItemOrdenCompraNegocio(ItemOrdenCompraDto itemDto){
+		this.setIdItemOrdenCompra(itemDto.getNroItemOrdenCompra());
 		this.setCantidad(itemDto.getCantidad());
 		this.setMonto(itemDto.getMonto());
-		
 		RodamientoNegocio roda = new RodamientoNegocio();
 		roda.aRodamientoNegocio(itemDto.getRodamiento());
-		
 		this.setRodamiento(roda);
-		
+	}
+	
+	public ItemOrdenCompraDto aItemOrdenCompraDto(){
+		ItemOrdenCompraDto itemOrdenDto = new ItemOrdenCompraDto();
+		itemOrdenDto.setNroItemOrdenCompra(this.getIdItemOrdenCompra());
+		itemOrdenDto.setCantidad(this.getCantidad());
+		itemOrdenDto.setMonto(this.getMonto());
+		itemOrdenDto.setRodamiento(this.getRodamiento().aRodamientoDto());
+		return itemOrdenDto;
 	}
 
 	public void persistirItemOrdenCompra() {
@@ -96,16 +91,12 @@ public class ItemOrdenCompraNegocio{
 		ItemOrdenCompraDAO.getInstancia().merge(this);
 	}
 
-	public ItemOrdenCompraDto aItemOrdenCompraDto() {
-		
-		ItemOrdenCompraDto itemOrdenDto = new ItemOrdenCompraDto();
-		
-		itemOrdenDto.setCantidad(this.getCantidad());
-		itemOrdenDto.setMonto(this.getMonto());
-		itemOrdenDto.setRodamiento(this.getRodamiento().aRodamientoDto());
-		
-		return itemOrdenDto;
+	public int getIdItemOrdenCompra() {
+		return idItemOrdenCompra;
 	}
-	
+
+	public void setIdItemOrdenCompra(int idItemOrdenCompra) {
+		this.idItemOrdenCompra = idItemOrdenCompra;
+	}
 	
 }

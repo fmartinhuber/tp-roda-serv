@@ -27,7 +27,7 @@ public class OrdenCompraNegocio implements Serializable{
 	private float descuento;
 	private String estado;
 
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="orden_item")
 	private List <ItemOrdenCompraNegocio> items;
 
@@ -122,8 +122,7 @@ public class OrdenCompraNegocio implements Serializable{
 		this.solicitudesCompra = solicitudesCompra;
 	}
 
-	public void aOrdenCompraNegocio(OrdenCompraDto miOrdenDto) {
-		
+	public void aOrdenCompraNegocio(OrdenCompraDto miOrdenDto) {	
 		this.setDescuento(miOrdenDto.getDescuento());
 		this.setEstado(miOrdenDto.getEstado());
 		this.setFormaPago(miOrdenDto.getFormaPago());
@@ -138,7 +137,15 @@ public class OrdenCompraNegocio implements Serializable{
 			ItemOrdenCompraDto itemDto = miOrdenDto.getItems().get(i);
 			itemNegocio.aItemOrdenCompraNegocio(itemDto);
 			lista.add(itemNegocio);
-		}		
+		}
+		
+		List<SolicitudCompraNegocio> listaSolicitud = new ArrayList<SolicitudCompraNegocio>();
+		for (int i=0; i<miOrdenDto.getSolicitudesCompra().size(); i++) {
+			SolicitudCompraNegocio solicNegocio = new SolicitudCompraNegocio();
+			SolicitudCompraDto solicDto = new SolicitudCompraDto();
+			solicNegocio.aSolicitudCompraNegocio(solicDto);
+			listaSolicitud.add(solicNegocio);
+		}
 				
 		this.setProveedor(proveedor);
 		this.setItems(lista);		
@@ -161,6 +168,13 @@ public class OrdenCompraNegocio implements Serializable{
 			ItemOrdenCompraDto itemDto = new ItemOrdenCompraDto();
 			itemDto = this.getItems().get(i).aItemOrdenCompraDto();
 			listaItemDto.add(itemDto);
+		}
+		
+		List<SolicitudCompraDto> listaSolCompra = new ArrayList<SolicitudCompraDto>();
+		for (int i=0; i<this.getSolicitudesCompra().size(); i++) {
+			SolicitudCompraDto solicDto = new SolicitudCompraDto();
+			solicDto = this.getSolicitudesCompra().get(i).aSolicitudCompraDTO();
+			listaSolCompra.add(solicDto);
 		}
 		
 		ordenDto.setProveedor(proveedorDto);
