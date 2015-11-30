@@ -255,6 +255,9 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().mergeOV();
 		//factura.setDescuento(strategy);
 		
+		//Magia para no duplicar facturas
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		
 		//Genero el XML de Factura
 		FacturaXML.getInstancia().cotizacionTOxml(factura);
 
@@ -298,8 +301,11 @@ public class AdministracionOV implements IAdministracionOV{
 		factura.setItems(itemsFactura);
 		factura.setTotal(totalFactura.floatValue());
 		this.getOficinaVentaNegocio().getFacturas().add(factura);
-		//this.getOficinaVentaNegocio().mergeOV();
+		this.getOficinaVentaNegocio().mergeOV();
 		//factura.setDescuento(strategy);
+		
+		//Magia para no duplicar facturas
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 
 	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
 	}
@@ -410,6 +416,9 @@ public class AdministracionOV implements IAdministracionOV{
 		//solCompraNeg.mergeSolicitudCompra();
 		this.getOficinaVentaNegocio().getSolicitudes().add(solCompraNeg);
 		this.getOficinaVentaNegocio().mergeOV();
+		
+		//Magia para no duplicar SolicitudCompra
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 	} 
 
 	public void pch_LevantaCotizaciones() {
