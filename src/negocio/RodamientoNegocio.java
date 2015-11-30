@@ -159,6 +159,10 @@ public class RodamientoNegocio{
 	public void actualizarRodamiento(){
 		RodamientoDAO.getInstancia().update(this);
 	}
+	
+	public void mergeRodamiento(){
+		RodamientoDAO.getInstancia().merge(this);
+	}
 
 
 	public int buscarStock(RodamientoNegocio r) {

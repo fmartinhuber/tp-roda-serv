@@ -20,7 +20,8 @@ public class TestRama {
 			
 		//Generamos 2 ordenes de compra con unicamente sus id
 		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
-		List<ItemOrdenCompraDto> listaItemsOrdenes = new ArrayList<ItemOrdenCompraDto>();
+		List<ItemOrdenCompraDto> listaItemsOrdenesUno = new ArrayList<ItemOrdenCompraDto>();
+		List<ItemOrdenCompraDto> listaItemsOrdenesDos = new ArrayList<ItemOrdenCompraDto>();
 		RodamientoDto rodamiento1 = new RodamientoDto();
 		RodamientoDto rodamiento2 = new RodamientoDto();
 		rodamiento1.setCodigo("20210");
@@ -33,23 +34,24 @@ public class TestRama {
 		OrdenCompraDto ordenUno = new OrdenCompraDto();
 		OrdenCompraDto ordenDos = new OrdenCompraDto();
 		ordenUno.setNumeroOrdenCompra(2);
-		ordenDos.setNumeroOrdenCompra(4);		
+		ordenDos.setNumeroOrdenCompra(4);	
 		
 		ItemOrdenCompraDto itemUno = new ItemOrdenCompraDto();
 		ItemOrdenCompraDto itemDos = new ItemOrdenCompraDto();
+		
 		itemUno.setCantidad(3);
 		itemUno.setRodamiento(rodamiento1);
 		itemDos.setCantidad(4);
 		itemDos.setRodamiento(rodamiento2);
+	
+		listaItemsOrdenesUno.add(itemUno);
+		listaItemsOrdenesDos.add(itemDos);
 		
-		ordenUno.setItems(listaItemsOrdenes);
-		ordenDos.setItems(listaItemsOrdenes);
-		
-		listaItemsOrdenes.add(itemUno);
-		listaItemsOrdenes.add(itemDos);
+		ordenUno.setItems(listaItemsOrdenesUno);
+		ordenDos.setItems(listaItemsOrdenesDos);
 		
 		listaOrdenes.add(ordenUno);
-		listaOrdenes.add(ordenDos);		
+		listaOrdenes.add(ordenDos);
 		
 		AdministracionCC.getInstancia().crearRemito(listaOrdenes, proveedor);
 		System.out.println("Remito creado");			
