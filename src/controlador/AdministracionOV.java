@@ -110,7 +110,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Persisto la Cotizacion
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
-		miCotNeg.mergearCotizacion();;
+		miCotNeg.mergearCotizacion();
 		
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
