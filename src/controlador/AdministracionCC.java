@@ -84,7 +84,9 @@ public class AdministracionCC implements IAdministracionCC {
 		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
 		for(int i = 0; i < listaCotizaciones.size(); i++){
 			SolicitudCompraNegocio solCompra = new SolicitudCompraNegocio();
-			solCompra.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+			//solCompra.aSolicitudCompraNegocio(listaCotizaciones.get(i));
+			//busco las solicitudes de compra que coincidan con el numero de la solicitud DTO
+			solCompra = SolicitudCompraDAO.getInstancia().buscarSolicitudCompra(listaCotizaciones.get(i).getNumeroSolicitudCompra());
 			solCompraNeg.add(solCompra);
 		}
 		Double total = 0.0;

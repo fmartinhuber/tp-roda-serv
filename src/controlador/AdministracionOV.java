@@ -219,11 +219,15 @@ public class AdministracionOV implements IAdministracionOV{
 	public int generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
 		ClienteNegocio cli = new ClienteNegocio();
-		cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
+		//cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
+		//Buscamos al cliente por el cuit que vino en el dto
+		cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
 		List<CotizacionNegocio> cotiNegocio = new ArrayList<CotizacionNegocio>(); 	//Creamos lista de cotizacionNegocio para contener las cot transformadas recibidas
 		for(int i = 0; i < cotis.size(); i++){
 			CotizacionNegocio co = new CotizacionNegocio();
-			co.aCotizacionNegocio(cotis.get(i));	//convertimos a negocio cada una de las cotizacionesDTO
+			//co.aCotizacionNegocio(cotis.get(i));	//convertimos a negocio cada una de las cotizacionesDTO
+			//Buscamos la cotizacion cuyo id coincida con el pasado en la cotización dto
+			co = CotizacionDAO.getinstancia().buscarCotizacion(cotis.get(i).getNumeroCotizacion());
 			cotiNegocio.add(co);
 		}
 		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
