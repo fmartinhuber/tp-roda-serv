@@ -65,7 +65,6 @@ public class AdministracionCC implements IAdministracionCC {
 	// Carlos: Requerido para el cliente we
 	@Override
 	public int crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
-		// TODO Auto-generated method stub
 		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
 		for (int i = 0; i < idsSolCompra.size(); i++) {
 			int idSolCot = Integer.getInteger(idsSolCompra.get(i));
@@ -226,13 +225,24 @@ public class AdministracionCC implements IAdministracionCC {
 		
 		// Aumentar el stock que ingresaron
 		List<ItemDto> items = new ArrayList<ItemDto>();
+		//Por cada orden de Compra
 		for(int i=0; i<listaOrdenes.size(); i++){
-			items.get(i).setCantidad(listaOrdenes.get(i).getItems().get(i).getCantidad());
-			items.get(i).setRodamiento(listaOrdenes.get(i).getItems().get(i).getRodamiento());
-			//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
-			//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());							
-		}				
-			
+			//Por cada item de la orden de compra
+			for (int j=0; j<listaOrdenes.get(i).getItems().size(); j++){
+				//Creo un ItemDto y asigno sus valores
+				ItemDto miItemDto = new ItemDto();
+				miItemDto.setCantidad(listaOrdenes.get(i).getItems().get(j).getCantidad());
+				miItemDto.setRodamiento(listaOrdenes.get(i).getItems().get(j).getRodamiento());
+				//Agrego el Dto a la lista de items
+				items.add(miItemDto);
+			}
+		}		
+							
+		//items.get(i).setCantidad(listaOrdenes.get(i).getItems().get(i).getCantidad());
+		//items.get(i).setRodamiento(listaOrdenes.get(i).getItems().get(i).getRodamiento());
+		//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
+		//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());	
+		
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
 		//RemitoXML.getInstancia().remitoTOxml(remito);
@@ -240,38 +250,66 @@ public class AdministracionCC implements IAdministracionCC {
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}
 
-	public void actualizarStock(List<ItemDto> listaItems, String accion) {
+	public void actualizarStock(List<ItemDto> listaItemsParametro, String accion) {
 
-		List<RodamientoNegocio> listaRodamiento = new ArrayList<RodamientoNegocio>();
+		//List<RodamientoNegocio> listaRodamiento = new ArrayList<RodamientoNegocio>();
+		List<ItemDto> miListaItemsDto = new ArrayList<ItemDto>();
+		List<ItemNegocio> miListaItemNegocio = new ArrayList<ItemNegocio>();
 		int cantidad = 0;
-
-		// Transformar DTO a negocio
-		for (int i = 0; i < listaItems.size(); i++) {
-			RodamientoNegocio roda = new RodamientoNegocio();
-			roda.aRodamientoNegocio(listaItems.get(i).getRodamiento());
-			cantidad = listaItems.get(i).getCantidad();
-			listaRodamiento.add(roda);
+		
+		//Por cada elemento de la lista pasada como parametro
+		for (int i = 0; i < listaItemsParametro.size(); i++) {
+			//Creo item
+			ItemDto miItemDto = new ItemDto();
+			//Busco el rodamiento en la Base de Datos para asignarlo con todos sus campos
+			RodamientoNegocio miRodaNeg = new RodamientoNegocio();
+			
+			//Obtengo la Marca Origen y Codigo
+			miRodaNeg.setMarca(listaItemsParametro.get(i).getRodamiento().getMarca());
+			miRodaNeg.setOrigen(listaItemsParametro.get(i).getRodamiento().getOrigen());
+			miRodaNeg.setCodigo(listaItemsParametro.get(i).getRodamiento().getCodigo());
+			
+			miRodaNeg = RodamientoDAO.getInstancia().buscarRodamientoPorCodigoMarcaOrigen(miRodaNeg);
+			miItemDto.setRodamiento(miRodaNeg.aRodamientoDto());
+			miItemDto.setCantidad(listaItemsParametro.get(i).getCantidad());
+			miListaItemsDto.add(miItemDto);
+		}
+		
+		//Transformar miListaItemsDto a listaRodamiento (negocio)
+		for (int i = 0; i < miListaItemsDto.size(); i++) {
+			ItemNegocio itemNeg = new ItemNegocio();
+			//Seteo la cantidad
+			itemNeg.setCantidad(miListaItemsDto.get(i).getCantidad());
+			//Transformo el Rodamiento a RodamientoNegocio
+			RodamientoNegocio rodaNeg = new RodamientoNegocio();
+			rodaNeg.aRodamientoNegocio(miListaItemsDto.get(i).getRodamiento());
+			//Seteo el Rodamiento a la lista
+			itemNeg.setRodamiento(rodaNeg);
+			//Agrego el item generado a la lista
+			miListaItemNegocio.add(itemNeg);
 		}
 
 		// Recorrer la lista de rodamientos
-		for (int j = 0; j < listaRodamiento.size(); j++) {
+		for (int j = 0; j < miListaItemNegocio.size(); j++) {
+			//Asignamos cantidad por cada iteracion
+			cantidad = miListaItemNegocio.get(j).getCantidad();
+			
 			RodamientoNegocio rodamiento = new RodamientoNegocio();
-			// la lista tiene que ser de negocio
-			rodamiento = rodamiento.buscarRodamientoPorCodigoMarcaOrigen(listaRodamiento.get(j));
+			rodamiento = miListaItemNegocio.get(j).getRodamiento();
 
 			if ((accion.equalsIgnoreCase("sumar")) || (accion.equalsIgnoreCase("suma"))) {
-				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j)) + cantidad);
-				rodamiento.actualizarRodamiento();
+				rodamiento.setStock(rodamiento.buscarStock(miListaItemNegocio.get(j).getRodamiento()) + cantidad);
+				rodamiento.mergeRodamiento();
 			}
 			if ((accion.equalsIgnoreCase("restar")) || (accion.equalsIgnoreCase("resta"))) {
-				rodamiento.setStock(rodamiento.buscarStock(listaRodamiento.get(j)) - cantidad);
-				rodamiento.actualizarRodamiento();
+				rodamiento.setStock(rodamiento.buscarStock(miListaItemNegocio.get(j).getRodamiento()) - cantidad);
+				rodamiento.mergeRodamiento();
 
 				// La validación que sigue es por si la cantidad pasa a ser un número negativo
-				int cantStock = rodamiento.buscarStock(listaRodamiento.get(j));
+				int cantStock = rodamiento.buscarStock(miListaItemNegocio.get(j).getRodamiento());
 				if (cantStock < 0) {
 					rodamiento.setStock(0);
-					rodamiento.actualizarRodamiento();
+					rodamiento.mergeRodamiento();
 				}
 			}
 
@@ -291,7 +329,6 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
-		// TODO REVISAR.
 		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
 		while (iterador.hasNext()) {
 			RodamientoNegocio roda = iterador.next();
