@@ -147,14 +147,14 @@ public class CargarDatos {
 				listProv01.add(roda73);		listProv02.add(roda74);		listProv03.add(roda75);		listProv04.add(roda76);
 				listProv05.add(roda77);		listProv06.add(roda78);		listProv07.add(roda79);		listProv08.add(roda80);
 
-				prov01.setRodamientos(listProv01);		prov01.updateProveedor();
-				prov02.setRodamientos(listProv02);		prov02.updateProveedor();
-				prov03.setRodamientos(listProv03);		prov03.updateProveedor();
-				prov04.setRodamientos(listProv04);		prov04.updateProveedor();
-				prov05.setRodamientos(listProv05);		prov05.updateProveedor();
-				prov06.setRodamientos(listProv06);		prov06.updateProveedor();
-				prov07.setRodamientos(listProv07);		prov07.updateProveedor();
-				prov08.setRodamientos(listProv08);		prov08.updateProveedor();
+//				prov01.setRodamientos(listProv01);		prov01.updateProveedor();
+//				prov02.setRodamientos(listProv02);		prov02.updateProveedor();
+//				prov03.setRodamientos(listProv03);		prov03.updateProveedor();
+//				prov04.setRodamientos(listProv04);		prov04.updateProveedor();
+//				prov05.setRodamientos(listProv05);		prov05.updateProveedor();
+//				prov06.setRodamientos(listProv06);		prov06.updateProveedor();
+//				prov07.setRodamientos(listProv07);		prov07.updateProveedor();
+//				prov08.setRodamientos(listProv08);		prov08.updateProveedor();
 				
 		//Alta de OV
 				

@@ -96,9 +96,15 @@ public class AdministracionOV implements IAdministracionOV{
 				if (codComp.equals(codItem) && orgComp.equals(orgItem) && marComp.equals(marItem)){
 					//Creo item
 					ItemCotizacionDto itemCotDto = new ItemCotizacionDto();
+					
+					//Busco el rodamiento en la Base de Datos para asignarlo con todos sus campos
+					RodamientoNegocio miRodaNeg = new RodamientoNegocio();
+					miRodaNeg.aRodamientoNegocio(listaCompa.get(j));
+					miRodaNeg = RodamientoDAO.getInstancia().buscarRodamientoPorCodigoMarcaOrigen(miRodaNeg);
+					itemCotDto.setRodamiento(miRodaNeg.aRodamientoDto());
+					
 					//Seteo sus valores
 					itemCotDto.setCant(listaItems.get(j).getCantidad());
-					itemCotDto.setRodamiento(listaCompa.get(j));
 					itemCotDto.setPrecio(listaItems.get(j).getCantidad() * listaCompa.get(i).getMonto());
 					//Agrego el item a la lista de items
 					listaItemCotDto.add(itemCotDto);

@@ -34,7 +34,7 @@ public class AdministracionCC implements IAdministracionCC {
 		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
 		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
 		//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
-		//levantarXml();
+		levantarXml();
 	}
 
 	public static AdministracionCC getAdministracion() {
