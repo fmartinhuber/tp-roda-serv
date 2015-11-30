@@ -432,15 +432,13 @@ public class CargarDatos {
 				ItemOrdenCompraNegocio itemOrden501 = new ItemOrdenCompraNegocio(roda22, 11);	listaOrden05.add(itemOrden501);
 				ItemOrdenCompraNegocio itemOrden502 = new ItemOrdenCompraNegocio(roda29, 21);	listaOrden05.add(itemOrden502);
 				ItemOrdenCompraNegocio itemOrden503 = new ItemOrdenCompraNegocio(roda54, 14);	listaOrden05.add(itemOrden503);
-				ItemOrdenCompraNegocio itemOrden504 = new ItemOrdenCompraNegocio(roda57, 16);	listaOrden05.add(itemOrden504);		
-				
-				//TODO RAMA: Aca hay que agregar SolicitudesDeCompra para que las Orden de Compra los tengan
+				ItemOrdenCompraNegocio itemOrden504 = new ItemOrdenCompraNegocio(roda57, 16);	listaOrden05.add(itemOrden504);					
 
-				orden01.setItems(listaOrden01); 	orden01.persistirOrdenCompra();
-				orden02.setItems(listaOrden02); 	orden02.persistirOrdenCompra();
-				orden03.setItems(listaOrden03); 	orden03.persistirOrdenCompra();
-				orden04.setItems(listaOrden04); 	orden04.persistirOrdenCompra();
-				orden05.setItems(listaOrden05); 	orden05.persistirOrdenCompra();
+				orden01.setItems(listaOrden01); 	orden01.setSolicitudesCompra(solCompraOV1);		orden01.persistirOrdenCompra();
+				orden02.setItems(listaOrden02); 	orden01.setSolicitudesCompra(solCompraOV2);		orden02.persistirOrdenCompra();
+				orden03.setItems(listaOrden03); 	orden01.setSolicitudesCompra(solCompraOV3);		orden03.persistirOrdenCompra();
+				orden04.setItems(listaOrden04); 	orden01.setSolicitudesCompra(solCompraOV1);		orden04.persistirOrdenCompra();
+				orden05.setItems(listaOrden05); 	orden01.setSolicitudesCompra(solCompraOV3);		orden05.persistirOrdenCompra();
 				
 //		// Alta de Remitos
 //				

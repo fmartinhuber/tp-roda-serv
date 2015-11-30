@@ -16,71 +16,43 @@ public class TestRama {
 		
 		ProveedorDto proveedor = new ProveedorDto();
 		proveedor.setCUIT("20-11111111-1");
-		proveedor.setNombre("BPB Solucines en Movimiento");	
-		
-//		List<OrdenCompraDto> listaOrdenesDto = new ArrayList<OrdenCompraDto>();
-		
-		//List<OrdenCompraNegocio> listaOrdenes = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		proveedor.setNombre("BPB Solucines en Movimiento");		
+			
 		//Generamos 2 ordenes de compra con unicamente sus id
 		List<OrdenCompraDto> listaOrdenes = new ArrayList<OrdenCompraDto>();
+		List<ItemOrdenCompraDto> listaItemsOrdenes = new ArrayList<ItemOrdenCompraDto>();
+		RodamientoDto rodamiento1 = new RodamientoDto();
+		RodamientoDto rodamiento2 = new RodamientoDto();
+		rodamiento1.setCodigo("20210");
+		rodamiento1.setMarca("SKF");
+		rodamiento1.setOrigen("Suecia");
+		rodamiento2.setCodigo("21311 K");
+		rodamiento2.setMarca("SKF");
+		rodamiento2.setOrigen("Suecia");
+		
 		OrdenCompraDto ordenUno = new OrdenCompraDto();
 		OrdenCompraDto ordenDos = new OrdenCompraDto();
-		ordenUno.setNumeroOrdenCompra(3);
-		ordenDos.setNumeroOrdenCompra(5);
+		ordenUno.setNumeroOrdenCompra(2);
+		ordenDos.setNumeroOrdenCompra(4);		
+		
+		ItemOrdenCompraDto itemUno = new ItemOrdenCompraDto();
+		ItemOrdenCompraDto itemDos = new ItemOrdenCompraDto();
+		itemUno.setCantidad(3);
+		itemUno.setRodamiento(rodamiento1);
+		itemDos.setCantidad(4);
+		itemDos.setRodamiento(rodamiento2);
+		
+		ordenUno.setItems(listaItemsOrdenes);
+		ordenDos.setItems(listaItemsOrdenes);
+		
+		listaItemsOrdenes.add(itemUno);
+		listaItemsOrdenes.add(itemDos);
+		
 		listaOrdenes.add(ordenUno);
-		listaOrdenes.add(ordenDos);
-
-		
-		
-//		OrdenCompraDto aux = new OrdenCompraDto();
-								
-//		List<ItemOrdenCompraDto> listaItemsDto = new ArrayList<ItemOrdenCompraDto>();
-//		List<ItemOrdenCompraNegocio> listaItemsNegocio = ItemOrdenCompraDAO.getInstancia().listarItemsOrdenCompra();
-//		ItemOrdenCompraDto aux2 = new ItemOrdenCompraDto();
-				
-//		for(negocio.ItemOrdenCompraNegocio i : listaItemsNegocio ){
-//			aux2 = new ItemOrdenCompraDto();
-//			aux2.setCantidad(i.getCantidad());
-//			aux2.setMonto(i.getMonto());	
-//			aux2.setRodamiento(i.getRodamiento().aRodamientoDto());
-//			listaItemsDto.add(aux2);
-//		}
-		
-//		for(negocio.OrdenCompraNegocio o : listaOrdenes){
-//			aux = new OrdenCompraDto();
-//			aux.setDescuento(o.getDescuento());
-//			aux.setEstado(o.getEstado());
-//			aux.setFormaPago(o.getFormaPago());
-//			aux.setTotal(o.getTotal());
-//			aux.setNumeroOrdenCompra(o.getIdOrdenCompra());
-//			aux.setProveedor(proveedor);
-//			
-//			aux.setItems(listaItemsDto);
-//			
-//			listaOrdenesDto.add(aux);
-//		}				
+		listaOrdenes.add(ordenDos);		
 		
 		AdministracionCC.getInstancia().crearRemito(listaOrdenes, proveedor);
-		System.out.println("Remito creado");
-		
-		/*********************************************/
-		
-		// CREAR ORDEN COMPRA
-		
-//		String formaDePago = "efectivo";
-//		
-//		List<SolicitudCompraDto> listaCotizacionesDto = new ArrayList<SolicitudCompraDto>();
-//		SolicitudCompraDto aux = new SolicitudCompraDto();		
-//		List<SolicitudCompraNegocio> listaCotizacionesNegocioAprobadas = SolicitudCompraDAO.getInstancia().listarSolicitudesCompraAprobadas();
-//		for(negocio.SolicitudCompraNegocio s : listaCotizacionesNegocioAprobadas){
-//			aux = new SolicitudCompraDto();
-//			aux.setEstado(s.getEstado());
-//			aux.setNumeroSolicitudCompra(s.getId());								
-//			listaCotizacionesDto.add(aux);
-//		}
-//						
-//		AdministracionCC.getInstancia().crearOrdenCompra(listaCotizacionesDto, formaDePago);
-//		System.out.println("Orden de compra creada");
+		System.out.println("Remito creado");			
 		
 	}
 

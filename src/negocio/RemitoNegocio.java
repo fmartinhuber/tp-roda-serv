@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import dao.*;
 import dto.OrdenCompraDto;
@@ -11,6 +14,8 @@ import dto.RemitoDto;
 
 @Entity
 @Table(name="Remito")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class RemitoNegocio implements Serializable{
 
 	@Transient
