@@ -32,7 +32,7 @@ public class OrdenCompraNegocio implements Serializable{
 	private List <ItemOrdenCompraNegocio> items;
 
 	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="orden_proveedor")
 	private ProveedorNegocio proveedor;
 	
 	@OneToMany (cascade=CascadeType.ALL)
