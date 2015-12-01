@@ -204,7 +204,7 @@ public class AdministracionCC implements IAdministracionCC {
 		ordCompNeg = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
 		
 		//Declaramos el vector de ordenes a ser guardado en el Remito
-		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>();
+		List<OrdenCompraNegocio> ordenesNegBase = new ArrayList<OrdenCompraNegocio>();
 		//Comparamos si coincide la Orden de Compra con la pasada por parametro
 		//Por cada una de la Base
 		for (int i=0; i<ordCompNeg.size(); i++){
@@ -215,33 +215,28 @@ public class AdministracionCC implements IAdministracionCC {
 					//Si coinciden, nos quedamos con el obtenido en la BD
 					OrdenCompraNegocio ordenCompNeg = new OrdenCompraNegocio();
 					ordenCompNeg = ordCompNeg.get(i);
-					ordenes.add(ordenCompNeg);
+					ordenesNegBase.add(ordenCompNeg);
 				}
 			}
 		}
 		
-		remito.setOrdenesDeCompra(ordenes);
+		remito.setOrdenesDeCompra(ordenesNegBase);
 		remito.mergeRemito();				
 		
 		// Aumentar el stock que ingresaron
 		List<ItemDto> items = new ArrayList<ItemDto>();
 		//Por cada orden de Compra
-		for(int i=0; i<listaOrdenes.size(); i++){
+		for(int i=0; i<ordenesNegBase.size(); i++){
 			//Por cada item de la orden de compra
-			for (int j=0; j<listaOrdenes.get(i).getItems().size(); j++){
+			for (int j=0; j<ordenesNegBase.get(i).getItems().size(); j++){
 				//Creo un ItemDto y asigno sus valores
 				ItemDto miItemDto = new ItemDto();
-				miItemDto.setCantidad(listaOrdenes.get(i).getItems().get(j).getCantidad());
-				miItemDto.setRodamiento(listaOrdenes.get(i).getItems().get(j).getRodamiento());
+				miItemDto.setCantidad(ordenesNegBase.get(i).getItems().get(j).getCantidad());
+				miItemDto.setRodamiento(ordenesNegBase.get(i).getItems().get(j).getRodamiento().aRodamientoDto());
 				//Agrego el Dto a la lista de items
 				items.add(miItemDto);
 			}
-		}		
-							
-		//items.get(i).setCantidad(listaOrdenes.get(i).getItems().get(i).getCantidad());
-		//items.get(i).setRodamiento(listaOrdenes.get(i).getItems().get(i).getRodamiento());
-		//items.get(i).setCantidad(ordenes.get(i).getItems().get(i).getCantidad());
-		//items.get(i).setRodamiento(ordenes.get(i).getItems().get(i).getRodamiento().aRodamientoDto());	
+		}
 		
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
