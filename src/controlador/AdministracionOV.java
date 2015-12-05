@@ -6,6 +6,8 @@ import interfaces.IPagoEstrategia;
 import java.rmi.RemoteException;
 import java.util.*;
 
+import org.hibernate.mapping.Array;
+
 import negocio.*;
 import utils.ItemDto;
 import xml2.BultoXML;
@@ -54,6 +56,8 @@ public class AdministracionOV implements IAdministracionOV{
 	public void setOficinaVentaNegocio(OVNegocio oficinaVentaNegocio) {
 		OficinaVentaNegocio = oficinaVentaNegocio;
 	}
+	
+	
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
 	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto clienteDto) throws RemoteException {
@@ -121,7 +125,7 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.aCotizacionNegocio(miCotDto);
 		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
 		this.getOficinaVentaNegocio().mergeOV();
-		//Obtengo la OV para ser persistida posteriormente
+		//Obtengo la OV para ser utilizada posteriormente
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 		
 		//Genero el XML de Cotizacion
@@ -132,8 +136,37 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	
+	//Daro: Este metodo cotiza la Cotizacion, devolviendo su valor y cambiando su estado a "Cotizada"
+	public float cotizarCotizacion (int idCotizacion){
+		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
+		float costoFinal;
+		costoFinal = 0;
+		//Busco la cotizacion y la guardo en la variable
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
+		//Recorro la lista y voy sumando los costos
+		for (int i=0; i<miCotNeg.getItems().size(); i++){
+			costoFinal = miCotNeg.getItems().get(i).getPrecio() + costoFinal;
+		}
+		//Persisto la Cotizacion desde la OV. En este caso cambio su estado a "Cotizado", despues persisto
+		//Busco la cotizacion en la OV
+		for (int i=0; i < this.getOficinaVentaNegocio().getCotizaciones().size(); i++){
+			//Si coincide el ID, actualizo
+			if (idCotizacion == this.getOficinaVentaNegocio().getCotizaciones().get(i).getIdCotizacion()){
+				this.getOficinaVentaNegocio().getCotizaciones().get(i).setEstado("Cotizada");
+			}
+		}
+		this.getOficinaVentaNegocio().mergeOV();
+		//Obtengo la OV para ser utilizada posteriormente
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		
+	return costoFinal;
+	}
+	
+	
+	
 	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarYCotizarCotizacion(int idCotizacion)  throws RemoteException{		
+	public void aprobarCotizacion(int idCotizacion)  throws RemoteException{		
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
@@ -150,10 +183,13 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.mergearCotizacion();
 		//Genero el XML de Cotizacion Aprobada
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
-		//Devuelvo el costo final de la Cotizacion
-		return costoFinal;
-	}
 		
+	}
+	
+	
+	
+	//No lo vamos a usar
+	@Deprecated
 	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
 	public void rechazarCotizacion (int idCotizacion){
 		//Busco la cotizacion y la guardo en la variable
