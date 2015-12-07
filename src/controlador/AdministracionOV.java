@@ -159,21 +159,24 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
 	public void aprobarCotizacion(int idCotizacion)  throws RemoteException{		
-		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
-		float costoFinal;
-		costoFinal = 0;
 		//Busco la cotizacion y la guardo en la variable
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
-		//Recorro la lista y voy sumando los costos
-		for (int i=0; i<miCotNeg.getItems().size(); i++){
-			costoFinal = miCotNeg.getItems().get(i).getPrecio() + costoFinal;
+		
+		//Persisto la Cotizacion desde la OV. En este caso cambio su estado a "Aprobada", despues persisto
+		//Busco la cotizacion en la OV
+		for (int i=0; i < this.getOficinaVentaNegocio().getCotizaciones().size(); i++){
+			//Si coincide el ID, actualizo
+			if (idCotizacion == this.getOficinaVentaNegocio().getCotizaciones().get(i).getIdCotizacion()){
+				this.getOficinaVentaNegocio().getCotizaciones().get(i).setEstado("Aprobada");
+			}
 		}
-		//Cambio el estado a Aprobada
-		miCotNeg.setEstado("Aprobada");
-		//Actualizo la CotizacionNegocio
-		miCotNeg.mergearCotizacion();
+		this.getOficinaVentaNegocio().mergeOV();
+		//Obtengo la OV para ser utilizada posteriormente
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		
 		//Genero el XML de Cotizacion Aprobada
+		miCotNeg.setEstado("Aprobada");
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		
 	}
