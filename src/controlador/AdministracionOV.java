@@ -1,21 +1,16 @@
 package controlador;
 
 import interfaces.IAdministracionOV;
-import interfaces.IPagoEstrategia;
 
 import java.rmi.RemoteException;
 import java.util.*;
 
-import org.hibernate.mapping.Array;
-
 import negocio.*;
 import utils.ItemDto;
-import xml2.BultoXML;
 import xml2.CotizacionXML;
 import xml2.FacturaXML;
 import dao.*;
 import dto.*;
-import estrategia.EstrategiaFormaPago;
 
 public class AdministracionOV implements IAdministracionOV{
 	
@@ -24,11 +19,8 @@ public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){	
-//			//Creo la OficinaVentaNegocio
-//			OficinaVentaNegocio = new OVNegocio();
-//			//Inicializo la OV
+			//Inicializo la OV
 			administracion = new AdministracionOV();
-			
 		}
 		return administracion;
 	}
@@ -203,50 +195,15 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	
-	//Daro: Se realiza un bulto por cliente, junto a sus Remitos y Facturas
-	public void entregaPedidos(int idRemito, int idFactura) throws RemoteException {
-		//Creo el objeto que voy a persistir
-		BultoNegocio miBultoNeg = new BultoNegocio();		
-		//Busco el Remito en la Base de Datos
-		RemitoNegocio miRemNeg = new RemitoNegocio();
-		miRemNeg = RemitoDAO.getinstancia().buscarRemito(idRemito);
-		//Busco la Factura en la Base de Datos
-		FacturaNegocio miFacNeg = new FacturaNegocio();
-		miFacNeg = FacturaDAO.getInstancia().buscarFactura(idFactura);
+	//Daro: Se envia el Remito y la Factura junto a los Rodamientos (no se persisten) de la CC a OV
+	public void entregaPedidos(int idRemito) throws RemoteException {
+		//TODO Dario:
+		//Buscar Remito
 		
-		//Creo los itemDto desde la FacturaDto (ItemFacturaDto)
-		List<ItemBultoNegocio> miListaItBulNeg = new ArrayList<ItemBultoNegocio>();
-		for(int i=0; i < miFacNeg.getItems().size(); i++){
-			//Transformo cada ItemFacturaDto en ItemBultoNegocio
-			ItemBultoNegocio miItBulNeg = new ItemBultoNegocio();
-			//Asigno los rodamientos y cantidad
-			miItBulNeg.setRodamiento(miFacNeg.getItems().get(i).getRodamiento());
-			miItBulNeg.setCantidad(miFacNeg.getItems().get(i).getCantidad());
-			//Agrego el item a la lista
-			miListaItBulNeg.add(miItBulNeg);
-		}
+		//Descontar Stock
 		
-		//Asigno todos los objetos generados al BultoNegocio
-		miBultoNeg.setFactura(miFacNeg);
-		miBultoNeg.setRemito(miRemNeg);
-		miBultoNeg.setItemBulto(miListaItBulNeg);
+		//Agregar Remito a la lista de Remitos de OVNegocio
 		
-		//Persisto el objeto generado
-		miBultoNeg.persistirBulto();
-		
-		//Una vez hecho el Bulto, se debe descontar del stock los Rodamientos que salieron
-		ArrayList<ItemDto> misItemsDto = new ArrayList<ItemDto>();
-		for (int i=0; i < miListaItBulNeg.size(); i++){
-			//Formo la Lista de Items para luego actualizar stock
-			misItemsDto.get(i).setRodamiento(miListaItBulNeg.get(i).getRodamiento().aRodamientoDto());
-			misItemsDto.get(i).setCantidad(miListaItBulNeg.get(i).getCantidad());
-		}
-		
-		//Descuento el Stock con la Lista de Items generada
-		AdministracionCC.getInstancia().actualizarStock(misItemsDto, "restar");
-		
-		//Creo el BultoXML
-		BultoXML.getInstancia().bultoTOxml(miBultoNeg);
 	return;
 	}
 	

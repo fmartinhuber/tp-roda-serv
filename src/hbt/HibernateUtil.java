@@ -10,9 +10,7 @@ public class HibernateUtil {
 	        try
 	        {
 	        	 AnnotationConfiguration config = new AnnotationConfiguration();
-	        	 //config.addAnnotatedClass(controlador.AdministracionOV.class);
-	        	 //config.addAnnotatedClass(controlador.AdministracionCC.class);
-	        	 config.addAnnotatedClass(negocio.BultoNegocio.class);
+	        	 //config.addAnnotatedClass(negocio.BultoNegocio.class);
 	        	 config.addAnnotatedClass(negocio.CCNegocio.class);
 	             config.addAnnotatedClass(negocio.ClienteNegocio.class);
 	        	 config.addAnnotatedClass(negocio.CotizacionNegocio.class);

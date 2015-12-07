@@ -114,12 +114,12 @@ public class TestDaro {
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
 		
-		//Realizo la carga de la lista comparativa, generando su XML
-		CargarDatosListaComparativa cargaDeDatosAutomatica = new CargarDatosListaComparativa();
-		cargaDeDatosAutomatica.cargarListaComparativa();
-		/*Obtengo la instancia de Administracion CC, lo que hace esto es crear el objeto, y ahi dentro generar la lista
-		comparativa con todos los Rodamientos obtenidos del XML*/
-		AdministracionCC.getInstancia();
+//		//Realizo la carga de la lista comparativa, generando su XML
+//		CargarDatosListaComparativa cargaDeDatosAutomatica = new CargarDatosListaComparativa();
+//		cargaDeDatosAutomatica.cargarListaComparativa();
+//		/*Obtengo la instancia de Administracion CC, lo que hace esto es crear el objeto, y ahi dentro generar la lista
+//		comparativa con todos los Rodamientos obtenidos del XML*/
+//		AdministracionCC.getInstancia();
 		
 		
 		
