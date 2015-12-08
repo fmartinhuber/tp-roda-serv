@@ -1,19 +1,16 @@
 package controlador;
 
 import interfaces.IAdministracionOV;
-import interfaces.IPagoEstrategia;
 
 import java.rmi.RemoteException;
 import java.util.*;
 
 import negocio.*;
 import utils.ItemDto;
-import xml2.BultoXML;
 import xml2.CotizacionXML;
 import xml2.FacturaXML;
 import dao.*;
 import dto.*;
-import estrategia.EstrategiaFormaPago;
 
 public class AdministracionOV implements IAdministracionOV{
 	
@@ -22,11 +19,8 @@ public class AdministracionOV implements IAdministracionOV{
 
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){	
-//			//Creo la OficinaVentaNegocio
-//			OficinaVentaNegocio = new OVNegocio();
-//			//Inicializo la OV
+			//Inicializo la OV
 			administracion = new AdministracionOV();
-			
 		}
 		return administracion;
 	}
@@ -54,6 +48,8 @@ public class AdministracionOV implements IAdministracionOV{
 	public void setOficinaVentaNegocio(OVNegocio oficinaVentaNegocio) {
 		OficinaVentaNegocio = oficinaVentaNegocio;
 	}
+	
+	
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
 	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto clienteDto) throws RemoteException {
@@ -121,7 +117,7 @@ public class AdministracionOV implements IAdministracionOV{
 		miCotNeg.aCotizacionNegocio(miCotDto);
 		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
 		this.getOficinaVentaNegocio().mergeOV();
-		//Obtengo la OV para ser persistida posteriormente
+		//Obtengo la OV para ser utilizada posteriormente
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 		
 		//Genero el XML de Cotizacion
@@ -132,8 +128,8 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	
-	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
-	public float aprobarYCotizarCotizacion(int idCotizacion)  throws RemoteException{		
+	//Daro: Este metodo cotiza la Cotizacion, devolviendo su valor y cambiando su estado a "Cotizada"
+	public float cotizarCotizacion (int idCotizacion){
 		//Creo la variable a devolver, calculando el costo de la Cotizacion Aprobada
 		float costoFinal;
 		costoFinal = 0;
@@ -144,16 +140,51 @@ public class AdministracionOV implements IAdministracionOV{
 		for (int i=0; i<miCotNeg.getItems().size(); i++){
 			costoFinal = miCotNeg.getItems().get(i).getPrecio() + costoFinal;
 		}
-		//Cambio el estado a Aprobada
-		miCotNeg.setEstado("Aprobada");
-		//Actualizo la CotizacionNegocio
-		miCotNeg.mergearCotizacion();
-		//Genero el XML de Cotizacion Aprobada
-		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
-		//Devuelvo el costo final de la Cotizacion
-		return costoFinal;
-	}
+		//Persisto la Cotizacion desde la OV. En este caso cambio su estado a "Cotizado", despues persisto
+		//Busco la cotizacion en la OV
+		for (int i=0; i < this.getOficinaVentaNegocio().getCotizaciones().size(); i++){
+			//Si coincide el ID, actualizo
+			if (idCotizacion == this.getOficinaVentaNegocio().getCotizaciones().get(i).getIdCotizacion()){
+				this.getOficinaVentaNegocio().getCotizaciones().get(i).setEstado("Cotizada");
+			}
+		}
+		this.getOficinaVentaNegocio().mergeOV();
+		//Obtengo la OV para ser utilizada posteriormente
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
 		
+	return costoFinal;
+	}
+	
+	
+	
+	//Daro: Este metodo aprueba la Cotizacion, dejandola en estado Aprobada
+	public void aprobarCotizacion(int idCotizacion)  throws RemoteException{		
+		//Busco la cotizacion y la guardo en la variable
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		miCotNeg = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
+		
+		//Persisto la Cotizacion desde la OV. En este caso cambio su estado a "Aprobada", despues persisto
+		//Busco la cotizacion en la OV
+		for (int i=0; i < this.getOficinaVentaNegocio().getCotizaciones().size(); i++){
+			//Si coincide el ID, actualizo
+			if (idCotizacion == this.getOficinaVentaNegocio().getCotizaciones().get(i).getIdCotizacion()){
+				this.getOficinaVentaNegocio().getCotizaciones().get(i).setEstado("Aprobada");
+			}
+		}
+		this.getOficinaVentaNegocio().mergeOV();
+		//Obtengo la OV para ser utilizada posteriormente
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		
+		//Genero el XML de Cotizacion Aprobada
+		miCotNeg.setEstado("Aprobada");
+		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
+		
+	}
+	
+	
+	
+	//No lo vamos a usar
+	@Deprecated
 	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
 	public void rechazarCotizacion (int idCotizacion){
 		//Busco la cotizacion y la guardo en la variable
@@ -167,50 +198,15 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	
-	//Daro: Se realiza un bulto por cliente, junto a sus Remitos y Facturas
-	public void entregaPedidos(int idRemito, int idFactura) throws RemoteException {
-		//Creo el objeto que voy a persistir
-		BultoNegocio miBultoNeg = new BultoNegocio();		
-		//Busco el Remito en la Base de Datos
-		RemitoNegocio miRemNeg = new RemitoNegocio();
-		miRemNeg = RemitoDAO.getinstancia().buscarRemito(idRemito);
-		//Busco la Factura en la Base de Datos
-		FacturaNegocio miFacNeg = new FacturaNegocio();
-		miFacNeg = FacturaDAO.getInstancia().buscarFactura(idFactura);
+	//Daro: Se envia el Remito y la Factura junto a los Rodamientos (no se persisten) de la CC a OV
+	public void entregaPedidos(int idRemito) throws RemoteException {
+		//TODO Dario:
+		//Buscar Remito
 		
-		//Creo los itemDto desde la FacturaDto (ItemFacturaDto)
-		List<ItemBultoNegocio> miListaItBulNeg = new ArrayList<ItemBultoNegocio>();
-		for(int i=0; i < miFacNeg.getItems().size(); i++){
-			//Transformo cada ItemFacturaDto en ItemBultoNegocio
-			ItemBultoNegocio miItBulNeg = new ItemBultoNegocio();
-			//Asigno los rodamientos y cantidad
-			miItBulNeg.setRodamiento(miFacNeg.getItems().get(i).getRodamiento());
-			miItBulNeg.setCantidad(miFacNeg.getItems().get(i).getCantidad());
-			//Agrego el item a la lista
-			miListaItBulNeg.add(miItBulNeg);
-		}
+		//Descontar Stock
 		
-		//Asigno todos los objetos generados al BultoNegocio
-		miBultoNeg.setFactura(miFacNeg);
-		miBultoNeg.setRemito(miRemNeg);
-		miBultoNeg.setItemBulto(miListaItBulNeg);
+		//Agregar Remito a la lista de Remitos de OVNegocio
 		
-		//Persisto el objeto generado
-		miBultoNeg.persistirBulto();
-		
-		//Una vez hecho el Bulto, se debe descontar del stock los Rodamientos que salieron
-		ArrayList<ItemDto> misItemsDto = new ArrayList<ItemDto>();
-		for (int i=0; i < miListaItBulNeg.size(); i++){
-			//Formo la Lista de Items para luego actualizar stock
-			misItemsDto.get(i).setRodamiento(miListaItBulNeg.get(i).getRodamiento().aRodamientoDto());
-			misItemsDto.get(i).setCantidad(miListaItBulNeg.get(i).getCantidad());
-		}
-		
-		//Descuento el Stock con la Lista de Items generada
-		AdministracionCC.getInstancia().actualizarStock(misItemsDto, "restar");
-		
-		//Creo el BultoXML
-		BultoXML.getInstancia().bultoTOxml(miBultoNeg);
 	return;
 	}
 	
