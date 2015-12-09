@@ -14,31 +14,21 @@ import dto.*;
 
 public class AdministracionOV implements IAdministracionOV{
 	
+	private static int numeroOv = 0;
 	public static AdministracionOV administracion; 
 	private static OVNegocio OficinaVentaNegocio;
 
 	public static AdministracionOV getInstancia() throws RemoteException{
 		if(administracion == null){	
-			//Inicializo la OV
 			administracion = new AdministracionOV();
 		}
 		return administracion;
 	}
 
-	public AdministracionOV() throws RemoteException{
-		//Obtengo la OV buscada o inicalizo una nueva
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
-		if(this.getOficinaVentaNegocio()== null){
+	public AdministracionOV() {
+		if(OficinaVentaNegocio == null){
 			OficinaVentaNegocio = new OVNegocio();
-			//Inicializo todos los array
-			OficinaVentaNegocio.setClientes(new ArrayList <ClienteNegocio>());
-			OficinaVentaNegocio.setFacturas(new ArrayList <FacturaNegocio>());
-			OficinaVentaNegocio.setRemitos(new ArrayList <RemitoNegocio>());
-			OficinaVentaNegocio.setCotizaciones(new ArrayList <CotizacionNegocio>());
-			OficinaVentaNegocio.setSolicitudes(new ArrayList <SolicitudCompraNegocio>());
-		
 		}
-			
 	}
 	
 	public OVNegocio getOficinaVentaNegocio() {
@@ -118,7 +108,7 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().getCotizaciones().add(miCotNeg);
 		this.getOficinaVentaNegocio().mergeOV();
 		//Obtengo la OV para ser utilizada posteriormente
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 		
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
@@ -150,9 +140,9 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 		this.getOficinaVentaNegocio().mergeOV();
 		//Obtengo la OV para ser utilizada posteriormente
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 		
-	return costoFinal;
+		return costoFinal;
 	}
 	
 	
@@ -173,7 +163,7 @@ public class AdministracionOV implements IAdministracionOV{
 		}
 		this.getOficinaVentaNegocio().mergeOV();
 		//Obtengo la OV para ser utilizada posteriormente
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 		
 		//Genero el XML de Cotizacion Aprobada
 		miCotNeg.setEstado("Aprobada");
@@ -313,7 +303,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//factura.setDescuento(strategy);
 		
 		//Magia para no duplicar facturas
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 
 	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
 	}
@@ -407,8 +397,7 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().getSolicitudes().add(solCompraNeg);
 		this.getOficinaVentaNegocio().mergeOV();
 		
-		//Magia para no duplicar SolicitudCompra
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 	} 
 
 	public void pch_LevantaCotizaciones() {
@@ -437,8 +426,18 @@ public class AdministracionOV implements IAdministracionOV{
 
 	public ClienteDto obtenerUsuario(String usuario, String contrasena) throws RemoteException {
 		ClienteNegocio clieNeg = ClienteDAO.getInstancia().obtenerUsuario(usuario, contrasena);
-		this.setUsuarioLogeado(clieNeg);
-		return clieNeg.aClienteDto();
+		if(clieNeg != null){
+			levantarOv(Integer.valueOf(clieNeg.getOv()));
+			this.setUsuarioLogeado(clieNeg);
+			numeroOv = Integer.valueOf(clieNeg.getOv());
+			return clieNeg.aClienteDto();
+		}
+		return null;
+	}
+
+	private void levantarOv(int ov) {
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(ov));
+		
 	}
 
 	public void setUsuarioLogeado (ClienteNegocio cliente){
@@ -451,6 +450,14 @@ public class AdministracionOV implements IAdministracionOV{
 
 	public ClienteDto obtenerUsuarioLogueado() throws RemoteException {
 		return this.getUsuarioLogeado().aClienteDto();
+	}
+
+	public static int getNumeroOv() {
+		return numeroOv;
+	}
+
+	public static void setNumeroOv(int numeroOv) {
+		AdministracionOV.numeroOv = numeroOv;
 	}
 	
 	

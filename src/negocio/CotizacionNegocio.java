@@ -39,7 +39,7 @@ public class CotizacionNegocio implements Serializable{
 	private ClienteNegocio cliente;
 	private Date fechaCreacion;
 	private Date fechaVigencia;
-
+	
 
 	public CotizacionNegocio(List<ItemCotizacionNegocio> items, String estado,
 			ClienteNegocio cliente, Date fechaCreacion, Date fechaVigencia) {

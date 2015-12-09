@@ -61,6 +61,7 @@ public class ClienteNegocio{
 		this.setRazonSocial(clienteDto.getRazonSocial());
 		this.setIdCliente(clienteDto.getNumeroCliente());
 		this.setOv(clienteDto.getOv());
+		this.setPassword(clienteDto.getPassword());
 	}
 	
 	public ClienteDto aClienteDto() {
@@ -71,7 +72,8 @@ public class ClienteNegocio{
 		miCliDto.setMail(this.getMail());
 		miCliDto.setRazonSocial(this.getRazonSocial());
 		miCliDto.setNumeroCliente(this.getIdCliente());
-		miCliDto.setOv(miCliDto.getOv());
+		miCliDto.setPassword(this.getPassword());
+		miCliDto.setOv(this.getOv());
 		return miCliDto;
 	}	
 	

@@ -9,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import test2.CargarDatos_EjecutarPrimero;
 import controlador.*;
+import dao.OVDAO;
 
 public class Servidor {
 
@@ -21,6 +22,8 @@ public class Servidor {
 		//
 		System.setProperty("java.rmi.server.codebase", IAdministracionOV.class.getProtectionDomain().getCodeSource().getLocation().toString());
         
+		
+		
 		if(System.getSecurityManager() == null) {
 			//Establece un sistema de seguridad. 
             //System.setSecurityManager(new SecurityManager());
@@ -61,5 +64,5 @@ public class Servidor {
       	  e.printStackTrace();
         }
      }
-
+	
 }

@@ -54,8 +54,13 @@ public class OVNegocio{
 	private String centroIndustrial;
 
 	public OVNegocio() {
-		
+		this.clientes = new ArrayList <ClienteNegocio>();
+		this.facturas = new ArrayList <FacturaNegocio>();
+		this.remitos = new ArrayList <RemitoNegocio>();
+		this.cotizaciones = new ArrayList <CotizacionNegocio>();
+		this.solicitudes = new ArrayList <SolicitudCompraNegocio>();
 	}
+	
 
 	public int getIdAdministracionOV() {
 		return idAdministracionOV;
