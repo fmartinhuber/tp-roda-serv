@@ -431,10 +431,27 @@ public class AdministracionOV implements IAdministracionOV{
 		
 	}
 	
-	@Override
 	public List<SolicitudCompraDto> obtenerSolicitudesPendientes() throws RemoteException {
 		return null;
 	}
 
+	public ClienteDto obtenerUsuario(String usuario, String contrasena) throws RemoteException {
+		ClienteNegocio clieNeg = ClienteDAO.getInstancia().obtenerUsuario(usuario, contrasena);
+		this.setUsuarioLogeado(clieNeg);
+		return clieNeg.aClienteDto();
+	}
+
+	public void setUsuarioLogeado (ClienteNegocio cliente){
+		OficinaVentaNegocio.setUsuarioLogeado(cliente);
+	}
+	
+	public ClienteNegocio getUsuarioLogeado (){
+		return OficinaVentaNegocio.getUsuarioLogeado();
+	}
+
+	public ClienteDto obtenerUsuarioLogueado() throws RemoteException {
+		return this.getUsuarioLogeado().aClienteDto();
+	}
+	
 	
 }

@@ -47,4 +47,14 @@ public class ClienteDAO extends HibernateDAO {
 	return cliNeg;
 	}
 	
+	public ClienteNegocio obtenerUsuario(String usuario, String password){
+		Session se = HibernateUtil.getSessionFactory().openSession();
+		org.hibernate.Query query = se.createQuery("from ClienteNegocio c where c.razonSocial = :razonSocial and c.password = :password");
+		query.setParameter("razonSocial", usuario);
+		query.setParameter("password", password);
+		ClienteNegocio cliNeg = (ClienteNegocio) query.uniqueResult();
+		se.close();
+		return cliNeg;
+	}
+	
 }

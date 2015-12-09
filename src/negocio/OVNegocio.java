@@ -43,6 +43,9 @@ public class OVNegocio{
 	@JoinColumn(name="ov_solicitudes")
 	private List <SolicitudCompraNegocio> solicitudes;
 	
+	@Transient
+	private ClienteNegocio usuarioLogeado;
+	
 //	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	@Fetch(value = FetchMode.SUBSELECT)
 //	@JoinColumn(name="ov_bultos")
@@ -120,6 +123,14 @@ public class OVNegocio{
 	
 	public void mergeOV() {
 		OVDAO.getInstancia().merge(this);
+	}
+
+	public ClienteNegocio getUsuarioLogeado() {
+		return usuarioLogeado;
+	}
+
+	public void setUsuarioLogeado(ClienteNegocio usuarioLogeado) {
+		this.usuarioLogeado = usuarioLogeado;
 	}
 
 //	public List<BultoNegocio> getBultos() {

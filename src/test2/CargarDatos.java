@@ -177,19 +177,19 @@ public class CargarDatos {
 				
 		// Alta de Clientes
 				
-				ClienteNegocio cli01 = new ClienteNegocio("Mecanica Industrial SRL", "compras@mecind.com.ar", "30-11111111-2"); cli01.persistirCliente();
-				ClienteNegocio cli02 = new ClienteNegocio("Maquinaria Industrial SA", "compras@mi.com.ar", "30-22222222-3"); cli02.persistirCliente();
-				ClienteNegocio cli03 = new ClienteNegocio("Isolda e Hijos SRL", "jose.rodriguez@isolda.com", "30-33333333-4"); cli03.persistirCliente();
-				ClienteNegocio cli04 = new ClienteNegocio("Cooperativa Industrial Campo Santo", "compras@camposanto.coop.ar", "30-44444444-5"); cli04.persistirCliente();
-				ClienteNegocio cli05 = new ClienteNegocio("Industrial Rosales SA", "roberto.fuentes@rosales.com.ar", "30-55555555-6"); cli05.persistirCliente();
-				ClienteNegocio cli06 = new ClienteNegocio("Tubos Norte SRL", "compras@tubosnorte.com", "30-66666666-7"); cli06.persistirCliente();
-				ClienteNegocio cli07 = new ClienteNegocio("Repuestos Bahia", "compras@tubosnorte.com", "30-66666667-7"); cli07.persistirCliente();
-				ClienteNegocio cli08 = new ClienteNegocio("Agro Negocios Lujar", "compras@tubosnorte.com", "30-66668666-7"); cli08.persistirCliente();
-				ClienteNegocio cli09 = new ClienteNegocio("Rodamientos Ingeniero White", "compras@tubosnorte.com", "30-67766666-7"); cli09.persistirCliente();
-				ClienteNegocio cli10 = new ClienteNegocio("Bahia Rodamientos", "compras@tubosnorte.com", "30-66699666-7"); cli10.persistirCliente();
-				ClienteNegocio cli11 = new ClienteNegocio("Agro Rodamientos", "compras@tubosnorte.com", "30-66662266-7"); cli11.persistirCliente();
-				ClienteNegocio cli12 = new ClienteNegocio("Peroti Rodamientos e Hijos", "compras@tubosnorte.com", "30-61236666-7"); cli12.persistirCliente();
-				ClienteNegocio cli13 = new ClienteNegocio("Rodamientos San Nicolas", "compras@tubosnorte.com", "30-66634566-7"); cli13.persistirCliente();
+				ClienteNegocio cli01 = new ClienteNegocio("Mecanica Industrial SRL", "compras@mecind.com.ar", "30-11111111-2","Mecanica Industrial SRL"); cli01.persistirCliente();
+				ClienteNegocio cli02 = new ClienteNegocio("Maquinaria Industrial SA", "compras@mi.com.ar", "30-22222222-3", "Maquinaria Industrial SA"); cli02.persistirCliente();
+				ClienteNegocio cli03 = new ClienteNegocio("Isolda e Hijos SRL", "jose.rodriguez@isolda.com", "30-33333333-4", "Isolda e Hijos SRL"); cli03.persistirCliente();
+				ClienteNegocio cli04 = new ClienteNegocio("Cooperativa Industrial Campo Santo", "compras@camposanto.coop.ar", "30-44444444-5", "Cooperativa Industrial Campo Santo"); cli04.persistirCliente();
+				ClienteNegocio cli05 = new ClienteNegocio("Industrial Rosales SA", "roberto.fuentes@rosales.com.ar", "30-55555555-6", "Industrial Rosales SA"); cli05.persistirCliente();
+				ClienteNegocio cli06 = new ClienteNegocio("Tubos Norte SRL", "compras@tubosnorte.com", "30-66666666-7", "Tubos Norte SRL"); cli06.persistirCliente();
+				ClienteNegocio cli07 = new ClienteNegocio("Repuestos Bahia", "compras@tubosnorte.com", "30-66666667-7", "Repuestos Bahia"); cli07.persistirCliente();
+				ClienteNegocio cli08 = new ClienteNegocio("Agro Negocios Lujar", "compras@tubosnorte.com", "30-66668666-7", "Agro Negocios Lujar"); cli08.persistirCliente();
+				ClienteNegocio cli09 = new ClienteNegocio("Rodamientos Ingeniero White", "compras@tubosnorte.com", "30-67766666-7", "Rodamientos Ingeniero White"); cli09.persistirCliente();
+				ClienteNegocio cli10 = new ClienteNegocio("Bahia Rodamientos", "compras@tubosnorte.com", "30-66699666-7", "Bahia Rodamientos"); cli10.persistirCliente();
+				ClienteNegocio cli11 = new ClienteNegocio("Agro Rodamientos", "compras@tubosnorte.com", "30-66662266-7", "Agro Rodamientos"); cli11.persistirCliente();
+				ClienteNegocio cli12 = new ClienteNegocio("Peroti Rodamientos e Hijos", "compras@tubosnorte.com", "30-61236666-7", "Peroti Rodamientos e Hijos"); cli12.persistirCliente();
+				ClienteNegocio cli13 = new ClienteNegocio("Rodamientos San Nicolas", "compras@tubosnorte.com", "30-66634566-7", "Rodamientos San Nicolas"); cli13.persistirCliente();
 				
 		// Asociamos Clientes a OV's
 				

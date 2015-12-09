@@ -2,6 +2,9 @@ package negocio;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import dao.*;
 import dto.*;
 
@@ -17,13 +20,34 @@ public class ClienteNegocio{
 	private String razonSocial;
 	private String mail;
 	private String CUIT;
+	private String password;
 	
+	@Column(name = "ov_clientes")
+	private String ov;
 	
-	public ClienteNegocio(String razonSocial, String mail, String CUIT) {
+	public ClienteNegocio(String razonSocial, String mail, String CUIT, String password) {
 		super();
 		this.razonSocial = razonSocial;
 		this.mail = mail;
 		this.CUIT = CUIT;
+		this.password = password;
+	}
+	
+	/**
+	 * OJO QUE SETEA UNA OV ESTE CONSTRUCTOR.
+	 * @param razonSocial
+	 * @param mail
+	 * @param CUIT
+	 * @param password
+	 * @param ov
+	 */
+	public ClienteNegocio(String razonSocial, String mail, String CUIT, String password, String ov) {
+		super();
+		this.razonSocial = razonSocial;
+		this.mail = mail;
+		this.CUIT = CUIT;
+		this.password = password;
+		this.ov = ov;
 	}
 	
 	public ClienteNegocio(){
@@ -36,6 +60,7 @@ public class ClienteNegocio{
 		this.setMail(clienteDto.getMail());
 		this.setRazonSocial(clienteDto.getRazonSocial());
 		this.setIdCliente(clienteDto.getNumeroCliente());
+		this.setOv(clienteDto.getOv());
 	}
 	
 	public ClienteDto aClienteDto() {
@@ -46,7 +71,8 @@ public class ClienteNegocio{
 		miCliDto.setMail(this.getMail());
 		miCliDto.setRazonSocial(this.getRazonSocial());
 		miCliDto.setNumeroCliente(this.getIdCliente());
-	return miCliDto;
+		miCliDto.setOv(miCliDto.getOv());
+		return miCliDto;
 	}	
 	
 	public String getRazonSocial() {
@@ -95,6 +121,22 @@ public class ClienteNegocio{
 	
 	public void mergeCliente(){
 		ClienteDAO.getInstancia().merge(this);
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getOv() {
+		return ov;
+	}
+
+	public void setOv(String ov) {
+		this.ov = ov;
 	}
 
 }
