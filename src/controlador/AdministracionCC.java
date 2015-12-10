@@ -64,7 +64,7 @@ public class AdministracionCC implements IAdministracionCC {
 	
 	// Carlos: Requerido para el cliente we
 	@Override
-	public int crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
+	public OrdenCompraDto crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
 		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
 		for (int i = 0; i < idsSolCompra.size(); i++) {
 			int idSolCot = Integer.getInteger(idsSolCompra.get(i));
@@ -72,12 +72,12 @@ public class AdministracionCC implements IAdministracionCC {
 			SolicitudCompraDto solDto = solNegocio.aSolicitudCompraDTO();
 			solCompraDTO.add(solDto);
 		}
-		int salida = this.crearOrdenCompra(solCompraDTO, formaDePago);
-		return salida;
+		OrdenCompraDto orden = this.crearOrdenCompra(solCompraDTO, formaDePago);
+		return orden;
 	}
 
 	
-	public int crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
+	public OrdenCompraDto crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
 		
 		//Conventirmos SolicitudesCompraDTO a Negocio
 		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
@@ -90,8 +90,7 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		Double total = 0.0;
 		Double descuentos = 0.0;
-		//Creo Array de OC para persistir todo junto al final, por que rompe al persistir indivudual
-		List<OrdenCompraNegocio> ordenes = new ArrayList<OrdenCompraNegocio>(); 
+		OrdenCompraNegocio ordenNeg = new OrdenCompraNegocio(); 
 		//Obtner los proveedores de todos los rodamientos de las solicitudCompraNegocio
 		List<ProveedorNegocio> proveedores = new ArrayList<ProveedorNegocio>();
 		proveedores = SolicitudCompraDAO.getInstancia().proveedoresDeSolicitudCompra(solCompraNeg);
@@ -125,23 +124,17 @@ public class AdministracionCC implements IAdministracionCC {
 	
 			// Asignamos las solicitudes de compra que dieron origen a la OC
 			OCN.setSolicitudesCompra(solCompraNeg);
-			ordenes.add(OCN);
-			
 		}
 		// Actualizamos estado de las Solicitudes de compra
 		for (int k = 0; k < solCompraNeg.size(); k++) {
 			solCompraNeg.get(k).setEstado("Adquisición");
 		}
 		
-		for (int i = 0; i < ordenes.size(); i++) {
-			ordenes.get(i).mergeOrdenCompra();
-			OrdenCompraXML.getInstancia().ordencompraTOxml(ordenes.get(i));
-		}
+		OrdenCompraXML.getInstancia().ordencompraTOxml(ordenNeg);
+		ordenNeg.mergeOrdenCompra();
 		
-		//Creo el XML de Orden de Compra
-		
-		
-		return OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra();
+		ordenNeg.setIdOrdenCompra(OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra());
+		return ordenNeg.aOrdenCompraDto();
 	}
 	
 	

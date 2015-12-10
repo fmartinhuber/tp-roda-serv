@@ -42,7 +42,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	//Daro: Este metodo crea la cotizacion con la lista de items pasada por parametro y la deja en estado: Pendiente
-	public int crearCotizacion(List<ItemDto> listaItems, ClienteDto clienteDto) throws RemoteException {
+	public CotizacionDto crearCotizacion(List<ItemDto> listaItems, ClienteDto clienteDto) throws RemoteException {
 		//Obtengo la lista comparativa
 		List<RodamientoDto> listaCompa = new ArrayList<RodamientoDto>();
 		listaCompa = AdministracionCC.getInstancia().obtenerListaComparativa();
@@ -113,7 +113,8 @@ public class AdministracionOV implements IAdministracionOV{
 		//Genero el XML de Cotizacion
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
-		return CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion();
+		miCotNeg.setIdCotizacion(CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion());
+		return miCotNeg.aCotizacionDto();
 	}
 	
 	
@@ -202,7 +203,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	//Carlos: Genera factura a partir de un listado de cotizaciones, para un cliente puntual	
-	public int generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
+	public FacturaDto generarFactura(List<CotizacionDto> cotis, ClienteDto cliente){
 		
 		ClienteNegocio cli = new ClienteNegocio();
 		//cli.aClienteNegocio(cliente);	//Convertimos al cliente dto en negocio
@@ -252,8 +253,8 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		//Genero el XML de Factura
 		FacturaXML.getInstancia().cotizacionTOxml(factura);
-
-	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
+		factura.setIdFactura(FacturaDAO.getInstancia().obtenerMaximoIDFactura());
+		return factura.aFacturaDto();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -363,7 +364,7 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 
 	@Override
-	public void crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {
+	public SolicitudCompraDto crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {
 		
 		//Convertimos mas cotizaciones DTO a Negocio
 		List<CotizacionNegocio> cotisNego = new ArrayList<CotizacionNegocio>();
@@ -398,6 +399,8 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().mergeOV();
 		
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
+		
+		return solCompraNeg.aSolicitudCompraDTO();
 	} 
 
 	public void pch_LevantaCotizaciones() {

@@ -27,48 +27,48 @@ public class TestDaro {
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
 		
-		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
-		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
-		//Creo Rodamientos
-		RodamientoDto rodaUno = new RodamientoDto();
-		RodamientoDto rodaDos = new RodamientoDto();
-		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
-		rodaUno.setCodigo("20210");
-		rodaUno.setOrigen("Suecia");
-		rodaUno.setMarca("SKF");
-		rodaDos.setCodigo("22207");
-		rodaDos.setOrigen("Argentina");
-		rodaDos.setMarca("IMP");
-		//Agrego el rodamiento y su cantidad a la lista de items
-		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
-		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
-		//Agrego los items a la lista
-		listaUtils.add(itemNegUno);
-		listaUtils.add(itemNegDos);
-		
-		//Creo un Cliente
-		ClienteDto miClienteDto = new ClienteDto();
-		ClienteNegocio miCliNeg = new ClienteNegocio();
-		//Obtengo el Cliente de la BD
-		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
-		miClienteDto = miCliNeg.aClienteDto();
-		
-		//Paso 1)
-		//Llamo al metodo para que me genere la Cotizacion
-		int idMaximoCot = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
-		//Analizar los resultados de la cotizacion generada (debe estar en estado "Pendiente" y generar sus itemCotizacion)
-		
-		//Paso 2)
-		//Cotizamos la cotizacion recien generada 
-		float totalCotizacion;
-		totalCotizacion = AdministracionOV.getInstancia().cotizarCotizacion(idMaximoCot);
-		System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
-		//Analizar los resultados de la cotizacion cotizada (debe cambiarse el estado a "Cotizada" y devolver su cotizacion)
-		
-		//Paso 3)
-		//Aprobamos la cotizacion recien cotizada
-		AdministracionOV.getInstancia().aprobarCotizacion(idMaximoCot);
-		//Analizar los resultados de la cotizacion aprobada (debe cambiarse el estado a "Aprobada")
+//		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
+//		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
+//		//Creo Rodamientos
+//		RodamientoDto rodaUno = new RodamientoDto();
+//		RodamientoDto rodaDos = new RodamientoDto();
+//		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
+//		rodaUno.setCodigo("20210");
+//		rodaUno.setOrigen("Suecia");
+//		rodaUno.setMarca("SKF");
+//		rodaDos.setCodigo("22207");
+//		rodaDos.setOrigen("Argentina");
+//		rodaDos.setMarca("IMP");
+//		//Agrego el rodamiento y su cantidad a la lista de items
+//		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
+//		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
+//		//Agrego los items a la lista
+//		listaUtils.add(itemNegUno);
+//		listaUtils.add(itemNegDos);
+//		
+//		//Creo un Cliente
+//		ClienteDto miClienteDto = new ClienteDto();
+//		ClienteNegocio miCliNeg = new ClienteNegocio();
+//		//Obtengo el Cliente de la BD
+//		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
+//		miClienteDto = miCliNeg.aClienteDto();
+//		
+//		//Paso 1)
+//		//Llamo al metodo para que me genere la Cotizacion
+//		int idMaximoCot = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
+//		//Analizar los resultados de la cotizacion generada (debe estar en estado "Pendiente" y generar sus itemCotizacion)
+//		
+//		//Paso 2)
+//		//Cotizamos la cotizacion recien generada 
+//		float totalCotizacion;
+//		totalCotizacion = AdministracionOV.getInstancia().cotizarCotizacion(idMaximoCot);
+//		System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
+//		//Analizar los resultados de la cotizacion cotizada (debe cambiarse el estado a "Cotizada" y devolver su cotizacion)
+//		
+//		//Paso 3)
+//		//Aprobamos la cotizacion recien cotizada
+//		AdministracionOV.getInstancia().aprobarCotizacion(idMaximoCot);
+//		//Analizar los resultados de la cotizacion aprobada (debe cambiarse el estado a "Aprobada")
 		
 		
 		
