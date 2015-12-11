@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 import negocio.*;
+import utils.BatchUtils;
 import utils.ItemDto;
 import xml2.CotizacionXML;
 import xml2.FacturaXML;
@@ -142,6 +143,7 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().mergeOV();
 		//Obtengo la OV para ser utilizada posteriormente
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
+		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		
 		return costoFinal;
 	}
@@ -270,6 +272,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 
 	@SuppressWarnings("unused")
+	@Deprecated
 	private int generarFactura2(List<CotizacionNegocio> cotis, ClienteNegocio cliente){
 		
 		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
@@ -306,7 +309,7 @@ public class AdministracionOV implements IAdministracionOV{
 		//Magia para no duplicar facturas
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 
-	return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
+		return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
 	}
 	
 	// Actualiza ESTADO de cotización
@@ -327,7 +330,7 @@ public class AdministracionOV implements IAdministracionOV{
 	
 	
 	
-	public List<CotizacionNegocio> obtenerCotizacionesDeCiente(ClienteNegocio clie){
+	public List<CotizacionNegocio> obtenerCotizacionesDeCliente(ClienteNegocio clie){
 		CotizacionDAO cotizacionDao = CotizacionDAO.getinstancia();
 		return cotizacionDao.obtenerCotizacionesDeCiente(clie);
 	}
@@ -433,9 +436,15 @@ public class AdministracionOV implements IAdministracionOV{
 			levantarOv(Integer.valueOf(clieNeg.getOv()));
 			this.setUsuarioLogeado(clieNeg);
 			numeroOv = Integer.valueOf(clieNeg.getOv());
+			this.comenzarBatch();
 			return clieNeg.aClienteDto();
 		}
+		
 		return null;
+	}
+	
+	private void comenzarBatch(){
+		new BatchUtils().batch();
 	}
 
 	private void levantarOv(int ov) {

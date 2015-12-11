@@ -8,6 +8,7 @@ import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
 
 import test2.CargarDatos_EjecutarPrimero;
+import utils.BatchUtils;
 import controlador.*;
 import dao.OVDAO;
 
@@ -29,6 +30,7 @@ public class Servidor {
             //System.setSecurityManager(new SecurityManager());
         }
 		new Servidor();
+		
 	}
 	
 	public Servidor(){
@@ -45,6 +47,7 @@ public class Servidor {
             Naming.rebind ("//localhost/SistemaRodamientoOV", stubOV);
             Naming.rebind ("//localhost/SistemaRodamientoCC", stubCC);
             verVinculos();
+            
 		} catch (Exception e) {
 			System.out.println("ERROR: Error al ejecutar el servidor, compruebe que el mismo no este ya ejecutandose");
 			e.printStackTrace();
