@@ -19,9 +19,12 @@ public class BatchUtils {
 			public void run() {
 				List<CotizacionDto> cotizaciones;
 				try {
+						
 						cotizaciones = AdministracionOV.getInstancia().obtenerCotizacionesAprobadas();
 						SolicitudCompraDto solicitud = AdministracionOV.getInstancia().crearSolicitudCompra(cotizaciones);
-						System.out.println("Se aprobaron: " + solicitud.toString());
+						
+						System.out.println("Se generaron la solicitud: " + solicitud.toString());
+						
 					
 				} catch (RemoteException e) {
 					e.printStackTrace();

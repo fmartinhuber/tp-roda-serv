@@ -115,6 +115,7 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		//Devuelvo el maximo ID de la tabla Cotizaciones (el id de la ultima cotizacion creada)
 		miCotNeg.setIdCotizacion(CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion());
+		
 		return miCotNeg.aCotizacionDto();
 	}
 	
@@ -335,6 +336,11 @@ public class AdministracionOV implements IAdministracionOV{
 		return cotizacionDao.obtenerCotizacionesDeCiente(clie);
 	}
 	
+	public CotizacionDto obtenerCotizaciones(int id){
+		CotizacionDAO cotizacionDao = CotizacionDAO.getinstancia();
+		return cotizacionDao.buscarCotizacion(id).aCotizacionDto();
+	}
+	
 	public void crearCliente(ClienteDto cliente) throws RemoteException {
 		ClienteNegocio cli = new ClienteNegocio();
 		cli.setCUIT(cliente.getCUIT());
@@ -436,7 +442,7 @@ public class AdministracionOV implements IAdministracionOV{
 			levantarOv(Integer.valueOf(clieNeg.getOv()));
 			this.setUsuarioLogeado(clieNeg);
 			numeroOv = Integer.valueOf(clieNeg.getOv());
-			this.comenzarBatch();
+			//this.comenzarBatch();
 			return clieNeg.aClienteDto();
 		}
 		
