@@ -192,15 +192,45 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	
-	//Daro: Se envia el Remito y la Factura junto a los Rodamientos (no se persisten) de la CC a OV
+	//Daro: Se envia el Remito junto a los Rodamientos (no se persisten) de la CC a OV
 	public void entregaPedidos(int idRemito) throws RemoteException {
-		//TODO Dario:
 		//Buscar Remito
+		RemitoNegocio miRemNeg = new RemitoNegocio();
+		List<ItemDto> miListaItemDto = new ArrayList<ItemDto>();
+		miRemNeg = RemitoDAO.getinstancia().buscarRemito(idRemito); //Obtenemos el remito Buscado
 		
 		//Descontar Stock
+		CotizacionNegocio miCotNeg = new CotizacionNegocio();
+		//Por cada orden de compra
+		for (int i=0; i<miRemNeg.getOrdenesDeCompra().size(); i++){
+			//Por cada Solicitud de compra de la orden de compra
+			for (int j=0; j<miRemNeg.getOrdenesDeCompra().get(i).getSolicitudesCompra().size(); j++){
+				//Por cada Cotizacion de la lista de cotizaciones de la solicitud de compra de la orden de compra (complicadito no?)
+				for (int k=0; k<miRemNeg.getOrdenesDeCompra().get(i).getSolicitudesCompra().get(j).getListaCotizaciones().size(); k++){
+					//Obtengo la cotizacion
+					miCotNeg = miRemNeg.getOrdenesDeCompra().get(i).getSolicitudesCompra().get(j).getListaCotizaciones().get(k);
+					//Para cada item de la listaItems de la Cotizacion
+					for (int m=0; m<miCotNeg.getItems().size(); m++){
+						//Creo un nuevo itemDto para asignarlo a su lista
+						ItemDto miItemDto = new ItemDto();
+						//Asigno sus valores
+						miItemDto.setRodamiento(miCotNeg.getItems().get(m).getRodamiento().aRodamientoDto());
+						miItemDto.setCantidad(miCotNeg.getItems().get(m).getCantidad());
+						//Agrego el nuevo itemDto a la lista de ItemDto
+						miListaItemDto.add(miItemDto);
+					}
+				}
+			}
+		}
+		//Ahora si, finalmente descuento el Stock
+		AdministracionCC.getInstancia().actualizarStock(miListaItemDto, "resta");
 		
 		//Agregar Remito a la lista de Remitos de OVNegocio
-		
+		this.getOficinaVentaNegocio().getRemitos().add(miRemNeg);
+		this.getOficinaVentaNegocio().mergeOV();
+		//Obtengo la OV para ser utilizada posteriormente
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
+	
 	return;
 	}
 	
