@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import controlador.AdministracionCC;
 import controlador.AdministracionOV;
 import dto.CotizacionDto;
 import dto.SolicitudCompraDto;
@@ -22,8 +23,11 @@ public class BatchUtils {
 						
 						cotizaciones = AdministracionOV.getInstancia().obtenerCotizacionesAprobadas();
 						SolicitudCompraDto solicitud = AdministracionOV.getInstancia().crearSolicitudCompra(cotizaciones);
-						
 						System.out.println("Se generaron la solicitud: " + solicitud.toString());
+						//TODO cual es el que hay que usar? 
+						//AdministracionCC.getInstancia().crearOrdenCompra(listaCotizaciones, formaPago);
+						//AdministracionCC.getInstancia().crearOrdenCompraXid(idsSolCompra, formaDePago);
+						
 						
 					
 				} catch (RemoteException e) {

@@ -392,6 +392,18 @@ public class AdministracionCC implements IAdministracionCC {
 		return null;
 	}
 
-	
+	public List <OrdenCompraDto> obtenerOrdenesCompra () throws RemoteException{
+		List <OrdenCompraNegocio> ordenesCompra = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		List <OrdenCompraDto> ordenesDto = new ArrayList <OrdenCompraDto>();
+		for (OrdenCompraNegocio ordenCompra : ordenesCompra) {
+			ordenesDto.add(ordenCompra.aOrdenCompraDto());
+		}
+		return ordenesDto;
+	}
+
+	//TODO AL QUE LE TOQUE QUE LO HAGA!
+	public void aprobarOrdenCompra(int nroOrden) throws RemoteException {
+		
+	}
 
 }
