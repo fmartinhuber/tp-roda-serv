@@ -8,6 +8,7 @@ import org.hibernate.mapping.Array;
 import negocio.*;
 import controlador.*;
 import dao.ClienteDAO;
+import dao.CotizacionDAO;
 import dto.*;
 import utils.*;
 import xml2.*;
@@ -27,50 +28,75 @@ public class TestDaro {
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
 		
-//		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
-//		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
-//		//Creo Rodamientos
-//		RodamientoDto rodaUno = new RodamientoDto();
-//		RodamientoDto rodaDos = new RodamientoDto();
-//		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
-//		rodaUno.setCodigo("20210");
-//		rodaUno.setOrigen("Suecia");
-//		rodaUno.setMarca("SKF");
-//		rodaDos.setCodigo("22207");
-//		rodaDos.setOrigen("Argentina");
-//		rodaDos.setMarca("IMP");
-//		//Agrego el rodamiento y su cantidad a la lista de items
-//		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
-//		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
-//		//Agrego los items a la lista
-//		listaUtils.add(itemNegUno);
-//		listaUtils.add(itemNegDos);
-//		
-//		//Creo un Cliente
-//		ClienteDto miClienteDto = new ClienteDto();
-//		ClienteNegocio miCliNeg = new ClienteNegocio();
-//		//Obtengo el Cliente de la BD
-//		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
-//		miClienteDto = miCliNeg.aClienteDto();
-//		
-//		//Paso 1)
-//		//Llamo al metodo para que me genere la Cotizacion
-//		int idMaximoCot = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
-//		//Analizar los resultados de la cotizacion generada (debe estar en estado "Pendiente" y generar sus itemCotizacion)
-//		
-//		//Paso 2)
-//		//Cotizamos la cotizacion recien generada 
-//		float totalCotizacion;
-//		totalCotizacion = AdministracionOV.getInstancia().cotizarCotizacion(idMaximoCot);
-//		System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
-//		//Analizar los resultados de la cotizacion cotizada (debe cambiarse el estado a "Cotizada" y devolver su cotizacion)
-//		
-//		//Paso 3)
-//		//Aprobamos la cotizacion recien cotizada
-//		AdministracionOV.getInstancia().aprobarCotizacion(idMaximoCot);
-//		//Analizar los resultados de la cotizacion aprobada (debe cambiarse el estado a "Aprobada")
+		//Creo lista de utils (esto va a ser lo que se reciba de la web cuando el cliente solicita rodamientos)
+		List <ItemDto> listaUtils = new ArrayList<ItemDto>();
+		//Creo Rodamientos
+		RodamientoDto rodaUno = new RodamientoDto();
+		RodamientoDto rodaDos = new RodamientoDto();
+		//Solamente le asigno los valores: Codigo, Origen y Marca, que va a ser por cuales lo busque
+		rodaUno.setCodigo("20210");
+		rodaUno.setOrigen("Suecia");
+		rodaUno.setMarca("SKF");
+		rodaDos.setCodigo("22207");
+		rodaDos.setOrigen("Argentina");
+		rodaDos.setMarca("IMP");
+		//Agrego el rodamiento y su cantidad a la lista de items
+		ItemDto itemNegUno = new ItemDto(rodaUno, 4);
+		ItemDto itemNegDos = new ItemDto(rodaDos, 7);
+		//Agrego los items a la lista
+		listaUtils.add(itemNegUno);
+		listaUtils.add(itemNegDos);
+		
+		//Creo un Cliente
+		ClienteDto miClienteDto = new ClienteDto();
+		ClienteNegocio miCliNeg = new ClienteNegocio();
+		//Obtengo el Cliente de la BD
+		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
+		miClienteDto = miCliNeg.aClienteDto();
+		//Creo la cotizacion a devolver
+		CotizacionDto miCotDto = new CotizacionDto();
+		
+		//IMPORTANTE: Para simular el login seteo el numero OV en 1
+		AdministracionOV.getInstancia().setNumeroOv(1);
+		
+		//Paso 1)
+		//Llamo al metodo para que me genere la Cotizacion
+		miCotDto = AdministracionOV.getInstancia().crearCotizacion(listaUtils, miClienteDto);
+		//Analizar los resultados de la cotizacion generada (debe estar en estado "Pendiente" y generar sus itemCotizacion)
+		
+		//Paso 2)
+		//Cotizamos la cotizacion recien generada 
+		float totalCotizacion;
+		totalCotizacion = AdministracionOV.getInstancia().cotizarCotizacion(CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion());
+		System.out.println("El total de la cotizacion es de: $" + totalCotizacion);
+		//Analizar los resultados de la cotizacion cotizada (debe cambiarse el estado a "Cotizada" y devolver su cotizacion)
+		
+		//Paso 3)
+		//Aprobamos la cotizacion recien cotizada
+		AdministracionOV.getInstancia().aprobarCotizacion(CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion());
+		//Analizar los resultados de la cotizacion aprobada (debe cambiarse el estado a "Aprobada")
+		
+		//Si no cambio la carga de datos y es la primera que generas se genera la cotizacion nro 17
 		
 		
+		/*----------------------------------------------------------------------------------------------------*/
+		/*----------------------------------------------------------------------------------------------------*/
+											/*Pruebas Solicitudes de Compra*/
+								/*Tener descomentada la parte de arriba (Pruebas Cotizaciones)*/
+		/*----------------------------------------------------------------------------------------------------*/
+		/*----------------------------------------------------------------------------------------------------*/
+		
+		//Obtenemos la cotizacionDto de la base
+		CotizacionNegocio miCotNegDeLaBase = new CotizacionNegocio();
+		miCotNegDeLaBase = CotizacionDAO.getinstancia().buscarCotizacion(CotizacionDAO.getinstancia().obtenerMaximoIDCotizacion());
+		
+		//Creo array de Cotizaciones
+		List <CotizacionDto> miListaCotDto = new ArrayList<CotizacionDto>();
+		//Agrego la cotizacion obtenida
+		miListaCotDto.add(miCotNegDeLaBase.aCotizacionDto());
+		
+		//Llamo a Solicitud de Compra
+		AdministracionOV.getInstancia().crearSolicitudCompra(miListaCotDto);
 		
 		
 		
@@ -130,12 +156,7 @@ public class TestDaro {
 		
 		
 		
-		/*----------------------------------------------------------------------------------------------------*/
-		/*----------------------------------------------------------------------------------------------------*/
-													/*Pruebas Bulto*/
-		/*----------------------------------------------------------------------------------------------------*/
-		/*----------------------------------------------------------------------------------------------------*/
-		
+
 		
 		
 		

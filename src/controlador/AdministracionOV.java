@@ -103,6 +103,9 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		//Agrego a la cotizacion toda la lista de items obtenida
 		miCotDto.setItems(listaItemCotDto);
+		
+		//Obtengo la lista de OV
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 		//Persisto la Cotizacion desde la OV
 		CotizacionNegocio miCotNeg = new CotizacionNegocio();
 		miCotNeg.aCotizacionNegocio(miCotDto);
@@ -174,23 +177,7 @@ public class AdministracionOV implements IAdministracionOV{
 		CotizacionXML.getInstancia().cotizacionTOxml(miCotNeg);
 		
 	}
-	
-	
-	
-	//No lo vamos a usar
-	@Deprecated
-	//Daro: Este metodo rechaza la Cotizacion, dejandola en estado Rechazada
-	public void rechazarCotizacion (int idCotizacion){
-		//Busco la cotizacion y la guardo en la variable
-		CotizacionNegocio miCotNeg = new CotizacionNegocio();
-		miCotNeg = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
-		//Cambio el estado a Rechazada
-		miCotNeg.setEstado("Rechazada");
-		//Actualizo la CotizacionNegocio
-		miCotNeg.mergearCotizacion();
-	return;
-	}
-	
+		
 	
 	//Daro: Se envia el Remito junto a los Rodamientos (no se persisten) de la CC a OV
 	public void entregaPedidos(int idRemito) throws RemoteException {
@@ -301,49 +288,8 @@ public class AdministracionOV implements IAdministracionOV{
 		return listCotizacionDto;
 	}
 	
-
-	@SuppressWarnings("unused")
-	@Deprecated
-	private int generarFactura2(List<CotizacionNegocio> cotis, ClienteNegocio cliente){
-		
-		FacturaNegocio factura = new FacturaNegocio();	//Creamos la nueva factura y seteamos datos basicos y listado de cotizaciones
-		factura.setCliente(cliente);
-		factura.setEstado("Generada");
-		Calendar c = new GregorianCalendar();
-		factura.setFecha(c.getTime());
-		factura.setCotizacion(cotis);
-		
-		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();	// Crear ItemsFactura
-		// Obtenemos una lista de objetos conformado por un rodamiento, la cantidad de este rodamiento y el subtotal de esos rodamientos
-		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotis, this.getOficinaVentaNegocio(), "Aprobada", cliente);
-		
-		Double totalFactura = 0.0;
-		
-		for(int i=0; i<misObjects.size(); i++){
-			ItemFacturaNegocio itFactura = new ItemFacturaNegocio();
-			RodamientoNegocio rodamiento = RodamientoDAO.getInstancia().buscarRodamiento((Integer)misObjects.get(i)[0]);
-			itFactura.setRodamiento(rodamiento);
-			itFactura.setCantidad(Integer.valueOf(misObjects.get(i)[1].toString()));
-			Double sal = (Double)misObjects.get(i)[2];
-			itFactura.setPrecio(sal.floatValue());
-			itemsFactura.add(itFactura);
-			//Acumulo el total de la factura
-			totalFactura = totalFactura + sal;
-		}
-		
-		factura.setItems(itemsFactura);
-		factura.setTotal(totalFactura.floatValue());
-		this.getOficinaVentaNegocio().getFacturas().add(factura);
-		this.getOficinaVentaNegocio().mergeOV();
-		//factura.setDescuento(strategy);
-		
-		//Magia para no duplicar facturas
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
-
-		return FacturaDAO.getInstancia().obtenerMaximoIDFactura();
-	}
 	
-	// Actualiza ESTADO de cotización
+	//Actualiza ESTADO de cotización
 	@SuppressWarnings("unused")
 	private boolean ActualizarEstadoCotizacion (CotizacionNegocio cotizacion, String estadoNuevo){
 		//CotizacionNegocio coti = CotizacionDAO.getinstancia().buscarCotizacion(idCotizacion);
@@ -360,16 +306,11 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	
-	
-	public List<CotizacionNegocio> obtenerCotizacionesDeCliente(ClienteNegocio clie){
-		CotizacionDAO cotizacionDao = CotizacionDAO.getinstancia();
-		return cotizacionDao.obtenerCotizacionesDeCiente(clie);
-	}
-	
 	public CotizacionDto obtenerCotizaciones(int id){
 		CotizacionDAO cotizacionDao = CotizacionDAO.getinstancia();
 		return cotizacionDao.buscarCotizacion(id).aCotizacionDto();
 	}
+	
 	
 	public void crearCliente(ClienteDto cliente) throws RemoteException {
 		ClienteNegocio cli = new ClienteNegocio();
@@ -379,10 +320,12 @@ public class AdministracionOV implements IAdministracionOV{
 		cli.persistirCliente();	
 	}
 	
+	
 	public void eliminarCliente(ClienteDto cliente) throws RemoteException {
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());		
 		cli.deleteCliente();		
 	}
+	
 
 	public void modificarCliente(ClienteDto cliente) throws RemoteException {
 		ClienteNegocio cli = ClienteDAO.getInstancia().buscarClientePorCUIT(cliente.getCUIT());
@@ -390,8 +333,8 @@ public class AdministracionOV implements IAdministracionOV{
 		cli.setRazonSocial(cliente.getMail());
 		cli.updateCliente();
 	}
+	
 
-	@Override
 	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
 		
 		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().cotizacionesXovYestado(this.getOficinaVentaNegocio(), "Aceptada");
@@ -404,12 +347,12 @@ public class AdministracionOV implements IAdministracionOV{
 
 	
 	public SolicitudCompraDto crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {
-		
-		//Convertimos mas cotizaciones DTO a Negocio
+		//Convertimos cotizaciones DTO a Negocio
 		List<CotizacionNegocio> cotisNego = new ArrayList<CotizacionNegocio>();
-		for (int i = 0; i < cotizacionesAprobadas.size(); i++) {
+		for (int i=0; i<cotizacionesAprobadas.size(); i++) {
 			CotizacionNegocio cot = new CotizacionNegocio();
 			cot.aCotizacionNegocio(cotizacionesAprobadas.get(i));
+			cot.setEstado("Solicitada");
 			cotisNego.add(cot);
 		}
 		
@@ -417,22 +360,7 @@ public class AdministracionOV implements IAdministracionOV{
 		SolicitudCompraNegocio solCompraNeg = new SolicitudCompraNegocio();
 		solCompraNeg.setEstado("Nueva");
 		solCompraNeg.setListaCotizaciones(cotisNego);
-		
-//		// Generar Factura - Debe separarse las cotizaciones por Cliente
-//		// Obtenemos los clientes de la lista de cotizaciones pasada por parametro
-//		List<ClienteNegocio> clientes = new ArrayList<ClienteNegocio>();
-//		clientes = CotizacionDAO.getinstancia().clientesDeListadoCotizacionXovYestado(cotisNego, "Aprobada", this.getOficinaVentaNegocio());
-//		
-//		for (int i = 0; i < clientes.size(); i++) {
-//			List<CotizacionNegocio> cotiFac = new ArrayList<CotizacionNegocio>();
-//			cotiFac = CotizacionDAO.getinstancia().cotizacionXovYestadoYcliente(cotisNego, "Aprobada", this.getOficinaVentaNegocio(), 
-//					clientes.get(i));
-//			this.generarFactura2(cotiFac, clientes.get(i));
-//		}
-//		
-		for (int i = 0; i < cotisNego.size(); i++) {
-			cotisNego.get(i).setEstado("Solicitada");
-		}
+
 		//solCompraNeg.mergeSolicitudCompra();
 		this.getOficinaVentaNegocio().getSolicitudes().add(solCompraNeg);
 		this.getOficinaVentaNegocio().mergeOV();
@@ -442,8 +370,8 @@ public class AdministracionOV implements IAdministracionOV{
 		return solCompraNeg.aSolicitudCompraDTO();
 	} 
 
+	
 	public void pch_LevantaCotizaciones() {
-		
 		List<CotizacionNegocio> cotisAprobadas;
 		cotisAprobadas = CotizacionDAO.getinstancia().cotizacionesXovYestado(this.getOficinaVentaNegocio(), "Aprobada");
 		List<CotizacionDto> cotisDTO = new ArrayList<CotizacionDto>();
@@ -462,10 +390,12 @@ public class AdministracionOV implements IAdministracionOV{
 		
 	}
 	
+	
 	public List<SolicitudCompraDto> obtenerSolicitudesPendientes() throws RemoteException {
 		return null;
 	}
 
+	
 	public ClienteDto obtenerUsuario(String usuario, String contrasena) throws RemoteException {
 		ClienteNegocio clieNeg = ClienteDAO.getInstancia().obtenerUsuario(usuario, contrasena);
 		if(clieNeg != null){
@@ -479,29 +409,36 @@ public class AdministracionOV implements IAdministracionOV{
 		return null;
 	}
 	
+	
 	private void comenzarBatch(){
 		new BatchUtils().batch();
 	}
 
+	
 	private void levantarOv(int ov) {
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(ov));
 	}
 
+	
 	public void setUsuarioLogeado (ClienteNegocio cliente){
 		OficinaVentaNegocio.setUsuarioLogeado(cliente);
 	}
+	
 	
 	public ClienteNegocio getUsuarioLogeado (){
 		return OficinaVentaNegocio.getUsuarioLogeado();
 	}
 
+	
 	public ClienteDto obtenerUsuarioLogueado() throws RemoteException {
 		return this.getUsuarioLogeado().aClienteDto();
 	}
 
+	
 	public static int getNumeroOv() {
 		return numeroOv;
 	}
+	
 
 	public static void setNumeroOv(int numeroOv) {
 		AdministracionOV.numeroOv = numeroOv;

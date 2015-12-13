@@ -156,19 +156,6 @@ public class AdministracionCC implements IAdministracionCC {
 		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
 		return salida;
 	}
-	// Levanta las cotizaciones en un estado pasado por parametro "XXXXXXXX" //
-	// "APROBADA"
-	// PASAR A PRIVADO LUEGO DE LAS PRUEBAS
-	@Deprecated
-	public List<CotizacionDto> obtenerCotizacionesAprobadas() throws RemoteException {
-		
-		List<CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizacionesAprobada("ACEPTADA");
-		List<CotizacionDto> cotizacionesDto = new ArrayList<CotizacionDto>();
-		for (int i = 0; i < cotizaciones.size(); i++) {
-			cotizacionesDto.add(cotizaciones.get(i).aCotizacionDto());
-		}
-		return cotizacionesDto;
-	}
 
 	
 	/* Atributos de un remito
