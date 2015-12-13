@@ -35,13 +35,17 @@ public class CCNegocio{
 	@PrimaryKeyJoinColumn
 	private List <RodamientoNegocio> listaPrincipal;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	/*@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	private List <RodamientoNegocio> listaOpcional;
+	private List <RodamientoNegocio> listaOpcional;*/
 
 	
 	public CCNegocio() {
-		
+		//Inicializo todos los array
+		this.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
+		this.setRodamientos(new ArrayList<RodamientoNegocio>());
+		this.setListaPrincipal(new ArrayList<RodamientoNegocio>());
+		//this.setListaOpcional(new ArrayList<RodamientoNegocio>());
 	}
 
 	public void persistirCC(){
@@ -88,14 +92,14 @@ public class CCNegocio{
 	}
 
 
-	public List<RodamientoNegocio> getListaOpcional() {
+	/*public List<RodamientoNegocio> getListaOpcional() {
 		return listaOpcional;
 	}
 
 
 	public void setListaOpcional(List<RodamientoNegocio> listaOpcional) {
 		this.listaOpcional = listaOpcional;
-	}
+	}*/
 
 
 	public String getNombre() {

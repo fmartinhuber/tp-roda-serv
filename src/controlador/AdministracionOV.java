@@ -15,7 +15,8 @@ import dto.*;
 
 public class AdministracionOV implements IAdministracionOV{
 	
-	private static int numeroOv = 1;
+	//Numero OV seteado en 0 al momento de inicializar
+	private static int numeroOv = 0;
 	public static AdministracionOV administracion; 
 	private static OVNegocio OficinaVentaNegocio;
 

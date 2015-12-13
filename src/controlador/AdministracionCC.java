@@ -17,25 +17,22 @@ public class AdministracionCC implements IAdministracionCC {
 	public static AdministracionCC administracion;
 	private static CCNegocio casaCentralNegocio;
 	
-	public static AdministracionCC getInstancia() {
+	public static AdministracionCC getInstancia()  throws RemoteException{
 		if (administracion == null) {
-			//Creo la CasaCentral
-			casaCentralNegocio = new CCNegocio();
-			//Inicializo la CC
 			administracion = new AdministracionCC();
 		}
 		return administracion;
 	}
 	
-	public AdministracionCC()  {
-		//Inicializo todos los array
-		casaCentralNegocio.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
-		casaCentralNegocio.setRodamientos(new ArrayList<RodamientoNegocio>());
-		casaCentralNegocio.setListaPrincipal(new ArrayList<RodamientoNegocio>());
-		casaCentralNegocio.setListaOpcional(new ArrayList<RodamientoNegocio>());
-		//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
-		levantarXml();
+	public AdministracionCC(){
+		if (casaCentralNegocio==null){
+			casaCentralNegocio = new CCNegocio();
+			//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
+			levantarXml();
+		}		
 	}
+	
+	
 
 	public static AdministracionCC getAdministracion() {
 		return administracion;
@@ -61,8 +58,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * Marcar Orden de compra como "Nueva" luego de su creación 
 	 * y previo a la entrega al proveedor
 	 */
-	
-	// Carlos: Requerido para el cliente we
+	// Carlos: Requerido para el cliente web
 	@Override
 	public OrdenCompraDto crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
 		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
@@ -78,7 +74,6 @@ public class AdministracionCC implements IAdministracionCC {
 
 	
 	public OrdenCompraDto crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
-		
 		//Conventirmos SolicitudesCompraDTO a Negocio
 		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
 		for(int i = 0; i < listaCotizaciones.size(); i++){
@@ -168,10 +163,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
 	 *  El remito modifica el stock de los artículos despachados
 	 */
-	public int crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
-	//public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
-			
-		//ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
 		RemitoNegocio remito = new RemitoNegocio();
 		
 		//remito.setProveedor(proov);
@@ -200,9 +192,22 @@ public class AdministracionCC implements IAdministracionCC {
 				}
 			}
 		}
-		
+		//Seteo la orden de compra
 		remito.setOrdenesDeCompra(ordenesNegBase);
-		remito.mergeRemito();				
+		
+		//---------- Guardamos el Remito desde la CC ----------//
+		//Obtengo el numero de la OV creada
+		int numeroOVdesdeCC = AdministracionOV.getNumeroOv();
+		//Obtengo la CC de la Base. ID=1, unica CC existente segun negocio
+		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC(1));
+		//Levanto la OV utilizada
+		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
+		//Agrego y persisto el Remito
+		AdministracionOV.getInstancia().getOficinaVentaNegocio().getRemitos().add(remito);
+		AdministracionOV.getInstancia().getOficinaVentaNegocio().mergeOV();
+		//Obtengo la OV para ser utilizada posteriormente
+		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
+		//----------								----------//
 		
 		// Aumentar el stock que ingresaron
 		List<ItemDto> items = new ArrayList<ItemDto>();
@@ -218,14 +223,11 @@ public class AdministracionCC implements IAdministracionCC {
 				items.add(miItemDto);
 			}
 		}
-		
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
+		RemitoXML.getInstancia().remitoTOxml(remito);					
 		
-		
-		//RemitoXML.getInstancia().remitoTOxml(remito);					
-		
-		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
+		return remito.aRemitoDto();
 	}
 
 	public void actualizarStock(List<ItemDto> listaItemsParametro, String accion) {
@@ -306,46 +308,48 @@ public class AdministracionCC implements IAdministracionCC {
 		return rodasDto;
 	}
 
-	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
-		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
-		while (iterador.hasNext()) {
-			RodamientoNegocio roda = iterador.next();
-			this.agregarNuevoRodamiento(roda);
-		}
-	}
-
-	private void agregarNuevoRodamiento(RodamientoNegocio rodamiento) {
-		
-		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
-		boolean encontradoP = false, actualizadoP = false;
-		while (iterador.hasNext() && !encontradoP) {
-			RodamientoNegocio rodamientoComp = iterador.next();
-			if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
-				encontradoP = true;
-				// si es mas barato
-				if (rodamientoComp.getMonto() < rodamiento.getMonto()) {
-					actualizadoP = true;
-					casaCentralNegocio.getListaPrincipal().remove(rodamientoComp);
-					casaCentralNegocio.getListaPrincipal().add(rodamiento);
-					break;
-				}
-			}
-		}
-		if (encontradoP && !actualizadoP) {
-			AdministracionCC.casaCentralNegocio.getListaPrincipal().add(rodamiento);
-		}
-		if (!encontradoP && !actualizadoP) {
-			iterador = AdministracionCC.casaCentralNegocio.getListaOpcional().iterator();
-			while (iterador.hasNext() && !encontradoP) {
-				RodamientoNegocio rodamientoComp = iterador.next();
-				if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
-					AdministracionCC.casaCentralNegocio.getListaOpcional().add(rodamiento);
-					actualizadoP = true;
-					break;
-				}
-			}
-		}
-	}
+	
+	//Usado solo para la Lista Opcional - No se usa actualmente
+//	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
+//		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
+//		while (iterador.hasNext()) {
+//			RodamientoNegocio roda = iterador.next();
+//			this.agregarNuevoRodamiento(roda);
+//		}
+//	}
+//
+//	private void agregarNuevoRodamiento(RodamientoNegocio rodamiento) {
+//		
+//		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
+//		boolean encontradoP = false, actualizadoP = false;
+//		while (iterador.hasNext() && !encontradoP) {
+//			RodamientoNegocio rodamientoComp = iterador.next();
+//			if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
+//				encontradoP = true;
+//				// si es mas barato
+//				if (rodamientoComp.getMonto() < rodamiento.getMonto()) {
+//					actualizadoP = true;
+//					casaCentralNegocio.getListaPrincipal().remove(rodamientoComp);
+//					casaCentralNegocio.getListaPrincipal().add(rodamiento);
+//					break;
+//				}
+//			}
+//		}
+//		if (encontradoP && !actualizadoP) {
+//			AdministracionCC.casaCentralNegocio.getListaPrincipal().add(rodamiento);
+//		}
+//		if (!encontradoP && !actualizadoP) {
+//			iterador = AdministracionCC.casaCentralNegocio.getListaOpcional().iterator();
+//			while (iterador.hasNext() && !encontradoP) {
+//				RodamientoNegocio rodamientoComp = iterador.next();
+//				if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
+//					AdministracionCC.casaCentralNegocio.getListaOpcional().add(rodamiento);
+//					actualizadoP = true;
+//					break;
+//				}
+//			}
+//		}
+//	}
 
 
 	public RodamientoNegocio buscarRodamientoNegocio(String codigo) {
