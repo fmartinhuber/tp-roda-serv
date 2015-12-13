@@ -53,8 +53,13 @@ public class TestRama {
 		listaOrdenes.add(ordenUno);
 		listaOrdenes.add(ordenDos);
 		
-		AdministracionCC.getInstancia().crearRemito(listaOrdenes, proveedor);
+		//AdministracionCC.getInstancia().crearRemito(listaOrdenes, proveedor);
+		AdministracionCC.getInstancia().crearRemito(listaOrdenes);
 		System.out.println("Remito creado");			
+		
+
+		
+//		AdministracionCC.getInstancia().aprobarOrdenCompra(3);
 		
 	}
 

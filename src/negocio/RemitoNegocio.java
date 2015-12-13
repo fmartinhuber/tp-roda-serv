@@ -30,9 +30,9 @@ public class RemitoNegocio implements Serializable{
 	private List <OrdenCompraNegocio> ordenesDeCompra;
 	private Date fecha;
 	private String comentarios;
-	@OneToOne (cascade=CascadeType.ALL)
-	@JoinColumn(name="remito_proveedor")
-	private ProveedorNegocio proveedor;
+//	@OneToOne (cascade=CascadeType.ALL)
+//	@JoinColumn(name="remito_proveedor")
+//	private ProveedorNegocio proveedor;
 	
 	public RemitoNegocio(){}
 	
@@ -45,7 +45,7 @@ public class RemitoNegocio implements Serializable{
 		this.ordenesDeCompra = ordenesDeCompra;
 		this.fecha = fecha;
 		this.comentarios = comentarios;
-		this.proveedor = proveedor;
+		//this.proveedor = proveedor;
 	}
 
 
@@ -147,13 +147,13 @@ public class RemitoNegocio implements Serializable{
 		this.ordenesDeCompra = ordenesDeCompra;
 	}
 
-	public ProveedorNegocio getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(ProveedorNegocio proveedor) {
-		this.proveedor = proveedor;
-	}
+//	public ProveedorNegocio getProveedor() {
+//		return proveedor;
+//	}
+//
+//	public void setProveedor(ProveedorNegocio proveedor) {
+//		this.proveedor = proveedor;
+//	}
 
 	
 	

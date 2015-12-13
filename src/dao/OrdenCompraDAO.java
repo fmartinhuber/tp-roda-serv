@@ -39,6 +39,13 @@ public class OrdenCompraDAO extends HibernateDAO{
 		s.clear();
 		return resultado;
 	}
+
+	public OrdenCompraNegocio obtenerOrdenCompraPorId(int nroOrden) {
+		Session se = HibernateUtil.getSessionFactory().openSession();
+		OrdenCompraNegocio salida = (OrdenCompraNegocio) se.get(OrdenCompraNegocio.class, nroOrden);
+		se = null;
+		return salida;
+	}
 	
 	
 }

@@ -168,12 +168,13 @@ public class AdministracionCC implements IAdministracionCC {
 	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
 	 *  El remito modifica el stock de los artículos despachados
 	 */
-	public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
+	public int crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
+	//public int crearRemito(List<OrdenCompraDto> listaOrdenes, ProveedorDto proveedor) throws RemoteException {
 			
-		ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
+		//ProveedorNegocio proov = ProveedorDAO.getInstancia().buscarProveedorPorCUIT(proveedor.getCUIT());
 		RemitoNegocio remito = new RemitoNegocio();
 		
-		remito.setProveedor(proov);
+		//remito.setProveedor(proov);
 		remito.setComentarios("Satisfecho");
 		remito.setEstado("Recibido");
 		Calendar c = new GregorianCalendar();
@@ -220,7 +221,9 @@ public class AdministracionCC implements IAdministracionCC {
 		
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
-		//RemitoXML.getInstancia().remitoTOxml(remito);
+		
+		
+		//RemitoXML.getInstancia().remitoTOxml(remito);					
 		
 		return RemitoDAO.getinstancia().obtenerMaximoIDRemito();
 	}
@@ -388,8 +391,21 @@ public class AdministracionCC implements IAdministracionCC {
 		return ordenesDto;
 	}
 
-	//TODO AL QUE LE TOQUE QUE LO HAGA!
+	@SuppressWarnings("static-access")
 	public void aprobarOrdenCompra(int nroOrden) throws RemoteException {
+	
+		OrdenCompraNegocio ordenNegocio = new OrdenCompraNegocio();
+		ordenNegocio = OrdenCompraDAO.getinstancia().obtenerOrdenCompraPorId(nroOrden);
+		
+		for(int i=0; i<this.getCasaCentralNegocio().getOrdenesP().size(); i++){
+			if(nroOrden == this.getCasaCentralNegocio().getOrdenesP().get(i).getIdOrdenCompra()){
+				this.getCasaCentralNegocio().getOrdenesP().get(i).setEstado("Aprobada");
+			}
+		}
+				
+		ordenNegocio.setEstado("Aprobada");
+		ordenNegocio.mergeOrdenCompra();
+		OrdenCompraXML.getInstancia().ordencompraTOxml(ordenNegocio);
 		
 	}
 

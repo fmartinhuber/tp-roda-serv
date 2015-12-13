@@ -15,7 +15,7 @@ import dto.*;
 
 public class AdministracionOV implements IAdministracionOV{
 	
-	private static int numeroOv = 0;
+	private static int numeroOv = 1;
 	public static AdministracionOV administracion; 
 	private static OVNegocio OficinaVentaNegocio;
 
@@ -276,8 +276,7 @@ public class AdministracionOV implements IAdministracionOV{
 		factura.setIdFactura(FacturaDAO.getInstancia().obtenerMaximoIDFactura());
 		return factura.aFacturaDto();
 	}
-	
-	@SuppressWarnings("unchecked")
+		
 	public List <CotizacionDto> obtenerCotizaciones(){
 		List <CotizacionNegocio> cotizaciones = CotizacionDAO.getinstancia().obtenerCotizaciones();
 		List <CotizacionDto> listCotizacionDto = new ArrayList <CotizacionDto> ();
@@ -410,6 +409,7 @@ public class AdministracionOV implements IAdministracionOV{
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private void comenzarBatch(){
 		new BatchUtils().batch();
 	}
