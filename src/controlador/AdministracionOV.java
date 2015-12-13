@@ -402,7 +402,7 @@ public class AdministracionOV implements IAdministracionOV{
 		return cotizacionesDto;
 	}
 
-	@Override
+	
 	public SolicitudCompraDto crearSolicitudCompra(List<CotizacionDto> cotizacionesAprobadas) throws RemoteException {
 		
 		//Convertimos mas cotizaciones DTO a Negocio
@@ -485,7 +485,6 @@ public class AdministracionOV implements IAdministracionOV{
 
 	private void levantarOv(int ov) {
 		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(ov));
-		
 	}
 
 	public void setUsuarioLogeado (ClienteNegocio cliente){
