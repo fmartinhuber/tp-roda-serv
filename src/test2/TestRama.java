@@ -3,9 +3,7 @@ package test2;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import negocio.*;
 import controlador.*;
-import dao.*;
 import dto.*;
 
 public class TestRama {

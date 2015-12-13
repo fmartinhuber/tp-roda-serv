@@ -93,6 +93,7 @@ public class CotizacionDAO extends HibernateDAO{
 	
 	public List <CotizacionNegocio> obtenerCotizaciones() {
 		Session s = HibernateUtil.getSessionFactory().openSession();
+		@SuppressWarnings("unchecked")
 		List <CotizacionNegocio> salida =  s.createQuery("from CotizacionNegocio c").list();
 		s.close();
 		return salida;

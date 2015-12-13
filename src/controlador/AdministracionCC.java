@@ -163,6 +163,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
 	 *  El remito modifica el stock de los artículos despachados
 	 */
+	@SuppressWarnings("static-access")
 	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
 		RemitoNegocio remito = new RemitoNegocio();
 		

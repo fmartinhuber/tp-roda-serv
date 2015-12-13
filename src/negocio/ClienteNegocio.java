@@ -2,9 +2,6 @@ package negocio;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import dao.*;
 import dto.*;
 

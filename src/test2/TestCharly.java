@@ -1,19 +1,8 @@
 package test2;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
-import negocio.OVNegocio;
-import negocio.ProveedorNegocio;
-import negocio.RodamientoNegocio;
-import controlador.AdministracionCC;
-import controlador.AdministracionOV;
-import dto.CotizacionDto;
-import dto.RodamientoDto;
+import controlador.*;
 
 public class TestCharly {
 	

@@ -3,15 +3,12 @@ package test2;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import org.hibernate.mapping.Array;
-
 import negocio.*;
 import controlador.*;
 import dao.ClienteDAO;
 import dao.CotizacionDAO;
 import dto.*;
 import utils.*;
-import xml2.*;
 
 /**
  * @author Daro: Desde aca voy a hacer pruebas unitarias de lo que tengo que hacer yo
@@ -21,6 +18,7 @@ import xml2.*;
 
 public class TestDaro {
 
+	@SuppressWarnings("static-access")
 	public static void main(String[] args)  throws RemoteException {
 		/*----------------------------------------------------------------------------------------------------*/
 		/*----------------------------------------------------------------------------------------------------*/
@@ -54,6 +52,7 @@ public class TestDaro {
 		miCliNeg = ClienteDAO.getInstancia().buscarClientePorCUIT("30-22222222-3");
 		miClienteDto = miCliNeg.aClienteDto();
 		//Creo la cotizacion a devolver
+		@SuppressWarnings("unused")
 		CotizacionDto miCotDto = new CotizacionDto();
 		
 		//IMPORTANTE: Para simular el login seteo el numero OV en 1

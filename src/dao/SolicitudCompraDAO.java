@@ -5,9 +5,6 @@ import hbt.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import negocio.ClienteNegocio;
-import negocio.CotizacionNegocio;
-import negocio.OVNegocio;
 import negocio.ProveedorNegocio;
 import negocio.SolicitudCompraNegocio;
 

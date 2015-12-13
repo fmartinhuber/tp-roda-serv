@@ -1,7 +1,6 @@
 package test2;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 import controlador.AdministracionCC;
 
