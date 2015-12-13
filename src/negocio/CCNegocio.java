@@ -126,5 +126,21 @@ public class CCNegocio{
 	public void setProveedores(List<ProveedorNegocio> proveedores) {
 		this.proveedores = proveedores;
 	}
+
+	public void mergeCC() {
+		CCDAO.getInstancia().merge(this);		
+	}
+	
+	public void updateCC() {
+		CCDAO.getInstancia().update(this);		
+	}
+	
+	public void persistCC() {
+		CCDAO.getInstancia().persist(this);		
+	}
+	
+	public void deleteCC() {
+		CCDAO.getInstancia().delete(this);		
+	}
 	
 }
