@@ -163,7 +163,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
 	 *  El remito modifica el stock de los artículos despachados
 	 */
-	@SuppressWarnings("static-access")
+	
 	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
 		RemitoNegocio remito = new RemitoNegocio();
 		
@@ -195,20 +195,21 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		//Seteo la orden de compra
 		remito.setOrdenesDeCompra(ordenesNegBase);
+		remito.mergeRemito();
 		
 		//---------- Guardamos el Remito desde la CC ----------//
-		//Obtengo el numero de la OV creada
-		int numeroOVdesdeCC = AdministracionOV.getNumeroOv();
-		//Obtengo la CC de la Base. ID=1, unica CC existente segun negocio
-		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC(1));
-		//Levanto la OV utilizada
-		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
-		//Agrego y persisto el Remito
-		AdministracionOV.getInstancia().getOficinaVentaNegocio().getRemitos().add(remito);
-		AdministracionOV.getInstancia().getOficinaVentaNegocio().mergeOV();
-		//Obtengo la OV para ser utilizada posteriormente
-		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
-		//----------								----------//
+//		//Obtengo el numero de la OV creada
+//		int numeroOVdesdeCC = AdministracionOV.getNumeroOv();
+//		//Obtengo la CC de la Base. ID=1, unica CC existente segun negocio
+//		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC(1));
+//		//Levanto la OV utilizada
+//		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
+//		//Agrego y persisto el Remito
+//		//AdministracionOV.getInstancia().getOficinaVentaNegocio().getRemitos().add(remito);
+//	//	AdministracionOV.getInstancia().getOficinaVentaNegocio().mergeOV();
+//		//Obtengo la OV para ser utilizada posteriormente
+//		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
+//		//----------								----------//
 		
 		// Aumentar el stock que ingresaron
 		List<ItemDto> items = new ArrayList<ItemDto>();
@@ -226,7 +227,7 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
 		
-		RemitoXML.getInstancia().remitoTOxml(remito);					
+		//RemitoXML.getInstancia().remitoTOxml(remito);					
 		
 		return remito.aRemitoDto();
 	}
