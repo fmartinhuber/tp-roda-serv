@@ -22,22 +22,22 @@ public class CCNegocio{
 //	@JoinColumn(name="cc_ov")
 //	private List <OVNegocio> ovs;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name="cc_ordenes")
 	private List <OrdenCompraNegocio> ordenesP;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name="cc_proveedores")
 	private List <ProveedorNegocio> proveedores;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name="cc_rodamientos")
 	private List <RodamientoNegocio> rodamientos;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	private List <RodamientoNegocio> listaPrincipal;
 

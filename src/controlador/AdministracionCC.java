@@ -28,8 +28,8 @@ public class AdministracionCC implements IAdministracionCC {
 		if (casaCentralNegocio==null){
 			casaCentralNegocio = new CCNegocio();
 			//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
-			levantarXml();
 			levantarCc();
+			levantarXml();
 		}		
 	}
 	
@@ -121,7 +121,7 @@ public class AdministracionCC implements IAdministracionCC {
 			// Asignamos las solicitudes de compra que dieron origen a la OC
 			OCN.setSolicitudesCompra(solCompraNeg);
 			
-			OCN.setIdOrdenCompra(OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra());
+			//OCN.setIdOrdenCompra(OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra());
 
 			ordenes.add(OCN.aOrdenCompraDto());
 			//Vamos agregando las OCN al vector de Cotizaciones de CC
@@ -137,7 +137,6 @@ public class AdministracionCC implements IAdministracionCC {
 		this.getCasaCentralNegocio().setIdAdministracionCC(1);
 		this.getCasaCentralNegocio().mergeCC();
 		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
-		System.out.println(ordenes.toString());
 		return ordenes;
 	}
 	
@@ -155,13 +154,7 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 	}
 	
-	
-	public OVNegocio ObtenerOV(int numeroOV){		
-		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
-		return salida;
-	}
-	
-	public void levantarCc() {
+	private void levantarCc() {
 		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
 	}
 
@@ -208,7 +201,11 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		//Seteo la orden de compra
 		remito.setOrdenesDeCompra(ordenesNegBase);
-		remito.mergeRemito();
+//		remito.mergeRemito();
+		
+		this.getCasaCentralNegocio().setIdAdministracionCC(1);
+		this.getCasaCentralNegocio().mergeCC();
+		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
 		
 		//---------- Guardamos el Remito desde la CC ----------//
 //		//Obtengo el numero de la OV creada
