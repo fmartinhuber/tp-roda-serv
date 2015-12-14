@@ -127,6 +127,7 @@ public class OrdenCompraNegocio implements Serializable{
 		this.setEstado(miOrdenDto.getEstado());
 		this.setFormaPago(miOrdenDto.getFormaPago());
 		this.setTotal(miOrdenDto.getTotal());
+		this.setIdOrdenCompra(miOrdenDto.getNumeroOrdenCompra());
 		
 		ProveedorNegocio proveedor = new ProveedorNegocio();
 		proveedor.aProveedorNegocio(miOrdenDto.getProveedor());
@@ -159,6 +160,7 @@ public class OrdenCompraNegocio implements Serializable{
 		ordenDto.setEstado(this.getEstado());
 		ordenDto.setFormaPago(this.getFormaPago());
 		ordenDto.setTotal(this.getTotal());
+		ordenDto.setNumeroOrdenCompra(this.getIdOrdenCompra());
 		
 		ProveedorDto proveedorDto = new ProveedorDto();
 		proveedorDto = this.getProveedor().aProveedorDto();
@@ -170,12 +172,12 @@ public class OrdenCompraNegocio implements Serializable{
 			listaItemDto.add(itemDto);
 		}
 		
-//		List<SolicitudCompraDto> listaSolCompra = new ArrayList<SolicitudCompraDto>();
-//		for (int i=0; i<this.getSolicitudesCompra().size(); i++) {
-//			SolicitudCompraDto solicDto = new SolicitudCompraDto();
-//			solicDto = this.getSolicitudesCompra().get(i).aSolicitudCompraDTO();
-//			listaSolCompra.add(solicDto);
-//		}
+		List<SolicitudCompraDto> listaSolCompra = new ArrayList<SolicitudCompraDto>();
+		for (int i=0; i<this.getSolicitudesCompra().size(); i++) {
+			SolicitudCompraDto solicDto = new SolicitudCompraDto();
+			solicDto = this.getSolicitudesCompra().get(i).aSolicitudCompraDTO();
+			listaSolCompra.add(solicDto);
+		}
 		
 		ordenDto.setProveedor(proveedorDto);
 		ordenDto.setItems(listaItemDto);

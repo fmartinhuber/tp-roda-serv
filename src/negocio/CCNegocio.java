@@ -4,6 +4,9 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import dao.CCDAO;
 
 @Entity
@@ -15,29 +18,28 @@ public class CCNegocio{
 	private int idAdministracionCC;
 	private String Nombre;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="cc_ov")
-	private List <OVNegocio> ovs;
+//	@OneToMany(cascade=CascadeType.ALL)
+//	@JoinColumn(name="cc_ov")
+//	private List <OVNegocio> ovs;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name="cc_ordenes")
 	private List <OrdenCompraNegocio> ordenesP;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name="cc_proveedores")
 	private List <ProveedorNegocio> proveedores;
 
 	@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@Fetch(value = FetchMode.SUBSELECT)
+	@JoinColumn(name="cc_rodamientos")
 	private List <RodamientoNegocio> rodamientos;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private List <RodamientoNegocio> listaPrincipal;
-	
-	/*@OneToMany(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private List <RodamientoNegocio> listaOpcional;*/
 
 	
 	public CCNegocio() {
@@ -45,7 +47,7 @@ public class CCNegocio{
 		this.setOrdenesP(new ArrayList<OrdenCompraNegocio>());
 		this.setRodamientos(new ArrayList<RodamientoNegocio>());
 		this.setListaPrincipal(new ArrayList<RodamientoNegocio>());
-		//this.setListaOpcional(new ArrayList<RodamientoNegocio>());
+		this.setProveedores(new ArrayList<ProveedorNegocio>());
 	}
 
 	public void persistirCC(){
@@ -112,14 +114,14 @@ public class CCNegocio{
 	}
 
 
-	public List<OVNegocio> getOvs() {
-		return ovs;
-	}
-
-
-	public void setOvs(List<OVNegocio> ovs) {
-		this.ovs = ovs;
-	}
+//	public List<OVNegocio> getOvs() {
+//		return ovs;
+//	}
+//
+//
+//	public void setOvs(List<OVNegocio> ovs) {
+//		this.ovs = ovs;
+//	}
 
 
 	public List<ProveedorNegocio> getProveedores() {

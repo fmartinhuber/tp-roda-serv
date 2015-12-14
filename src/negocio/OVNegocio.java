@@ -43,14 +43,6 @@ public class OVNegocio{
 	@JoinColumn(name="ov_solicitudes")
 	private List <SolicitudCompraNegocio> solicitudes;
 	
-	@Transient
-	private ClienteNegocio usuarioLogeado;
-	
-//	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-//	@Fetch(value = FetchMode.SUBSELECT)
-//	@JoinColumn(name="ov_bultos")
-//	private List <BultoNegocio> bultos;
-	
 	private String centroIndustrial;
 
 	public OVNegocio() {
@@ -130,20 +122,5 @@ public class OVNegocio{
 		OVDAO.getInstancia().merge(this);
 	}
 
-	public ClienteNegocio getUsuarioLogeado() {
-		return usuarioLogeado;
-	}
-
-	public void setUsuarioLogeado(ClienteNegocio usuarioLogeado) {
-		this.usuarioLogeado = usuarioLogeado;
-	}
-
-//	public List<BultoNegocio> getBultos() {
-//		return bultos;
-//	}
-//
-//	public void setBultos(List<BultoNegocio> bultos) {
-//		this.bultos = bultos;
-//	}
 
 }

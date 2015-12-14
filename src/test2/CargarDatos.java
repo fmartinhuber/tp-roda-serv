@@ -169,9 +169,9 @@ public class CargarDatos {
 				CCUnica.setProveedores(proveedores);
 				
 				//Asingo las OV
-				List<OVNegocio> miListaOVNeg = new ArrayList<OVNegocio>();
-				miListaOVNeg.add(OV1); miListaOVNeg.add(OV2); miListaOVNeg.add(OV3);
-				CCUnica.setOvs(miListaOVNeg);
+//				List<OVNegocio> miListaOVNeg = new ArrayList<OVNegocio>();
+//				miListaOVNeg.add(OV1); miListaOVNeg.add(OV2); miListaOVNeg.add(OV3);
+//				CCUnica.setOvs(miListaOVNeg);
 				//Persisto la CCUnica
 				CCUnica.persistirCC();
 				

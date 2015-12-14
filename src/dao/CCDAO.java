@@ -18,13 +18,12 @@ public class CCDAO extends HibernateDAO{
 		return instancia;
 	}
 
-	public CCNegocio obtenerCC(int numeroCC) {
+	public CCNegocio obtenerCC() {
 		Session se = HibernateUtil.getSessionFactory().getCurrentSession();
 		CCNegocio salida;
 		Transaction trx = se.getTransaction();
 		trx.begin();
-		Query q = se.createQuery("from CCNegocio cc "
-				+ "where cc.idAdministracionCC = :numeroCC ").setParameter("numeroCC", numeroCC);
+		Query q = se.createQuery("from CCNegocio cc");
 		salida = (CCNegocio) q.uniqueResult();
 		trx.commit();
 		se = null;

@@ -23,10 +23,10 @@ public class BatchUtils {
 						
 						int ov = Integer.valueOf(AdministracionOV.getInstancia().obtenerUsuarioLogueado().getOv());
 						cotizaciones = AdministracionOV.getInstancia().obtenerCotizacionesAprobadas();
-						SolicitudCompraDto solicitud = AdministracionOV.getInstancia().crearSolicitudCompra(cotizaciones);
-						AdministracionOV.getInstancia().getOficinaVentaNegocio().mergeOV();
-						AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(ov));
-						System.out.println("Se generaron la solicitud: " + solicitud.toString());
+						if(cotizaciones.size()!=0){
+							SolicitudCompraDto solicitud = AdministracionOV.getInstancia().crearSolicitudCompra(cotizaciones);
+							System.out.println("Se generaron la solicitud: " + solicitud.toString());
+						}
 						//TODO cual es el que hay que usar? 
 						//AdministracionCC.getInstancia().crearOrdenCompra(listaCotizaciones, formaPago);
 						//AdministracionCC.getInstancia().crearOrdenCompraXid(idsSolCompra, formaDePago);

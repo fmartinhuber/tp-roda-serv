@@ -29,6 +29,7 @@ public class AdministracionCC implements IAdministracionCC {
 			casaCentralNegocio = new CCNegocio();
 			//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
 			levantarXml();
+			levantarCc();
 		}		
 	}
 	
@@ -60,7 +61,7 @@ public class AdministracionCC implements IAdministracionCC {
 	 */
 	// Carlos: Requerido para el cliente web
 	@Override
-	public OrdenCompraDto crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
+	public List <OrdenCompraDto> crearOrdenCompraXid(List<String> idsSolCompra, String formaDePago) throws RemoteException {
 		List<SolicitudCompraDto> solCompraDTO = new ArrayList<SolicitudCompraDto>();
 		for (int i = 0; i < idsSolCompra.size(); i++) {
 			int idSolCot = Integer.getInteger(idsSolCompra.get(i));
@@ -68,12 +69,12 @@ public class AdministracionCC implements IAdministracionCC {
 			SolicitudCompraDto solDto = solNegocio.aSolicitudCompraDTO();
 			solCompraDTO.add(solDto);
 		}
-		OrdenCompraDto orden = this.crearOrdenCompra(solCompraDTO, formaDePago);
+		List <OrdenCompraDto> orden = this.crearOrdenCompra(solCompraDTO, formaDePago);
 		return orden;
 	}
 
 	
-	public OrdenCompraDto crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
+	public List <OrdenCompraDto> crearOrdenCompra(List<SolicitudCompraDto> listaCotizaciones, String formaPago) throws RemoteException {	
 		//Conventirmos SolicitudesCompraDTO a Negocio
 		List<SolicitudCompraNegocio> solCompraNeg = new ArrayList<SolicitudCompraNegocio>();
 		for(int i = 0; i < listaCotizaciones.size(); i++){
@@ -85,9 +86,9 @@ public class AdministracionCC implements IAdministracionCC {
 		}
 		Double total = 0.0;
 		Double descuentos = 0.0;
-		OrdenCompraNegocio ordenNeg = new OrdenCompraNegocio(); 
 		//Obtner los proveedores de todos los rodamientos de las solicitudCompraNegocio
 		List<ProveedorNegocio> proveedores = new ArrayList<ProveedorNegocio>();
+		List <OrdenCompraDto> ordenes = new ArrayList <OrdenCompraDto>();
 		proveedores = SolicitudCompraDAO.getInstancia().proveedoresDeSolicitudCompra(solCompraNeg);
 		for (int i = 0; i < proveedores.size(); i++) {
 			// Creamos la OC para este proveedor
@@ -119,17 +120,25 @@ public class AdministracionCC implements IAdministracionCC {
 	
 			// Asignamos las solicitudes de compra que dieron origen a la OC
 			OCN.setSolicitudesCompra(solCompraNeg);
+			
+			OCN.setIdOrdenCompra(OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra());
+
+			ordenes.add(OCN.aOrdenCompraDto());
+			//Vamos agregando las OCN al vector de Cotizaciones de CC
+			this.getCasaCentralNegocio().getOrdenesP().add(OCN);
+			//Persistimos Orden de Compra desde CC
+			
 		}
 		// Actualizamos estado de las Solicitudes de compra
-		for (int k = 0; k < solCompraNeg.size(); k++) {
-			solCompraNeg.get(k).setEstado("Adquisición");
-		}
+//		for (int k = 0; k < solCompraNeg.size(); k++) {
+//			solCompraNeg.get(k).setEstado("Adquisición");
+//		}
 		
-		OrdenCompraXML.getInstancia().ordencompraTOxml(ordenNeg);
-		ordenNeg.mergeOrdenCompra();
-		
-		ordenNeg.setIdOrdenCompra(OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra());
-		return ordenNeg.aOrdenCompraDto();
+		this.getCasaCentralNegocio().setIdAdministracionCC(1);
+		this.getCasaCentralNegocio().mergeCC();
+		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
+		System.out.println(ordenes.toString());
+		return ordenes;
 	}
 	
 	
@@ -150,6 +159,10 @@ public class AdministracionCC implements IAdministracionCC {
 	public OVNegocio ObtenerOV(int numeroOV){		
 		OVNegocio salida = OVDAO.getInstancia().obtenerOV(numeroOV);
 		return salida;
+	}
+	
+	public void levantarCc() {
+		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
 	}
 
 	

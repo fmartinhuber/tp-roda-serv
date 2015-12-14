@@ -7,6 +7,7 @@ import java.rmi.*;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
 
+import utils.BatchUtils;
 import controlador.*;
 
 public class Servidor {
@@ -27,7 +28,6 @@ public class Servidor {
             //System.setSecurityManager(new SecurityManager());
         }
 		new Servidor();
-		
 	}
 	
 	public Servidor(){
