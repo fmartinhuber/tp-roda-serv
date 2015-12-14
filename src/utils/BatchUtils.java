@@ -31,22 +31,22 @@ public class BatchUtils {
 							SolicitudCompraDto solicitud = AdministracionOV.getInstancia().crearSolicitudCompra(cotizaciones);
 							System.out.println("Se generaron la solicitud: " + solicitud.toString());
 						}
-						ordensCOmpra = AdministracionCC.getInstancia().obtenerOrdenesCompra();
-						if(ordensCOmpra.size()!=0){
-							
-							RemitoDto remito = AdministracionCC.getInstancia().crearRemito(ordensCOmpra);
-							if(remito != null){
-								System.out.println("Se generaron el remito: " + remito.getNumeroRemito());
-								AdministracionOV.getInstancia().entregaPedidos(remito);
-								for (OrdenCompraDto ordenCompraDto : remito.getOrdenesDeCompra()) {
-									FacturaDto factura = AdministracionOV.getInstancia().generarFactura(ordenCompraDto.getListaCotizaciones(), AdministracionOV.getInstancia().obtenerUsuarioLogueado());
-									System.out.println("Se generaron la factura: " + factura.getNumeroFactura());
-								}
-								remito.getOrdenesDeCompra().get(1).getListaCotizaciones();
-							}
-							
-							
-						}
+//						ordensCOmpra = AdministracionCC.getInstancia().obtenerOrdenesCompra();
+//						if(ordensCOmpra.size()!=0){
+//							
+//							RemitoDto remito = AdministracionCC.getInstancia().crearRemito(ordensCOmpra);
+//							if(remito != null){
+//								System.out.println("Se generaron el remito: " + remito.getNumeroRemito());
+//								AdministracionOV.getInstancia().entregaPedidos(remito);
+//								for (OrdenCompraDto ordenCompraDto : remito.getOrdenesDeCompra()) {
+//									FacturaDto factura = AdministracionOV.getInstancia().generarFactura(ordenCompraDto.getListaCotizaciones(), AdministracionOV.getInstancia().obtenerUsuarioLogueado());
+//									System.out.println("Se generaron la factura: " + factura.getNumeroFactura());
+//								}
+//								remito.getOrdenesDeCompra().get(1).getListaCotizaciones();
+//							}
+//							
+//							
+//						}
 						
 					
 				} catch (RemoteException e) {

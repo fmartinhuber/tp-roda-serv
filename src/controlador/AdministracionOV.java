@@ -10,6 +10,7 @@ import utils.BatchUtils;
 import utils.ItemDto;
 import xml2.CotizacionXML;
 import xml2.FacturaXML;
+import xml2.RemitoXML;
 import dao.*;
 import dto.*;
 
@@ -193,7 +194,7 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		RemitoNegocio miRemNeg = new RemitoNegocio();
 		//Obtengo el remito generado desde la base
-		miRemNeg = RemitoDAO.getinstancia().buscarRemito(RemitoDAO.getinstancia().obtenerMaximoIDRemito());
+//		miRemNeg = RemitoDAO.getinstancia().buscarRemito(RemitoDAO.getinstancia().obtenerMaximoIDRemito());
 		//Agregamos el Remito a la lista de Remitos de la OV
 		this.getInstancia().getOficinaVentaNegocio().getRemitos().add(miRemNeg);
 		
@@ -268,7 +269,7 @@ public class AdministracionOV implements IAdministracionOV{
 		
 		List<ItemFacturaNegocio> itemsFactura = new ArrayList<ItemFacturaNegocio>();	// Crear ItemsFactura
 		// Obtenemos una lista de objetos conformado por un rodamiento, la cantidad de este rodamiento y el subtotal de esos rodamientos
-		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "Aprobada", cli);
+		List<Object[]> misObjects = CotizacionDAO.getinstancia().rodaPorItemsCotizacion_OV_Estado_x_Cliente(cotiNegocio, this.getOficinaVentaNegocio(), "Solicitada", cli);
 		
 		Double totalFactura = 0.0;
 		
@@ -290,8 +291,7 @@ public class AdministracionOV implements IAdministracionOV{
 		this.getOficinaVentaNegocio().mergeOV();
 		//factura.setDescuento(strategy);
 		
-		//Magia para no duplicar facturas
-		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(1));
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
 		
 		//Genero el XML de Factura
 		FacturaXML.getInstancia().cotizacionTOxml(factura);
@@ -424,13 +424,80 @@ public class AdministracionOV implements IAdministracionOV{
 			levantarOv(Integer.valueOf(clieNeg.getOv()));
 			this.setUsuarioLogueado(clieNeg);
 			numeroOv = Integer.valueOf(clieNeg.getOv());
-			//this.comenzarBatch();
+			this.comenzarBatch();
 			return clieNeg.aClienteDto();
 		}
 		
 		return null;
 	}
 	
+	
+	/* Atributos de un remito
+	 *  Fecha: fecha de la emisión del remito
+	 *  Referencia: se identifica el contenido del remito
+	 * 	Cliente: indica quien es el receptor del remito. Si no está dado de alta, se puede crear 
+	 * 	Sucursal: por defecto trae la casa central y se puede cambiar a una orden de venta
+	 * 	Domicilio: domicilio de la Sucursal seleccionada
+	 * 	Depósito: se especifica de donde se extraen los productos
+	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
+	 *  El remito modifica el stock de los artículos despachados
+	 */
+	
+	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
+		RemitoNegocio remito = new RemitoNegocio();
+		
+		remito.setComentarios("Satisfecho");
+		remito.setEstado("Recibido");
+		Calendar c = new GregorianCalendar();
+		remito.setFecha(c.getTime());
+		
+		//Obtenemos todas las Ordenes de Compra de la Base
+		List<OrdenCompraNegocio> miListaOrdCompNeg = new ArrayList<OrdenCompraNegocio>();
+		miListaOrdCompNeg = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		
+		//Declaramos el vector de ordenes a ser guardado en el Remito
+		List<OrdenCompraNegocio> ordenesNegFinal = new ArrayList<OrdenCompraNegocio>();
+		//Comparamos si coincide la Orden de Compra con la pasada por parametro
+		//Por cada una de la Base
+		for (int i=0; i<miListaOrdCompNeg.size(); i++){
+			//Por cada una del parametro
+			for (int j=0; j<listaOrdenes.size(); j++){
+				//Comparamos si sus ID coinciden
+				if (miListaOrdCompNeg.get(i).getIdOrdenCompra() == listaOrdenes.get(j).getNumeroOrdenCompra()){
+					//Si coinciden, nos quedamos con el obtenido en la BD
+					OrdenCompraNegocio ordenCompNeg = new OrdenCompraNegocio();
+					ordenCompNeg = miListaOrdCompNeg.get(i);
+					ordenesNegFinal.add(ordenCompNeg);
+				}
+			}
+		}
+		//Seteo la orden de compra al Remito
+		remito.setOrdenesDeCompra(ordenesNegFinal);
+		
+		// Aumentar el stock que ingresaron
+		List<ItemDto> items = new ArrayList<ItemDto>();
+		//Por cada orden de Compra
+		for(int i=0; i<ordenesNegFinal.size(); i++){
+			//Por cada item de la orden de compra
+			for (int j=0; j<ordenesNegFinal.get(i).getItems().size(); j++){
+				//Creo un ItemDto y asigno sus valores
+				ItemDto miItemDto = new ItemDto();
+				miItemDto.setCantidad(ordenesNegFinal.get(i).getItems().get(j).getCantidad());
+				miItemDto.setRodamiento(ordenesNegFinal.get(i).getItems().get(j).getRodamiento().aRodamientoDto());
+				//Agrego el Dto a la lista de items
+				items.add(miItemDto);
+			}
+		}
+		AdministracionCC.getInstancia().actualizarStock(items, "restar");
+		
+		//RemitoXML.getInstancia().remitoTOxml(remito);					
+		
+		this.getOficinaVentaNegocio().getRemitos().add(remito);
+		this.getOficinaVentaNegocio().mergeOV();
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
+		
+		return remito.aRemitoDto();
+	}
 	
 	@SuppressWarnings("unused")
 	private void comenzarBatch(){

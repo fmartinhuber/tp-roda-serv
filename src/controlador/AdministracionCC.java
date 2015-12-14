@@ -153,72 +153,7 @@ public class AdministracionCC implements IAdministracionCC {
 	}
 
 	
-	/* Atributos de un remito
-	 *  Fecha: fecha de la emisión del remito
-	 *  Referencia: se identifica el contenido del remito
-	 * 	Cliente: indica quien es el receptor del remito. Si no está dado de alta, se puede crear 
-	 * 	Sucursal: por defecto trae la casa central y se puede cambiar a una orden de venta
-	 * 	Domicilio: domicilio de la Sucursal seleccionada
-	 * 	Depósito: se especifica de donde se extraen los productos
-	 * 	Orden de Trabajo: es al número de la orden de trabajo que dio origen al remito
-	 *  El remito modifica el stock de los artículos despachados
-	 */
-	
-	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
-		RemitoNegocio remito = new RemitoNegocio();
-		
-		remito.setComentarios("Satisfecho");
-		remito.setEstado("Recibido");
-		Calendar c = new GregorianCalendar();
-		remito.setFecha(c.getTime());
-		
-		//Obtenemos todas las Ordenes de Compra de la Base
-		List<OrdenCompraNegocio> miListaOrdCompNeg = new ArrayList<OrdenCompraNegocio>();
-		miListaOrdCompNeg = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
-		
-		//Declaramos el vector de ordenes a ser guardado en el Remito
-		List<OrdenCompraNegocio> ordenesNegFinal = new ArrayList<OrdenCompraNegocio>();
-		//Comparamos si coincide la Orden de Compra con la pasada por parametro
-		//Por cada una de la Base
-		for (int i=0; i<miListaOrdCompNeg.size(); i++){
-			//Por cada una del parametro
-			for (int j=0; j<listaOrdenes.size(); j++){
-				//Comparamos si sus ID coinciden
-				if (miListaOrdCompNeg.get(i).getIdOrdenCompra() == listaOrdenes.get(j).getNumeroOrdenCompra()){
-					//Si coinciden, nos quedamos con el obtenido en la BD
-					OrdenCompraNegocio ordenCompNeg = new OrdenCompraNegocio();
-					ordenCompNeg = miListaOrdCompNeg.get(i);
-					ordenesNegFinal.add(ordenCompNeg);
-				}
-			}
-		}
-		//Seteo la orden de compra al Remito
-		remito.setOrdenesDeCompra(ordenesNegFinal);
-		
-		// Aumentar el stock que ingresaron
-		List<ItemDto> items = new ArrayList<ItemDto>();
-		//Por cada orden de Compra
-		for(int i=0; i<ordenesNegFinal.size(); i++){
-			//Por cada item de la orden de compra
-			for (int j=0; j<ordenesNegFinal.get(i).getItems().size(); j++){
-				//Creo un ItemDto y asigno sus valores
-				ItemDto miItemDto = new ItemDto();
-				miItemDto.setCantidad(ordenesNegFinal.get(i).getItems().get(j).getCantidad());
-				miItemDto.setRodamiento(ordenesNegFinal.get(i).getItems().get(j).getRodamiento().aRodamientoDto());
-				//Agrego el Dto a la lista de items
-				items.add(miItemDto);
-			}
-		}
-		AdministracionCC.getInstancia().actualizarStock(items, "restar");
-		
-		RemitoXML.getInstancia().remitoTOxml(remito);					
-		
-//		No faltaria esto?
-//		this.getCasaCentralNegocio().mergeCC();
-//		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
-		
-		return remito.aRemitoDto();
-	}
+
 
 	public void actualizarStock(List<ItemDto> listaItemsParametro, String accion) {
 
