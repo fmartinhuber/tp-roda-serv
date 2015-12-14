@@ -29,12 +29,14 @@ public class CargarDatos {
 				ProveedorNegocio prov05 = new ProveedorNegocio(); 	prov05.setNombre("BA Rodamientos"); 				prov05.setCUIT("20-11111111-5");       		prov05.persistirProveedor();	proveedores.add(prov05);
 				ProveedorNegocio prov06 = new ProveedorNegocio(); 	prov06.setNombre("Arodar SRL"); 					prov06.setCUIT("20-11111111-6");       		prov06.persistirProveedor();	proveedores.add(prov06);
 				ProveedorNegocio prov07 = new ProveedorNegocio(); 	prov07.setNombre("Rossi Rodamientos"); 				prov07.setCUIT("20-11111111-7");       		prov07.persistirProveedor();	proveedores.add(prov07);
-				ProveedorNegocio prov08 = new ProveedorNegocio(); 	prov08.setNombre("Alfa Rodamientos"); 				prov08.setCUIT("20-11111111-8");       		prov08.persistirProveedor();	proveedores.add(prov08);
+				ProveedorNegocio prov08 = new ProveedorNegocio(); 	prov08.setNombre("Alfa Rodamientos"); 				prov08.setCUIT("20-11111111-8");       		prov08.persistirProveedor();	proveedores.add(prov08);				
 			
 
 		// Alta de Rodamientos
+				
+				List<RodamientoNegocio> rodamientos = new ArrayList<>();
 			
-				RodamientoNegocio roda01 = new RodamientoNegocio(); roda01.setTipo("Rodamientos de rodillos a rotula"); roda01.setCodigo("20210"); roda01.setStock(4); roda01.setOrigen("Suecia"); roda01.setMonto((float) 5317.96); roda01.setCaracteristica("20210 TN9  . . . . . . . . . .SKF       Rodamiento"); roda01.setMarca("SKF"); roda01.setProveedor(prov01);roda01.persistirRodamiento(); 
+				RodamientoNegocio roda01 = new RodamientoNegocio(); roda01.setTipo("Rodamientos de rodillos a rotula"); roda01.setCodigo("20210"); roda01.setStock(4); roda01.setOrigen("Suecia"); roda01.setMonto((float) 5317.96); roda01.setCaracteristica("20210 TN9  . . . . . . . . . .SKF       Rodamiento"); roda01.setMarca("SKF"); roda01.setProveedor(prov01);roda01.persistirRodamiento(); 											
 				RodamientoNegocio roda02 = new RodamientoNegocio(); roda02.setTipo("Rodamientos de rodillos a rotula"); roda02.setCodigo("21311 K"); roda02.setStock(3); roda02.setOrigen("Suecia"); roda02.setMonto((float) 3689.45); roda02.setCaracteristica("21311 EK . . . . . . . . . . .SKF       Rodamiento"); roda02.setMarca("SKF"); roda02.setProveedor(prov02);roda02.persistirRodamiento(); 
 				RodamientoNegocio roda03 = new RodamientoNegocio(); roda03.setTipo("Rodamientos de rodillos a rotula"); roda03.setCodigo("21311 K"); roda03.setStock(15); roda03.setOrigen("China"); roda03.setMonto((float) 1986.2); roda03.setCaracteristica("21311 K . . . . . . . . . . . SNR       Rodamiento"); roda03.setMarca("SNR"); roda03.setProveedor(prov03);roda03.persistirRodamiento(); 
 				RodamientoNegocio roda04 = new RodamientoNegocio(); roda04.setTipo("Rodamientos de rodillos a rotula"); roda04.setCodigo("21313 NN"); roda04.setStock(3); roda04.setOrigen("Israel"); roda04.setMonto((float) 2115.45); roda04.setCaracteristica("21313 NN . . . . . . . . . . .URB       Rodamiento"); roda04.setMarca("URB"); roda04.setProveedor(prov04);roda04.persistirRodamiento(); 
@@ -113,7 +115,18 @@ public class CargarDatos {
 				RodamientoNegocio roda77 = new RodamientoNegocio(); roda77.setTipo("Rodamientos Rigidos de bolas"); roda77.setCodigo("683"); roda77.setStock(40); roda77.setOrigen("Argentina"); roda77.setMonto((float) 59.62); roda77.setCaracteristica("618/3 . . . . . . . . . . . . GMN       Rodamiento"); roda77.setMarca("GMN"); roda77.setProveedor(prov05);roda77.persistirRodamiento(); 
 				RodamientoNegocio roda78 = new RodamientoNegocio(); roda78.setTipo("Rodamientos Rigidos de bolas"); roda78.setCodigo("61824 2RS"); roda78.setStock(30); roda78.setOrigen("Suecia"); roda78.setMonto((float) 6756.27); roda78.setCaracteristica("61824-2RS1  . . . . . . . . . SKF       Rodamiento"); roda78.setMarca("SKF"); roda78.setProveedor(prov06);roda78.persistirRodamiento(); 
 				RodamientoNegocio roda79 = new RodamientoNegocio(); roda79.setTipo("Rodamientos Rigidos de bolas"); roda79.setCodigo("61824 2RS"); roda79.setStock(20); roda79.setOrigen("Japon"); roda79.setMonto((float) 2258.43); roda79.setCaracteristica("61824 2RS (6824 VV) . . . . . JAP       Rodamiento"); roda79.setMarca("Japon"); roda79.setProveedor(prov07);roda79.persistirRodamiento(); 
-				RodamientoNegocio roda80 = new RodamientoNegocio(); roda80.setTipo("Rodamientos Rigidos de bolas"); roda80.setCodigo("6313 NR"); roda80.setStock(10); roda80.setOrigen("Israel"); roda80.setMonto((float) 471.54); roda80.setCaracteristica("6313 NR . . . . . . . . . . . URB       Rodamiento"); roda80.setMarca("URB"); roda80.setProveedor(prov08);roda80.persistirRodamiento(); 
+				RodamientoNegocio roda80 = new RodamientoNegocio(); roda80.setTipo("Rodamientos Rigidos de bolas"); roda80.setCodigo("6313 NR"); roda80.setStock(10); roda80.setOrigen("Israel"); roda80.setMonto((float) 471.54); roda80.setCaracteristica("6313 NR . . . . . . . . . . . URB       Rodamiento"); roda80.setMarca("URB"); roda80.setProveedor(prov08);roda80.persistirRodamiento();
+				
+				rodamientos.add(roda01);	rodamientos.add(roda11);	rodamientos.add(roda21);	rodamientos.add(roda31);	rodamientos.add(roda41);	rodamientos.add(roda51);	rodamientos.add(roda61);	rodamientos.add(roda71);
+				rodamientos.add(roda02);	rodamientos.add(roda12);	rodamientos.add(roda22);	rodamientos.add(roda32);	rodamientos.add(roda42);	rodamientos.add(roda52);	rodamientos.add(roda62);	rodamientos.add(roda72);	
+				rodamientos.add(roda03);	rodamientos.add(roda13);	rodamientos.add(roda23);	rodamientos.add(roda33);	rodamientos.add(roda43);	rodamientos.add(roda53);	rodamientos.add(roda63);	rodamientos.add(roda73);
+				rodamientos.add(roda04);	rodamientos.add(roda14);	rodamientos.add(roda24);	rodamientos.add(roda34);	rodamientos.add(roda44);	rodamientos.add(roda54);	rodamientos.add(roda64);	rodamientos.add(roda74);
+				rodamientos.add(roda05);	rodamientos.add(roda15);	rodamientos.add(roda25);	rodamientos.add(roda35);	rodamientos.add(roda45);	rodamientos.add(roda55);	rodamientos.add(roda65);	rodamientos.add(roda75);	
+				rodamientos.add(roda06);	rodamientos.add(roda16);	rodamientos.add(roda26);	rodamientos.add(roda36);	rodamientos.add(roda46);	rodamientos.add(roda56);	rodamientos.add(roda66);	rodamientos.add(roda76);
+				rodamientos.add(roda07);	rodamientos.add(roda17);	rodamientos.add(roda27);	rodamientos.add(roda37);	rodamientos.add(roda47);	rodamientos.add(roda57);	rodamientos.add(roda67);	rodamientos.add(roda77);
+				rodamientos.add(roda08);	rodamientos.add(roda18);	rodamientos.add(roda28);	rodamientos.add(roda38);	rodamientos.add(roda48);	rodamientos.add(roda58);	rodamientos.add(roda68);	rodamientos.add(roda78);
+				rodamientos.add(roda09);	rodamientos.add(roda19);	rodamientos.add(roda29);	rodamientos.add(roda39);	rodamientos.add(roda49);	rodamientos.add(roda59);	rodamientos.add(roda69);	rodamientos.add(roda79);
+				rodamientos.add(roda10);	rodamientos.add(roda20);	rodamientos.add(roda30);	rodamientos.add(roda40);	rodamientos.add(roda50);	rodamientos.add(roda60);	rodamientos.add(roda70);	rodamientos.add(roda80);
 
 		// Asociamos rodamientos a proveedores
 				
@@ -167,6 +180,8 @@ public class CargarDatos {
 				CCNegocio CCUnica = new CCNegocio(); CCUnica.setNombre("Casa Matriz"); 
 				//Asigno los proveedores a CC
 				CCUnica.setProveedores(proveedores);
+				CCUnica.setRodamientos(rodamientos);
+				
 				
 				//Asingo las OV
 //				List<OVNegocio> miListaOVNeg = new ArrayList<OVNegocio>();
