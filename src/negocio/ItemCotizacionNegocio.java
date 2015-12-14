@@ -9,10 +9,8 @@ import dto.*;
 
 @Entity
 @Table(name="ItemCotizacion")
-public class ItemCotizacionNegocio implements Serializable{
+public class ItemCotizacionNegocio{
 
-	@Transient
-	private static final long serialVersionUID = 1L;
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)

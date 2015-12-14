@@ -189,7 +189,7 @@ public class AdministracionOV implements IAdministracionOV{
 		 * - Recibir un Remito
 		 * - Guardarlo en el array de Remitos de la OV
 		 * - Persistir ese array
-		 * - Volver a levantar OV (como Cotizacion y todos los demas)*/
+		 * - */
 		
 		RemitoNegocio miRemNeg = new RemitoNegocio();
 		//Obtengo el remito generado desde la base
@@ -424,7 +424,7 @@ public class AdministracionOV implements IAdministracionOV{
 			levantarOv(Integer.valueOf(clieNeg.getOv()));
 			this.setUsuarioLogueado(clieNeg);
 			numeroOv = Integer.valueOf(clieNeg.getOv());
-			this.comenzarBatch();
+			//this.comenzarBatch();
 			return clieNeg.aClienteDto();
 		}
 		

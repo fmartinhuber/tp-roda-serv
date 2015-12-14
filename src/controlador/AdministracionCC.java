@@ -213,6 +213,10 @@ public class AdministracionCC implements IAdministracionCC {
 		
 		RemitoXML.getInstancia().remitoTOxml(remito);					
 		
+//		No faltaria esto?
+//		this.getCasaCentralNegocio().mergeCC();
+//		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
+		
 		return remito.aRemitoDto();
 	}
 

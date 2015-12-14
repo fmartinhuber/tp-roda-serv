@@ -8,6 +8,9 @@ import java.util.TimerTask;
 import controlador.*;
 import dao.OVDAO;
 import dto.CotizacionDto;
+import dto.FacturaDto;
+import dto.OrdenCompraDto;
+import dto.RemitoDto;
 import dto.SolicitudCompraDto;
 
 public class BatchUtils {
@@ -19,6 +22,7 @@ public class BatchUtils {
 
 			public void run() {
 				List<CotizacionDto> cotizaciones;
+				List <OrdenCompraDto> ordensCOmpra;
 				try {
 						
 						int ov = Integer.valueOf(AdministracionOV.getInstancia().obtenerUsuarioLogueado().getOv());
@@ -27,10 +31,22 @@ public class BatchUtils {
 							SolicitudCompraDto solicitud = AdministracionOV.getInstancia().crearSolicitudCompra(cotizaciones);
 							System.out.println("Se generaron la solicitud: " + solicitud.toString());
 						}
-						//TODO cual es el que hay que usar? 
-						//AdministracionCC.getInstancia().crearOrdenCompra(listaCotizaciones, formaPago);
-						//AdministracionCC.getInstancia().crearOrdenCompraXid(idsSolCompra, formaDePago);
-						
+						ordensCOmpra = AdministracionCC.getInstancia().obtenerOrdenesCompra();
+						if(ordensCOmpra.size()!=0){
+							
+							RemitoDto remito = AdministracionCC.getInstancia().crearRemito(ordensCOmpra);
+							if(remito != null){
+								System.out.println("Se generaron el remito: " + remito.getNumeroRemito());
+								AdministracionOV.getInstancia().entregaPedidos(remito);
+								for (OrdenCompraDto ordenCompraDto : remito.getOrdenesDeCompra()) {
+									FacturaDto factura = AdministracionOV.getInstancia().generarFactura(ordenCompraDto.getListaCotizaciones(), AdministracionOV.getInstancia().obtenerUsuarioLogueado());
+									System.out.println("Se generaron la factura: " + factura.getNumeroFactura());
+								}
+								remito.getOrdenesDeCompra().get(1).getListaCotizaciones();
+							}
+							
+							
+						}
 						
 					
 				} catch (RemoteException e) {

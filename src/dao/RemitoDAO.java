@@ -29,8 +29,8 @@ public class RemitoDAO extends HibernateDAO{
 	public int obtenerMaximoIDRemito() {
 		
 		Session s = HibernateUtil.getSessionFactory().openSession();
-		int resultado = (int) s.createQuery("select max(r.idRemito) from RemitoNegocio r").uniqueResult();
-		
+		int resultado = 1;
+		resultado = (int) s.createQuery("select max(r.idRemito) from RemitoNegocio r").uniqueResult();
 		s.clear();
 		return resultado;		
 	}

@@ -15,10 +15,8 @@ import dto.*;
 @Table(name="OrdenCompra")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class OrdenCompraNegocio implements Serializable{
+public class OrdenCompraNegocio{
 
-	@Transient
-	private static final long serialVersionUID = 1L;
 	@Id 
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idOrdenCompra;

@@ -16,10 +16,8 @@ import dto.RemitoDto;
 @Table(name="Remito")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class RemitoNegocio implements Serializable{
+public class RemitoNegocio{
 
-	@Transient
-	private static final long serialVersionUID = 1L;
 	
 	@Id 
 	@GeneratedValue (strategy=GenerationType.AUTO)

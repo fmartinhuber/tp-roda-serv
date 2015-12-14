@@ -22,10 +22,8 @@ import dto.*;
 @Table(name="Cotizacion")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class CotizacionNegocio implements Serializable{
+public class CotizacionNegocio{
 
-	@Transient
-	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
