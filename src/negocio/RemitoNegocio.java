@@ -30,9 +30,6 @@ public class RemitoNegocio implements Serializable{
 	private List <OrdenCompraNegocio> ordenesDeCompra;
 	private Date fecha;
 	private String comentarios;
-//	@OneToOne (cascade=CascadeType.ALL)
-//	@JoinColumn(name="remito_proveedor")
-//	private ProveedorNegocio proveedor;
 	
 	public RemitoNegocio(){}
 	
@@ -45,7 +42,6 @@ public class RemitoNegocio implements Serializable{
 		this.ordenesDeCompra = ordenesDeCompra;
 		this.fecha = fecha;
 		this.comentarios = comentarios;
-		//this.proveedor = proveedor;
 	}
 
 

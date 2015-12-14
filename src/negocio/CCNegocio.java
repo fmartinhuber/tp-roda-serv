@@ -18,10 +18,6 @@ public class CCNegocio{
 	private int idAdministracionCC;
 	private String Nombre;
 	
-//	@OneToMany(cascade=CascadeType.ALL)
-//	@JoinColumn(name="cc_ov")
-//	private List <OVNegocio> ovs;
-	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinColumn(name="cc_ordenes")
@@ -37,8 +33,9 @@ public class CCNegocio{
 	@JoinColumn(name="cc_rodamientos")
 	private List <RodamientoNegocio> rodamientos;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@PrimaryKeyJoinColumn
+//	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+//	@PrimaryKeyJoinColumn
+	@Transient
 	private List <RodamientoNegocio> listaPrincipal;
 
 	

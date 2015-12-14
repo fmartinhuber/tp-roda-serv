@@ -15,7 +15,7 @@ public class CargarDatos_EjecutarPrimero {
 		System.out.println("Primera Ejecución - Cargamos Datos");
 		System.out.println("Recuerde setear 'create-drop' en hinernate.properties");
 		System.out.println("Enter para continuar");
-		System.in.read();
+		//System.in.read();
 		CargarDatos.getInstance().cargaDeDatos();
 		System.out.println("Prueba Charly - Carga Finalizada");	
 		

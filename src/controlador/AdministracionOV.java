@@ -182,7 +182,7 @@ public class AdministracionOV implements IAdministracionOV{
 		
 	
 	//Daro: Se envia el Remito junto a los Rodamientos (no se persisten) de la CC a OV
-	public void entregaPedidos(int idRemito) throws RemoteException {
+	public void entregaPedidos(RemitoDto remDto) throws RemoteException {
 		//TODO RAMA: Rama, este metodo lo habia hecho yo (Daro), pero ahora por lo que hablamos cambia su funcionamiento
 		/*Aca esta super complejo porque pasaba del remito a itemDto, pero esto vos no lo tendrias que hacer, te dejo todo comentado
 		 * para que tengas como referencia, pero no es asi. Este metodo lo unico que hace es:
@@ -190,6 +190,18 @@ public class AdministracionOV implements IAdministracionOV{
 		 * - Guardarlo en el array de Remitos de la OV
 		 * - Persistir ese array
 		 * - Volver a levantar OV (como Cotizacion y todos los demas)*/
+		
+		RemitoNegocio miRemNeg = new RemitoNegocio();
+		//Obtengo el remito generado desde la base
+		miRemNeg = RemitoDAO.getinstancia().buscarRemito(RemitoDAO.getinstancia().obtenerMaximoIDRemito());
+		//Agregamos el Remito a la lista de Remitos de la OV
+		this.getInstancia().getOficinaVentaNegocio().getRemitos().add(miRemNeg);
+		
+		//Mergeamos y volvemos a levantar para que ya quede bien
+		this.getOficinaVentaNegocio().mergeOV();
+		this.setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOv));
+		
+		
 		
 //		//Buscar Remito
 //		RemitoNegocio miRemNeg = new RemitoNegocio();

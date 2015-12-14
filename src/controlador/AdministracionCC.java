@@ -27,8 +27,9 @@ public class AdministracionCC implements IAdministracionCC {
 	public AdministracionCC(){
 		if (casaCentralNegocio==null){
 			casaCentralNegocio = new CCNegocio();
-			//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
+			//Inicializo la CC
 			levantarCc();
+			//Levanto el XML para cargar la ListaPrincipal (ListaComparativa)
 			levantarXml();
 		}		
 	}
@@ -90,6 +91,7 @@ public class AdministracionCC implements IAdministracionCC {
 		List<ProveedorNegocio> proveedores = new ArrayList<ProveedorNegocio>();
 		List <OrdenCompraDto> ordenes = new ArrayList <OrdenCompraDto>();
 		proveedores = SolicitudCompraDAO.getInstancia().proveedoresDeSolicitudCompra(solCompraNeg);
+		
 		for (int i = 0; i < proveedores.size(); i++) {
 			// Creamos la OC para este proveedor
 			OrdenCompraNegocio OCN = new OrdenCompraNegocio();
@@ -113,31 +115,23 @@ public class AdministracionCC implements IAdministracionCC {
 				itemsOC.add(iOC);
 			}
 			OCN.setTotal(total.floatValue());
-			descuentos = total*0.05;
-			OCN.setDescuento(descuentos.floatValue());
+
 			// Asiganmos los itemsOC QUE CREAMOS
 			OCN.setItems(itemsOC);
 	
 			// Asignamos las solicitudes de compra que dieron origen a la OC
 			OCN.setSolicitudesCompra(solCompraNeg);
-			
-			//OCN.setIdOrdenCompra(OrdenCompraDAO.getinstancia().obtenerMaximoIDOrdenCompra());
-
 			ordenes.add(OCN.aOrdenCompraDto());
+			
 			//Vamos agregando las OCN al vector de Cotizaciones de CC
 			this.getCasaCentralNegocio().getOrdenesP().add(OCN);
-			//Persistimos Orden de Compra desde CC
-			
 		}
-		// Actualizamos estado de las Solicitudes de compra
-//		for (int k = 0; k < solCompraNeg.size(); k++) {
-//			solCompraNeg.get(k).setEstado("Adquisición");
-//		}
-		
-		this.getCasaCentralNegocio().setIdAdministracionCC(1);
+
+		//Guardamos la Orden de compra y la volvemos a obtener para su uso posterior
 		this.getCasaCentralNegocio().mergeCC();
 		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
-		return ordenes;
+		
+	return ordenes;
 	}
 	
 	
@@ -173,71 +167,51 @@ public class AdministracionCC implements IAdministracionCC {
 	public RemitoDto crearRemito(List<OrdenCompraDto> listaOrdenes) throws RemoteException {
 		RemitoNegocio remito = new RemitoNegocio();
 		
-		//remito.setProveedor(proov);
 		remito.setComentarios("Satisfecho");
 		remito.setEstado("Recibido");
 		Calendar c = new GregorianCalendar();
 		remito.setFecha(c.getTime());
 		
 		//Obtenemos todas las Ordenes de Compra de la Base
-		List<OrdenCompraNegocio> ordCompNeg = new ArrayList<OrdenCompraNegocio>();
-		ordCompNeg = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
+		List<OrdenCompraNegocio> miListaOrdCompNeg = new ArrayList<OrdenCompraNegocio>();
+		miListaOrdCompNeg = OrdenCompraDAO.getinstancia().obtenerOrdenCompra();
 		
 		//Declaramos el vector de ordenes a ser guardado en el Remito
-		List<OrdenCompraNegocio> ordenesNegBase = new ArrayList<OrdenCompraNegocio>();
+		List<OrdenCompraNegocio> ordenesNegFinal = new ArrayList<OrdenCompraNegocio>();
 		//Comparamos si coincide la Orden de Compra con la pasada por parametro
 		//Por cada una de la Base
-		for (int i=0; i<ordCompNeg.size(); i++){
+		for (int i=0; i<miListaOrdCompNeg.size(); i++){
 			//Por cada una del parametro
 			for (int j=0; j<listaOrdenes.size(); j++){
 				//Comparamos si sus ID coinciden
-				if (ordCompNeg.get(i).getIdOrdenCompra() == listaOrdenes.get(j).getNumeroOrdenCompra()){
+				if (miListaOrdCompNeg.get(i).getIdOrdenCompra() == listaOrdenes.get(j).getNumeroOrdenCompra()){
 					//Si coinciden, nos quedamos con el obtenido en la BD
 					OrdenCompraNegocio ordenCompNeg = new OrdenCompraNegocio();
-					ordenCompNeg = ordCompNeg.get(i);
-					ordenesNegBase.add(ordenCompNeg);
+					ordenCompNeg = miListaOrdCompNeg.get(i);
+					ordenesNegFinal.add(ordenCompNeg);
 				}
 			}
 		}
-		//Seteo la orden de compra
-		remito.setOrdenesDeCompra(ordenesNegBase);
-//		remito.mergeRemito();
-		
-		this.getCasaCentralNegocio().setIdAdministracionCC(1);
-		this.getCasaCentralNegocio().mergeCC();
-		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
-		
-		//---------- Guardamos el Remito desde la CC ----------//
-//		//Obtengo el numero de la OV creada
-//		int numeroOVdesdeCC = AdministracionOV.getNumeroOv();
-//		//Obtengo la CC de la Base. ID=1, unica CC existente segun negocio
-//		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC(1));
-//		//Levanto la OV utilizada
-//		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
-//		//Agrego y persisto el Remito
-//		//AdministracionOV.getInstancia().getOficinaVentaNegocio().getRemitos().add(remito);
-//	//	AdministracionOV.getInstancia().getOficinaVentaNegocio().mergeOV();
-//		//Obtengo la OV para ser utilizada posteriormente
-//		AdministracionOV.getInstancia().setOficinaVentaNegocio(OVDAO.getInstancia().obtenerOV(numeroOVdesdeCC));
-//		//----------								----------//
+		//Seteo la orden de compra al Remito
+		remito.setOrdenesDeCompra(ordenesNegFinal);
 		
 		// Aumentar el stock que ingresaron
 		List<ItemDto> items = new ArrayList<ItemDto>();
 		//Por cada orden de Compra
-		for(int i=0; i<ordenesNegBase.size(); i++){
+		for(int i=0; i<ordenesNegFinal.size(); i++){
 			//Por cada item de la orden de compra
-			for (int j=0; j<ordenesNegBase.get(i).getItems().size(); j++){
+			for (int j=0; j<ordenesNegFinal.get(i).getItems().size(); j++){
 				//Creo un ItemDto y asigno sus valores
 				ItemDto miItemDto = new ItemDto();
-				miItemDto.setCantidad(ordenesNegBase.get(i).getItems().get(j).getCantidad());
-				miItemDto.setRodamiento(ordenesNegBase.get(i).getItems().get(j).getRodamiento().aRodamientoDto());
+				miItemDto.setCantidad(ordenesNegFinal.get(i).getItems().get(j).getCantidad());
+				miItemDto.setRodamiento(ordenesNegFinal.get(i).getItems().get(j).getRodamiento().aRodamientoDto());
 				//Agrego el Dto a la lista de items
 				items.add(miItemDto);
 			}
 		}
-		AdministracionCC.getInstancia().actualizarStock(items, "sumar");
+		AdministracionCC.getInstancia().actualizarStock(items, "restar");
 		
-		//RemitoXML.getInstancia().remitoTOxml(remito);					
+		RemitoXML.getInstancia().remitoTOxml(remito);					
 		
 		return remito.aRemitoDto();
 	}
@@ -320,50 +294,6 @@ public class AdministracionCC implements IAdministracionCC {
 		return rodasDto;
 	}
 
-	
-	//Usado solo para la Lista Opcional - No se usa actualmente
-//	public void actualizarListaComparativa(List<RodamientoDto> listado) throws RemoteException {
-//		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
-//		while (iterador.hasNext()) {
-//			RodamientoNegocio roda = iterador.next();
-//			this.agregarNuevoRodamiento(roda);
-//		}
-//	}
-//
-//	private void agregarNuevoRodamiento(RodamientoNegocio rodamiento) {
-//		
-//		Iterator<RodamientoNegocio> iterador = AdministracionCC.casaCentralNegocio.getListaPrincipal().iterator();
-//		boolean encontradoP = false, actualizadoP = false;
-//		while (iterador.hasNext() && !encontradoP) {
-//			RodamientoNegocio rodamientoComp = iterador.next();
-//			if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
-//				encontradoP = true;
-//				// si es mas barato
-//				if (rodamientoComp.getMonto() < rodamiento.getMonto()) {
-//					actualizadoP = true;
-//					casaCentralNegocio.getListaPrincipal().remove(rodamientoComp);
-//					casaCentralNegocio.getListaPrincipal().add(rodamiento);
-//					break;
-//				}
-//			}
-//		}
-//		if (encontradoP && !actualizadoP) {
-//			AdministracionCC.casaCentralNegocio.getListaPrincipal().add(rodamiento);
-//		}
-//		if (!encontradoP && !actualizadoP) {
-//			iterador = AdministracionCC.casaCentralNegocio.getListaOpcional().iterator();
-//			while (iterador.hasNext() && !encontradoP) {
-//				RodamientoNegocio rodamientoComp = iterador.next();
-//				if (rodamientoComp.getCodigo().equals(rodamiento.getCodigo())) {
-//					AdministracionCC.casaCentralNegocio.getListaOpcional().add(rodamiento);
-//					actualizadoP = true;
-//					break;
-//				}
-//			}
-//		}
-//	}
-
-
 	public RodamientoNegocio buscarRodamientoNegocio(String codigo) {
 		
 		for (Iterator<RodamientoNegocio> iterador = casaCentralNegocio.getRodamientos().iterator(); iterador.hasNext();) {
@@ -413,14 +343,20 @@ public class AdministracionCC implements IAdministracionCC {
 		OrdenCompraNegocio ordenNegocio = new OrdenCompraNegocio();
 		ordenNegocio = OrdenCompraDAO.getinstancia().obtenerOrdenCompraPorId(nroOrden);
 		
+		//Por cada uno de la base
 		for(int i=0; i<this.getCasaCentralNegocio().getOrdenesP().size(); i++){
+			//Si coincide el nroOrden
 			if(nroOrden == this.getCasaCentralNegocio().getOrdenesP().get(i).getIdOrdenCompra()){
+				//Seteo el estado aprobada
 				this.getCasaCentralNegocio().getOrdenesP().get(i).setEstado("Aprobada");
 			}
-		}
-				
-		ordenNegocio.setEstado("Aprobada");
-		ordenNegocio.mergeOrdenCompra();
+		}	
+		
+		//Guardamos la Orden de compra y la volvemos a obtener para su uso posterior
+		this.getCasaCentralNegocio().mergeCC();
+		this.setCasaCentralNegocio(CCDAO.getInstancia().obtenerCC());
+		
+		//Guardo XML
 		OrdenCompraXML.getInstancia().ordencompraTOxml(ordenNegocio);
 		
 	}
