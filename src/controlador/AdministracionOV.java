@@ -125,6 +125,17 @@ public class AdministracionOV implements IAdministracionOV{
 		return miCotNeg.aCotizacionDto();
 	}
 	
+	public List <RodamientoDto> obtenerRodamientos(){
+		List <RodamientoNegocio> lista =  RodamientoDAO.getInstancia().obtenerRodamientos();
+		List <RodamientoDto> listaDto = new ArrayList <RodamientoDto> ();
+		for (RodamientoNegocio rodamientoNegocio : lista) {
+			RodamientoDto rodamientoDto = new RodamientoDto();
+			rodamientoDto.setCodigo(rodamientoNegocio.getCodigo());
+			rodamientoDto.setCaracteristica(rodamientoNegocio.getCaracteristica());
+			listaDto.add(rodamientoDto);
+		}
+		return listaDto;
+	}
 	
 	
 	//Daro: Este metodo cotiza la Cotizacion, devolviendo su valor y cambiando su estado a "Cotizada"
